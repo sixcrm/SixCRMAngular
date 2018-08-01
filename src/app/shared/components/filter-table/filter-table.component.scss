@@ -78,6 +78,7 @@
         font-size: 14px;
         font-weight: 500;
         color: $dark-color;
+        white-space: nowrap;
 
         &:first-of-type {
           margin-left: 0;
@@ -236,7 +237,20 @@
     }
 
     .head {
+      display: flex;
+      align-items: center;
       box-sizing: border-box;
+      cursor: pointer;
+
+      .arrows {
+        display: flex;
+
+        mat-icon {
+          height: 18px;
+          width: 18px;
+          font-size: 18px;
+        }
+      }
     }
   }
 
@@ -256,4 +270,9 @@
 .datepicker__label {
   display: flex;
   align-items: center;
+}
+
+.clickable {
+  cursor: pointer;
+  color: $main-color-300;
 }

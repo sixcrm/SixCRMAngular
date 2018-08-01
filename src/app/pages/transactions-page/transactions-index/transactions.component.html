@@ -8,6 +8,8 @@
                 [tabs]="tabs"
                 [loading]="loadingData"
                 [singleOptions]="options"
+                (onCellClick)="cellClicked($event)"
+                (onSort)="updateSort($event)"
                 (filtersSelected)="openFiltersDialog()"
                 (tabSelected)="selectTab($event)"
                 (dateChanged)="changeDate($event)"

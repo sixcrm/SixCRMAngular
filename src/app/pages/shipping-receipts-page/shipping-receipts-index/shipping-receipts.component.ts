@@ -89,4 +89,13 @@ export class ShippingReceiptsComponent extends AbstractEntityReportIndexComponen
     super.openFiltersDialog(ShippingreceiptFiltersDialogComponent);
   }
 
+
+  refetch() {
+
+  }
+
+  fetch() {
+
+  }
+
 }

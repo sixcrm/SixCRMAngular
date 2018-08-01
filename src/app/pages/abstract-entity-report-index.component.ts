@@ -11,14 +11,15 @@ export abstract class AbstractEntityReportIndexComponent<T> {
   date: {start: Moment, end: Moment};
 
   tabs: FilterTableTab[] = [];
-
+  filters: {facet: string, values: string[]}[] = [];
   options: string[] = [];
-
   loadingData: boolean = false;
-
   columnParams: ColumnParams<T>[] = [];
-
   sortedColumnParams: ColumnParams<T> = new ColumnParams<T>();
+
+  hasMore: boolean = true;
+  limit: number = 25;
+  entities: T[] = [];
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -53,12 +54,13 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     this.refetch();
   }
 
-  refetch() {
-
-  }
+  abstract refetch();
+  abstract fetch();
 
   loadMore() {
+    if (this.loadingData || !this.hasMore) return;
 
+    this.fetch();
   }
 
   openFiltersDialog(component) {
@@ -69,8 +71,9 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
       if (!result) return;
 
-      if (result.filters && (!result.meta || result.meta.apply)) {
-        this.refetch();
+      if (result.filters) {
+        this.date.start = result.filters.start || this.date.start;
+        this.date.end = result.filters.end || this.date.end;
       }
 
       if (result.meta) {
@@ -82,8 +85,41 @@ export abstract class AbstractEntityReportIndexComponent<T> {
           })
         }
 
-        this.tabs = [...this.tabs, {label: result.meta.name, selected: result.meta.apply, visible: true, custom: true}]
+        this.tabs = [
+          ...this.tabs,
+          {
+            label: result.meta.name,
+            selected: result.meta.apply,
+            visible: true,
+            custom: true,
+            filters: result.filters.filters || []
+          }
+        ]
+      } else {
+        this.tabs = this.tabs.map(tab => {
+          tab.selected = false;
+
+          return tab;
+        });
+
+        this.filters = result.filters.filters || [];
+      }
+
+      if (result.filters && (!result.meta || result.meta.apply)) {
+        this.refetch();
       }
     });
+  }
+
+  updateSort(params: ColumnParams<T>) {
+    for (let i = 0; i < this.columnParams.length; i++) {
+      this.columnParams[i].sortApplied = this.columnParams[i].label === params.label;
+
+      if (this.columnParams[i].sortApplied) {
+        this.columnParams[i].sortOrder = this.columnParams[i].sortOrder === 'asc' ? 'desc' : 'asc';
+      }
+    }
+
+    this.refetch();
   }
 }

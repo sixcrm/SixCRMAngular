@@ -104,25 +104,40 @@ export function campaignsByAmountQuery(start: string, end: string): string {
   `;
 }
 
-export function transactionsQuery(start: string, end: string): string {
+export function transactionsQuery(params: {
+  start: string,
+  end: string,
+  limit: number,
+  offset: number,
+  orderBy: string,
+  sort: string,
+  facets: {facet: string, values: string[]}[]
+}): string {
+  const additionalFacets = (params.facets || []).reduce((a,b) =>
+    `${a},
+    {
+      facet: "${b.facet}"
+      values: [${b.values.reduce((f,g) => `${f}${f?',':''} "${g}"`, '')}]
+    }`, '');
+
   return `
     query {
       analytics (
         reportType: transactionDetail
         facets: [{
           facet: "start"
-            values: ["${start}"]
+            values: ["${params.start}"]
           },
           {
             facet: "end"
-            values: ["${end}"]
-          }
+            values: ["${params.end}"]
+          }${additionalFacets}
         ],
         pagination: {
-          limit: 10,
-          offset: 0,
-          order: ["datetime"],
-          direction: "desc"
+          limit: ${params.limit},
+          offset: ${params.offset},
+          order: ["${params.orderBy}"],
+          direction: "${[params.sort]}"
         }
       ) {records { key value }}
     }

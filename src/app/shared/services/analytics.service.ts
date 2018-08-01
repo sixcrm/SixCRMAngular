@@ -233,8 +233,16 @@ export class AnalyticsService {
     })
   }
 
-  getTransactions(params: {start: string, end: string}): void {
-    this.queryRequest(transactionsQuery(params.start, params.end)).subscribe(data => {
+  getTransactions(params: {
+    start: string,
+    end: string,
+    limit: number,
+    offset: number,
+    orderBy: string,
+    sort: string,
+    facets: {facet: string, values: string[]}[]
+  }): void {
+    this.queryRequest(transactionsQuery(params)).subscribe(data => {
       this.handleResponse(
         data,
         this.transactions$,

@@ -88,5 +88,12 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
     super.openFiltersDialog(CustomerFiltersDialogComponent);
   }
 
+  refetch() {
+
+  }
+
+  fetch() {
+
+  }
 
 }

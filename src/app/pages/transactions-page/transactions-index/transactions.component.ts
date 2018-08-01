@@ -34,26 +34,26 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YYYY h:mm A')),
-      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : 'No'),
-      new ColumnParams('Response', (e: TransactionAnalytics) => e.response || '-'),
-      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()),
-      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '-'),
-      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider || '-'),
-      new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias || '-'),
-      new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias || '-'),
-      new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer || '-'),
-      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias || '-')
+      new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YYYY h:mm A')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
+      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : 'No').setSortName('chargeback'),
+      new ColumnParams('Response', (e: TransactionAnalytics) => e.response || '-').setSortName('response'),
+      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()).setSortName('amount'),
+      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '-').setSortName('refund'),
+      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider || '-').setSortName('merchant_provider_name').setClickable(true),
+      new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias || '-').setSortName('alias').setClickable(true),
+      new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias || '-').setSortName('rebill_alias').setClickable(true),
+      new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer || '-').setSortName('customer_name').setClickable(true),
+      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias || '-').setSortName('session_alias').setClickable(true)
     ];
 
     this.date = {start: utc().subtract(7,'d'), end: utc()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
-      {label: 'Chargebacks', selected: false, visible: true},
-      {label: 'Refunds', selected: false, visible: true},
-      {label: 'Errors', selected: false, visible: true},
-      {label: 'Declines', selected: false, visible: true}
+      {label: 'Chargebacks', selected: false, visible: true, filters: [{facet: 'chargeback', values: ['yes']}]},
+      {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'response', values: ['refund']}]},
+      {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
+      {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
     ];
 
     this.options = ['View'];
@@ -68,10 +68,11 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         return;
       }
 
-      this.transactions = transactions;
+      this.transactions = [...this.transactions, ...transactions];
+      this.hasMore = transactions.length === this.limit;
     });
 
-    this.refetch();
+    this.fetch();
   }
 
   ngOnDestroy() {
@@ -91,10 +92,69 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     super.openFiltersDialog(TransactionFiltersDialogComponent);
   }
 
+  getSortColumn(): ColumnParams<TransactionAnalytics> {
+    for (let i = 0; i < this.columnParams.length; i++) {
+      if (this.columnParams[i].sortApplied) {
+        return this.columnParams[i];
+      }
+    }
+
+    return this.columnParams[1];
+  }
+
   refetch() {
+    this.hasMore = true;
     this.transactions = [];
+    this.fetch();
+  }
+
+  getFacets(): {facet: string, values: string[]}[] {
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].selected && this.tabs[i].visible) {
+        return this.tabs[i].filters;
+      }
+    }
+
+    return this.filters || [];
+  }
+
+  fetch() {
     this.loadingData = true;
-    this.analyticsService.getTransactions({start: this.date.start.clone().format(), end: this.date.end.clone().format()});
+
+    this.analyticsService.getTransactions({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      limit: 25,
+      offset: this.transactions.length,
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    });
+  }
+
+  cellClicked(event: {item: TransactionAnalytics, param: ColumnParams<TransactionAnalytics>}) {
+    switch (event.param.label) {
+      case 'MID': {
+        this.router.navigate(['/merchantproviders', event.item.merchantProviderId]);
+        break;
+      }
+      case 'Transaction ID': {
+        this.router.navigate(['/transactions', event.item.id]);
+        break;
+      }
+      case 'Order ID': {
+        this.router.navigate(['/rebills', event.item.rebillId]);
+        break;
+      }
+      case 'Customer': {
+        this.router.navigate(['/customers', event.item.customerId]);
+        break;
+      }
+      case 'Session': {
+        this.router.navigate(['/sessions', event.item.sessionId]);
+        break;
+      }
+    }
   }
 
 }

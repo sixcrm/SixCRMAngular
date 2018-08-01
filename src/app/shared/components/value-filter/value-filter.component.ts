@@ -35,13 +35,10 @@ export class ValueFilterComponent implements OnInit {
 
   columnMapper = (column) => column.label || column.name;
 
-  operators = [ValueFilterOperator.GREATER, ValueFilterOperator.LESS, ValueFilterOperator.EQUALS, ValueFilterOperator.CONTAINS];
+  operators = [ValueFilterOperator.EQUALS];
 
   operatorMapper = (operator: ValueFilterOperator) => {
-    if (operator === ValueFilterOperator.GREATER) return 'Greater Than';
-    if (operator === ValueFilterOperator.CONTAINS) return 'Contains';
     if (operator === ValueFilterOperator.EQUALS) return 'Equals';
-    if (operator === ValueFilterOperator.LESS) return 'Less Than';
   };
 
   constructor() { }

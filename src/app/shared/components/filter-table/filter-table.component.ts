@@ -10,7 +10,8 @@ import {TabPreferencesDialogComponent} from '../../../dialog-modals/tab-preferen
 import {Subscription, Observable} from 'rxjs';
 
 export interface FilterTableFilter {
-
+  facet: string;
+  values: string[];
 }
 
 export interface FilterTableTab {
@@ -18,7 +19,7 @@ export interface FilterTableTab {
   selected: boolean;
   visible: boolean;
   custom?: boolean;
-  filter?: FilterTableFilter;
+  filters?: FilterTableFilter[];
 }
 
 @Component({
@@ -51,6 +52,8 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   @Output() filtersSelected: EventEmitter<boolean> = new EventEmitter();
   @Output() singleOptionSelected: EventEmitter<{item: any, option: string}> = new EventEmitter();
   @Output() bulkOptionSelected: EventEmitter<{items: any[], option: string}> = new EventEmitter();
+  @Output() onSort: EventEmitter<ColumnParams<any>> = new EventEmitter();
+  @Output() onCellClick: EventEmitter<{item: any, param: ColumnParams<any>}> = new EventEmitter();
 
   numberOfSelected: number = 0;
 
@@ -202,5 +205,9 @@ export class FilterTableComponent implements OnInit, OnDestroy {
     const container = this.tabContainer.nativeElement.clientWidth;
 
     return content > container;
+  }
+
+  cellClicked(param: ColumnParams<any>, item: any) {
+    this.onCellClick.emit({item: item, param: param});
   }
 }

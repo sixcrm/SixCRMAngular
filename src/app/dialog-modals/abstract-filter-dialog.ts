@@ -6,9 +6,15 @@ import {
 } from '../shared/components/value-filter/value-filter.component';
 import {LocationFilter} from '../shared/components/location-filter/location-filter.component';
 
+export interface FilterDialogResponse {
+  start: Moment;
+  end: Moment;
+  filters: {facet: string, values: string[]}[]
+}
+
 export class AbstractFilterDialog<T> {
 
-  date: {start: Moment, end: Moment} = { start: utc().subtract(1, 'M'), end: utc()};
+  date: {start: Moment, end: Moment} = { start: utc().subtract(7, 'd'), end: utc()};
 
   filterColumns: ValueFilterColumn[] = [];
 
@@ -37,7 +43,7 @@ export class AbstractFilterDialog<T> {
   }
 
   addFilter() {
-    this.filters = [...this.filters, {column: this.filterColumns[0], operator: ValueFilterOperator.GREATER, value: ''}];
+    this.filters = [...this.filters, {column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''}];
   }
 
   removeFilterAtIndex(index) {

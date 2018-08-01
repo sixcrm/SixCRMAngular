@@ -49,8 +49,13 @@
         <mat-checkbox class="checkbox-blue" (change)="toggleBulkSelection($event)"></mat-checkbox>
       </div>
       <ng-container *ngFor="let params of columnParams;">
-        <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)">
+        <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)" (click)="onSort.emit(params)">
           {{params.label | translate}}
+
+          <div class="arrows" *ngIf="params.sortApplied">
+            <mat-icon *ngIf="params.sortOrder === 'asc'">keyboard_arrow_up</mat-icon>
+            <mat-icon *ngIf="params.sortOrder === 'desc'">keyboard_arrow_down</mat-icon>
+          </div>
         </div>
       </ng-container>
       <div class="head" [style.width]="getHeaderWidthByElement(actionsheader)"></div>
@@ -80,7 +85,7 @@
         <tr *ngFor="let item of items">
           <td><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let param of columnParams">
-            <td *ngIf="param.selected">
+            <td *ngIf="param.selected" [class.clickable]="param.clickable" (click)="cellClicked(param, item)">
               {{param.mappingFunction(item)}}
             </td>
           </ng-container>

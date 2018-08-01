@@ -91,4 +91,12 @@ export class RebillsComponent extends AbstractEntityReportIndexComponent<Rebill>
 
   }
 
+
+  refetch() {
+
+  }
+
+  fetch() {
+
+  }
 }
