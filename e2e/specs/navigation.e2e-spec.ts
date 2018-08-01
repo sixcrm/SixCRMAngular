@@ -34,7 +34,7 @@ describe('Navigation', function() {
     browser.sleep(2000);
 
     nav.getNavToggler().click();
-    expect(nav.getItems().count()).toBe(29);
+    expect(nav.getItems().count()).toBe(25);
   });
 
   it('should navigate to dashboard', () => {
@@ -53,25 +53,9 @@ describe('Navigation', function() {
     expectUrlToContain('customers');
   });
 
-  it('should navigate to subscriptions', () => {
-    nav.getNavToggler().click();
-    nav.getLink(2).click();
-
-    waitForUrlContains('coming-soon');
-    expectUrlToContain('coming-soon');
-  });
-
-  it('should navigate to orders', () => {
-    nav.getNavToggler().click();
-    nav.getLink(3).click();
-
-    waitForUrlContains('coming-soon');
-    expectUrlToContain('coming-soon');
-  });
-
   it('should navigate to sessions', () => {
     nav.getNavToggler().click();
-    nav.getLink(4).click();
+    nav.getLink(2).click();
 
     waitForUrlContains('sessions');
     expectUrlToContain('sessions');
@@ -79,7 +63,7 @@ describe('Navigation', function() {
 
   it('should navigate to rebills', () => {
     nav.getNavToggler().click();
-    nav.getLink(5).click();
+    nav.getLink(3).click();
 
     waitForUrlContains('rebills');
     expectUrlToContain('rebills');
@@ -87,7 +71,7 @@ describe('Navigation', function() {
 
   it('should navigate to shippingreceipts', () => {
     nav.getNavToggler().click();
-    nav.getLink(6).click();
+    nav.getLink(4).click();
 
     waitForUrlContains('shippingreceipts');
     expectUrlToContain('shippingreceipts');
@@ -95,7 +79,7 @@ describe('Navigation', function() {
 
   it('should navigate to transactions', () => {
     nav.getNavToggler().click();
-    nav.getLink(7).click();
+    nav.getLink(5).click();
 
     waitForUrlContains('transactions');
     expectUrlToContain('transactions');
@@ -104,7 +88,7 @@ describe('Navigation', function() {
   // Reports
   it('should navigate to affiliate report', () => {
     nav.getNavToggler().click();
-    nav.getLink(10).click();
+    nav.getLink(6).click();
 
     waitForUrlContains('affiliate');
     expectUrlToContain('affiliate');
@@ -112,7 +96,7 @@ describe('Navigation', function() {
 
   it('should navigate to merchants report', () => {
     nav.getNavToggler().click();
-    nav.getLink(11).click();
+    nav.getLink(7).click();
 
     waitForUrlContains('merchant');
     expectUrlToContain('merchant');
@@ -121,7 +105,7 @@ describe('Navigation', function() {
   // CRM Setup Section
   it('should navigate to campaigns', () => {
     nav.getNavToggler().click();
-    nav.getLink(12).click();
+    nav.getLink(8).click();
 
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
@@ -129,7 +113,7 @@ describe('Navigation', function() {
 
   it('should navigate to products', () => {
     nav.getNavToggler().click();
-    nav.getLink(13).click();
+    nav.getLink(9).click();
 
     waitForUrlContains('products');
     expectUrlToContain('products');
@@ -137,7 +121,7 @@ describe('Navigation', function() {
 
   it('should navigate to product schedules', () => {
     nav.getNavToggler().click();
-    nav.getLink(14).click();
+    nav.getLink(10).click();
 
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
@@ -145,7 +129,7 @@ describe('Navigation', function() {
 
   it('should navigate to email templates', () => {
     nav.getNavToggler().click();
-    nav.getLink(15).click();
+    nav.getLink(11).click();
 
     waitForUrlContains('emailtemplates');
     expectUrlToContain('emailtemplates');
@@ -153,7 +137,7 @@ describe('Navigation', function() {
 
   it('should navigate to affiliates', () => {
     nav.getNavToggler().click();
-    nav.getLink(16).click();
+    nav.getLink(12).click();
 
     waitForUrlContains('affiliates');
     expectUrlToContain('affiliates');
@@ -161,7 +145,7 @@ describe('Navigation', function() {
 
   it('should navigate to trackers', () => {
     nav.getNavToggler().click();
-    nav.getLink(17).click();
+    nav.getLink(13).click();
 
     waitForUrlContains('trackers');
     expectUrlToContain('trackers');
@@ -169,7 +153,7 @@ describe('Navigation', function() {
 
   it('should navigate to merchant providers', () => {
     nav.getNavToggler().click();
-    nav.getLink(18).click();
+    nav.getLink(14).click();
 
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
@@ -177,7 +161,7 @@ describe('Navigation', function() {
 
   it('should navigate to merchant groups', () => {
     nav.getNavToggler().click();
-    nav.getLink(19).click();
+    nav.getLink(15).click();
 
     waitForUrlContains('merchantprovidergroups');
     expectUrlToContain('merchantprovidergroups');
@@ -185,7 +169,7 @@ describe('Navigation', function() {
 
   it('should navigate to fulfillment providers', () => {
     nav.getNavToggler().click();
-    nav.getLink(20).click();
+    nav.getLink(16).click();
 
     waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
@@ -193,7 +177,7 @@ describe('Navigation', function() {
 
   it('should navigate to smtp providers', () => {
     nav.getNavToggler().click();
-    nav.getLink(21).click();
+    nav.getLink(17).click();
 
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
@@ -201,7 +185,7 @@ describe('Navigation', function() {
 
   it('should navigate to account general', () => {
     nav.getNavToggler().click();
-    nav.getLink(22).click();
+    nav.getLink(18).click();
 
     waitForUrlContains('accountmanagement/general');
     expectUrlToContain('accountmanagement/general');
@@ -209,7 +193,7 @@ describe('Navigation', function() {
 
   it('should navigate to account billing', () => {
     nav.getNavToggler().click();
-    nav.getLink(23).click();
+    nav.getLink(19).click();
 
     waitForUrlContains('accountmanagement/billing');
     expectUrlToContain('accountmanagement/billing');
@@ -217,7 +201,7 @@ describe('Navigation', function() {
 
   it('should navigate to account keys', () => {
     nav.getNavToggler().click();
-    nav.getLink(24).click();
+    nav.getLink(20).click();
 
     waitForUrlContains('accountmanagement/apikeys');
     expectUrlToContain('accountmanagement/apikeys');
@@ -225,7 +209,7 @@ describe('Navigation', function() {
 
   it('should navigate to account roles', () => {
     nav.getNavToggler().click();
-    nav.getLink(25).click();
+    nav.getLink(21).click();
 
     waitForUrlContains('accountmanagement/roles');
     expectUrlToContain('accountmanagement/roles');
@@ -233,7 +217,7 @@ describe('Navigation', function() {
 
   it('should navigate to account users', () => {
     nav.getNavToggler().click();
-    nav.getLink(26).click();
+    nav.getLink(22).click();
 
     waitForUrlContains('accountmanagement/users');
     expectUrlToContain('accountmanagement/users');
@@ -241,7 +225,7 @@ describe('Navigation', function() {
 
   it('should navigate to profile', () => {
     nav.getNavToggler().click();
-    nav.getLink(27).click();
+    nav.getLink(23).click();
 
     waitForUrlContains('profile');
     expectUrlToContain('profile');
@@ -249,7 +233,7 @@ describe('Navigation', function() {
 
   it('should navigate to signing strings', () => {
     nav.getNavToggler().click();
-    nav.getLink(28).click();
+    nav.getLink(24).click();
 
     waitForUrlContains('profile#signingstrings');
     expectUrlToContain('profile#signingstrings');
