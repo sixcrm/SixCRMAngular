@@ -127,15 +127,15 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         break;
       }
       case 'Order ID': {
-        this.router.navigate(['/rebills', event.item.rebillId]);
+        this.router.navigate(['/customers','advanced'], {queryParams: {order: event.item.rebillId}});
         break;
       }
       case 'Customer': {
-        this.router.navigate(['/customers', event.item.customerId]);
+        this.router.navigate(['/customers','advanced'], {queryParams: {customer: event.item.customerId}});
         break;
       }
       case 'Session': {
-        this.router.navigate(['/sessions', event.item.sessionId]);
+        this.router.navigate(['/customers','advanced'], {queryParams: {session: event.item.sessionId}});
         break;
       }
     }
