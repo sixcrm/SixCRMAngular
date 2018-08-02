@@ -1,4 +1,3 @@
-import {MenuItem} from './menu-item';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Acl} from '../shared/models/acl.model';
 import {FeatureFlagService} from "../shared/services/feature-flag.service";

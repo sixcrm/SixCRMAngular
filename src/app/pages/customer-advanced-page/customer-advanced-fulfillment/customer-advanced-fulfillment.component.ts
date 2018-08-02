@@ -1,11 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Customer} from '../../../shared/models/customer.model';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {ShippingReceiptsService} from '../../../entity-services/services/shipping-receipts.service';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'customer-advanced-fulfillments',
@@ -14,28 +11,13 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 })
 export class CustomerAdvancedFulfillmentComponent implements OnInit {
 
-  _customer: Customer;
-
-  receipts: ShippingReceipt[] = [];
-
-  @Input() set customer(customer: Customer) {
-    if (customer) {
-      const performInit = !this._customer;
-
-      this._customer = customer;
-
-      if (performInit) {
-        this.initialize();
-      }
-    }
-  }
+  @Input() receipts: ShippingReceipt[] = [];
 
   columnParams: ColumnParams<ShippingReceipt>[] = [];
   options: string[];
   bulkOptions: string[];
 
   constructor(
-    private shippingReceiptsService: ShippingReceiptsService,
     private authService: AuthenticationService,
     private router: Router
   ) {
@@ -58,12 +40,6 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  initialize() {
-    this.shippingReceiptsService.getShippingReceiptsByCustomer(this._customer, {}).subscribe(receipts => {
-      this.receipts = receipts;
-    });
   }
 
   itemClicked(option: {item: ShippingReceipt, param: ColumnParams<ShippingReceipt>}) {

@@ -32,8 +32,8 @@ export class RebillsService extends AbstractEntityService<Rebill>{
     )
   }
 
-  getPendingRebillsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<Rebill[]> {
-    return this.planeCustomEntitiesQuery(pendingRebillsByCustomer(customer.id, params));
+  getPendingRebillsByCustomer(customerId: string, params: IndexQueryParameters): Observable<Rebill[]> {
+    return this.planeCustomEntitiesQuery(pendingRebillsByCustomer(customerId, params));
   }
 
 }

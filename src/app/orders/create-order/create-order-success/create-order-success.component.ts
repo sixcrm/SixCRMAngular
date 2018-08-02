@@ -36,14 +36,16 @@ export class CreateOrderSuccessComponent implements OnInit {
   navigateToCustomer() {
     if (!this.checkoutResponse) return;
 
-    this.router.navigate(['/customers', this.checkoutResponse.customer.id]);
+    this.router.navigate(['/customers', 'advanced'], { queryParams: { customer: this.checkoutResponse.customer.id } });
+
     this.done.emit(true);
   }
 
   navigateToSession() {
     if (!this.checkoutResponse) return;
 
-    this.router.navigate(['/sessions', this.checkoutResponse.session.id]);
+    this.router.navigate(['/customers', 'advanced'], { queryParams: { session: this.checkoutResponse.session.id } });
+
     this.done.emit(true);
   }
 

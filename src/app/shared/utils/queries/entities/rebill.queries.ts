@@ -95,11 +95,8 @@ export function rebillInfoResponseQuery(): string {
 
 export function rebillByCustomerResponseQuery(): string {
   return `id bill_at amount created_at updated_at state
-  products { quantity, amount, product { id, name, sku, ship }, returns { quantity, return{ id, alias, created_at }}}
-  transactions { id amount alias created_at updated_at processor_response chargeback type result merchant_provider {id name}}
-  parentsession { id alias created_at campaign { id name } }
-  shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at }
-  paid {detail updated_at}`
+  products { quantity, amount, product { id, name, sku, ship } }
+  parentsession { id alias created_at campaign { id name } }`
 }
 
 export function rebillInputQuery(rebill: Rebill, includeId?: boolean): string {
