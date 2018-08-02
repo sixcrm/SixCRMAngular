@@ -49,4 +49,7 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
     this.destroy();
   }
 
+  viewEntity(id: string) {
+    this.router.navigate(['/customers/advanced'], {queryParams: {session: id}});
+  }
 }

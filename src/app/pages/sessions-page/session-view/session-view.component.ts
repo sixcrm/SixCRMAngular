@@ -153,7 +153,7 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   }
 
   viewRebill(rebill: Rebill): void {
-    this.router.navigate(['/rebills', rebill.id]);
+    this.router.navigate(['/customers/advanced'], {queryParams: {order: rebill.id}});
   }
 
   viewCampaign(campaign: Campaign): void {

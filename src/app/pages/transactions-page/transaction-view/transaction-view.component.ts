@@ -119,7 +119,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   }
 
   goToRebill() {
-    this.router.navigate(['/rebills', this.entity.rebill.id])
+    this.router.navigate(['/customers/advanced'], {queryParams: {order: this.entity.rebill.id}});
   }
 
   goToMerchantProvider() {

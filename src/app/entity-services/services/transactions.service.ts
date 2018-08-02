@@ -5,7 +5,8 @@ import {Transaction} from '../../shared/models/transaction.model';
 import { HttpWrapperService, extractData, FailStrategy } from '../../shared/services/http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
-  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionIDsResponseQuery
+  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionIDsResponseQuery,
+  transactionsByCustomer
 } from '../../shared/utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
@@ -30,6 +31,10 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
       'transaction',
       snackBar
     );
+  }
+
+  public getTransactionsByCustomer(customerId: string): Observable<Transaction[]> {
+    return this.planeCustomEntitiesQuery(transactionsByCustomer(customerId, {}))
   }
 
   public refundTransaction(transactionId: string, refundAmount: string): void {

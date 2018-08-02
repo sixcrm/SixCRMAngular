@@ -7,7 +7,7 @@ import {Customer} from '../../shared/models/customer.model';
 import {IndexQueryParameters} from '../../shared/utils/queries/index-query-parameters.model';
 import {Observable} from 'rxjs';
 import {Order} from '../../shared/models/order.model';
-import {ordersByCustomer} from '../../shared/utils/queries/entities/order.queries';
+import {ordersByCustomer, ordersBySession} from '../../shared/utils/queries/entities/order.queries';
 
 @Injectable()
 export class OrdersService extends AbstractEntityService<Order>{
@@ -29,9 +29,12 @@ export class OrdersService extends AbstractEntityService<Order>{
     )
   }
 
-  getOrdersByCustomer(customer: Customer, params: IndexQueryParameters): Observable<Order[]> {
-    return this.planeCustomEntitiesQuery(ordersByCustomer(customer.id, params));
+  getOrdersByCustomer(customerId: string, params: IndexQueryParameters): Observable<Order[]> {
+    return this.planeCustomEntitiesQuery(ordersByCustomer(customerId, params));
+  }
 
+  getOrdersBySession(sessionId, params: IndexQueryParameters): Observable<Order[]> {
+    return this.planeCustomEntitiesQuery(ordersBySession(sessionId, params));
   }
 
 }

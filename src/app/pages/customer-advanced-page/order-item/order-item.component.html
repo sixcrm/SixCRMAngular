@@ -6,7 +6,7 @@
 
   <div class="header">
     <div class="info">
-      <div>Billed {{order.date | formatDateTime: 'MMMM DD, YYYY'}}</div>
+      <div>Billed {{order.rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
       <div class="separator"></div>
       <div class="refund" *ngIf="order.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
         {{order.amountAfterRefund().usd()}}

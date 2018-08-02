@@ -3,7 +3,7 @@
 
     <mat-tab>
 
-      <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedGranularityIndex">
+      <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedOrder ? 1 : selectedGranularityIndex">
 
         <mat-tab>
           <div>
@@ -32,7 +32,7 @@
               </ng-container>
             </div>
 
-            <div *ngIf="loaded && (!orders || orders.length === 0)" class="no-data">
+            <div *ngIf="orders && orders.length === 0" class="no-data">
               No Orders found.
             </div>
           </div>

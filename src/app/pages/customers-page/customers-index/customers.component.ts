@@ -55,4 +55,8 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
   ngOnDestroy() {
     this.destroy();
   }
+
+  viewEntity(id: string) {
+    this.router.navigate(['/customers/advanced'], {queryParams: {customer: id}});
+  }
 }
