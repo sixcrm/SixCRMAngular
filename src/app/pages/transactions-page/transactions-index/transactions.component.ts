@@ -11,6 +11,7 @@ import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-i
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'transactions',
@@ -21,6 +22,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE'}];
   transactions: TransactionAnalytics[] = [];
+
+  sub: Subscription;
 
   constructor(
     auth: AuthenticationService,
@@ -36,6 +39,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YYYY h:mm A')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
       new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : 'No').setSortName('chargeback'),
+      new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType || '-').setSortName('transaction_type'),
       new ColumnParams('Response', (e: TransactionAnalytics) => e.response || '-').setSortName('response'),
       new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()).setSortName('amount'),
       new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '-').setSortName('refund'),
@@ -51,7 +55,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Chargebacks', selected: false, visible: true, filters: [{facet: 'chargeback', values: ['yes']}]},
-      {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'response', values: ['refund']}]},
+      {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transaction_type', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
       {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
     ];
@@ -60,22 +64,14 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   ngOnInit() {
-    this.analyticsService.transactions$.takeUntil(this.unsubscribe$).subscribe(transactions => {
-      this.loadingData = false;
-
-      if (!transactions || transactions instanceof CustomServerError) {
-        this.transactions = [];
-        return;
-      }
-
-      this.transactions = [...this.transactions, ...transactions];
-      this.hasMore = transactions.length === this.limit;
-    });
-
     this.fetch();
   }
 
   ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+
     this.destroy();
   }
 
@@ -92,43 +88,31 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     super.openFiltersDialog(TransactionFiltersDialogComponent);
   }
 
-  getSortColumn(): ColumnParams<TransactionAnalytics> {
-    for (let i = 0; i < this.columnParams.length; i++) {
-      if (this.columnParams[i].sortApplied) {
-        return this.columnParams[i];
-      }
-    }
-
-    return this.columnParams[1];
-  }
-
-  refetch() {
-    this.hasMore = true;
-    this.transactions = [];
-    this.fetch();
-  }
-
-  getFacets(): {facet: string, values: string[]}[] {
-    for (let i = 0; i < this.tabs.length; i++) {
-      if (this.tabs[i].selected && this.tabs[i].visible) {
-        return this.tabs[i].filters;
-      }
-    }
-
-    return this.filters || [];
-  }
-
   fetch() {
     this.loadingData = true;
 
-    this.analyticsService.getTransactions({
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+
+    this.sub = this.analyticsService.getTransactions({
       start: this.date.start.clone().format(),
       end: this.date.end.clone().format(),
       limit: 25,
-      offset: this.transactions.length,
+      offset: this.entities.length,
       orderBy: this.getSortColumn().sortName,
       sort: this.getSortColumn().sortOrder,
       facets: this.getFacets()
+    }).subscribe(transactions => {
+      this.loadingData = false;
+
+      if (!transactions || transactions instanceof CustomServerError) {
+        this.entities = [];
+        return;
+      }
+
+      this.entities = [...this.entities, ...transactions];
+      this.hasMore = transactions.length === this.limit;
     });
   }
 

@@ -32,7 +32,6 @@ export class AnalyticsService {
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
   heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
-  transactions$: BehaviorSubject<TransactionAnalytics[] | CustomServerError>;
   subscriptionsByAmount$: BehaviorSubject<SubscriptionStats[] | CustomServerError>;
 
   activitiesByCustomer$: Subject<Activity[] | CustomServerError>;
@@ -45,7 +44,6 @@ export class AnalyticsService {
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.heroChartSeries$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
-    this.transactions$ = new BehaviorSubject(null);
     this.subscriptionsByAmount$ = new BehaviorSubject(null);
 
     this.activitiesByCustomer$ = new Subject();
@@ -241,15 +239,17 @@ export class AnalyticsService {
     orderBy: string,
     sort: string,
     facets: {facet: string, values: string[]}[]
-  }): void {
-    this.queryRequest(transactionsQuery(params)).subscribe(data => {
-      this.handleResponse(
-        data,
-        this.transactions$,
-        (t: any) => new TransactionAnalytics(t),
-        (data: any) => extractData(data).analytics.records
-      );
-    })
+  }): Observable<TransactionAnalytics[] | CustomServerError> {
+    return this.queryRequest(transactionsQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new TransactionAnalytics(entity));
+      })
   }
 
   getActivityByCustomer(params: {start: string, end: string, customer: string, limit: number, offset: number}) {

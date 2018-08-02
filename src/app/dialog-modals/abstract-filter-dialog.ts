@@ -12,7 +12,7 @@ export interface FilterDialogResponse {
   filters: {facet: string, values: string[]}[]
 }
 
-export class AbstractFilterDialog<T> {
+export abstract class AbstractFilterDialog<T> {
 
   date: {start: Moment, end: Moment} = { start: utc().subtract(7, 'd'), end: utc()};
 
@@ -25,6 +25,8 @@ export class AbstractFilterDialog<T> {
   saveAsMode: boolean = false;
 
   constructor(protected dialogRef: MatDialogRef<T>) {};
+
+  abstract init(start: Moment, end: Moment, filters: {facet: string, values: string[]}[]);
 
   close() {
     this.dialogRef.close(null);

@@ -5,6 +5,7 @@ import {Moment} from 'moment';
 import {FilterTableTab} from '../shared/components/filter-table/filter-table.component';
 import {AsyncSubject} from 'rxjs';
 import {ColumnParams} from '../shared/models/column-params.model';
+import {AbstractFilterDialog} from '../dialog-modals/abstract-filter-dialog';
 
 export abstract class AbstractEntityReportIndexComponent<T> {
 
@@ -33,6 +34,17 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   }
 
+
+  getSortColumn(): ColumnParams<T> {
+    for (let i = 0; i < this.columnParams.length; i++) {
+      if (this.columnParams[i].sortApplied) {
+        return this.columnParams[i];
+      }
+    }
+
+    return this.columnParams[1];
+  }
+
   destroy(): void {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
@@ -48,13 +60,77 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     this.refetch();
   }
 
+  getFacets(): {facet: string, values: string[]}[] {
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].selected && this.tabs[i].visible) {
+        return this.tabs[i].filters || [];
+      }
+    }
+
+    return this.filters || [];
+  }
+
   changeDate(date: {start: Moment, end: Moment}) {
     this.date = date;
 
     this.refetch();
   }
 
-  abstract refetch();
+  refetch(params?: {match: boolean}) {
+    this.hasMore = true;
+    this.entities = [];
+
+    this.fetch();
+
+    if (params && params.match) {
+      this.matchFiltersWithTabs();
+    }
+  }
+
+  matchFiltersWithTabs() {
+    if (!this.filters || this.filters.length === 0) {
+      this.tabs = this.tabs.map(t => {
+        t.selected = t.label === 'All';
+
+        return t;
+      })
+    } else {
+      let found: boolean;
+      for (let i = 0; i < this.tabs.length; i++) {
+        if (!found) {
+          this.tabs[i].selected = this.filtersEquals(this.tabs[i].filters, this.filters);
+          found = this.tabs[i].selected;
+        } else {
+          this.tabs[i].selected = false;
+        }
+      }
+    }
+  }
+
+  filtersEquals(first: {facet: string, values: string[]}[], second: {facet: string, values: string[]}[]): boolean {
+    if (!first || !second || first.length !== second.length) return false;
+
+    const sortFacetFn = (a,b) => (a.facet > b.facet) ? -1 : (a.facet < b.facet) ? 1 : 0;
+
+    const firstSorted = first.sort(sortFacetFn);
+    const secondSorted = second.sort(sortFacetFn);
+
+    for (let i = 0; i < firstSorted.length; i++) {
+      if (!firstSorted[i].values || !firstSorted[i].values || firstSorted[i].values.length !== secondSorted[i].values.length) {
+        return false;
+      }
+
+      const firstNames = firstSorted[i].values.sort();
+      const secondNames = secondSorted[i].values.sort();
+
+      for (let j = 0; j < firstNames.length; j++) {
+        if (firstNames[j] !== secondNames[j]) return false;
+      }
+    }
+
+    return true;
+  }
+
   abstract fetch();
 
   loadMore() {
@@ -63,8 +139,12 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     this.fetch();
   }
 
-  openFiltersDialog(component) {
+  openFiltersDialog(component: any) {
     let filtersDialog = this.dialog.open(component, { disableClose : true });
+
+    if (this.filters) {
+      filtersDialog.componentInstance['init'](this.date.start, this.date.end, this.getFacets());
+    }
 
     filtersDialog.afterClosed().take(1).subscribe(result => {
       filtersDialog = null;
@@ -106,20 +186,33 @@ export abstract class AbstractEntityReportIndexComponent<T> {
       }
 
       if (result.filters && (!result.meta || result.meta.apply)) {
-        this.refetch();
+        this.refetch({match: !result.meta || !result.meta.apply});
       }
     });
   }
 
   updateSort(params: ColumnParams<T>) {
     for (let i = 0; i < this.columnParams.length; i++) {
+      const resort = this.columnParams[i].sortApplied;
       this.columnParams[i].sortApplied = this.columnParams[i].label === params.label;
 
       if (this.columnParams[i].sortApplied) {
-        this.columnParams[i].sortOrder = this.columnParams[i].sortOrder === 'asc' ? 'desc' : 'asc';
+        if (resort) {
+          this.columnParams[i].sortOrder = this.columnParams[i].sortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+          this.columnParams[i].sortOrder = 'desc';
+        }
       }
     }
 
     this.refetch();
+  }
+
+  updateColumns(columns: ColumnParams<T>[]) {
+    this.columnParams = columns;
+  }
+
+  updateTabs(tabs: FilterTableTab[]) {
+    this.tabs = tabs;
   }
 }

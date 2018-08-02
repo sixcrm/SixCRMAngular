@@ -20,18 +20,20 @@
         <div class="box-row">
           <div class="box">
             <div class="label">Status</div>
-            <mat-checkbox [(ngModel)]="allStatus">All</mat-checkbox>
-            <mat-checkbox [(ngModel)]="chargebackStatus">Chargeback</mat-checkbox>
-            <mat-checkbox [(ngModel)]="refundStatus">Refund</mat-checkbox>
-            <mat-checkbox [(ngModel)]="saleStatus">Sale</mat-checkbox>
+            <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
+            <mat-checkbox [(ngModel)]="chargebackStatus" (change)="singleStatusSelected($event)">Chargeback</mat-checkbox>
+            <mat-checkbox [(ngModel)]="refundStatus" (change)="singleStatusSelected($event)">Refund</mat-checkbox>
+            <mat-checkbox [(ngModel)]="saleStatus" (change)="singleStatusSelected($event)">Sale</mat-checkbox>
+            <mat-checkbox [(ngModel)]="reverseStatus" (change)="singleStatusSelected($event)">Reverse</mat-checkbox>
           </div>
 
           <div class="box">
             <div class="label">MID Responses</div>
-            <mat-checkbox [(ngModel)]="allResponse">All</mat-checkbox>
-            <mat-checkbox [(ngModel)]="declineResponse">Decline</mat-checkbox>
-            <mat-checkbox [(ngModel)]="errorResponse">Error</mat-checkbox>
-            <mat-checkbox [(ngModel)]="successResponse">Success</mat-checkbox>
+            <mat-checkbox [(ngModel)]="allResponse" (change)="allResponseSelected($event)">All</mat-checkbox>
+            <mat-checkbox [(ngModel)]="declineResponse" (change)="singleResponseSelected($event)">Decline</mat-checkbox>
+            <mat-checkbox [(ngModel)]="errorResponse" (change)="singleResponseSelected($event)">Error</mat-checkbox>
+            <mat-checkbox [(ngModel)]="failResponse" (change)="singleResponseSelected($event)">Fail</mat-checkbox>
+            <mat-checkbox [(ngModel)]="successResponse" (change)="singleResponseSelected($event)">Success</mat-checkbox>
           </div>
         </div>
       </div>

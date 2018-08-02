@@ -55,11 +55,16 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   @Output() onSort: EventEmitter<ColumnParams<any>> = new EventEmitter();
   @Output() onCellClick: EventEmitter<{item: any, param: ColumnParams<any>}> = new EventEmitter();
 
+  @Output() updatedTabs: EventEmitter<FilterTableTab[]> = new EventEmitter();
+  @Output() updatedColumns: EventEmitter<ColumnParams<any>[]> = new EventEmitter();
+
   numberOfSelected: number = 0;
 
   intervalSub: Subscription;
 
-  constructor(private dialog: MatDialog, private daterangepickerOptions: DaterangepickerConfig) { }
+  options = {};
+
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
     this.updateDatepicker();
@@ -72,7 +77,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   }
 
   updateDatepicker(): void {
-    this.daterangepickerOptions.settings = {
+    this.options = {
       parentEl: '.datepicker--custom--filters',
       startDate: this._date.start,
       endDate: this._date.end,
@@ -103,6 +108,8 @@ export class FilterTableComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.columnParams.length; i++) {
           this.columnParams[i].selected = originalParams[i].selected;
         }
+      } else {
+        this.updatedColumns.emit(this.columnParams);
       }
     });
   }
@@ -128,7 +135,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
           }
         }
 
-        this.tabs = parsedTabs;
+        this.updatedTabs.emit(parsedTabs);
       }
     });
   }

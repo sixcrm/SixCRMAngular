@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {utc, Moment} from 'moment';
 
 @Component({
@@ -17,14 +16,16 @@ export class FilterDaterangePickerComponent implements OnInit {
   }
   @Output() dateChanged: EventEmitter<{start: Moment, end: Moment}> = new EventEmitter();
 
-  constructor(private daterangepickerOptions: DaterangepickerConfig) { }
+  options = {};
+
+  constructor() { }
 
   ngOnInit() {
   }
 
   private updateDatepicker(): void {
 
-    this.daterangepickerOptions.settings = {
+    this.options = {
       parentEl: '.datepicker--custom--filters--filter',
       startDate: this._date.start.clone(),
       endDate: this._date.end.clone(),

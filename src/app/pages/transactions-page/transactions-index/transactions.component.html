@@ -4,10 +4,12 @@
 
   <filter-table [date]="date"
                 [columnParams]="columnParams"
-                [items]="transactions"
+                [items]="entities"
                 [tabs]="tabs"
                 [loading]="loadingData"
                 [singleOptions]="options"
+                (updatedColumns)="updateColumns($event)"
+                (updatedTabs)="updateTabs($event)"
                 (onCellClick)="cellClicked($event)"
                 (onSort)="updateSort($event)"
                 (filtersSelected)="openFiltersDialog()"

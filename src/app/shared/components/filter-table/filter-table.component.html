@@ -4,7 +4,7 @@
 
     <div *ngIf="dateFilterEnabled" class="date">
       <div class="datepicker--custom datepicker--custom--filters">
-        <div daterangepicker (selected)="dateSelected($event)">
+        <div daterangepicker (selected)="dateSelected($event)" [options]="options">
           <div class="datepicker__label">
             <mat-icon>date_range</mat-icon>{{_date.start | formatDateTime: 'MMMM D, YYYY'}} to {{_date.end | formatDateTime: 'MMMM D, YYYY'}}
           </div>
