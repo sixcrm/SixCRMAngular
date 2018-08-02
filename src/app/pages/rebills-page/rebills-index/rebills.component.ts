@@ -8,31 +8,25 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {utc, Moment} from 'moment';
-import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
-import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'rebills',
   templateUrl: './rebills.component.html',
   styleUrls: ['./rebills.component.scss']
 })
-export class RebillsComponent extends AbstractEntityReportIndexComponent<Rebill> implements OnInit, OnDestroy {
+export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> implements OnInit, OnDestroy {
 
-  title = 'REBILL_INDEX_TITLE';
-
-  crumbItems: BreadcrumbItem[] = [{label: () => this.title}];
-
-  rebills: Rebill[] = [];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'REBILL_INDEX_TITLE'}];
 
   constructor(
-    protected service: RebillsService,
+    service: RebillsService,
     auth: AuthenticationService,
     dialog: MatDialog,
+    paginationService: PaginationService,
     router: Router,
+    activatedRoute: ActivatedRoute
   ) {
-    super(auth, dialog, router);
+    super(service, auth, dialog, paginationService, router, activatedRoute);
 
     let f = this.authService.getTimezone();
 
@@ -45,58 +39,14 @@ export class RebillsComponent extends AbstractEntityReportIndexComponent<Rebill>
       new ColumnParams('REBILL_INDEX_HEADER_CREATED', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('REBILL_INDEX_HEADER_UPDATED', (e: Rebill) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
-
-    this.date = {start: utc().subtract(1,'M'), end: utc()};
-
-    this.tabs = [
-      {label: 'All', selected: true, visible: true},
-      {label: 'Shipped', selected: false, visible: true},
-      {label: 'Closed', selected: false, visible: true},
-      {label: 'Errors', selected: false, visible: true},
-      {label: 'Refunds', selected: false, visible: true},
-      {label: 'Returns', selected: false, visible: true},
-      {label: 'Chargebacks', selected: false, visible: true}
-    ];
-
-    this.options = ['View'];
   }
 
   ngOnInit() {
-    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(rebills => {
-      if (rebills instanceof CustomServerError) {
-        this.rebills = [];
-        return;
-      }
-
-      this.rebills = rebills;
-    });
-
-    this.service.getEntities(20);
+    this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
   }
 
-  optionSelected(option: {item: any, option: string}) {
-    switch (option.option) {
-      case 'View': {
-        this.router.navigate(['/rebills', option.item.id]);
-        break;
-      }
-    }
-  }
-
-  oFiltersDialog() {
-
-  }
-
-
-  refetch() {
-
-  }
-
-  fetch() {
-
-  }
 }

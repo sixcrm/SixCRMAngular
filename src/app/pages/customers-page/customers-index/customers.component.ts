@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CustomersService} from "../../../entity-services/services/customers.service";
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {Customer} from '../../../shared/models/customer.model';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -7,28 +8,27 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {utc} from 'moment';
-import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
-import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
-export class CustomersComponent extends AbstractEntityReportIndexComponent<Customer> implements OnInit, OnDestroy {
+export class CustomersComponent extends AbstractEntityIndexComponent<Customer> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'CUSTOMER_INDEX_TITLE'}];
-  customers: Customer[] = [];
 
   constructor(
-    protected service: CustomersService,
+    customersService: CustomersService,
     auth: AuthenticationService,
     dialog: MatDialog,
+    paginationService: PaginationService,
     router: Router,
+    activatedRoute: ActivatedRoute
   ) {
-    super(auth, dialog, router);
+    super(customersService, auth, dialog, paginationService, router, activatedRoute);
+
+    this.entityFactory = () => new Customer();
 
     let f = this.authService.getTimezone();
     this.columnParams = [
@@ -45,55 +45,14 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
       new ColumnParams('CUSTOMER_INDEX_HEADER_CREATED', (e: Customer) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('CUSTOMER_INDEX_HEADER_UPDATED', (e: Customer) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
-
-    this.date = {start: utc().subtract(1,'M'), end: utc()};
-
-    this.tabs = [
-      {label: 'All', selected: true, visible: true},
-      {label: 'Active', selected: false, visible: true},
-      {label: 'Partial', selected: false, visible: true},
-      {label: 'Blacklisted', selected: false, visible: true}
-    ];
-
-    this.options = ['View'];
   }
 
+
   ngOnInit() {
-    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(customers => {
-      if (customers instanceof CustomServerError) {
-        this.customers = [];
-        return;
-      }
-
-      this.customers = customers;
-    });
-
-    this.service.getEntities(20);
+    this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
   }
-
-  optionSelected(option: {item: any, option: string}) {
-    switch (option.option) {
-      case 'View': {
-        this.router.navigate(['/customers', option.item.id]);
-        break;
-      }
-    }
-  }
-
-  openFiltersDialog() {
-    super.openFiltersDialog(CustomerFiltersDialogComponent);
-  }
-
-  refetch() {
-
-  }
-
-  fetch() {
-
-  }
-
 }
