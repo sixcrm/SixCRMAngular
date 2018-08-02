@@ -4,7 +4,6 @@ import {SearchService} from '../../shared/services/search.service';
 import {Subscription, Subject} from 'rxjs';
 import {utc, Moment} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
-import {NavigationService} from '../../navigation/navigation.service';
 import {environment} from '../../../environments/environment';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
@@ -72,7 +71,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private daterangepickerOptions: DaterangepickerConfig,
-    private navigationService: NavigationService,
     private translationService: TranslationService
   ) {
     this.startDate = utc().subtract(1,'M');
@@ -82,8 +80,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.navigationService.setSidenavAuto(false);
-
     this.paramsSub = this.route.queryParams.subscribe(params => {
       this.queryOptions = [];
       this.parseShareParams(params);
@@ -141,7 +137,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.paramsSub) {
       this.paramsSub.unsubscribe();
     }
-    this.navigationService.resetSidenavAuto();
   }
 
   parseShareParams(params): void {

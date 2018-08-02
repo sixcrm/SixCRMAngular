@@ -3,7 +3,7 @@ import {SearchPage} from '../../po/search.po';
 import {browser, protractor} from 'protractor';
 import {clearLocalStorage, waitForUrlContains, waitForPresenceOf} from '../../utils/navigation.utils';
 import {login} from '../../utils/action.utils';
-import {SidenavPage} from '../../po/sidenav.po';
+import {NavPage} from '../../po/sidenav.po';
 import {expectUrlToContain} from '../../utils/assertation.utils';
 import {generateLetters} from '../../utils/generator.utils';
 import {TopnavPage} from '../../po/topnav.po';
@@ -13,7 +13,7 @@ describe('ProductScheduleSearchCycle', function() {
   let page: EntityIndexPage;
   let productSchedulePage: ProductSchedulePage;
   let searchPage: SearchPage;
-  let sidenav: SidenavPage;
+  let sidenav: NavPage;
   let topnav: TopnavPage;
 
   const productScheduleName = generateLetters(12);
@@ -22,7 +22,7 @@ describe('ProductScheduleSearchCycle', function() {
     page = new EntityIndexPage();
     productSchedulePage = new ProductSchedulePage();
     searchPage = new SearchPage();
-    sidenav = new SidenavPage();
+    sidenav = new NavPage();
     topnav = new TopnavPage();
   });
 

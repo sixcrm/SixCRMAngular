@@ -1,6 +1,6 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined, expectNotPresent, expectPresent} from '../utils/assertation.utils';
@@ -33,11 +33,9 @@ describe('SMTP Provider', function() {
   });
 
   it('should navigate to providers page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(17).click();
-    browser.sleep(500);
-    sidenav.getLink(31).click();
-    browser.sleep(500);
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(17).click();
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });

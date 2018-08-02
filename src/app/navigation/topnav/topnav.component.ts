@@ -8,6 +8,7 @@ import {SearchService} from '../../shared/services/search.service';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector : 'app-topnav',
@@ -22,7 +23,7 @@ export class TopnavComponent implements OnInit {
   @Input() focused: boolean = false;
   @Output() invitedUserInstructionsDismissed: EventEmitter<boolean> = new EventEmitter();
 
-  showSidenav: boolean;
+  showNavMenu: boolean;
 
   userProfile: User = new User();
 
@@ -49,6 +50,8 @@ export class TopnavComponent implements OnInit {
     {label: 'Support', callback: () => window.open('https://six.zendesk.com', '_blank').focus()}
   ];
 
+  logo = environment.branding && environment.branding.sidenavLogo ? environment.branding.sidenavLogo : 'logo-navigation-white.svg';
+
   constructor(
     public navigation: NavigationService,
     public authService: AuthenticationService,
@@ -58,8 +61,8 @@ export class TopnavComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.navigation.showSidenav.subscribe(showSidenav => {
-      this.showSidenav = showSidenav;
+    this.navigation.showNavMenu.subscribe(showNavMenu => {
+      this.showNavMenu = showNavMenu;
     });
 
     this.authService.sixUser$.subscribe((userProfile: User) => {
@@ -137,8 +140,8 @@ export class TopnavComponent implements OnInit {
     this.showAutoComplete = false;
   };
 
-  toggleSidenav(): void {
-    this.navigation.toggleSidenav(!this.showSidenav);
+  toggleNavMenu(): void {
+    this.navigation.toggleNavMenu(!this.showNavMenu);
   }
 
   openCollapseMenu(): void {

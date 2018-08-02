@@ -1,5 +1,5 @@
 import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectNotPresent, expectPresent} from '../utils/assertation.utils';
 import {ReportPage} from '../po/report.po';
@@ -24,11 +24,10 @@ describe('Merchant Report', function() {
     browser.restart();
   });
 
-  it('should navigate to merchants report page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(2).click();
-    browser.sleep(500);
-    sidenav.getLink(6).click();
+  it('should navigate to merchant report page', () => {
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(7).click();
     waitForUrlContains('reports/merchant');
     expectUrlToContain('reports/merchant');
   });

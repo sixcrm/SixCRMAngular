@@ -1,5 +1,5 @@
 import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectNotPresent, expectPresent} from '../utils/assertation.utils';
 import {ReportPage} from '../po/report.po';
@@ -25,10 +25,9 @@ describe('Affiliate Report', function() {
   });
 
   it('should navigate to affiliate report page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getItems().get(10).click();
-    browser.sleep(500);
-    sidenav.getLink(15).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(6).click();
     waitForUrlContains('reports/affiliate');
     expectUrlToContain('reports/affiliate');
   });

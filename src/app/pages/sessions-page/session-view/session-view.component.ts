@@ -129,8 +129,6 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
       this.updateEntity(this.copyWithWatermark(this.productSchedulesWaitingForUpdate, this.entity.watermark.extractedProducts));
     }
 
-    this.navigation.resetSidenavAuto();
-
     this.destroy();
   }
 
@@ -152,12 +150,6 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
   setIndex(value: number): void {
     this.selectedIndex = value;
-
-    if (this.selectedIndex === 1) {
-      this.navigation.setSidenavAuto(false);
-    } else {
-      this.navigation.resetSidenavAuto();
-    }
   }
 
   viewRebill(rebill: Rebill): void {

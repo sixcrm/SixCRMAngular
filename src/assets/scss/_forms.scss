@@ -247,7 +247,7 @@ dropdown-component {
 }
 
 .slider-blue.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-  background: $main-color-400;
+  background-color: $main-color-200 !important;
 }
 .slider-blue.mat-checked:not(.mat-disabled) {
   .mat-slide-toggle-thumb {

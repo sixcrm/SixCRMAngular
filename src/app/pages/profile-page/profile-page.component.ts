@@ -19,6 +19,7 @@ import {TabHeaderElement} from "../../shared/components/tab-header/tab-header.co
 import {TranslationService} from '../../translation/translation.service';
 import {isValidEmail} from '../../shared/utils/form.utils';
 import {FeatureFlagService} from '../../shared/services/feature-flag.service';
+import {BreadcrumbItem} from '../components/models/breadcrumb-item.model';
 
 let moment = require('moment-timezone');
 
@@ -62,6 +63,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     title: 'PROFILE_ACCOUNTS_TITLE',
     viewOptionText: 'PROFILE_ACCOUNTS_VIEW'
   };
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'PROFILE_TITLE'},
+    {label: () => `${this.userBackup.firstName} ${this.userBackup.lastName}`}
+  ];
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'PROFILE_TABS_GENERAL'},

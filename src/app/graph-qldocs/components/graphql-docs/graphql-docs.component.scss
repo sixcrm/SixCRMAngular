@@ -8,15 +8,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 20px 20px;
-    width: calc(100vw - 479px);
+    width: calc(100vw - 400px);
     background: #F0F3F4;
     display: inline-block;
     float: right;
-    height: calc(100vh - 220px);
-  }
-
-  .showSidenav {
-    width: calc(100vw - 669px);
+    height: calc(100vh - 400px);
   }
 
   mat-spinner {

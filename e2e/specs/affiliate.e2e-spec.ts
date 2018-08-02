@@ -1,6 +1,6 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
@@ -30,10 +30,9 @@ describe('Affiliates', function() {
   });
 
   it('should navigate to affiliates page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(17).click();
-    browser.sleep(500);
-    sidenav.getLink(24).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(12).click();
     waitForUrlContains('affiliates');
     expectUrlToContain('affiliates');
   });
