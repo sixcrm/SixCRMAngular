@@ -1,7 +1,9 @@
 <mat-toolbar class="topnav">
-  <button mat-icon-button (click)="toggleSidenav()" id="menu-toggler">
-    <img src="/assets/images/ic_sort.svg">
+  <button mat-icon-button (click)="toggleNavMenu()" id="menu-toggler">
+    <mat-icon id="menu-toggler-icon">menu</mat-icon>
   </button>
+
+  <img class="topnav__logo" src="{{'/assets/images/' + logo}}" alt="">
 
   <div class="topnav__search__wrapper">
     <div class="topnav__search__container">

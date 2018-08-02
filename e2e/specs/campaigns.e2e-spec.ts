@@ -1,6 +1,6 @@
 import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
@@ -31,10 +31,9 @@ describe('Campaigns', function() {
   });
 
   it('should navigate to campaigns page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
-    browser.sleep(500);
-    sidenav.getLink(13).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(8).click();
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
@@ -80,7 +79,6 @@ describe('Campaigns', function() {
 
   it('should go to an individual campaign and open it', () => {
     browser.sleep(1200);
-    campaignPage.getCampaignIndividualCampaign().get(0).click();
     waitForUrlContains('campaigns/');
     expectUrlToContain('campaigns/');
   });

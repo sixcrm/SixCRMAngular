@@ -1,0 +1,90 @@
+@import "../../../assets/scss/colors";
+
+.navigation-menu {
+  .content {
+    display: flex;
+    justify-content: center;
+    padding: 25px 0;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(0,0,0,0.12);
+      padding: 0 20px;
+
+      @media only screen and (min-width: 2560px) {
+        flex-direction: row;
+      }
+
+      @media only screen and (max-width: 768px) {
+        border: none;
+      }
+
+      &:last-of-type {
+        border-right: none;
+      }
+
+      navigation-menu-item {
+        display: block;
+        margin-top: 48px;
+        width: 18vw;
+
+        @media only screen and (min-width: 2560px) {
+          width: 14vw;
+        }
+
+        @media only screen and (max-width: 1260px) {
+          width: calc(25vw - 40px);
+        }
+
+        @media only screen and (max-width: 768px) {
+          width: calc(100vw - 40px);
+        }
+
+        &:first-of-type {
+          margin-top: 12px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 12px;
+        }
+      }
+
+      .subsection {
+        &:not(:first-of-type) {
+          navigation-menu-item {
+            margin-top: 48px;
+
+            @media only screen and (min-width: 2560px) {
+              margin-top: 12px;
+            }
+          }
+
+          @media only screen and (min-width: 2560px) {
+            padding-left: 20px;
+            border-left: 1px solid rgba(0,0,0,0.12);
+          }
+        }
+
+        &:first-of-type {
+          @media only screen and (min-width: 2560px) {
+            padding-right: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  .buttons {
+    button {
+      margin: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      color: $main-color-300;
+    }
+  }
+}

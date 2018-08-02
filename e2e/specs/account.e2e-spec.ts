@@ -1,6 +1,6 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined, expectNotPresent} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
@@ -36,10 +36,11 @@ describe('Accounts', function() {
   });
 
   it('should navigate to accounts page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getItems().get(32).click();
-    browser.sleep(500);
-    sidenav.getLink(33).click();
+    const nav = new NavPage();
+
+    nav.getNavToggler().click();
+    nav.getLink(1).click();
+
     waitForUrlContains('account');
     expectUrlToContain('account');
   });

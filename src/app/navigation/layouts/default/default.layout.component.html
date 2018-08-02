@@ -1,29 +1,23 @@
-<div #persistentNotificationsContainer>
-  <persistent-notifications-quick #persistentNotifications></persistent-notifications-quick>
+<div>
+  <persistent-notifications-quick></persistent-notifications-quick>
 </div>
 
-<mat-sidenav-container [autosize]="true">
-  <mat-sidenav (mouseenter)="hover(true)" (mouseleave)="hover(false)" #sidenav [class.removeShadow]="removeShadow"
-              [mode]="(navigation.mediumScreenAndDown || showOnHover) ? 'over' : 'side'"
-              [opened]="showSidenav || !navigation.mediumScreenAndDown">
-    <app-sidenav [isHovering]="isHovering || showSidenav || navigation.mediumScreenAndDown"></app-sidenav>
-  </mat-sidenav>
+<div>
+  <header>
+    <app-topnav [isInvitedUser]="isInvitedUser" (invitedUserInstructionsDismissed)="isInvitedUser = false"></app-topnav>
+  </header>
 
-  <mat-sidenav-content [class.container--hover]="!(navigation.showSidenav | async) && showOnHover">
-    <header>
-      <app-topnav [isInvitedUser]="isInvitedUser" (invitedUserInstructionsDismissed)="isInvitedUser = false"></app-topnav>
-    </header>
-
-    <div class="container">
-      <router-outlet></router-outlet>
-      <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
-      <div class="notifications-popup" [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'">
-        <alerts-quick></alerts-quick>
-      </div>
-      <div class="clearfix"></div>
+  <div class="container">
+    <div class="navigation-menu--overlay" *ngIf="navigation.showNavMenu | async">
+      <navigation-menu></navigation-menu>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <router-outlet></router-outlet>
+    <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
+    <div class="notifications-popup" [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'">
+      <alerts-quick></alerts-quick>
+    </div>
+  </div>
+</div>
 
 <div *ngIf="navigation.showCreateNewOrderModal | async" class="create-order-modal-container">
   <create-order (close)="navigation.setShowCreateNewOrderModal(false)"></create-order>
