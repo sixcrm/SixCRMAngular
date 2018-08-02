@@ -8,7 +8,6 @@ import {
   deleteShippingReceiptMutation, deleteShippingReceiptsMutation, shippingReceiptsByCustomer
 } from '../../shared/utils/queries/entities/shipping-receipt.queries';
 import {MatSnackBar} from '@angular/material';
-import {Customer} from '../../shared/models/customer.model';
 import {IndexQueryParameters} from '../../shared/utils/queries/index-query-parameters.model';
 import {Observable} from 'rxjs';
 
@@ -32,7 +31,7 @@ export class ShippingReceiptsService extends AbstractEntityService<ShippingRecei
     );
   }
 
-  getShippingReceiptsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<ShippingReceipt[]> {
-    return this.planeCustomEntitiesQuery(shippingReceiptsByCustomer(customer.id, params));
+  getShippingReceiptsByCustomer(customerId: string, params: IndexQueryParameters): Observable<ShippingReceipt[]> {
+    return this.planeCustomEntitiesQuery(shippingReceiptsByCustomer(customerId, params));
   }
 }

@@ -5,6 +5,6 @@ import {CustomerAdvancedComponent} from '../customer-advanced-page/customer-adva
 
 export const customersRouting = RouterModule.forChild([
   { path : '', component : CustomersComponent, canActivate: [CustomersAclGuard] },
-  { path : ':id', component : CustomerAdvancedComponent, canActivate: [CustomersAclGuard], canDeactivate: [CustomersAclGuard] }
+  { path : 'advanced', component : CustomerAdvancedComponent, canActivate: [CustomersAclGuard], canDeactivate: [CustomersAclGuard] }
 ]);
 

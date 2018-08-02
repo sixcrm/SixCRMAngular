@@ -49,4 +49,8 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
     this.destroy();
   }
 
+  viewEntity(id: string) {
+    this.router.navigate(['/customers/advanced'], {queryParams: {order: id}});
+  }
+
 }

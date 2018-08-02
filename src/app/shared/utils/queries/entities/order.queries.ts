@@ -5,14 +5,25 @@ export function ordersByCustomer(customerId: string, params: IndexQueryParameter
   return `{
 		orderbycustomerlist (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			orders {
-			  ${orderByCustomerResponseQuery()}
+			  ${orderResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}
   }`
 }
 
-export function orderByCustomerResponseQuery(): string {
+export function ordersBySession(sessionId: string, params: IndexQueryParameters): string {
+  return `{
+		orderbysessionlist (session:"${sessionId}" ${paginationParamsQuery(params, true)}) {
+			orders {
+			  ${orderResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`
+}
+
+export function orderResponseQuery(): string {
   return `id, amount, date
   products { quantity, amount
     product { id, name, sku, ship }
@@ -20,7 +31,7 @@ export function orderByCustomerResponseQuery(): string {
     shippingreceipt { id, status, tracking {id, carrier}, created_at, updated_at }
   }
   session { id alias created_at campaign { id name } }
-  rebill { id resolved_amount created_at updated_at
+  rebill { id resolved_amount created_at updated_at bill_at
     transactions { id amount alias created_at updated_at processor_response chargeback type result merchant_provider {id name}}
     paid {detail updated_at}
   }`

@@ -14,11 +14,11 @@
 
     <div class="card-body" *ngIf="rebills">
       <ng-container *ngFor="let rebill of rebills">
-        <rebill-item [rebill]="rebill"></rebill-item>
+        <rebill-item [rebill]="rebill" [sessionMode]="sessionMode"></rebill-item>
       </ng-container>
     </div>
 
-    <div *ngIf="loaded && (!rebills || rebills.length === 0)" class="no-data">
+    <div *ngIf="rebills && rebills.length === 0" class="no-data">
       No Subscriptions found.
     </div>
   </div>

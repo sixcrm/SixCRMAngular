@@ -36,6 +36,6 @@ export class RebillsPendingComponent extends RebillsComponent implements OnInit,
   }
 
   viewEntity(id: string) {
-    this.router.navigate(['/rebills', id]);
+    this.router.navigate(['/customers/advanced'], {queryParams: {order: id}});
   }
 }
