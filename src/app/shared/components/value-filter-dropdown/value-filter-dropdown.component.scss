@@ -1,0 +1,27 @@
+@import "../../../../assets/scss/colors";
+
+.dropdown-container {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  min-height: 38px;
+  box-sizing: border-box;
+  background: #FAFAFA;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dropdown-value {
+  font-size: 13px;
+  line-height: 24px;
+  color: $dark-color;
+}
+
+.dropdown-icon {
+  margin-left: auto;
+  height: 18px;
+  width: 18px;
+  font-size: 18px;
+  color: #737373;
+}

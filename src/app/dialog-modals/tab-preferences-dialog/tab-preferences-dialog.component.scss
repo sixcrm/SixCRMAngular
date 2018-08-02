@@ -1,0 +1,72 @@
+.container {
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+
+    div {
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 500;
+    }
+
+    mat-icon {
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    padding: 40px 75px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      line-height: 24px;
+      margin-bottom: 12px;
+
+      mat-checkbox {
+        margin-right: 15px;
+      }
+
+      .label {
+        margin-right: 35px;
+      }
+
+      mat-icon {
+        margin-left: auto;
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        color: #5F6368;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    padding: 20px 25px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+
+    button {
+      font-size: 14px;
+      font-weight: 500;
+
+      &:first-of-type {
+        margin-left: auto;
+        margin-right: 10px;
+      }
+
+      &:last-of-type {
+
+      }
+    }
+  }
+
+}

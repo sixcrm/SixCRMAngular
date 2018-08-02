@@ -16,6 +16,7 @@ export class ColumnParams<T> {
   mappingFunction: (e: T) => string | number | boolean | Currency;
   assigningFunction: (e: T, value: any) => T;
   align: string;
+  sortName: string;
   sortOrder: string;
   sortApplied: boolean;
   sortEnabled: boolean = true;
@@ -210,6 +211,12 @@ export class ColumnParams<T> {
 
   setAutofocus(value: boolean) {
     this.autofocus = value;
+
+    return this;
+  }
+
+  setSortName(value: string) {
+    this.sortName = value;
 
     return this;
   }

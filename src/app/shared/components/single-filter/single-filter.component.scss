@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/colors";
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  .item {
+    width: 85%;
+    margin-right: 10px;
+  }
+
+  mat-icon {
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+  }
+}
+
+.add-value {
+  margin-top: 15px;
+  color: $main-color-300;
+  font-size: 15px;
+  cursor: pointer;
+}

@@ -151,3 +151,165 @@ mat-dialog-container {
     border-color: $danger-color !important;
   }
 }
+
+.filters-dialog {
+  width: 550px;
+  max-height: 98vh;
+  overflow: auto;
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+
+    div {
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 500;
+    }
+
+    mat-icon {
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    padding: 20px 25px;
+
+    &--invisible {
+      display: none;
+    }
+
+    .search-input-container {
+      background: rgba(0,0,0,0.06);
+      width: 100%;
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      mat-icon {
+        font-size: 22px;
+        height: 22px;
+        width: 22px;
+        color: rgba(0,0,0,0.45);
+      }
+    }
+
+    .date {
+      margin-top: 16px;
+      padding: 16px 20px;
+      border: 1px solid rgba(0,0,0,0.12);
+
+      &__title {
+        font-size: 13px;
+        font-weight: 500;
+        color: #5F6368;
+        margin-bottom: 10px;
+      }
+
+      &__label {
+        display: flex;
+        align-items: center;
+        color: $dark-color;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+
+        mat-icon {
+          color: $dark-color;
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+          margin-right: 12px;
+        }
+      }
+    }
+
+    .box-container {
+
+      .box-row {
+        display: flex;
+        margin-top: 16px;
+
+        .box {
+          display: flex;
+          flex-direction: column;
+          padding: 16px 20px;
+          width: calc(50% - 10px);
+          border: 1px solid rgba(0,0,0,0.12);
+
+          &--single {
+            width: 100% !important;
+            margin-right: 0 !important;
+          }
+
+          .label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #5F6368;
+          }
+
+          mat-checkbox {
+            margin-top: 10px;
+            font-size: 13px;
+            color: $dark-color;
+
+            &.mat-checkbox-checked {
+              .mat-checkbox-background {
+                background-color: $main-color-400 !important;
+              }
+            }
+          }
+
+          &:first-of-type {
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+
+    .filter {
+      margin-top: 16px;
+      padding: 16px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+
+      &__title {
+        font-size: 18px;
+        color: #5F6368;
+        line-height: 24px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    padding: 20px 25px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+
+    button {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .save {
+
+    }
+
+    .cancel {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+
+    .filter {
+      color: #ffffff;
+      background: $main-color-300;
+    }
+  }
+
+}
