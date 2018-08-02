@@ -142,7 +142,13 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       ];
 
       this.customer = session.customer;
-      this.rebills = session.rebills.filter(rebill => rebill.billAt.isAfter(utc()));
+      this.rebills = session.rebills
+        .filter(rebill => rebill.billAt.isAfter(utc()))
+        .map(rebill => {
+          rebill.parentSession.campaign = this.session.campaign.inverse();
+
+          return rebill;
+        });
       this.transactions = session.rebills
         .map(rebill => {
           if (!rebill.transactions) return [];
@@ -207,7 +213,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     });
 
     this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
-      this.orders = orders
+      this.orders = this.filterOrders(orders);
     });
 
     this.shippingReceiptsService.getShippingReceiptsByCustomer(this.customerId, {}).subscribe(receipts => {
@@ -217,6 +223,12 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     this.transactionService.getTransactionsByCustomer(this.customerId).subscribe(transactions => {
       this.transactions = transactions;
     })
+  }
+
+  private filterOrders(orders: Order[]): Order[] {
+    if (!orders || orders.length === 0) return [];
+
+    return orders.filter(o => o.rebill && o.rebill.billAt && o.rebill.billAt.isSameOrBefore(utc()));
   }
 
   initOrder() {
@@ -248,7 +260,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   initSession(selectedOrder?: Rebill) {
     this.sessionService.getEntity(this.sessionId);
     this.orderService.getOrdersBySession(this.sessionId, {}).subscribe(orders => {
-      this.orders = orders;
+      this.orders = this.filterOrders(orders);
 
       if (selectedOrder) {
 
@@ -288,7 +300,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   refreshTransactions() {
     if (this.sessionId) {
       this.orderService.getOrdersBySession(this.sessionId, {}).subscribe(orders => {
-        this.orders = orders;
+        this.orders = this.filterOrders(orders);
 
         this.refreshSelectedOrder();
       });
@@ -296,7 +308,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       this.sessionService.getEntity(this.sessionId);
     } else {
       this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
-        this.orders = orders;
+        this.orders = this.filterOrders(orders);
 
         this.refreshSelectedOrder();
       });
