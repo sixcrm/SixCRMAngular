@@ -55,7 +55,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Chargebacks', selected: false, visible: true, filters: [{facet: 'chargeback', values: ['yes']}]},
-      {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transaction_type', values: ['refund']}]},
+      {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
       {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
     ];

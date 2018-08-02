@@ -29,10 +29,10 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
     this.filterColumns = [
       { name: 'amount', label: 'Sale Amount' },
-      { name: 'customer_name', label: 'Customer Name' },
-      { name: 'rebill_alias', label: 'Order Alias' },
-      { name: 'session_alias', label: 'Session Alias' },
-      { name: 'merchant_provider_name', label: 'MID Name' },
+      { name: 'customerName', label: 'Customer Name' },
+      { name: 'rebillAlias', label: 'Order Alias' },
+      { name: 'sessionAlias', label: 'Session Alias' },
+      { name: 'merchantProviderName', label: 'MID Name' },
       { name: 'alias', label: 'Transaction Alias' }
     ];
   }
@@ -73,7 +73,7 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
   }
 
   private initStatuses(filter: {facet: string; values: string[]}) {
-    if (filter.facet === 'transaction_type') {
+    if (filter.facet === 'transactionType') {
       this.allStatus = false;
 
       filter.values.forEach(v => {
@@ -177,7 +177,7 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
   private parseStatusFilters(): {facet: string, values: string[]}[] {
     if (!this.allStatus) {
-      const typeFacet = {facet: 'transaction_type', values: []};
+      const typeFacet = {facet: 'transactionType', values: []};
 
       if (this.refundStatus) {
         typeFacet.values.push('refund');
