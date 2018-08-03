@@ -63,6 +63,14 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
 import {ClipboardModule} from 'ngx-clipboard';
 import {FeatureFlagService} from './services/feature-flag.service';
 import {NotificationsQuickService} from './services/notifications-quick.service';
+import { FilterTableComponent } from './components/filter-table/filter-table.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { ValueFilterComponent } from './components/value-filter/value-filter.component';
+import { ValueFilterDropdownComponent } from './components/value-filter-dropdown/value-filter-dropdown.component';
+import { LocationFilterComponent } from './components/location-filter/location-filter.component';
+import { FilterDaterangePickerComponent } from './components/filter-daterange-picker/filter-daterange-picker.component';
+import { SingleFilterComponent } from './components/single-filter/single-filter.component';
+import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-as.component';
 
 @NgModule({
   declarations : [
@@ -110,7 +118,14 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     CurrencyInputDirective,
     VisibleYDirective,
     DragScrollXDirective,
-    PaymentFormComponent
+    PaymentFormComponent,
+    FilterTableComponent,
+    ValueFilterComponent,
+    ValueFilterDropdownComponent,
+    LocationFilterComponent,
+    FilterDaterangePickerComponent,
+    SingleFilterComponent,
+    FilterSaveAsComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -153,7 +168,13 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     CurrencyInputDirective,
     VisibleYDirective,
     DragScrollXDirective,
-    PaymentFormComponent
+    PaymentFormComponent,
+    FilterTableComponent,
+    ValueFilterComponent,
+    LocationFilterComponent,
+    FilterDaterangePickerComponent,
+    SingleFilterComponent,
+    FilterSaveAsComponent
   ],
   imports : [
     FormsModule,
@@ -163,7 +184,8 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     Daterangepicker,
     TextMaskModule,
     TranslationModule,
-    ClipboardModule
+    ClipboardModule,
+    InfiniteScrollModule
   ]
 })
 export class SharedModule {

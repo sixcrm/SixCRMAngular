@@ -1,0 +1,63 @@
+<div class="container filters-dialog">
+
+  <div class="header">
+    <div>Filter Results</div>
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+  <div [class.content--invisible]="saveAsMode">
+
+    <div class="content">
+
+      <div class="date">
+
+        <div class="date__title">Date Range</div>
+        <filter-daterange-picker [date]="date" (dateChanged)="dateSelected($event)"></filter-daterange-picker>
+
+      </div>
+
+      <div class="box-container">
+        <div class="box-row">
+          <div class="box">
+            <div class="label">Status</div>
+            <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
+            <mat-checkbox [(ngModel)]="chargebackStatus" (change)="singleStatusSelected($event)">Chargeback</mat-checkbox>
+            <mat-checkbox [(ngModel)]="refundStatus" (change)="singleStatusSelected($event)">Refund</mat-checkbox>
+            <mat-checkbox [(ngModel)]="saleStatus" (change)="singleStatusSelected($event)">Sale</mat-checkbox>
+            <mat-checkbox [(ngModel)]="reverseStatus" (change)="singleStatusSelected($event)">Reverse</mat-checkbox>
+          </div>
+
+          <div class="box">
+            <div class="label">MID Responses</div>
+            <mat-checkbox [(ngModel)]="allResponse" (change)="allResponseSelected($event)">All</mat-checkbox>
+            <mat-checkbox [(ngModel)]="declineResponse" (change)="singleResponseSelected($event)">Decline</mat-checkbox>
+            <mat-checkbox [(ngModel)]="errorResponse" (change)="singleResponseSelected($event)">Error</mat-checkbox>
+            <mat-checkbox [(ngModel)]="failResponse" (change)="singleResponseSelected($event)">Fail</mat-checkbox>
+            <mat-checkbox [(ngModel)]="successResponse" (change)="singleResponseSelected($event)">Success</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div class="filter__title">Values</div>
+
+        <value-filter [columns]="filterColumns" [filters]="filters" (filterAdded)="addFilter()" (filterRemovedAtIndex)="removeFilterAtIndex($event)"></value-filter>
+      </div>
+
+    </div>
+
+    <div class="buttons-container">
+
+      <button mat-button class="save" (click)="setSaveAs(true)">Save As...</button>
+      <button mat-button class="cancel" (click)="close()">Cancel</button>
+      <button mat-button class="filter" (click)="filter()">Filter</button>
+
+    </div>
+
+  </div>
+
+  <div [class.content--invisible]="!saveAsMode">
+    <filter-save-as (back)="setSaveAs(false)" (saveAs)="save($event)"></filter-save-as>
+  </div>
+
+</div>

@@ -8,7 +8,7 @@ import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
   activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery,
-  productSchedulesByAmountQuery
+  productSchedulesByAmountQuery, transactionsQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
@@ -20,6 +20,7 @@ import {CustomServerError} from '../models/errors/custom-server-error';
 import {SubscriptionStats} from "../models/subscription-stats.model";
 import {HeroChartSeries} from '../models/hero-chart-series.model';
 import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
+import {TransactionAnalytics} from '../models/analytics/transaction-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -228,6 +229,27 @@ export class AnalyticsService {
         this.analyticsStorage.setCampaignsByAmount(params.start, params.end, result);
       }
     })
+  }
+
+  getTransactions(params: {
+    start: string,
+    end: string,
+    limit: number,
+    offset: number,
+    orderBy: string,
+    sort: string,
+    facets: {facet: string, values: string[]}[]
+  }): Observable<TransactionAnalytics[] | CustomServerError> {
+    return this.queryRequest(transactionsQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new TransactionAnalytics(entity));
+      })
   }
 
   getActivityByCustomer(params: {start: string, end: string, customer: string, limit: number, offset: number}) {

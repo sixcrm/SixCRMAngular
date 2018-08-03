@@ -52,6 +52,40 @@
     }
   }
 
+  &-filter-input {
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 4px;
+    padding: 0 10px;
+    background: #fafafa;
+    font-size: 13px !important;
+    line-height: 24px !important;
+    color: #333333;
+
+    .mat-input-wrapper {
+      padding: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+
+    }
+    .mat-input-underline {
+      display: none;
+    }
+
+    .mat-input-placeholder {
+      color: inherit;
+    }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
+
   &-input--no-margin-top {
     .mat-input-wrapper {
       margin-top: 0;

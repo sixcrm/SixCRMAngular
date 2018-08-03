@@ -1,0 +1,71 @@
+<div class="container filters-dialog">
+
+  <div class="header">
+    <div>Filter Results</div>
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+  <div [class.content--invisible]="saveAsMode">
+
+    <div class="content">
+
+      <div class="mrw-bi-input search-input-container">
+        <mat-form-field [floatLabel]="'never'">
+          <input type="text" matInput placeholder="Search">
+        </mat-form-field>
+        <mat-icon class="topnav__search__icon">search</mat-icon>
+      </div>
+
+      <div class="date">
+
+        <div class="date__title">Date Range</div>
+        <filter-daterange-picker [date]="date" (dateChanged)="dateSelected($event)"></filter-daterange-picker>
+
+      </div>
+
+      <div class="box-container">
+        <div class="box-row">
+          <div class="box box--single">
+            <div class="label">Status</div>
+            <mat-checkbox [checked]="true">All</mat-checkbox>
+            <mat-checkbox>Active</mat-checkbox>
+            <mat-checkbox>Canceled</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter">
+        <div class="filter__title">Campaigns</div>
+
+        <single-filter [items]="selectedCampaigns"
+                       [options]="allCampaigns"
+                       [title]="'campaign'"
+                       [optionMapper]="campaignMapper"
+                       (itemAdded)="addCampaign()"
+                       (itemRemovedAtIndex)="removeCampaignAtIndex($event)">
+        </single-filter>
+      </div>
+
+      <div class="filter">
+        <div class="filter__title">Values</div>
+
+        <value-filter [columns]="filterColumns" [filters]="filters" (filterAdded)="addFilter()" (filterRemovedAtIndex)="removeFilterAtIndex($event)"></value-filter>
+      </div>
+
+    </div>
+
+    <div class="buttons-container">
+
+      <button mat-button class="save" (click)="setSaveAs(true)">Save As...</button>
+      <button mat-button class="cancel" (click)="close()">Cancel</button>
+      <button mat-button class="filter" (click)="filter()">Filter</button>
+
+    </div>
+
+  </div>
+
+  <div [class.content--invisible]="!saveAsMode">
+    <filter-save-as (back)="setSaveAs(false)" (saveAs)="save($event)"></filter-save-as>
+  </div>
+
+</div>

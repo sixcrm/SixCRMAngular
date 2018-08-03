@@ -1,0 +1,17 @@
+<div>
+
+  <div class="row" *ngFor="let item of items; let i = index">
+    <value-filter-dropdown class="item"
+                           [selectedOption]="item"
+                           [placeholder]="'A specific ' + title +'...'"
+                           [options]="options"
+                           [mapper]="optionMapper"
+                           (optionSelected)="setItemAtIndex(i, $event)">
+    </value-filter-dropdown>
+
+    <mat-icon (click)="itemRemovedAtIndex.emit(i)">close</mat-icon>
+  </div>
+
+  <div class="add-value" (click)="itemAdded.emit(true)">Add {{title}}</div>
+
+</div>

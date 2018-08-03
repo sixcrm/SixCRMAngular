@@ -1,0 +1,122 @@
+<div class="container">
+
+  <div class="toolbar">
+
+    <div *ngIf="dateFilterEnabled" class="date">
+      <div class="datepicker--custom datepicker--custom--filters">
+        <div daterangepicker (selected)="dateSelected($event)" [options]="options">
+          <div class="datepicker__label">
+            <mat-icon>date_range</mat-icon>{{_date.start | formatDateTime: 'MMMM D, YYYY'}} to {{_date.end | formatDateTime: 'MMMM D, YYYY'}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tabs" [class.tabs--no-date]="!dateFilterEnabled">
+      <div *ngIf="showArrows()" class="icon">
+        <mat-icon (click)="moveTabsLeft()">keyboard_arrow_left</mat-icon>
+      </div>
+
+      <div #tabcontainer class="tabs--container">
+
+        <div #tabcontent class="tabs--content">
+          <ng-container *ngFor="let tab of tabs">
+            <div *ngIf="tab.visible" class="tabs__item" [class.tabs__item--selected]="tab.selected" (click)="tabSelected.emit(tab)">
+              {{tab.label}}
+            </div>
+          </ng-container>
+        </div>
+
+      </div>
+
+      <div *ngIf="showArrows()" class="icon">
+        <mat-icon (click)="moveTabsRight()">keyboard_arrow_right</mat-icon>
+      </div>
+    </div>
+
+    <div class="options">
+      <div (click)="filtersSelected.emit(true)"><mat-icon>filter_list</mat-icon>Filters</div>
+      <div (click)="openColumnPreferencesDialog()"><mat-icon>view_column</mat-icon>Columns</div>
+      <div (click)="openTabPreferencesDialog()"><mat-icon>settings</mat-icon>Settings</div>
+    </div>
+  </div>
+
+  <div class="data">
+
+    <div [style.width]="getHeaderWidthByElement(head)" class="floating-header">
+      <div class="head" [style.width]="getHeaderWidthByElement(bulkheader)">
+        <mat-checkbox class="checkbox-blue" (change)="toggleBulkSelection($event)"></mat-checkbox>
+      </div>
+      <ng-container *ngFor="let params of columnParams;">
+        <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)" (click)="onSort.emit(params)">
+          {{params.label | translate}}
+
+          <div class="arrows" *ngIf="params.sortApplied">
+            <mat-icon *ngIf="params.sortOrder === 'asc'">keyboard_arrow_up</mat-icon>
+            <mat-icon *ngIf="params.sortOrder === 'desc'">keyboard_arrow_down</mat-icon>
+          </div>
+        </div>
+      </ng-container>
+      <div class="head" [style.width]="getHeaderWidthByElement(actionsheader)"></div>
+    </div>
+
+    <div class="table-wrapper"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="300"
+         [scrollWindow]="false"
+         (scrolled)="loadMore.emit(true)">
+
+      <table>
+        <thead #head>
+        <th #bulkheader>
+          <mat-checkbox class="checkbox-blue"></mat-checkbox>
+        </th>
+        <ng-container *ngFor="let param of columnParams">
+          <th #originalheader *ngIf="param.selected">
+            {{param.label | translate}}
+          </th>
+        </ng-container>
+        <th #actionsheader></th>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let item of items">
+          <td><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
+          <ng-container *ngFor="let param of columnParams">
+            <td *ngIf="param.selected" [class.clickable]="param.clickable" (click)="cellClicked(param, item)">
+              {{param.mappingFunction(item)}}
+            </td>
+          </ng-container>
+          <td>
+            <mat-icon [matMenuTriggerFor]="singleOptionMenu">more_vert</mat-icon>
+            <mat-menu #singleOptionMenu="matMenu" x-position="before">
+              <button *ngFor="let option of singleOptions" mat-menu-item (click)="singleOptionSelected.emit({item: item, option: option})">{{option}}</button>
+            </mat-menu>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="loader" *ngIf="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <div class="bulk-actions" *ngIf="numberOfSelected > 0">
+        <button mat-button>CANCEL</button>
+        <div class="number">{{numberOfSelected}} Selected</div>
+
+        <div class="options">
+          <div class="options__selected">- <mat-icon>keyboard_arrow_down</mat-icon></div>
+        </div>
+
+        <button mat-button>APPLY</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
