@@ -78,6 +78,14 @@ export function createEmailTemplateMutation(emailTemplate: EmailTemplate): strin
 	}`;
 }
 
+export function sendTestEmailQuery(emailTemplate: EmailTemplate): string {
+  return `query {
+		emailtemplatetest (id: "${emailTemplate.id}") {
+			result
+		}
+	}`;
+}
+
 export function emailTemplateInfoResponseQuery(): string {
   return `id name subject body type smtp_provider { id name } created_at updated_at`
 }

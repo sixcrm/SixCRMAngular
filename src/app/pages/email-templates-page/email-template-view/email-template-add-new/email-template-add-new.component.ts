@@ -27,7 +27,7 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
 
       this._tokenSubscription = subject.subscribe(token =>{
         if (this.editor) {
-          this.editor.execCommand('mceInsertContent', false, `{{${token.path.toLowerCase()}}}`);
+          this.editor.execCommand('mceInsertContent', false, `{{${token.value.toLowerCase()}}}`);
         }
       })
 
