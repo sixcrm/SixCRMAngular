@@ -67,7 +67,7 @@ export class CustomerServiceDashboardComponent implements OnInit {
       }
 
       this.customers = []
-    }, 150);
+    }, 250);
   }
 
   sessionFocused() {
@@ -83,7 +83,7 @@ export class CustomerServiceDashboardComponent implements OnInit {
       }
 
       this.sessions = []
-    }, 150);
+    }, 250);
   }
 
   customerInputChanged() {
