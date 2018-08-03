@@ -25,6 +25,12 @@ export class PerfectMatchComponent implements OnInit {
   }
 
   navigateToEntity(): void {
-    this.router.navigate([`/${this.entity.fields.entity_type}s`, this.entity.id]);
+    if (this.entity.fields.entity_type === 'session') {
+      this.router.navigate([`/customers`, 'advanced'], {queryParams: {session: this.entity.id}});
+    } else if (this.entity.fields.entity_type === 'customer') {
+      this.router.navigate([`/customers`, 'advanced'], {queryParams: {customer: this.entity.id}});
+    } else {
+      this.router.navigate([`/${this.entity.fields.entity_type}s`, this.entity.id]);
+    }
   }
 }

@@ -8,6 +8,7 @@ import {Watermark} from '../../../models/watermark/watermark.model';
 import {ProductSchedule} from '../../../models/product-schedule.model';
 import {Product} from '../../../models/product.model';
 import {Schedule} from '../../../models/schedule.model';
+import {customerResponseQuery} from './customer.queries';
 
 export function sessionsInfoListQuery(params: IndexQueryParameters): string {
   return `{
@@ -142,17 +143,27 @@ export function sessionResponseQuery(): string {
       product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, product {id, name } } } },
       products { quantity, price, product { id name } }
     }
-    customer { id firstname lastname address { line1 line2 city state zip country } }
-    affiliate { id name affiliate_id created_at updated_at }
-    subaffiliate_1 { id name affiliate_id created_at updated_at }
-    subaffiliate_2 { id name affiliate_id created_at updated_at }
-    subaffiliate_3 { id name affiliate_id created_at updated_at }
-    subaffiliate_4 { id name affiliate_id created_at updated_at }
-    subaffiliate_5 { id name affiliate_id created_at updated_at }
-    cid { id name affiliate_id created_at updated_at }
-    rebills { id bill_at amount},
+    customer { ${customerResponseQuery()} }
+    rebills { ${sessionRebillResponseQuery()} },
     campaign { id name }
     cancelled { cancelled cancelled_at cancelled_by { id name } }`;
+}
+
+function sessionRebillResponseQuery() {
+  return `
+    id bill_at amount created_at updated_at state
+    products { quantity, amount, product { id, name, sku, ship } }
+    transactions {
+      id alias amount processor_response type result created_at updated_at,
+      merchant_provider { id name }
+      products { amount,
+        product { id name sku ship shipping_delay,
+          fulfillment_provider {id name}
+        }
+        shippingreceipt { id status tracking {carrier id} created_at }
+      }
+    }
+  `
 }
 
 export function sessionInfoResponseQuery(): string {

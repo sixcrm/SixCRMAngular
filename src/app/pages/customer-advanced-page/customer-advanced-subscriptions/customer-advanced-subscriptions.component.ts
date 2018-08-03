@@ -1,7 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Customer} from '../../../shared/models/customer.model';
 import {Rebill} from '../../../shared/models/rebill.model';
-import {RebillsService} from '../../../entity-services/services/rebills.service';
 
 @Component({
   selector: 'customer-advanced-subscriptions',
@@ -10,34 +8,11 @@ import {RebillsService} from '../../../entity-services/services/rebills.service'
 })
 export class CustomerAdvancedSubscriptionsComponent implements OnInit {
 
-  _customer: Customer;
+  @Input() rebills: Rebill[];
+  @Input() sessionMode: boolean;
 
-  rebills: Rebill[] = [];
-
-  loaded: boolean;
-
-  @Input() set customer(customer: Customer) {
-    if (customer) {
-      const performInit = !this._customer;
-
-      this._customer = customer;
-
-      if (performInit) {
-        this.initialize();
-      }
-    }
-  }
-
-  constructor(private rebillService: RebillsService) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  initialize() {
-    this.rebillService.getPendingRebillsByCustomer(this._customer, {}).subscribe(rebills => {
-      this.rebills = rebills;
-
-      this.loaded = true;
-    });
   }
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit } from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'rebill-item',
@@ -10,13 +10,14 @@ import {Router} from '@angular/router';
 export class RebillItemComponent implements OnInit {
 
   @Input() rebill: Rebill;
+  @Input() sessionMode: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
 
   navigateToWatermark(rebill: Rebill) {
-    this.router.navigate(['/sessions', rebill.parentSession.id], {fragment: 'watermark'})
+    this.router.navigate([], {relativeTo: this.route, queryParams: { session: rebill.parentSession.id }, fragment: 'watermark'})
   }
 }

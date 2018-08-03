@@ -52,7 +52,7 @@ export class TabHeaderComponent implements OnInit, OnDestroy {
         }
       }
     } else {
-      this.router.navigate([], {fragment: element.name, replaceUrl: true});
+      this.router.navigate([], {fragment: element.name, replaceUrl: true, queryParamsHandling: 'preserve'});
     }
   }
 
