@@ -68,7 +68,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         break
       }
       case ('Session'): {
-        this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.rebill.parentSession.id } });
+        this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.rebill.parentSession.id }, fragment: 'watermark' });
         break
       }
       case ('Order'): {

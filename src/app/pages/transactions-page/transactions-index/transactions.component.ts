@@ -135,7 +135,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         break;
       }
       case 'Session': {
-        this.router.navigate(['/customers','advanced'], {queryParams: {session: event.item.sessionId}});
+        this.router.navigate(['/customers','advanced'], {queryParams: {session: event.item.sessionId}, fragment: 'watermark'});
         break;
       }
     }
