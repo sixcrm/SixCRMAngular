@@ -37,7 +37,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YYYY h:mm A')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
+      new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
       new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : 'No').setSortName('chargeback'),
       new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType || '-').setSortName('transaction_type'),
       new ColumnParams('Response', (e: TransactionAnalytics) => e.response || '-').setSortName('response'),
