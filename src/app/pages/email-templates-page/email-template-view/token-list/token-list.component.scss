@@ -6,20 +6,20 @@ token-view {
   &__container {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     overflow: auto;
-    max-height: 294px;
+    max-height: 500px;
   }
 
   &__header {
     padding: 5px 15px;
 
     mat-icon {
-      margin: auto 0 auto auto;
+      margin: auto 0;
       color: rgba(0, 0, 0, 0.5);
     }
 
     mat-form-field {
-      width: 150px;
       font-size: 14px;
+      width: 200px;
     }
 
     dropdown-component {
