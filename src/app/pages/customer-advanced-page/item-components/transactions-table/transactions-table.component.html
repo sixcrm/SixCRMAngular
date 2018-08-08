@@ -10,7 +10,9 @@
   <div class="body">
     <div class="row" *ngFor="let transaction of transactions">
       <div>
-        <mat-icon class="error" *ngIf="transaction.chargeback || transaction.isError(); else successicon">error</mat-icon>
+        <mat-icon class="error" *ngIf="transaction.chargeback || transaction.isError() || transaction.isDecline(); else successicon">
+          <mat-icon>{{transaction.isDecline() ? 'block' : 'error'}}</mat-icon>
+        </mat-icon>
         <ng-template #successicon>
           <mat-icon class="success">done</mat-icon>
         </ng-template>
