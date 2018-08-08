@@ -4,11 +4,12 @@ import {AsyncSubject, Observable} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
 import {TranslationService} from "../../../../translation/translation.service";
-import {TransactionsService} from "../../../../entity-services/services/transactions.service";
 import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";
 import {Transaction} from "../../../../shared/models/transaction.model";
 import {HeroChartSeries} from "../../../../shared/models/hero-chart-series.model";
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
+import {utc} from 'moment';
+import {TransactionAnalytics} from '../../../../shared/models/analytics/transaction-analytics.model';
 
 @Component({
   selector: 'c-dashboard-low-data',
@@ -31,12 +32,11 @@ export class DashboardLowDataComponent implements OnInit {
 
   name: string;
   revenue: any;
-  transactions: Transaction[];
+  transactions: TransactionAnalytics[];
 
   constructor(
     private authService: AuthenticationService,
     private translationService: TranslationService,
-    private transactionService: TransactionsService,
     private analyticsService: AnalyticsService
   ) { }
 
@@ -53,20 +53,27 @@ export class DashboardLowDataComponent implements OnInit {
       }
     });
 
-    this.transactionService.entities$.takeUntil(this.unsubscribe$).subscribe((transactions) => {
+    this.analyticsService.getTransactions(
+      {
+        start: utc().subtract(10, 'y').format(),
+        end: utc().format(),
+        limit: 7,
+        offset: 0,
+        orderBy: 'datetime',
+        sort: 'desc',
+        facets: []
+      }
+    ).subscribe((transactions) => {
+      console.log(transactions);
 
-      if (transactions instanceof CustomServerError) return;
-      if (transactions.length > 7) return;
+      if (transactions instanceof CustomServerError) {
+        this.transactions = [];
 
-      this.transactions = transactions.sort((a,b) => {
-        if (a.createdAt > b.createdAt) return -1;
-        if (a.createdAt < b.createdAt) return 1;
-        return 0;
-      });
+        return;
+      }
 
+      this.transactions = transactions;
     });
-
-    this.transactionService.getEntitiesFromBeginning(7);
 
     this.analyticsService.heroChartSeries$.subscribe(data => {
       if (!data || data instanceof CustomServerError) return;
