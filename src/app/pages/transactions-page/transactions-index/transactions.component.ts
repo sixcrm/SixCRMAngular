@@ -38,15 +38,20 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : 'No').setSortName('chargeback'),
-      new ColumnParams('Response', (e: TransactionAnalytics) => e.response || '-').setSortName('response'),
+      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : '–').setSortName('chargeback'),
+      new ColumnParams('Response', (e: TransactionAnalytics) => e.response)
+        .setSortName('response')
+        .setCapitalize(true)
+        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
+        .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#1EBEA5' : '#ffffff')
+        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
       new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()).setSortName('amount'),
-      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '-').setSortName('refund'),
-      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider || '-').setSortName('merchant_provider_name').setClickable(true),
-      new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias || '-').setSortName('alias').setClickable(true),
-      new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias || '-').setSortName('rebill_alias').setClickable(true),
-      new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer || '-').setSortName('customer_name').setClickable(true),
-      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias || '-').setSortName('session_alias').setClickable(true)
+      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–').setSortName('refund'),
+      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider).setSortName('merchant_provider_name').setClickable(true),
+      new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias).setSortName('alias').setClickable(true),
+      new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias).setSortName('rebill_alias').setClickable(true),
+      new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer).setSortName('customer_name').setClickable(true),
+      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias).setSortName('session_alias').setClickable(true)
     ];
 
     this.date = {start: utc().subtract(7,'d'), end: utc()};

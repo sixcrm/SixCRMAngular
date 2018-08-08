@@ -85,11 +85,18 @@
         <tr *ngFor="let item of items">
           <td><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let param of columnParams">
-            <td *ngIf="param.selected" [class.clickable]="param.clickable" (click)="cellClicked(param, item)">
+            <td *ngIf="param.selected" [class.clickable]="param.clickable" [class.capitalized]="param.capitalize" (click)="cellClicked(param, item)">
+
+              <ng-container *ngIf="param.materialIconMapper">
+                <mat-icon class="table-icon" [style.background-color]="param.materialIconBackgroundColorMapper(item)" [style.color]="param.materialIconColorMapper(item)">{{param.materialIconMapper(item)}}</mat-icon>
+              </ng-container>
+              <span class="table-content">
               {{param.mappingFunction(item)}}
+              </span>
             </td>
           </ng-container>
           <td>
+
             <mat-icon [matMenuTriggerFor]="singleOptionMenu">more_vert</mat-icon>
             <mat-menu #singleOptionMenu="matMenu" x-position="before">
               <button *ngFor="let option of singleOptions" mat-menu-item (click)="singleOptionSelected.emit({item: item, option: option})">{{option}}</button>

@@ -29,6 +29,7 @@ export class ColumnParams<T> {
   inputType: ColumnParamsInputType;
   editable: boolean = true;
   showLabel: boolean = true;
+  capitalize: boolean;
   validator: (e: T) => boolean = e => true;
 
   autocompleteMapper: (any) => string = e => e;
@@ -73,6 +74,12 @@ export class ColumnParams<T> {
 
   setMaterialIconColorMapper(value: (any) => string) {
     this.materialIconColorMapper = value;
+
+    return this;
+  }
+
+  setCapitalize(value: boolean) {
+    this.capitalize = value;
 
     return this;
   }
