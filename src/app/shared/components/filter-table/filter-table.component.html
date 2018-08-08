@@ -50,12 +50,12 @@
       </div>
       <ng-container *ngFor="let params of columnParams;">
         <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)" (click)="onSort.emit(params)">
+          {{params.label | translate}}
+
           <div class="arrows" *ngIf="params.sortApplied">
             <mat-icon *ngIf="params.sortOrder === 'asc'">arrow_downward</mat-icon>
             <mat-icon *ngIf="params.sortOrder === 'desc'">arrow_upward</mat-icon>
           </div>
-
-          {{params.label | translate}}
         </div>
       </ng-container>
       <div class="head" [style.width]="getHeaderWidthByElement(actionsheader)"></div>
