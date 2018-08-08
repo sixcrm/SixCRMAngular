@@ -64,6 +64,8 @@ export class FilterTableComponent implements OnInit, OnDestroy {
 
   options = {};
 
+  bulkSelected: boolean;
+
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -159,6 +161,10 @@ export class FilterTableComponent implements OnInit, OnDestroy {
       this.numberOfSelected++;
     } else if (this.numberOfSelected > 0) {
       this.numberOfSelected--;
+    }
+
+    if (event && !event.checked && this.bulkSelected) {
+      this.bulkSelected = false;
     }
   }
 
