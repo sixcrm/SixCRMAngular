@@ -5,7 +5,6 @@ import {ColumnParams} from '../../models/column-params.model';
 import {firstIndexOf} from '../../utils/array.utils';
 import {MatDialog} from '@angular/material';
 import {ColumnPreferencesDialogComponent} from '../../../dialog-modals/column-preferences-dialog/column-preferences-dialog.component';
-import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {TabPreferencesDialogComponent} from '../../../dialog-modals/tab-preferences-dialog/tab-preferences-dialog.component';
 import {Subscription, Observable} from 'rxjs';
 
@@ -53,7 +52,6 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   @Output() singleOptionSelected: EventEmitter<{item: any, option: string}> = new EventEmitter();
   @Output() bulkOptionSelected: EventEmitter<{items: any[], option: string}> = new EventEmitter();
   @Output() onSort: EventEmitter<ColumnParams<any>> = new EventEmitter();
-  @Output() onCellClick: EventEmitter<{item: any, param: ColumnParams<any>}> = new EventEmitter();
 
   @Output() updatedTabs: EventEmitter<FilterTableTab[]> = new EventEmitter();
   @Output() updatedColumns: EventEmitter<ColumnParams<any>[]> = new EventEmitter();
@@ -220,7 +218,4 @@ export class FilterTableComponent implements OnInit, OnDestroy {
     return content > container;
   }
 
-  cellClicked(param: ColumnParams<any>, item: any) {
-    this.onCellClick.emit({item: item, param: param});
-  }
 }

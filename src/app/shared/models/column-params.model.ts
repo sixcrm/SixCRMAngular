@@ -46,6 +46,9 @@ export class ColumnParams<T> {
 
   imageMapper: (any) => string;
 
+  link: (any) => string;
+  queryParams: (any) => any = (el) => {};
+
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
     this.mappingFunction = mappingFunction;
@@ -80,6 +83,18 @@ export class ColumnParams<T> {
 
   setCapitalize(value: boolean) {
     this.capitalize = value;
+
+    return this;
+  }
+
+  setLink(value: (any) => string) {
+    this.link = value;
+
+    return this;
+  }
+
+  setQueryParams(value: (any) => any) {
+    this.queryParams = value;
 
     return this;
   }
