@@ -1,4 +1,4 @@
-<div class="token-list" *ngIf="loaded">
+<div class="token-list" *ngIf="tokenGroups && selectedGroup">
 
   <div class="entity-view__card__header">
     <div>
@@ -8,8 +8,6 @@
   </div>
   <div class="token-list__header">
     <div class="flex-custom">
-      <dropdown-component [options]="tokenTypes" [placeholder]="'EMAILTEMPLATE_TOKEN_TYPE' | translate" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
-
       <mat-icon>search</mat-icon>
       <mat-form-field>
         <input type="text" placeholder="{{'EMAILTEMPLATE_TOKEN_SEARCH' | translate}}" matInput [(ngModel)]="filterString" autocomplete=off>
@@ -17,7 +15,7 @@
     </div>
   </div>
 
-  <div class="token-list__container">
-    <token-view *ngFor="let token of tokens | filterTokensType: selectedType: true" [token]="token" [filter]="filterString" (tokenSelected)="tokenSelected.emit($event)"></token-view>
+  <div class="token-list__container" *ngIf="selectedGroup && selectedGroup.tokens">
+    <token-view *ngFor="let token of selectedGroup.tokens" [token]="token" [filter]="filterString" (tokenSelected)="tokenSelected.emit($event)"></token-view>
   </div>
 </div>

@@ -10,7 +10,7 @@
 
     <div class="box" [class.box--error]="lastOverdue">
       <div class="date" *ngIf="lastBillDate">
-        {{lastOverdue ? 'Past Due: ' : 'Previous Billing: '}}{{lastBillDate | formatDateTime: 'MMMM DD, YYYY'}}
+        {{lastOverdue ? 'Past Due: ' : 'Previous Billing: '}}{{lastBillDate | formatDateTime: 'MMMM Do, YYYY h:mm A'}}
       </div>
 
       <div class="minimum">
@@ -26,7 +26,7 @@
 
     <div class="box">
       <div class="date" *ngIf="nextBillDate">
-        Next Billing: {{nextBillDate | formatDateTime: 'MMMM DD, YYYY'}}
+        Next Billing: {{nextBillDate | formatDateTime: 'MMMM Do, YYYY'}}
       </div>
 
       <div class="minimum">

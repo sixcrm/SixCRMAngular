@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {EmailTemplatesService} from '../../../../entity-services/services/email-templates.service';
 
 @Component({
@@ -8,102 +8,56 @@ import {EmailTemplatesService} from '../../../../entity-services/services/email-
 })
 export class TokenListComponent implements OnInit {
 
-  tokens: Token[];
-  loaded = false;
-  tokenTypes: string[] = [];
-  selectedType: string = '';
+  @Input() tokenGroups: TokenGroup[] = [];
+  @Input() selectedGroup: TokenGroup;
+
   filterString: string = '';
 
   @Output()
   tokenSelected: EventEmitter<Token> = new EventEmitter();
 
-  constructor(private emailTemplatesService: EmailTemplatesService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.emailTemplatesService.tokens.take(1).subscribe(tokens => {
-      this.tokens = (tokens.properties || []).map(p => new Token(p, null, null));
-      this.tokenTypes = this.tokens.map(t => t.name);
+  ngOnInit() { }
 
-      this.loaded = true;
-    });
-    this.emailTemplatesService.getTokens();
+}
+
+export class TokenGroup {
+
+  name: string;
+  description: string;
+  tokens: Token[] = [];
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.name = obj.name || '';
+    this.description = obj.description || '';
+    this.tokens = (obj.tokens || []).map(t => new Token(t));
   }
 
 }
 
 export class Token {
-  name: string;
-  displayName: string
-  path: string;
-  subtokens: Token[] = [];
-  parent: Token;
+
+  value: string;
   description: string;
-  title: string;
-  isTerminal: boolean;
+  example: string;
 
-  constructor(obj: any, parent: Token, name: string) {
-    this.parent = parent;
-
-    this.name = (name && isNaN(+name)) ? name : obj.name || obj.title;
-    this.displayName = this.parseDisplayName(this.name);
-    this.name = this.name.replace(/\s/, '_');
-    this.title = obj.title;
-    this.description = obj.description;
-
-    this.path = this.generatePath().toLowerCase();
-
-    this.parseSubtokens(obj);
-
-    if (this.subtokens.length === 0) {
-      this.isTerminal = true;
-    }
-  }
-
-  private parseDisplayName(name: string) {
-    if (name.toLowerCase() === 'id') {
-      return 'ID'
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
     }
 
-    return name.replace(/_/, ' ');
-  }
-
-  private parseSubtokens(obj: any) {
-    if (obj.anyOf) {
-      obj.anyOf.forEach(element => {
-        if (element.type === 'object') {
-          obj.properties = element.properties;
-        } else if (element.type !== 'array') {
-          this.isTerminal = true;
-        }
-      })
-    }
-
-    if (obj.properties) {
-      Object.keys(obj.properties).forEach(key => {
-        if (obj.properties[key].type !== 'array'){
-          this.subtokens.push(new Token(obj.properties[key], this, key));
-        }
-      })
-    }
-  }
-
-  generatePath() {
-    if (this.parent) {
-      const parentPath = this.parent.generatePath();
-      return parentPath + `${parentPath ? '.' : ''}${this.name}`
-    }
-
-    return '';
+    this.description = obj.description || '';
+    this.value = obj.value || '';
+    this.example = obj.example || '';
   }
 
   contains(filter: string) {
-    if (!filter) return true;
-
-    const f = filter.toLowerCase();
-    const name = this.parent ? `${this.parent.name} ${this.name}`.toLowerCase() : this.name.toLowerCase();
-    const path = this.path.toLowerCase();
-    const description = this.description ? this.description.toLowerCase() : '';
-
-    return path.indexOf(f) !== -1 || name.indexOf(f) !== -1 || description.indexOf(f) !== -1;
+    return this.value.indexOf(filter) !== -1 || this.description.indexOf(filter) !== -1;
   }
+
 }

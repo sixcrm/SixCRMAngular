@@ -201,6 +201,7 @@
     td {
       font-size: 13px;
       padding: 10px;
+      line-height: 27px;
 
       &:last-of-type {
         mat-icon {
@@ -243,6 +244,7 @@
       cursor: pointer;
 
       .arrows {
+        margin-left: 2px;
         display: flex;
 
         mat-icon {
@@ -272,7 +274,23 @@
   align-items: center;
 }
 
-.clickable {
-  cursor: pointer;
+a {
   color: $main-color-300;
+}
+
+.capitalized {
+  text-transform: capitalize;
+}
+
+.table-icon {
+  margin-right: 3px;
+  border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.table-content {
+  vertical-align: middle;
 }

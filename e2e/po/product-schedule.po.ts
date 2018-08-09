@@ -46,6 +46,10 @@ export class ProductSchedulePage {
     return element(by.css('tbody')).all(by.css('tr'));
   }
 
+  getSuccessSnackbar() {
+    return element(by.css('.error-snack-bar--success'));
+  }
+
   getTableRowOptionsButton() {
     return element(by.css('tbody')).element(by.css('tr')).element(by.css('mat-icon'));
   }

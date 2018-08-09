@@ -22,8 +22,14 @@
         </email-template-add-new>
 
         <div class="helper-container">
-          <shared-list [style.display]="viewMode ? 'none' : 'inline-block'" (templateSelected)="copyTemplateBody($event)" class="entity-view__card"></shared-list>
-          <token-list [style.display]="viewMode ? 'none' : 'inline-block'" (tokenSelected)="addToken($event)" class="entity-view__card"></token-list>
+          <token-list [style.display]="viewMode ? 'none' : 'inline-block'"
+                      [tokenGroups]="tokenGroups"
+                      [selectedGroup]="selectedGroup"
+                      (tokenSelected)="addToken($event)"
+                      class="entity-view__card">
+          </token-list>
+
+          <button [class.alone]="viewMode" mat-button class="test-button" (click)="sendTestEmail()">Send test E-Mail</button>
         </div>
       </div>
 
@@ -39,7 +45,7 @@
         </div>
 
         <div class="entity-view__card__content">
-          <div class="email-template-view__preview__body" [innerHTML]="entity.body"></div>
+          <div class="email-template-view__preview__body" [innerHTML]="parseTemplateBody()"></div>
         </div>
       </div>
     </mat-tab>

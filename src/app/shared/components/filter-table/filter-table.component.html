@@ -6,7 +6,7 @@
       <div class="datepicker--custom datepicker--custom--filters">
         <div daterangepicker (selected)="dateSelected($event)" [options]="options">
           <div class="datepicker__label">
-            <mat-icon>date_range</mat-icon>{{_date.start | formatDateTime: 'MMMM D, YYYY'}} to {{_date.end | formatDateTime: 'MMMM D, YYYY'}}
+            <mat-icon>date_range</mat-icon>{{_date.start | formatDateTime: 'MMM D, YYYY'}} to {{_date.end | formatDateTime: 'MMM D, YYYY'}}
           </div>
         </div>
       </div>
@@ -46,15 +46,15 @@
 
     <div [style.width]="getHeaderWidthByElement(head)" class="floating-header">
       <div class="head" [style.width]="getHeaderWidthByElement(bulkheader)">
-        <mat-checkbox class="checkbox-blue" (change)="toggleBulkSelection($event)"></mat-checkbox>
+        <mat-checkbox class="checkbox-blue" [(ngModel)]="bulkSelected" (change)="toggleBulkSelection($event)"></mat-checkbox>
       </div>
       <ng-container *ngFor="let params of columnParams;">
         <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)" (click)="onSort.emit(params)">
           {{params.label | translate}}
 
           <div class="arrows" *ngIf="params.sortApplied">
-            <mat-icon *ngIf="params.sortOrder === 'asc'">keyboard_arrow_up</mat-icon>
-            <mat-icon *ngIf="params.sortOrder === 'desc'">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="params.sortOrder === 'asc'">arrow_downward</mat-icon>
+            <mat-icon *ngIf="params.sortOrder === 'desc'">arrow_upward</mat-icon>
           </div>
         </div>
       </ng-container>
@@ -85,11 +85,25 @@
         <tr *ngFor="let item of items">
           <td><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let param of columnParams">
-            <td *ngIf="param.selected" [class.clickable]="param.clickable" (click)="cellClicked(param, item)">
-              {{param.mappingFunction(item)}}
+            <td *ngIf="param.selected" [class.capitalized]="param.capitalize">
+
+              <ng-container *ngIf="param.materialIconMapper">
+                <mat-icon class="table-icon" [style.background-color]="param.materialIconBackgroundColorMapper(item)" [style.color]="param.materialIconColorMapper(item)">{{param.materialIconMapper(item)}}</mat-icon>
+              </ng-container>
+
+              <span class="table-content">
+                <a *ngIf="param.link; else plaintext" [routerLink]="[param.link(item)]" [queryParams]="param.queryParams(item)">
+                  {{param.mappingFunction(item)}}
+                </a>
+                <ng-template #plaintext>
+                  {{param.mappingFunction(item)}}
+                </ng-template>
+              </span>
+
             </td>
           </ng-container>
           <td>
+
             <mat-icon [matMenuTriggerFor]="singleOptionMenu">more_vert</mat-icon>
             <mat-menu #singleOptionMenu="matMenu" x-position="before">
               <button *ngFor="let option of singleOptions" mat-menu-item (click)="singleOptionSelected.emit({item: item, option: option})">{{option}}</button>

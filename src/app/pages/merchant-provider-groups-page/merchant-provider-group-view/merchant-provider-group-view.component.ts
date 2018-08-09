@@ -112,6 +112,12 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
       return;
     }
 
+    if (isNaN(+this.providerToAdd.distribution)) {
+      this.providerToAdd.distribution = '';
+      this.formInvalid = true;
+      return;
+    }
+
     this.entity.merchantProviderConfigurations.push(this.providerToAdd);
     if (!this.addMode) {
       this.updateEntity(this.entity);
