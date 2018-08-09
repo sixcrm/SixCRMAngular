@@ -33,11 +33,11 @@
           <div class="notifications-list__content__title">{{notificationsByDate.label | translate}}</div>
 
           <div *ngFor="let notification of notificationsByDate.entities">
-            <div class="notifications-list__content__notification" [class.unread]="!notification.readAt" (click)="readNotification(notification)">
+            <div class="notifications-list__content__notification" [class.unread]="!notification.readAt">
               <div class="notifications-list__content__notification__read">
                 <div [class.unread]="!notification.readAt"></div>
               </div>
-              <div class="notifications-list__content__notification__message">
+              <div class="notifications-list__content__notification__message" (click)="openNotification(notification)">
                 <div class="header">
                   <div class="category">{{notification.category}}</div>
                   <div class="divider"></div>
@@ -50,8 +50,12 @@
               </div>
               <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
               <mat-menu #actionsMenu="matMenu" x-position="before">
-                <button mat-menu-item class="notifications-list__content_notification_menu_item_markasunread"
+                <button *ngIf="notification.readAt; else unread" mat-menu-item class="notifications-list__content_notification_menu_item_markasunread"
                         (click)="markAsUnread(notification)">{{'NOTIFICATIONSQUICK_MARKASUNREAD' | translate}}</button>
+                <ng-template #unread>
+                  <button mat-menu-item class="notifications-list__content_notification_menu_item_markasunread"
+                          (click)="readNotification(notification)">{{'Mark as read' | translate}}</button>
+                </ng-template>
                 <button *ngIf="notification.hasContext()" mat-menu-item class="notifications-list__content_notification_menu_item"
                         (click)="goToLink(notification)">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
                 <button mat-menu-item class="notifications-list__content_notification_menu_item"

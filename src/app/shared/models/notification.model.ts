@@ -1,5 +1,6 @@
 import {Moment, utc} from 'moment';
 import {Entity} from './entity.interface';
+import {jsonObject} from '../utils/queries/entities/entities-helper.queries';
 
 export class Notification implements Entity<Notification> {
   id: string;
@@ -27,11 +28,15 @@ export class Notification implements Entity<Notification> {
     this.type = obj.type || '';
     this.category = obj.category || '';
     this.name = obj.name || '';
-    this.context = obj.context || {};
+    this.context = this.parseContext(obj.context) || {};
     this.readAt = obj.read_at || '';
     this.createdAt = utc(obj.created_at).local();
     this.updatedAt = utc(obj.updated_at).local();
     this.updatedAtAPI = obj.updated_at;
+  }
+
+  parseContext(obj?: any): any {
+    return JSON.parse(JSON.stringify(obj).replace(new RegExp('__', 'g'), '.'));
   }
 
   copy(): Notification {
@@ -72,13 +77,51 @@ export class Notification implements Entity<Notification> {
   contextLink(): string {
     let identifiableEntityId;
     let identifiableEntityName;
+
     for (let key in this.context) {
-      if (key.includes('__id')) {
+      if (key.includes('.id')) {
         identifiableEntityId = this.context[key];
-        identifiableEntityName = key.replace('__id', '');
+        identifiableEntityName = key.replace('.id', '');
+
+        break;
       }
     }
+
+    if (['customer', 'rebill', 'session'].indexOf(identifiableEntityName) !== -1){
+      return '/customers/advanced'
+    }
+
     return `/${identifiableEntityName}s/${identifiableEntityId}`;
+  }
+
+  contextQueryParams(): any {
+    let identifiableEntityId;
+    let identifiableEntityName;
+
+    for (let key in this.context) {
+      if (key.includes('.id')) {
+        identifiableEntityId = this.context[key];
+        identifiableEntityName = key.replace('.id', '');
+
+        break;
+      }
+    }
+
+    switch (identifiableEntityName) {
+      case 'customer': {
+        return {customer: identifiableEntityId}
+      }
+      case 'session': {
+        return {session: identifiableEntityId}
+      }
+
+      case 'rebill': {
+        return {order: identifiableEntityId}
+      }
+      default: {
+        return {}
+      }
+    }
   }
 }
 
