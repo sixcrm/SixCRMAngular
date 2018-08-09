@@ -122,11 +122,16 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   }
 
   markAsUnread(notification: Notification) {
-    this.notificationsService.updateEntity(notification.markAsUnread());
+    this.notificationsService.updateEntity(notification.markAsUnread(), { ignoreSnack: true });
+  }
+
+  openNotification(notification: Notification) {
+    this.readNotification(notification);
+    this.goToLink(notification);
   }
 
   goToLink(notification: Notification) {
-    this.router.navigateByUrl(notification.contextLink());
+    this.router.navigate([notification.contextLink()], {queryParams: notification.contextQueryParams()});
   }
 
   markAllAsRead() {

@@ -64,8 +64,6 @@ export class DashboardLowDataComponent implements OnInit {
         facets: []
       }
     ).subscribe((transactions) => {
-      console.log(transactions);
-
       if (transactions instanceof CustomServerError) {
         this.transactions = [];
 
