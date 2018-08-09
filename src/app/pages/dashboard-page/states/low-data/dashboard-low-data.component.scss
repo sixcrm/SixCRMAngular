@@ -185,10 +185,22 @@
             }
           }
 
-          &__fail {
+          &__error {
             background-color: white;
 
-            .fail-icon {
+            .error-icon {
+              color: #DC2547;
+              margin: auto;
+              font-size: 24px;
+              width: 24px;
+              height: 24px;
+            }
+          }
+
+          &__decline {
+            background-color: white;
+
+            .decline-icon {
               color: #DC2547;
               margin: auto;
               font-size: 24px;
@@ -205,4 +217,8 @@
 
 mat-spinner {
   margin: 120px auto auto auto;
+}
+
+.response {
+  text-transform: capitalize;
 }

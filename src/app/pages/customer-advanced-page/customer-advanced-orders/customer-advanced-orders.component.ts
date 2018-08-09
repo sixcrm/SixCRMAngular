@@ -60,7 +60,8 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
       new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Order) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
       new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Order) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_REBILL_TOTAL', (e: Order) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
-      new ColumnParams('CUSTOMER_REBILL_ORDER',(e: Order) => e.session.alias).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('CUSTOMER_REBILL_ORDER',(e: Order) => e.id).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Session',(e: Order) => e.session.alias).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_REBILL_CAMPAIGN', (e: Order) => e.session.campaign.name).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_REBILL_TYPE', (e: Order) => '-').setAlign('center')
     ];
@@ -75,14 +76,20 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
         this.router.navigate(['/campaigns', option.item.session.campaign.id]);
         break
       }
+      case ('Session'): {
+        this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.session.id }, fragment: 'watermark' });
+
+        break
+      }
       case ('CUSTOMER_REBILL_ORDER'): {
-        this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.session.id } });
+        this.viewSingleOrder(option.item);
 
         break
       }
       default: {}
     }
   }
+
 
   setIndex(index: number) {
     this.selectedIndex = index;

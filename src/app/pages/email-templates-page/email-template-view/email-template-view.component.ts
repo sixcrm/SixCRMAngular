@@ -5,12 +5,15 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
-import {Token} from './token-list/token-list.component';
+import {Token, TokenGroup} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {EmailTemplatesSharedService} from '../../../entity-services/services/email-templates-shared.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {SnackbarService} from '../../../shared/services/snackbar.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 declare var tinymce;
 
@@ -38,15 +41,20 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
   isShared: boolean;
 
+  tokenGroups: TokenGroup[] = [];
+  selectedGroup: TokenGroup;
+  allTokens: Token[] = [];
+
   constructor(
-    service: EmailTemplatesService,
+    private emailTemplateService: EmailTemplatesService,
     private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
     public smtpProviderService: SmtpProvidersService,
     private sharedService: EmailTemplatesSharedService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private snackService: SnackbarService
   ) {
-    super(service, activatedRoute);
+    super(emailTemplateService, activatedRoute);
   }
 
   ngOnInit() {
@@ -59,7 +67,18 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       this.init(() => this.navigation.goToNotFoundPage());
     });
 
+
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.smtpProviderService.getEntities());
+    this.emailTemplateService.tokenGroups.take(1).subscribe(groups => {
+      const allTokensGroup: TokenGroup = new TokenGroup(groups.all);
+
+      this.tokenGroups = [allTokensGroup];
+      this.selectedGroup = allTokensGroup;
+
+      this.allTokens = this.tokenGroups.map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
+    });
+
+    this.emailTemplateService.getTokens();
   }
 
   ngOnDestroy() {
@@ -86,10 +105,42 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     this.addTokenSubject.next(token);
   }
 
-  copyTemplateBody(template: EmailTemplate) {
-    this.entity.body = template.body;
+  sendTestEmail() {
+    this.emailTemplateService.sendTestEmail(this.entity).subscribe((result) => {
+      if (result instanceof CustomServerError) {
+        this.snackService.showErrorSnack('Error when sending test E-Mail', 2500);
+        return;
+      }
 
-    this.editorBodySubject.next(template.body);
+      this.snackService.showSuccessSnack('Test E-Mail Sent', 2500);
+    })
+  }
+
+  parseTemplateBody(): string {
+    if (!this.entity || !this.entity.body) return '';
+
+    if (!this.allTokens || this.allTokens.length === 0) return this.entity.body;
+
+    const matches = this.entity.body.match(/{{.+?}}/g) || [];
+    let result = this.entity.body;
+
+    const strip = function (match) {
+      return match.replace('{{', '').replace('}}', '');
+    };
+
+    const findTokenExample = (value) => {
+      const index = firstIndexOf(this.allTokens, (token) => token.value === value);
+
+      if (index === -1) return value;
+
+      return this.allTokens[index].example;
+    };
+
+    matches.forEach((match) => {
+      result = result.replace(new RegExp(match,'g'), findTokenExample(strip(match)));
+    });
+
+    return result;
   }
 
 }

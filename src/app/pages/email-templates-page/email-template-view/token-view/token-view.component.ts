@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Token} from '../token-list/token-list.component';
+import {Token, TokenGroup} from '../token-list/token-list.component';
 
 @Component({
   selector: 'token-view',

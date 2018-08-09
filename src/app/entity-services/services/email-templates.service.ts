@@ -5,17 +5,19 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService, extractData} from '../../shared/services/http-wrapper.service';
 import {
   emailTemplatesListQuery, emailTemplateQuery,
-  deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation
+  deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation,
+  sendTestEmailQuery
 } from '../../shared/utils/queries/entities/email-template.queries';
 import {Subject} from 'rxjs';
 import {tokenListQuery} from '../../shared/utils/queries/entities/token.queries';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> {
 
-  tokens: Subject<any> = new Subject();
+  tokenGroups: Subject<any> = new Subject();
 
   constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
@@ -42,10 +44,14 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
 
       const extracted = extractData(data);
 
-      if (!extracted || !extracted.tokenlist || !extracted.tokenlist.tokens.properties[0]) return;
+      if (!extracted || !extracted.tokenlist || !extracted.tokenlist.tokens) return;
 
-      this.tokens.next(extracted.tokenlist.tokens.properties[0]);
+      this.tokenGroups.next(extracted.tokenlist.tokens);
     })
+  }
+
+  sendTestEmail(emailTemplate: EmailTemplate): Observable<any | CustomServerError> {
+    return this.queryRequest(sendTestEmailQuery(emailTemplate))
   }
 
 }

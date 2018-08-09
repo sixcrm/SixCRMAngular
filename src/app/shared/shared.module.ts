@@ -71,6 +71,7 @@ import { LocationFilterComponent } from './components/location-filter/location-f
 import { FilterDaterangePickerComponent } from './components/filter-daterange-picker/filter-daterange-picker.component';
 import { SingleFilterComponent } from './components/single-filter/single-filter.component';
 import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-as.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations : [
@@ -179,6 +180,7 @@ import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-a
   imports : [
     FormsModule,
     CommonModule,
+    RouterModule,
     MaterialSelectionModule,
     ChartModule,
     Daterangepicker,

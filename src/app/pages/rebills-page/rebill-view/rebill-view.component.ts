@@ -109,7 +109,7 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
   goToSession() {
     if (!this.entity.parentSession.id) return;
 
-    this.router.navigate(['/customers', 'advanced'], { queryParams: { session: this.entity.parentSession.id } });
+    this.router.navigate(['/customers', 'advanced'], { queryParams: { session: this.entity.parentSession.id }, fragment: 'watermark' });
   }
 
   goToCustomer() {

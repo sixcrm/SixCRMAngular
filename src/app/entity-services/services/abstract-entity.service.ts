@@ -56,16 +56,6 @@ export abstract class AbstractEntityService<T> {
     );
   }
 
-  getEntitiesFromBeginning(limit?: number, search?: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
-    this.customEntitiesQuery(
-      this.indexQuery({
-        limit: limit,
-        search: search
-      }),
-      requestBehaviourOptions
-    );
-  }
-
   getEntity(id: string): void {
     if (!this.hasViewPermission()) {
       return;
@@ -266,8 +256,8 @@ export abstract class AbstractEntityService<T> {
     )
   }
 
-  planeCustomEntitiesQuery(query: string): Observable<T[]> {
-    return this.queryRequest(query).map(data => {
+  planeCustomEntitiesQuery(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<T[]> {
+    return this.queryRequest(query, requestBehaviourOptions).map(data => {
       if (data instanceof CustomServerError) {
         return [];
       }
