@@ -29,6 +29,7 @@ export class ColumnParams<T> {
   inputType: ColumnParamsInputType;
   editable: boolean = true;
   showLabel: boolean = true;
+  capitalize: boolean;
   validator: (e: T) => boolean = e => true;
 
   autocompleteMapper: (any) => string = e => e;
@@ -44,6 +45,9 @@ export class ColumnParams<T> {
   materialIconBackgroundColorMapper: (any) => string;
 
   imageMapper: (any) => string;
+
+  link: (any) => string;
+  queryParams: (any) => any = (el) => {};
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -73,6 +77,24 @@ export class ColumnParams<T> {
 
   setMaterialIconColorMapper(value: (any) => string) {
     this.materialIconColorMapper = value;
+
+    return this;
+  }
+
+  setCapitalize(value: boolean) {
+    this.capitalize = value;
+
+    return this;
+  }
+
+  setLink(value: (any) => string) {
+    this.link = value;
+
+    return this;
+  }
+
+  setQueryParams(value: (any) => any) {
+    this.queryParams = value;
 
     return this;
   }

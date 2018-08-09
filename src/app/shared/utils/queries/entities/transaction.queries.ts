@@ -51,14 +51,6 @@ export function refundTransactionMutation(transactionId: string, refundAmount: s
 	}`
 }
 
-export function transactionIDsResponseQuery(params: IndexQueryParameters): string {
-  return `{
-    transactionlist ${listQueryParams(params)} {
-      transactions { id created_at }
-    }
-  }`;
-}
-
 export function transactionInfoResponseQuery(): string {
   return 'id amount alias type result created_at updated_at merchant_provider { id name } processor_response';
 }

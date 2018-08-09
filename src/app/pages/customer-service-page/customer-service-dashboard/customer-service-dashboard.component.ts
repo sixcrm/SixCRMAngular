@@ -67,7 +67,7 @@ export class CustomerServiceDashboardComponent implements OnInit {
       }
 
       this.customers = []
-    }, 150);
+    }, 250);
   }
 
   sessionFocused() {
@@ -83,7 +83,7 @@ export class CustomerServiceDashboardComponent implements OnInit {
       }
 
       this.sessions = []
-    }, 150);
+    }, 250);
   }
 
   customerInputChanged() {
@@ -122,7 +122,7 @@ export class CustomerServiceDashboardComponent implements OnInit {
     if (event instanceof Session) {
       this.preventSearch = true;
 
-      this.router.navigate(['/customers', 'advanced'], { queryParams: { session: event.id } });
+      this.router.navigate(['/customers', 'advanced'], { queryParams: { session: event.id }, fragment: 'watermark' });
 
     }
 

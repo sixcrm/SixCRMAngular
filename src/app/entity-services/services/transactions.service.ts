@@ -5,18 +5,18 @@ import {Transaction} from '../../shared/models/transaction.model';
 import { HttpWrapperService, extractData, FailStrategy } from '../../shared/services/http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
-  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionIDsResponseQuery,
-  transactionsByCustomer
+  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionsByCustomer
 } from '../../shared/utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
-import { Moment } from 'moment';
+import { utc, Moment } from 'moment';
 import {Observable} from 'rxjs';
+import {AnalyticsService} from '../../shared/services/analytics.service';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar, private analyticsService: AnalyticsService) {
     super(
       http,
       authService,
@@ -72,11 +72,39 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
     })
   }
 
-  public transactionsUntil(date: Moment): void {
-    this.getEntities(20, null, {failStrategy: FailStrategy.Soft})
+  public haveEntitiesBefore(date: Moment): Observable<boolean> {
+    return this.analyticsService.getTransactions(
+      {
+        start: utc().subtract(10, 'y').format(),
+        end: date.format(),
+        limit: 1,
+        offset: 0,
+        orderBy: 'datetime',
+        sort: 'desc',
+        facets: []
+      }
+    ).map(transactions => {
+      if (transactions instanceof CustomServerError) return false;
+
+      return transactions && transactions.length > 0;
+    })
   }
 
-  public getEntitiesForDashboardCheck(): Observable<Transaction[]> {
-    return this.planeCustomEntitiesQuery(transactionIDsResponseQuery({limit: 11}))
+  public haveAnyEntities(): Observable<boolean> {
+    return this.analyticsService.getTransactions(
+      {
+        start: utc().subtract(10, 'y').format(),
+        end: utc().format(),
+        limit: 1,
+        offset: 0,
+        orderBy: 'datetime',
+        sort: 'desc',
+        facets: []
+      }
+    ).map(transactions => {
+      if (transactions instanceof CustomServerError) return false;
+
+      return transactions && transactions.length > 0;
+    })
   }
 }
