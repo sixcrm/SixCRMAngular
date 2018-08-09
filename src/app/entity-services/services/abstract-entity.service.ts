@@ -256,8 +256,8 @@ export abstract class AbstractEntityService<T> {
     )
   }
 
-  planeCustomEntitiesQuery(query: string): Observable<T[]> {
-    return this.queryRequest(query).map(data => {
+  planeCustomEntitiesQuery(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<T[]> {
+    return this.queryRequest(query, requestBehaviourOptions).map(data => {
       if (data instanceof CustomServerError) {
         return [];
       }
