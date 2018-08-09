@@ -158,7 +158,7 @@ describe('Register with behaviors', function() {
 
     registerPage.getCompleteButton().click();
     waitForPresenceOf(registerPage.getErrorMessage());
-    expect(registerPage.getErrorMessage().getText()).toEqual('Please check your card information and try again or use a different card');
+    expect(registerPage.getErrorMessage().getText()).toContain('There was a problem processing your request');
   })
 
 });
