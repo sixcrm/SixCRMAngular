@@ -46,11 +46,13 @@
 
     <tbody>
       <tr *ngFor="let rebill of session.rebills">
-        <td>
+        <td class="status">
           <mat-icon class="status-icon success-icon" *ngIf="isStatusSuccess(rebill); else erroricon">done</mat-icon>
           <ng-template #erroricon>
             <mat-icon class="status-icon erorr-icon">error_outline</mat-icon>
           </ng-template>
+
+          <span>{{getStatus(rebill)}}</span>
         </td>
         <td>{{rebill.billAt | formatDateTime: 'DD/MM/YY'}}</td>
         <td>****{{getCard(rebill).last4}}</td>

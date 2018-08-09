@@ -48,6 +48,15 @@ export class AccountManagementBillingComponent implements OnInit {
 
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {
+        session.rebills = session.rebills
+          .filter(rebill => rebill.billAt.isBefore(utc()))
+          .sort((f,s) => {
+            if (f.billAt.isAfter(s.billAt)) return 1;
+            if (f.billAt.isBefore(s.billAt)) return -1;
+
+            return 0;
+          }).filter(rebill => rebill.billAt.isSameOrBefore(utc()));
+
         this.session = session;
 
         if (this.session.customer.defaultCreditCard) {
@@ -58,14 +67,7 @@ export class AccountManagementBillingComponent implements OnInit {
           }
         }
 
-        this.lastBill = this.session.rebills
-          .filter(rebill => rebill.billAt.isBefore(utc()))
-          .sort((f,s) => {
-            if (f.billAt.isAfter(s.billAt)) return 1;
-            if (f.billAt.isBefore(s.billAt)) return -1;
-
-            return 0;
-          })[0];
+        this.lastBill = this.session.rebills[0];
       });
     }
   }
@@ -74,6 +76,12 @@ export class AccountManagementBillingComponent implements OnInit {
     if (!rebill.transactions || !rebill.transactions[0]) return false;
 
     return rebill.transactions[0].processorResponse.code === 'success';
+  }
+
+  getStatus(rebill): string {
+    if (!rebill.transactions || !rebill.transactions[0]) return 'pending';
+
+    return rebill.transactions[0].processorResponse.code;
   }
 
   getCard(rebill): {brand?: string, last4?: string} {
