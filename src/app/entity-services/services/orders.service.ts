@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
+import {HttpWrapperService, FailStrategy} from '../../shared/services/http-wrapper.service';
 import {MatSnackBar} from '@angular/material';
 import {Customer} from '../../shared/models/customer.model';
 import {IndexQueryParameters} from '../../shared/utils/queries/index-query-parameters.model';
@@ -30,11 +30,11 @@ export class OrdersService extends AbstractEntityService<Order>{
   }
 
   getOrdersByCustomer(customerId: string, params: IndexQueryParameters): Observable<Order[]> {
-    return this.planeCustomEntitiesQuery(ordersByCustomer(customerId, params));
+    return this.planeCustomEntitiesQuery(ordersByCustomer(customerId, params), {ignoreSnack: true});
   }
 
-  getOrdersBySession(sessionId, params: IndexQueryParameters): Observable<Order[]> {
-    return this.planeCustomEntitiesQuery(ordersBySession(sessionId, params));
+  getOrdersBySession(sessionId: string, params: IndexQueryParameters): Observable<Order[]> {
+    return this.planeCustomEntitiesQuery(ordersBySession(sessionId, params), {ignoreSnack: true});
   }
 
 }
