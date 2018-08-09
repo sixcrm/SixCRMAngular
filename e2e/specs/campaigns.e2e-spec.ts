@@ -96,13 +96,13 @@ describe('Campaigns', function() {
     browser.sleep(200);
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
     campaignPage.getCampaignFormSaveButton().click();
-    browser.sleep(1200);
+    browser.sleep(2200);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
   });
 
   it( 'should go back to campaign index', () =>  {
     campaignPage.getCampaignIndexButton().click();
-    browser.sleep(500);
+    browser.sleep(1000);
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });

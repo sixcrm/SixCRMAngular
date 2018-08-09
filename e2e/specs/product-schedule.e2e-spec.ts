@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
@@ -121,14 +121,13 @@ describe('Product Schedules', function() {
   });
 
   it('should remove added schedule', () => {
-    browser.sleep(500);
     productSchedulePage.getProductSchedIndexButton().click();
-    browser.sleep(1200);
+    browser.sleep(3000);
     productSchedulePage.getProdSchedDeleteButton().click();
     browser.sleep(500);
     productSchedulePage.getConfirmDeleteButton().click();
-    browser.sleep(2000);
-    expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(0);
+    waitForPresenceOf(productSchedulePage.getSuccessSnackbar());
+    expect(productSchedulePage.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
   });
 
 });
