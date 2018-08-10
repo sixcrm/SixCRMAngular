@@ -33,6 +33,7 @@ const appRoutes: Routes = [
     { path : 'productschedules', loadChildren : './pages/product-schedule-page/product-schedules.module#ProductSchedulesModule', canActivate: [AuthGuard] },
     { path : 'products', loadChildren : './pages/products-page/products.module#ProductsModule', canActivate: [AuthGuard] },
     { path : 'rebills', loadChildren : './pages/rebills-page/rebills.module#RebillsModule', canActivate: [AuthGuard] },
+    { path : 'orders', loadChildren : './pages/orders-page/orders.module#OrdersModule', canActivate: [AuthGuard] },
     { path : 'sessions', loadChildren : './pages/sessions-page/sessions.module#SessionsModule', canActivate: [AuthGuard] },
     { path : 'shippingreceipts', loadChildren : './pages/shipping-receipts-page/shipping-receipts.module#ShippingReceiptsModule', canActivate: [AuthGuard] },
     { path : 'smtpproviders', loadChildren : './pages/smtp-providers-page/smtp-providers.module#SmtpProvidersModule', canActivate: [AuthGuard] },
