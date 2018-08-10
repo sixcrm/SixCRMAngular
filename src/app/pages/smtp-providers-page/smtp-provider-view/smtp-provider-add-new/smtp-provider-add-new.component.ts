@@ -6,7 +6,8 @@ import {isAllowedNumeric} from '../../../../shared/utils/form.utils';
 @Component({
   selector: 'smtp-provider-add-new',
   templateUrl: './smtp-provider-add-new.component.html',
-  styleUrls: ['./smtp-provider-add-new.component.scss']
+  styleUrls: ['./smtp-provider-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class SmtpProviderAddNewComponent implements OnInit {
 
@@ -39,4 +40,9 @@ export class SmtpProviderAddNewComponent implements OnInit {
     this.save.emit(this.entity);
   }
 
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
+  }
 }

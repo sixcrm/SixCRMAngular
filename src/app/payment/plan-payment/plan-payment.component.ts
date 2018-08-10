@@ -115,7 +115,7 @@ export class PlanPaymentComponent implements OnInit {
   }
 
   private openTerms(title: string, text: string) {
-    let ref = this.dialog.open(TermsDialogComponent, { disableClose : true });
+    let ref = this.dialog.open(TermsDialogComponent);
     ref.componentInstance.title = title;
     ref.componentInstance.text = text;
 

@@ -95,7 +95,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   }
 
   openColumnPreferencesDialog() {
-    let dialog = this.dialog.open(ColumnPreferencesDialogComponent, { disableClose : true });
+    let dialog = this.dialog.open(ColumnPreferencesDialogComponent);
 
     const originalParams = this.columnParams.map(p => { return {label: p.label, selected: p.selected} });
 
@@ -115,7 +115,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   }
 
   openTabPreferencesDialog() {
-    let dialog = this.dialog.open(TabPreferencesDialogComponent, { disableClose : true });
+    let dialog = this.dialog.open(TabPreferencesDialogComponent);
 
     dialog.componentInstance.tabs = this.tabs.map(tab => {
       return {label: tab.label, visible: tab.visible, custom: tab.custom}

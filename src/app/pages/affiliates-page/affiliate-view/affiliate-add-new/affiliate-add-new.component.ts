@@ -5,7 +5,8 @@ import {Modes} from "../../../abstract-entity-view.component";
 @Component({
   selector: 'affiliate-add-new',
   templateUrl: './affiliate-add-new.component.html',
-  styleUrls: ['./affiliate-add-new.component.scss']
+  styleUrls: ['./affiliate-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class AffiliateAddNewComponent implements OnInit {
 
@@ -30,5 +31,11 @@ export class AffiliateAddNewComponent implements OnInit {
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 }
