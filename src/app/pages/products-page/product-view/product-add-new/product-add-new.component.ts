@@ -10,7 +10,8 @@ import {AsyncSubject} from 'rxjs';
 @Component({
   selector: 'product-add-new',
   templateUrl: './product-add-new.component.html',
-  styleUrls: ['./product-add-new.component.scss']
+  styleUrls: ['./product-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class ProductAddNewComponent implements OnInit, OnDestroy {
 
@@ -87,5 +88,11 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
 
   priceUpdated(currency: Currency): void {
     this.entity.defaultPrice = currency;
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 }

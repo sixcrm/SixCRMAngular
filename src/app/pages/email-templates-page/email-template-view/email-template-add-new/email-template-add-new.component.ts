@@ -12,7 +12,8 @@ declare var tinymce;
 @Component({
   selector: 'email-template-add-new',
   templateUrl: './email-template-add-new.component.html',
-  styleUrls: ['./email-template-add-new.component.scss']
+  styleUrls: ['./email-template-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -137,5 +138,11 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
 
   cancelUpdate() {
     this.cancel.emit(true)
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 }

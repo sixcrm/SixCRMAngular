@@ -5,7 +5,8 @@ import {Modes} from '../../../abstract-entity-view.component';
 @Component({
   selector: 'merchant-provider-group-add-new',
   templateUrl: './merchant-provider-group-add-new.component.html',
-  styleUrls: ['./merchant-provider-group-add-new.component.scss']
+  styleUrls: ['./merchant-provider-group-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class MerchantProviderGroupAddNewComponent implements OnInit {
 
@@ -26,6 +27,12 @@ export class MerchantProviderGroupAddNewComponent implements OnInit {
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 
 }

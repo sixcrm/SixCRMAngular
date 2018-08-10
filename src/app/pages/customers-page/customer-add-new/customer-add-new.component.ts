@@ -7,7 +7,8 @@ import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
 @Component({
   selector: 'customer-add-new',
   templateUrl: 'customer-add-new.component.html',
-  styleUrls: ['customer-add-new.component.scss']
+  styleUrls: ['customer-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class CustomerAddNewComponent implements OnInit {
 
@@ -36,4 +37,9 @@ export class CustomerAddNewComponent implements OnInit {
     this.save.emit(this.customer);
   }
 
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
+  }
 }

@@ -8,7 +8,8 @@ import 'codemirror/mode/htmlmixed/htmlmixed';
 @Component({
   selector: 'tracker-add-new',
   templateUrl: './tracker-add-new.component.html',
-  styleUrls: ['./tracker-add-new.component.scss']
+  styleUrls: ['./tracker-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class TrackerAddNewComponent implements OnInit {
 
@@ -80,5 +81,11 @@ export class TrackerAddNewComponent implements OnInit {
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 }

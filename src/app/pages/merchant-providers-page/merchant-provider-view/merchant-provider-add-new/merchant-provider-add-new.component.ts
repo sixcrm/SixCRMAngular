@@ -10,7 +10,8 @@ import {getPhoneNumberMask} from '../../../../shared/utils/mask.utils';
 @Component({
   selector: 'merchant-provider-add-new',
   templateUrl: './merchant-provider-add-new.component.html',
-  styleUrls: ['./merchant-provider-add-new.component.scss']
+  styleUrls: ['./merchant-provider-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class MerchantProviderAddNewComponent implements OnInit {
 
@@ -72,6 +73,12 @@ export class MerchantProviderAddNewComponent implements OnInit {
         break;
       default:
         this.shouldEditGeneral = true;
+    }
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
     }
   }
 
