@@ -10,6 +10,7 @@ import {AbstractFilterDialog} from '../dialog-modals/abstract-filter-dialog';
 export abstract class AbstractEntityReportIndexComponent<T> {
 
   date: {start: Moment, end: Moment};
+  lastCountsDate: {start: Moment, end: Moment};
 
   tabs: FilterTableTab[] = [];
   filters: {facet: string, values: string[]}[] = [];
