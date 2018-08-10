@@ -9,7 +9,8 @@ import {MerchantProviderGroupAssociation} from '../../../../shared/models/mercha
 @Component({
   selector: 'campaign-add-new',
   templateUrl: './campaign-add-new.component.html',
-  styleUrls: ['./campaign-add-new.component.scss']
+  styleUrls: ['./campaign-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class CampaignAddNewComponent implements OnInit {
 
@@ -63,5 +64,11 @@ export class CampaignAddNewComponent implements OnInit {
     if (!this.entity.merchantProviderGroupAssociations || !this.entity.merchantProviderGroupAssociations[0]) return;
 
     this.entity.merchantProviderGroupAssociations[0].merchantProviderGroup = new MerchantProviderGroup();
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 }

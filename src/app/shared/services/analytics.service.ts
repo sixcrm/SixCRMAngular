@@ -234,11 +234,11 @@ export class AnalyticsService {
   getTransactions(params: {
     start: string,
     end: string,
-    limit: number,
-    offset: number,
-    orderBy: string,
-    sort: string,
-    facets: {facet: string, values: string[]}[]
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
   }): Observable<TransactionAnalytics[] | CustomServerError> {
     return this.queryRequest(transactionsQuery(params))
       .map(data => {
