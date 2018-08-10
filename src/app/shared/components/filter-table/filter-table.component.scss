@@ -71,6 +71,7 @@
       }
 
       &__item {
+        display: flex;
         margin: 0 4px;
         padding: 14px 10px 10px;
         border-bottom: 4px solid rgba(0,0,0,0);
@@ -293,4 +294,21 @@ a {
 
 .table-content {
   vertical-align: middle;
+}
+
+.counter {
+  display: flex;
+  margin-left: 4px;
+  color: #5F6368;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 36px;
+  padding: 0 2px;
+  height: 26px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+
+  span {
+    margin: auto;
+  }
 }

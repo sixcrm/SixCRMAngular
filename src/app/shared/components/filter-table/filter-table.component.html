@@ -24,6 +24,13 @@
           <ng-container *ngFor="let tab of tabs">
             <div *ngIf="tab.visible" class="tabs__item" [class.tabs__item--selected]="tab.selected" (click)="tabSelected.emit(tab)">
               {{tab.label}}
+
+              <div class="counter">
+                <span>
+                  {{tab.count | async}}
+                </span>
+              </div>
+
             </div>
           </ng-container>
         </div>

@@ -10,6 +10,7 @@ import {AbstractFilterDialog} from '../dialog-modals/abstract-filter-dialog';
 export abstract class AbstractEntityReportIndexComponent<T> {
 
   date: {start: Moment, end: Moment};
+  lastCountsDate: {start: Moment, end: Moment};
 
   tabs: FilterTableTab[] = [];
   filters: {facet: string, values: string[]}[] = [];
@@ -140,7 +141,7 @@ export abstract class AbstractEntityReportIndexComponent<T> {
   }
 
   openFiltersDialog(component: any) {
-    let filtersDialog = this.dialog.open(component, { disableClose : true });
+    let filtersDialog = this.dialog.open(component);
 
     if (this.filters) {
       filtersDialog.componentInstance['init'](this.date.start, this.date.end, this.getFacets());

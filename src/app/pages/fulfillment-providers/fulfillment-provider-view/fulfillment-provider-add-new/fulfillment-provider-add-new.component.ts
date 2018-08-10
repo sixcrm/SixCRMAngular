@@ -6,7 +6,8 @@ import {isAllowedNumeric} from "../../../../shared/utils/form.utils";
 @Component({
   selector: 'fulfillment-provider-add-new',
   templateUrl: './fulfillment-provider-add-new.component.html',
-  styleUrls: ['./fulfillment-provider-add-new.component.scss']
+  styleUrls: ['./fulfillment-provider-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class FulfillmentProviderAddNewComponent implements OnInit {
 
@@ -36,6 +37,12 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
     this.entity.provider.password = '';
     this.entity.provider.apiKey = '';
     this.entity.provider.apiSecret = '';
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 
   saveProvider(value: boolean): void {

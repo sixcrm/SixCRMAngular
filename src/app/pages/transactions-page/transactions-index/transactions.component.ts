@@ -11,7 +11,7 @@ import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-i
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {Subscription} from 'rxjs';
+import {Subscription, Subject, BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'transactions',
@@ -130,6 +130,39 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
       this.entities = [...this.entities, ...transactions];
       this.hasMore = transactions.length === this.limit;
+    });
+
+    this.fetchCounts();
+  }
+
+  fetchCounts() {
+    if (this.lastCountsDate
+      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
+      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
+    ) {
+      return;
+    }
+
+    this.lastCountsDate = {
+      start: this.date.start.clone(),
+      end: this.date.end.clone()
+    };
+
+    this.tabs.forEach(t => t.count = Observable.of(null));
+
+    this.analyticsService.getTransactions({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format()
+    }).subscribe(transactions => {
+      if (transactions instanceof CustomServerError) {
+        return;
+      }
+
+      this.tabs[0].count = Observable.of(transactions.length);
+      this.tabs[1].count = Observable.of(transactions.filter(t=>t.chargeback).length);
+      this.tabs[2].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
+      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
     });
   }
 
