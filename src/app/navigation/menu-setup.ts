@@ -42,6 +42,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   }
 
   if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
+    salesSub.items[0].children.push({label: 'Orders', url: 'orders'});
     salesSub.items[0].children.push({label: 'Rebills', url: 'rebills'})
   }
 
