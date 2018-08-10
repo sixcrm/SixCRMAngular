@@ -107,11 +107,11 @@ export function campaignsByAmountQuery(start: string, end: string): string {
 export function transactionsQuery(params: {
   start: string,
   end: string,
-  limit: number,
-  offset: number,
-  orderBy: string,
-  sort: string,
-  facets: {facet: string, values: string[]}[]
+  limit?: number,
+  offset?: number,
+  orderBy?: string,
+  sort?: string,
+  facets?: {facet: string, values: string[]}[]
 }): string {
   const additionalFacets = (params.facets || []).reduce((a,b) =>
     `${a},
@@ -134,10 +134,10 @@ export function transactionsQuery(params: {
           }${additionalFacets}
         ],
         pagination: {
-          limit: ${params.limit},
-          offset: ${params.offset},
-          order: ["${params.orderBy}"],
-          direction: "${[params.sort]}"
+          limit: ${params.limit || 99999},
+          offset: ${params.offset || 0},
+          order: ["${params.orderBy || 'datetime'}"],
+          direction: "${[params.sort || 'desc']}"
         }
       ) {records { key value }}
     }
