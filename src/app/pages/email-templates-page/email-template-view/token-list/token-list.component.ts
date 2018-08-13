@@ -57,7 +57,8 @@ export class Token {
   }
 
   contains(filter: string) {
-    return this.value.indexOf(filter) !== -1 || this.description.indexOf(filter) !== -1;
+    return (this.value || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1
+      || (this.description || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1;
   }
 
 }
