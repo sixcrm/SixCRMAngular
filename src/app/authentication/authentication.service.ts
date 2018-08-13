@@ -373,6 +373,10 @@ export class AuthenticationService {
       return;
     }
 
+    this.refetchUser();
+  }
+
+  public refetchUser() {
     this.updateUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
   }
 

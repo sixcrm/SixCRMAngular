@@ -6,7 +6,7 @@ import { extractData, FailStrategy, HttpWrapperService, RetryStrategy } from '..
 import {
   accountsListQuery, accountQuery,
   deleteAccountMutation, createAccountMutation, updateAccountMutation, deleteAccountsMutation, activateAccountMutation,
-  createNewAccountMutation
+  createNewAccountMutation, deactivateAccountMutation
 } from '../../shared/utils/queries/entities/account.queries';
 import {MatSnackBar} from '@angular/material';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
@@ -38,6 +38,14 @@ export class AccountsService extends AbstractEntityService<Account> {
       if (response instanceof CustomServerError) return response;
 
       return response.body.response.data.activateaccount
+    });
+  }
+
+  public deactivateAccount(account: Account): Observable<CustomServerError | {deactivate: string, message: string}> {
+    return this.queryRequest(deactivateAccountMutation(account.id)).map(response => {
+      if (response instanceof CustomServerError) return response;
+
+      return response.body.response.data.deactivateaccount
     });
   }
 

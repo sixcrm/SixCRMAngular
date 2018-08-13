@@ -15,6 +15,7 @@ import {isValidEmail} from '../../../shared/utils/form.utils';
 import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {YesNoDialogComponent} from '../../../dialog-modals/yes-no-dialog.component';
 
 @Component({
   selector: 'account-management-general',
@@ -225,6 +226,26 @@ export class AccountManagementGeneralComponent implements OnInit {
 
   toggleExpanded() {
     this.idExpanded = this.account && !this.idExpanded
+  }
+
+  cancelAccount() {
+    let yesNoDialogRef = this.dialog.open(YesNoDialogComponent);
+    yesNoDialogRef.componentInstance.text = 'Are you sure you want to cancel your account?';
+    yesNoDialogRef.componentInstance.secondaryText = 'Cancelling account will make this account inactive.';
+    yesNoDialogRef.componentInstance.yesText = 'YES';
+    yesNoDialogRef.componentInstance.noText = 'NO';
+
+    yesNoDialogRef.afterClosed().take(1).subscribe(result => {
+      yesNoDialogRef = null;
+
+      if (result.success) {
+        this.accountService.deactivateAccount(this.account).subscribe((response) => {
+          if (response instanceof CustomServerError) return;
+
+          this.authService.refetchUser();
+        })
+      }
+    });
   }
 
   private updateDefaultCreditCard(defaultCardId: string) {

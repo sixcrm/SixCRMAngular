@@ -6,6 +6,8 @@
       <mat-icon matTooltip="Copy App ID" ngxClipboard [cbContent]="account.id">content_copy</mat-icon>
     </div>
   </div>
+
+  <button *ngIf="authService.getActiveAcl().role.isOwner() && !authService.isActiveAclMasterAccount()" class="cancel-button" mat-button (click)="cancelAccount()">Cancel Account</button>
 </blue-header>
 
 <div class="account-management-body">

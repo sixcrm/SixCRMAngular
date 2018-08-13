@@ -24,6 +24,15 @@ export function accountQuery(id: string): string {
   }`
 }
 
+export function deactivateAccountMutation(id: string): string {
+  return `
+    mutation {
+      deactivateaccount (account: "${id}") {
+        deactivate, message
+      }
+    }`
+}
+
 export function deleteAccountMutation(id: string): string {
   return deleteMutationQuery('account', id);
 }
