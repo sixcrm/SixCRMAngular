@@ -175,7 +175,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if ((authService.hasPermissions('account', 'read') || authService.isBillingDisabled())) {
     settings.children.push({label: 'General', url: 'accountmanagement/general'});
   }
-  if ((authService.hasPermissions('billing', 'read') || authService.isBillingDisabled())) {
+  if ((authService.hasPermissions('bill', 'read') || authService.isBillingDisabled())) {
     settings.children.push({label: 'Billing', url: 'accountmanagement/billing'});
   }
   if ((authService.hasPermissions('accesskey', 'read') || authService.isBillingDisabled())) {

@@ -62,7 +62,7 @@ export class AccountManagementGeneralComponent implements OnInit {
   }
 
   fetchSession() {
-    if (!this.authService.hasPermissions('billing', 'read')) return;
+    if (!this.authService.hasPermissions('bill', 'read')) return;
 
     const currentAcc = this.authService.getActiveAccount();
 
