@@ -5,6 +5,7 @@ import {
   ValueFilterColumn
 } from '../shared/components/value-filter/value-filter.component';
 import {LocationFilter} from '../shared/components/location-filter/location-filter.component';
+import {firstIndexOf} from '../shared/utils/array.utils';
 
 export interface FilterDialogResponse {
   start: Moment;
@@ -28,16 +29,18 @@ export abstract class AbstractFilterDialog<T> {
 
   abstract init(start: Moment, end: Moment, filters: {facet: string, values: string[]}[]);
 
+  abstract parseFilters(): FilterDialogResponse;
+
   close() {
     this.dialogRef.close(null);
   }
 
-  filter() {
-    this.dialogRef.close({filters: []});
+  save(data: {name: string, apply: boolean}) {
+    this.dialogRef.close({filters: this.parseFilters(), meta: data});
   }
 
-  save(data: {name: string, apply: boolean}) {
-    this.dialogRef.close({filters: [], meta: data});
+  filter() {
+    this.dialogRef.close({filters: this.parseFilters()});
   }
 
   dateSelected(date: {start: Moment, end: Moment}) {
@@ -62,5 +65,33 @@ export abstract class AbstractFilterDialog<T> {
 
   setSaveAs(value: boolean) {
     this.saveAsMode = value;
+  }
+
+  initValues(filter: {facet: string, values: string[]}) {
+    const index = firstIndexOf(this.filterColumns, (el) => el.name === filter.facet);
+
+    if (index !== -1) {
+      filter.values.forEach(value => {
+        this.filters = [...this.filters, {column: this.filterColumns[index], operator: ValueFilterOperator.EQUALS, value}]
+      })
+    }
+  }
+
+  parseValueFilters(): {facet: string, values: string[]}[] {
+    const filters: {facet: string; values: string[]}[] = [];
+
+    this.filters
+      .filter(filter => !!filter.value)
+      .forEach(filter => {
+        const index = firstIndexOf(filters, (f) => f.facet === filter.column.name);
+
+        if (index !== -1) {
+          filters[index].values.push(filter.value);
+        } else {
+          filters.push({facet: filter.column.name, values: [filter.value]})
+        }
+      });
+
+    return filters;
   }
 }
