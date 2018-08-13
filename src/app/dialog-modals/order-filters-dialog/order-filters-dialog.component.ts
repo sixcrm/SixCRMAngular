@@ -3,6 +3,10 @@ import {AbstractFilterDialog, FilterDialogResponse} from '../abstract-filter-dia
 import {MatDialogRef} from '@angular/material';
 import {Moment} from 'moment';
 import {ValueFilterOperator} from '../../shared/components/value-filter/value-filter.component';
+import {Campaign} from '../../shared/models/campaign.model';
+import {CampaignStats} from '../../shared/models/campaign-stats.model';
+import {CampaignsService} from '../../entity-services/services/campaigns.service';
+import {campaignsNamesListQuery} from '../../shared/utils/queries/entities/campaign.queries';
 
 @Component({
   selector: 'order-filters-dialog',
@@ -19,7 +23,11 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
   returnsStatus: boolean;
   chargebacksStatus: boolean;
 
-  constructor(dialogRef: MatDialogRef<OrderFiltersDialogComponent>) {
+  selectedCampaigns: Campaign[] = [new Campaign()];
+
+  campaignMapper = (campaign) => campaign ? campaign.name : '';
+
+  constructor(dialogRef: MatDialogRef<OrderFiltersDialogComponent>, public campaignsService: CampaignsService) {
     super(dialogRef);
 
     this.filterColumns = [
@@ -28,7 +36,9 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
     ];
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.campaignsService.customEntitiesQuery(campaignsNamesListQuery({}));
+  }
 
   init(start: Moment, end: Moment, filters: {facet: string, values: string[]}[]) {
     this.date = {start: start, end: end};
@@ -36,10 +46,20 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
     (filters || []).forEach(filter => {
       this.initStatuses(filter);
 
-      this.initValues(filter);
+      if (filter.facet === 'campaignName') {
+        this.initCampaigns(filter);
+      } else {
+        this.initValues(filter);
+      }
     });
 
     this.filters.push({column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''});
+  }
+
+  private initCampaigns(filter: {facet: string; values: string[]}) {
+    if (filter.facet === 'campaignName') {
+      this.selectedCampaigns = filter.values.map(v => new Campaign({name: v}))
+    }
   }
 
   private initStatuses(filter: {facet: string; values: string[]}) {
@@ -81,7 +101,8 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
   parseFilters(): FilterDialogResponse {
     let filters: {facet: string, values: string[]}[] = [
       ...this.parseStatusFilters(),
-      ...this.parseValueFilters()
+      ...this.parseValueFilters(),
+      ...this.parseCampaigns()
     ];
 
     return {
@@ -89,6 +110,19 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
       end: this.date.end.clone(),
       filters: filters
     }
+  }
+
+  parseCampaigns(): {facet: string, values: string[]}[] {
+    if (!this.selectedCampaigns || this.selectedCampaigns.length === 0) return [];
+
+    const campaignFacet = {
+      facet: 'campaignName',
+      values: this.selectedCampaigns.filter(c => c.name).map(c => c.name)
+    };
+
+    if (campaignFacet.values.length === 0) return [];
+
+    return [campaignFacet];
   }
 
   private parseStatusFilters(): {facet: string, values: string[]}[] {
@@ -139,6 +173,14 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
     if (event.checked) {
       this.allStatus = false;
     }
+  }
+
+  addCampaign() {
+    this.selectedCampaigns = [...this.selectedCampaigns, new Campaign()];
+  }
+
+  removeCampaignAtIndex(index) {
+    this.selectedCampaigns.splice(index, 1);
   }
 
 }
