@@ -25,6 +25,7 @@
                         [class.error]="formInvalid && !entity.type"
                         [disabled]="mode === modes.View"
                         [options]="types"
+                        [mapper]="typeMapper"
                         [selected]="entity.type"
                         [placeholder]="'EMAILTEMPLATE_INFO_TYPE' | translate"
                         (onSelect)="entity.type = $event">
