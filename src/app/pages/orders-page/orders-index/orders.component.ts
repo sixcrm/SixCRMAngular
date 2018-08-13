@@ -7,6 +7,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {utc} from 'moment';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
 import {Observable} from 'rxjs';
+import {OrderFiltersDialogComponent} from '../../../dialog-modals/order-filters-dialog/order-filters-dialog.component';
 
 @Component({
   selector: 'orders',
@@ -76,7 +77,7 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<any> imp
   }
 
   openFiltersDialog() {
-
+    super.openFiltersDialog(OrderFiltersDialogComponent);
   }
 
 }

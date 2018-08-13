@@ -25,7 +25,7 @@
             <div *ngIf="tab.visible" class="tabs__item" [class.tabs__item--selected]="tab.selected" (click)="tabSelected.emit(tab)">
               {{tab.label}}
 
-              <div class="counter">
+              <div *ngIf="!tab.custom" class="counter">
                 <span>
                   {{tab.count | async}}
                 </span>
