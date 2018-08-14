@@ -38,6 +38,10 @@ export class ReportIndexPage {
     return this.getTableRow(row).all(by.css('td')).get(cell);
   }
 
+  getLink(row: number, cell: number) {
+    return this.getTableRow(row).all(by.css('td')).get(cell).element(by.css('a'));
+  }
+
   getOpenFilterButton() {
     return element(by.css('.toolbar')).element(by.css('.options')).element(by.css('div'));
   }
@@ -52,5 +56,9 @@ export class ReportIndexPage {
 
   getFilterButton() {
     return this.getFiltersDialog().element(by.css('.buttons-container')).all(by.css('button')).last();
+  }
+
+  getBackButton() {
+    return element(by.css('.details')).element(by.css('.back'));
   }
 }

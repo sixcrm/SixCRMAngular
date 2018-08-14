@@ -95,6 +95,65 @@ describe('Transactions', function() {
     expect(page.getQuickFilterCounter(0).getText()).toBeGreaterThan(0);
   });
 
+  it('should open MID and navigate back to transactions', () => {
+    page.getLink(0,6).click();
+    waitForUrlContains('/merchantproviders');
+    expectUrlToContain('/merchantproviders');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
+  it('should open transaction and navigate back to transactions', () => {
+    browser.sleep(1000);
+    page.getLink(0,7).click();
+    waitForUrlContains('/transactions/');
+    expectUrlToContain('/transactions/');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
+  it('should open orders and navigate back to transactions', () => {
+    browser.sleep(1000);
+    page.getLink(0,8).click();
+    waitForUrlContains('/customers/advanced?order=');
+    expectUrlToContain('/customers/advanced?order=');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
+  it('should open customer and navigate back to transactions', () => {
+    browser.sleep(1000);
+    page.getLink(0,9).click();
+    waitForUrlContains('/customers/advanced?customer=');
+    expectUrlToContain('/customers/advanced?customer=');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
+  it('should open session and navigate back to transactions', () => {
+    browser.sleep(1000);
+    page.getLink(0,10).click();
+    waitForUrlContains('/customers/advanced?session=');
+    expectUrlToContain('/customers/advanced?session=');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
   it('should refetch chargebacks on quick filter', () => {
     page.getQuickFilters().get(1).click();
     browser.sleep(200);
