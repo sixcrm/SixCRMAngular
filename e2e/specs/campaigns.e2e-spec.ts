@@ -89,9 +89,9 @@ describe('Campaigns', function() {
   it('should update campaign name', () => {
     browser.sleep(1200);
     campaignPage.getMenuButton().click();
-    browser.sleep(200);
+    browser.sleep(500);
     campaignPage.getEditButton().click();
-    browser.sleep(200);
+    browser.sleep(500);
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
     campaignPage.getCampaignFormSaveButton().click();
     browser.sleep(3000);
