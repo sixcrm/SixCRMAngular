@@ -58,7 +58,8 @@ exports.config = {
     './e2e/**/product.e2e-spec.ts',
     './e2e/**/product-schedule.e2e-spec.ts',
     './e2e/**/merchant-provider.e2e-spec.ts',
-    './e2e/**/merchant-provider-group.e2e-spec.ts'
+    './e2e/**/merchant-provider-group.e2e-spec.ts',
+    './e2e/**/transaction.e2e-spec.ts'
   ],
   suites:  {
     smoke: [
@@ -71,7 +72,8 @@ exports.config = {
       './e2e/**/product.e2e-spec.ts',
       './e2e/**/product-schedule.e2e-spec.ts',
       './e2e/**/merchant-provider.e2e-spec.ts',
-      './e2e/**/merchant-provider-group.e2e-spec.ts'
+      './e2e/**/merchant-provider-group.e2e-spec.ts',
+      './e2e/**/transaction.e2e-spec.ts'
     ],
     auth: [
       './e2e/**/login.e2e-spec.ts',
@@ -88,7 +90,8 @@ exports.config = {
       './e2e/**/product.e2e-spec.ts',
       './e2e/**/product-schedule.e2e-spec.ts',
       './e2e/**/merchant-provider.e2e-spec.ts',
-      './e2e/**/merchant-provider-group.e2e-spec.ts'
+      './e2e/**/merchant-provider-group.e2e-spec.ts',
+      './e2e/**/transaction.e2e-spec.ts'
     ]
   },
   capabilities: {
