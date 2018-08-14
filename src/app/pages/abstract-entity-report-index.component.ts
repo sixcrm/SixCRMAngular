@@ -35,7 +35,6 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   }
 
-
   getSortColumn(): ColumnParams<T> {
     for (let i = 0; i < this.columnParams.length; i++) {
       if (this.columnParams[i].sortApplied) {
@@ -140,11 +139,11 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     this.fetch();
   }
 
-  openFiltersDialog(component: any) {
+  openFiltersDialog(component: any, ignoreDates?:boolean) {
     let filtersDialog = this.dialog.open(component);
 
     if (this.filters) {
-      filtersDialog.componentInstance['init'](this.date.start, this.date.end, this.getFacets());
+      filtersDialog.componentInstance['init'](ignoreDates ? null : this.date.start, ignoreDates ? null : this.date.end, this.getFacets());
     }
 
     filtersDialog.afterClosed().take(1).subscribe(result => {
@@ -152,7 +151,7 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
       if (!result) return;
 
-      if (result.filters) {
+      if (result.filters && !ignoreDates) {
         this.date.start = result.filters.start || this.date.start;
         this.date.end = result.filters.end || this.date.end;
       }

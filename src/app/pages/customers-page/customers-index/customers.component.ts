@@ -1,62 +1,84 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CustomersService} from "../../../entity-services/services/customers.service";
-import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {Customer} from '../../../shared/models/customer.model';
-import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
+import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
 
 @Component({
   selector: 'customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
-export class CustomersComponent extends AbstractEntityIndexComponent<Customer> implements OnInit, OnDestroy {
+export class CustomersComponent extends AbstractEntityReportIndexComponent<Customer> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'CUSTOMER_INDEX_TITLE'}];
 
   constructor(
-    customersService: CustomersService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
-    router: Router,
-    activatedRoute: ActivatedRoute
+    router: Router
   ) {
-    super(customersService, auth, dialog, paginationService, router, activatedRoute);
-
-    this.entityFactory = () => new Customer();
+    super(auth, dialog, router);
 
     let f = this.authService.getTimezone();
+
     this.columnParams = [
-      new ColumnParams('CUSTOMER_INDEX_HEADER_ID', (e: Customer) => e.id).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_FIRSTNAME', (e: Customer) => e.firstName),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_LASTNAME',(e: Customer) => e.lastName),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_EMAIL',(e: Customer) => e.email).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_PHONE',(e: Customer) => e.phone).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_COUNTRY',(e: Customer) => e.address.country).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_STATE', (e: Customer) => e.address.state),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_CITY', (e: Customer) => e.address.city),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_ZIP',(e: Customer) => e.address.zip).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_LINE1',(e: Customer) => e.address.line1).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_CREATED', (e: Customer) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
-      new ColumnParams('CUSTOMER_INDEX_HEADER_UPDATED', (e: Customer) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
+      new ColumnParams('Status', (e: Customer) => ''),
+      new ColumnParams('First Name', (e: Customer) => e.firstName),
+      new ColumnParams('Last Name',(e: Customer) => e.lastName),
+      new ColumnParams('Email',(e: Customer) => e.email),
+      new ColumnParams('Phone',(e: Customer) => e.phone),
+      new ColumnParams('City',(e: Customer) => e.address.city),
+      new ColumnParams('State', (e: Customer) => e.address.state),
+      new ColumnParams('Country', (e: Customer) => e.address.country),
+      new ColumnParams('Postal Code',(e: Customer) => e.address.zip),
+      new ColumnParams('Created', (e: Customer) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Last Updated', (e: Customer) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Orders', (e: Customer) => '–'),
+      new ColumnParams('Sale Amount', (e: Customer) => '–'),
+      new ColumnParams('Returns', (e: Customer) => '–'),
+      new ColumnParams('Refunds', (e: Customer) => '–'),
+      new ColumnParams('Refund Amount', (e: Customer) => '–'),
     ];
+
+    this.tabs = [
+      {label: 'All', selected: true, visible: true},
+      {label: 'Active', selected: false, visible: true},
+      {label: 'Partial', selected: false, visible: true},
+      {label: 'Blacklisted', selected: false, visible: true},
+    ];
+
+    this.options = ['View'];
   }
 
 
   ngOnInit() {
-    this.init();
+    this.fetch();
   }
 
   ngOnDestroy() {
     this.destroy();
   }
 
-  viewEntity(id: string) {
-    this.router.navigate(['/customers/advanced'], {queryParams: {customer: id}});
+  optionSelected(option: {item: any, option: string}) {
+    switch (option.option) {
+      case 'View': {
+        this.router.navigate(['/customers/advanced'], {queryParams: {customer: option.item.id}});
+        break;
+      }
+    }
   }
+
+  openFiltersDialog() {
+    super.openFiltersDialog(CustomerFiltersDialogComponent, true);
+  }
+
+  fetch() {
+
+  }
+
 }
