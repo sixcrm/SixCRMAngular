@@ -110,7 +110,7 @@ describe('Campaigns', function() {
   it( 'should delete the campaign', () => {
     browser.sleep(2000);
     campaignPage.getCampaignDeleteButton().click();
-    browser.sleep(200);
+    browser.sleep(500);
     campaignPage.getCampaignDeleteModalButton().click();
     waitForPresenceOf(page.getSuccessSnackbar());
     expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
