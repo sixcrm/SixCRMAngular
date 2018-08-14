@@ -78,7 +78,7 @@ describe('Campaigns', function() {
   });
 
   it('should go to an individual campaign and open it', () => {
-    browser.sleep(1200);
+    browser.sleep(2000);
     waitForUrlContains('campaigns/');
     expectUrlToContain('campaigns/');
   });
