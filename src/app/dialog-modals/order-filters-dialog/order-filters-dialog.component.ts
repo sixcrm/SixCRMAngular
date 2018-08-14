@@ -53,7 +53,9 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
       }
     });
 
-    this.filters.push({column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''});
+    if (this.filters.length === 0) {
+      this.filters.push({column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''});
+    }
   }
 
   private initCampaigns(filter: {facet: string; values: string[]}) {
