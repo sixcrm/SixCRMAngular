@@ -66,25 +66,23 @@ describe('Campaigns', function() {
   it('should remove error when proper name is entered', () => {
     browser.sleep(1200);
     campaignPage.getNewCampaignFormNameInput().sendKeys('e2e test campaign');
-    browser.sleep(200);
+    browser.sleep(250);
     expect(campaignPage.getNewCampaignFormInvalidInputs().count()).toBe(0);
   });
 
   it('should save campaign', () => {
-    browser.sleep(1200);
+    browser.sleep(2000);
     campaignPage.getCampaignFormSaveButton().click();
-    waitForUrlContains('campaigns');
-    expectUrlToContain('campaigns');
   });
 
   it('should go to an individual campaign and open it', () => {
-    browser.sleep(1200);
+    browser.sleep(2000);
     waitForUrlContains('campaigns/');
     expectUrlToContain('campaigns/');
   });
 
   it('should render campaign name correctly', () => {
-    browser.sleep(1200);
+    browser.sleep(2000);
     expect(campaignPage.getCampaignNameInHeader().getText()).toContain('e2e test campaign');
   });
 
@@ -96,13 +94,13 @@ describe('Campaigns', function() {
     browser.sleep(200);
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
     campaignPage.getCampaignFormSaveButton().click();
-    browser.sleep(2200);
+    browser.sleep(3000);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
   });
 
   it( 'should go back to campaign index', () =>  {
     campaignPage.getCampaignIndexButton().click();
-    browser.sleep(1000);
+    browser.sleep(2000);
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
