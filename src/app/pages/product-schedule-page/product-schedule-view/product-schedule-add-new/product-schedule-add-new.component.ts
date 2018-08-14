@@ -7,7 +7,8 @@ import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider
 @Component({
   selector: 'product-schedule-add-new',
   templateUrl: './product-schedule-add-new.component.html',
-  styleUrls: ['./product-schedule-add-new.component.scss']
+  styleUrls: ['./product-schedule-add-new.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class ProductScheduleAddNewComponent implements OnInit {
 
@@ -16,7 +17,7 @@ export class ProductScheduleAddNewComponent implements OnInit {
 
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
   @Output() save: EventEmitter<ProductSchedule> = new EventEmitter();
-  @Output() cancel: EventEmitter<ProductSchedule> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
   add = Modes.Add;
   update = Modes.Update;
@@ -37,5 +38,12 @@ export class ProductScheduleAddNewComponent implements OnInit {
     if (this.formInvalid) return;
 
     this.save.emit(this.entity)
+  }
+
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.cancel.emit(true);
+    }
   }
 }
