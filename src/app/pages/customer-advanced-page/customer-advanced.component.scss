@@ -5,7 +5,7 @@ $info-width: 290px;
   display: flex;
 
   .container {
-    width: 100vw;
+    width: 100%;
   }
 
   .details-container {
@@ -52,6 +52,10 @@ $info-width: 290px;
   .section {
     overflow: hidden;
     transition: 250ms ease-in-out;
+
+    &--white {
+      background: #ffffff;
+    }
 
     &--full {
       width: 100% !important;

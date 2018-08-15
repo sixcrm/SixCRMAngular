@@ -51,9 +51,7 @@
   </div>
 
   <div class="products">
-    <ng-container *ngFor="let product of order.products">
-      <product-item [product]="product"></product-item>
-    </ng-container>
+    <products-gallery [products]="order.products"></products-gallery>
   </div>
 
 </div>
