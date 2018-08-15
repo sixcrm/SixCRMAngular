@@ -12,11 +12,7 @@
   <info-table [rebill]="rebill"></info-table>
 
   <div class="products">
-
-    <ng-container *ngFor="let product of rebill.products">
-      <product-item [product]="product"></product-item>
-    </ng-container>
-
+    <products-gallery [products]="rebill.products"></products-gallery>
   </div>
 
 </div>

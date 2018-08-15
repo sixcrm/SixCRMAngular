@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div *ngIf="session && authService.hasPermissions('billing', 'read')" class="card column">
+    <div *ngIf="session && authService.hasPermissions('bill', 'read')" class="card column">
       <div class="title">
         Current Payment Option
 
@@ -65,7 +65,7 @@
 
   </div>
 
-  <div *ngIf="session && authService.hasPermissions('billing', 'read')" class="row">
+  <div *ngIf="session && authService.hasPermissions('bill', 'read')" class="row row--start">
 
     <div class="card column" *ngIf="customer">
       <div class="title">Contact Information</div>

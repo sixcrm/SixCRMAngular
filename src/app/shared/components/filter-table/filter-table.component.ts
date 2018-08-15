@@ -6,7 +6,7 @@ import {firstIndexOf} from '../../utils/array.utils';
 import {MatDialog} from '@angular/material';
 import {ColumnPreferencesDialogComponent} from '../../../dialog-modals/column-preferences-dialog/column-preferences-dialog.component';
 import {TabPreferencesDialogComponent} from '../../../dialog-modals/tab-preferences-dialog/tab-preferences-dialog.component';
-import {Subscription, Observable, BehaviorSubject} from 'rxjs';
+import {Subscription, Observable} from 'rxjs';
 
 export interface FilterTableFilter {
   facet: string;
