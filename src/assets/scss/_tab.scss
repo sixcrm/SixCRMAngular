@@ -58,6 +58,14 @@ mat-tab-body {
   }
 }
 
+.tab--body-fit {
+
+  mat-tab-body {
+    max-width: 100%;
+  }
+
+}
+
 .tab--no-header {
   mat-tab-header {
     display: none;
