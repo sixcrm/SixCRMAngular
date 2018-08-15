@@ -39,7 +39,7 @@ export function scrollByX(element: any, scrollTo: number, durationInMillis?: num
   const scrollDistance = scrollTo - element.nativeElement.scrollLeft;
   const scrollStep = scrollDistance / steps;
 
-  Observable.interval(interval).take(steps).subscribe(() => {
+  Observable.interval(interval).take(steps).subscribe((step) => {
     let scroll = element.nativeElement.scrollLeft + scrollStep;
 
     if (scroll < 0) {
@@ -47,6 +47,10 @@ export function scrollByX(element: any, scrollTo: number, durationInMillis?: num
     }
 
     element.nativeElement.scrollLeft = scroll;
+
+    if (step === steps - 1 && Math.abs(element.nativeElement.scrollLeft - scrollTo) < 8 ) {
+      element.nativeElement.scrollLeft = scrollTo;
+    }
   });
 }
 

@@ -20,7 +20,7 @@
           <mat-icon *ngIf="selectedIndex !== 5" class="info-icon" [class.info-icon--active]="infoVisible" (click)="infoVisible = !infoVisible">info</mat-icon>
         </tab-header>
 
-        <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
+        <mat-tab-group class="tab--no-header tab--body-fit" [(selectedIndex)]="selectedIndex">
 
           <mat-tab>
             <customer-advanced-subscriptions [rebills]="rebills" [sessionMode]="sessionId"></customer-advanced-subscriptions>
@@ -53,7 +53,7 @@
         </mat-tab-group>
       </div>
 
-      <div class="section" [class.section--invisible]="!infoVisible || selectedIndex === 5">
+      <div class="section section--white" [class.section--invisible]="!infoVisible || selectedIndex === 5">
         <tab-header [elements]="secondaryTabHeaders"
                     [selectedIndex]="selectedSecondaryIndex"
                     [ignoreUrl]="true"
