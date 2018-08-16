@@ -1,0 +1,20 @@
+<div class="entity-index">
+
+  <blue-header [items]="crumbItems" [titleValue]="'Subscriptions'"></blue-header>
+
+  <filter-table [date]="date"
+                [columnParams]="columnParams"
+                [items]="entities"
+                [tabs]="tabs"
+                [loading]="loadingData"
+                [singleOptions]="options"
+                (updatedColumns)="updateColumns($event)"
+                (updatedTabs)="updateTabs($event)"
+                (onSort)="updateSort($event)"
+                (filtersSelected)="openFiltersDialog()"
+                (tabSelected)="selectTab($event)"
+                (dateChanged)="changeDate($event)"
+                (singleOptionSelected)="optionSelected($event)"
+                (loadMore)="loadMore()">
+  </filter-table>
+</div>
