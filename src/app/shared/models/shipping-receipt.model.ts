@@ -3,6 +3,7 @@ import {Entity} from './entity.interface';
 import {FulfillmentProvider} from './fulfillment-provider.model';
 import {ShippingReceiptHistoryItem} from './shipping-receipt-history-item.model';
 import {ShippingReceiptTracking} from "./shipping-receipt-tracking.model";
+import {sortByCreatedAtFn} from '../utils/array.utils';
 
 export class ShippingReceipt implements Entity<ShippingReceipt> {
   id: string;
@@ -25,7 +26,7 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
 
     if(obj.history) {
-      this.history = obj.history.map(h => new ShippingReceiptHistoryItem((h)));
+      this.history = obj.history.map(h => new ShippingReceiptHistoryItem((h))).sort(sortByCreatedAtFn('desc'));
     }
 
     this.createdAt = utc(obj.created_at);
