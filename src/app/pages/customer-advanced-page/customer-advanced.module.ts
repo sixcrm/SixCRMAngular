@@ -20,6 +20,7 @@ import {CustomerAdvancedOrdersComponent} from './customer-advanced-orders/custom
 import {OrderDetailedComponent} from './order-detailed/order-detailed.component';
 import {OrderItemComponent} from './order-item/order-item.component';
 import { TransactionsTableComponent } from './item-components/transactions-table/transactions-table.component';
+import { ProductsGalleryComponent } from './products-gallery/products-gallery.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { TransactionsTableComponent } from './item-components/transactions-table
     InfoTableComponent,
     ProductItemComponent,
     OrderDetailedComponent,
-    TransactionsTableComponent
+    TransactionsTableComponent,
+    ProductsGalleryComponent
   ],
   exports: [
     CustomerAdvancedComponent

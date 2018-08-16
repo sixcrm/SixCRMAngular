@@ -1,0 +1,15 @@
+<div class="products-container">
+  <div #gallerycontainer class="products-content">
+    <div *ngIf="showLeft()" class="mover mover--left">
+      <div (click)="moveLeft()">
+        <mat-icon>arrow_back</mat-icon>
+      </div>
+    </div>
+    <product-item *ngFor="let product of products" [product]="product"></product-item>
+    <div *ngIf="showRight()" class="mover mover--right">
+      <div (click)="moveRight()">
+        <mat-icon>arrow_forward</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

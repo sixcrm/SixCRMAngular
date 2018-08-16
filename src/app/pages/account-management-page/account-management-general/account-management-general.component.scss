@@ -5,6 +5,10 @@
 
   .row {
     display: flex;
+
+    &--start {
+      align-items: flex-start;
+    }
   }
   .card {
     display: flex;
