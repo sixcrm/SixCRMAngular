@@ -13,7 +13,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
     mainSub.items.push({label: 'Customers', icon: 'person', url: 'customers'});
-    // mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'coming-soon'})
+    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'subscriptions'})
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
