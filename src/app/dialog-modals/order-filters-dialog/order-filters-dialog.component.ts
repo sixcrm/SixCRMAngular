@@ -4,7 +4,6 @@ import {MatDialogRef} from '@angular/material';
 import {Moment} from 'moment';
 import {ValueFilterOperator} from '../../shared/components/value-filter/value-filter.component';
 import {Campaign} from '../../shared/models/campaign.model';
-import {CampaignStats} from '../../shared/models/campaign-stats.model';
 import {CampaignsService} from '../../entity-services/services/campaigns.service';
 import {campaignsNamesListQuery} from '../../shared/utils/queries/entities/campaign.queries';
 

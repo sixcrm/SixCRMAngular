@@ -1,52 +1,77 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ShippingReceiptsService} from "../../../entity-services/services/shipping-receipts.service";
-import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
-import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
+import {utc} from 'moment';
+import {Observable} from 'rxjs';
+import {ShippingreceiptFiltersDialogComponent} from '../../../dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 
 @Component({
   selector: 'shipping-receipt',
   templateUrl: './shipping-receipts.component.html',
   styleUrls: ['./shipping-receipts.component.scss']
 })
-export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<ShippingReceipt> implements OnInit, OnDestroy {
+export class ShippingReceiptsComponent extends AbstractEntityReportIndexComponent<any> implements OnInit, OnDestroy  {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'SHIPPINGRECEIPT_INDEX_TITLE'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Shipping Receipts'}];
 
   constructor(
-    shippingReceiptsService: ShippingReceiptsService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
-    router: Router,
-    activatedRoute: ActivatedRoute
+    router: Router
   ) {
-    super(shippingReceiptsService, auth, dialog, paginationService, router, activatedRoute);
-
-    const tz = this.authService.getTimezone();
+    super(auth, dialog, router);
 
     this.columnParams = [
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_ID',(e: ShippingReceipt) => e.id).setSelected(false),
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_STATUS', (e: ShippingReceipt) => e.parseStatus()).setTranslateOption(true),
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_NUMBER',(e: ShippingReceipt) => e.tracking.id),
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_CARRIER',(e: ShippingReceipt) => e.tracking.carrier),
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_PROVIDER',(e: ShippingReceipt) => e.fulfillmentProvider.name).setSelected(false),
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_CREATED', (e: ShippingReceipt) => e.createdAt.tz(tz).format('MM/DD/YYYY')).setSelected(false),
-      new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_UPDATED', (e: ShippingReceipt) => e.updatedAt.tz(tz).format('MM/DD/YYYY')).setSelected(false)
+      new ColumnParams('Status', (e: any) => ''),
+      new ColumnParams('Date Created', (e: any) => '').setSortApplied(true).setSortOrder('desc'),
+      new ColumnParams('Delivered', (e: any) => ''),
+      new ColumnParams('Fulfillment', (e: any) => ''),
+      new ColumnParams('Tracking ID', (e: any) => ''),
+      new ColumnParams('Order ID', (e: any) => ''),
+      new ColumnParams('Customer', (e: any) => ''),
+      new ColumnParams('Delivery Address', (e: any) => '')
     ];
+
+    this.date = {start: utc().subtract(7,'d'), end: utc()};
+
+    this.tabs = [
+      {label: 'All', selected: true, visible: true, count: Observable.of(0)},
+      {label: 'Pending', selected: false, visible: true, count: Observable.of(0)},
+      {label: 'Shipped', selected: false, visible: true, count: Observable.of(0)},
+      {label: 'Delivered', selected: false, visible: true, count: Observable.of(0)},
+      {label: 'Errors', selected: false, visible: true, count: Observable.of(0)}
+    ];
+
+    this.options = ['View'];
   }
 
   ngOnInit() {
-    this.init();
+    this.fetch();
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetch() {
+
+  }
+
+  optionSelected(option: {item: any, option: string}) {
+    switch (option.option) {
+      case 'View': {
+        this.router.navigate(['/shippingreceipts', option.item.id]);
+        break;
+      }
+    }
+  }
+
+  openFiltersDialog() {
+    super.openFiltersDialog(ShippingreceiptFiltersDialogComponent);
   }
 
 }
