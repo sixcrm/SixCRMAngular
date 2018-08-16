@@ -11,8 +11,8 @@
       <div class="item">
         <div class="circle"></div>
         <div class="details">
-          <div>{{historyItem.status}}</div>
-          <div>{{historyItem.details}} {{shippingReceipt.createdAt | formatDateTime: 'MM/DD/YY h:mm a'}}</div>
+          <div class="status-info">{{historyItem.status}}</div>
+          <div>{{historyItem.details}} {{historyItem.createdAt | formatDateTime: 'MM/DD/YY h:mm a'}}</div>
         </div>
       </div>
 
