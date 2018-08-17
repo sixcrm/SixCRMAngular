@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {utc} from 'moment'
 
 @Pipe({
   name: 'sortEntities'
@@ -11,18 +12,38 @@ export class SortEntitiesPipe implements PipeTransform {
     let ord = order || 'asc';
 
     return entities.sort((f, s) => {
-      let first = mapToField(f).toString().toUpperCase();
-      let second = mapToField(s).toString().toUpperCase();
+      const first = mapToField(f).toString().toUpperCase();
+      const second = mapToField(s).toString().toUpperCase();
 
-      if (first < second) {
-        return  ord === 'asc' ? -1 : 1;
+      const firstTime = utc(first);
+      const secondTime = utc(second);
+
+      if (firstTime.isValid() && secondTime.isValid()) {
+
+
+        if (firstTime.isBefore(secondTime)) {
+          return  ord === 'asc' ? -1 : 1;
+        }
+
+        if (secondTime.isBefore(firstTime)) {
+          return ord === 'asc' ? 1 : -1;
+        }
+
+        return 0;
+
+      } else {
+
+        if (first < second) {
+          return ord === 'asc' ? -1 : 1;
+        }
+
+        if (first > second) {
+          return ord === 'asc' ? 1 : -1;
+        }
+
+        return 0;
+
       }
-
-      if (first > second) {
-        return ord === 'asc' ? 1 : -1;
-      }
-
-      return 0;
     });
   }
 

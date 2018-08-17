@@ -34,6 +34,8 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
   filterDebouncer: Subject<boolean> = new Subject();
   filterDebouncerSub: Subscription;
 
+  sortParams: ColumnParams<any> = new ColumnParams();
+
   constructor() { }
 
   ngOnInit() {
@@ -47,6 +49,17 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
       })
     })
   }
+
+  setSortParams(params: ColumnParams<any>): void {
+    if (this.sortParams.label === params.label) {
+      this.sortParams.sortOrder = this.sortParams.sortOrder !== 'asc' ? 'asc' : 'desc';
+    } else {
+      this.sortParams.sortApplied = false;
+      this.sortParams = params;
+      this.sortParams.sortApplied = true;
+    }
+  }
+
 
   private shouldShowAfterFilter(item: any, filterString: string) {
     for (let param of this.columnParams) {

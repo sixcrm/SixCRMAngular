@@ -22,7 +22,7 @@ import {Session} from '../../shared/models/session.model';
 import {TransactionsService} from '../../entity-services/services/transactions.service';
 import {YesNoDialogComponent} from '../../dialog-modals/yes-no-dialog.component';
 import {MatDialog} from '@angular/material';
-import {firstIndexOf} from '../../shared/utils/array.utils';
+import {firstIndexOf, sortByCreatedAtFn} from '../../shared/utils/array.utils';
 
 @Component({
   selector: 'customer-advanced',
@@ -272,7 +272,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     this.customerService.getEntity(this.customerId);
 
     this.rebillService.getPendingRebillsByCustomer(this.customerId, {}).subscribe(rebills => {
-      this.rebills = rebills;
+      this.rebills = rebills.sort(sortByCreatedAtFn('desc'));
     });
 
     this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
@@ -280,11 +280,11 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     });
 
     this.shippingReceiptsService.getShippingReceiptsByCustomer(this.customerId, {}).subscribe(receipts => {
-      this.shippingReceipts = receipts;
+      this.shippingReceipts = receipts.sort(sortByCreatedAtFn('desc'));
     });
 
     this.transactionService.getTransactionsByCustomer(this.customerId).subscribe(transactions => {
-      this.transactions = transactions;
+      this.transactions = transactions.sort(sortByCreatedAtFn('desc'));
     })
   }
 
@@ -330,7 +330,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
             rebill.parentSession.campaign = this.session.campaign.inverse();
 
             return rebill;
-          });
+          })
+          .sort(sortByCreatedAtFn('desc'));
+
         this.transactions = session.rebills
           .map(rebill => {
             if (!rebill.transactions) return [];
@@ -346,12 +348,15 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
             transaction.rebill.parentSession = new Session({id: session.id, alias: session.alias});
 
             return transaction;
-          });
+          })
+          .sort(sortByCreatedAtFn('desc'));
+
         this.shippingReceipts = this.transactions
           .map(transaction => transaction.products)
           .reduce((a,b) => a.concat(b), [])
           .map(products => products.shippingReceipt)
           .filter(receipt => !!receipt.id)
+          .sort(sortByCreatedAtFn('desc'));
       });
 
     if (session && session.id) {
@@ -417,7 +422,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   private filterOrders(orders: Order[]): Order[] {
     if (!orders || orders.length === 0) return [];
 
-    return orders.filter(o => o.rebill && o.rebill.billAt && o.rebill.billAt.isSameOrBefore(utc()));
+    return orders
+      .filter(o => o.rebill && o.rebill.billAt && o.rebill.billAt.isSameOrBefore(utc()))
+      .sort((a,b) => a.date.isBefore(b.date) ? 1 : a.date.isAfter(b.date) ? -1 : 0);
   }
 
   private refreshSelectedOrder() {
