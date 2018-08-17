@@ -1,0 +1,125 @@
+<tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+
+<div *ngIf="_transaction" class="entity-view">
+
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
+      <div class="transaction-view">
+
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Transaction Details</div>
+            <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
+              <a mat-menu-item [routerLink]="['/customers', 'advanced']" [queryParams]="{order: _transaction.rebill.id}">View Order</a>
+              <a mat-menu-item [routerLink]="['/merchantproviders', _transaction.merchantProvider.id]">View Merchant Provider</a>
+            </mat-menu>
+          </div>
+
+          <div class="entity-view__card__content">
+
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Amount" [value]="_transaction.amount.usd()" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Date" [value]="_transaction.createdAt | formatDateTime : 'MM/DD/YY h:mm A'" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Merchant Provider" [value]="_transaction.merchantProvider.name" type="text">
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Transaction Details</div>
+          </div>
+
+          <div class="entity-view__card__content">
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Transaction Type" [value]="_transaction.type" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Credit Type" [value]="_transaction.processorResponse.getCard().brand" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Credit Number" [value]="'**** ' + _transaction.processorResponse.getCard().last4" type="text">
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Processor Response</div>
+          </div>
+
+          <div class="entity-view__card__content">
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Processor Message" [(ngModel)]="_transaction.processorResponse.message" type="text">
+            </mat-form-field>
+
+            <mat-form-field class="entity-view__card__content__item response-text">
+              <textarea rows="5" disabled matInput placeholder="Processor Response Text" [(ngModel)]="_transaction.processorResponse.body" type="text"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <table-memory
+                [data]="_transaction.products"
+                [columnParams]="productColumnParams"
+                [textOptions]="productTextOptions"
+                [associationEnabled]="false"
+                [dissociationEnabled]="false"
+                [editEnabled]="false"
+                [filterEnabled]="false"
+                (view)="goToProduct($event)">
+        </table-memory>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+
+      <div class="transaction-view__content">
+
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Refund Transaction</div>
+          </div>
+
+          <div class="entity-view__card__content">
+            <mat-form-field class="entity-view__card__content__item">
+              <input disabled matInput placeholder="Transaction Amount" [value]="_transaction.amount.usd()" type="text">
+            </mat-form-field>
+
+            <div class="transaction-view__content__item transaction-view__content__item--no-border">
+              <div class="transaction-view__content__item__label">Amount to refund</div>
+              <mat-form-field>
+                <input #refundInput matInput type="text" currencyInput [initPrice]="amountToRefund" (priceChanged)="amountToRefund = $event">
+              </mat-form-field>
+
+              <mat-checkbox class="checkbox-blue" (change)="refundAllToggle($event)">Refund All</mat-checkbox>
+            </div>
+          </div>
+
+          <div class="entity-view__card__actions">
+            <div (click)="refundTransaction()">REFUND</div>
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
+

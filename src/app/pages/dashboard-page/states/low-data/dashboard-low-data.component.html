@@ -41,7 +41,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr [routerLink]="['/transactions', transaction.id]" *ngFor="let transaction of transactions">
+            <tr [routerLink]="['/customers', 'advanced']" [queryParams]="{transaction: transaction.id}" *ngFor="let transaction of transactions">
               <td>
                 <div *ngIf="transaction.response === 'success'" class="icon-holder icon-holder__success">
                   <mat-icon class="success-icon" role="img" aria-hidden="true">done</mat-icon>

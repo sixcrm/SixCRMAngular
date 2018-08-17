@@ -52,7 +52,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
       new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias)
         .setSortName('alias')
-        .setLink((e: TransactionAnalytics) => `/transactions/${e.id}`),
+        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
       new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias)
         .setSortName('rebill_alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
@@ -95,7 +96,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   optionSelected(option: {item: any, option: string}) {
     switch (option.option) {
       case 'View': {
-        this.router.navigate(['/transactions', option.item.id]);
+        this.router.navigate(['/customers', 'advanced'], {queryParams: {transaction: option.item.id}});
         break;
       }
     }

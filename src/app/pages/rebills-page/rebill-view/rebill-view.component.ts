@@ -133,7 +133,7 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
   goToTransaction(transaction: Transaction) {
     if (!transaction.id) return;
 
-    this.router.navigate(['/transactions', transaction.id])
+    this.router.navigate(['/customers', 'advanced'], { queryParams: {transaction: transaction.id} })
   }
 
   setIndex(index: number): void {

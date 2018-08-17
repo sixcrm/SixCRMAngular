@@ -3,6 +3,7 @@ import {
   deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {IndexQueryParameters} from '../index-query-parameters.model';
+import {customerResponseQuery} from './customer.queries';
 
 export function transactionsInfoListQuery(params: IndexQueryParameters): string {
   return `{
@@ -19,6 +20,14 @@ export function transactionQuery(id: string): string {
   return `{
     transaction (id: "${id}") {
       ${transactionResponseQuery()}
+    }
+	}`
+}
+
+export function transactionWithSessionQuery(id: string): string {
+  return `{
+    transaction (id: "${id}") {
+      ${transactionWithSessionResponse()}
     }
 	}`
 }
@@ -64,6 +73,25 @@ export function transactionResponseQuery(): string {
     id alias amount processor_response type result created_at updated_at,
     merchant_provider { id name }
     rebill { id amount }
+    products { amount,
+      product { id name sku ship shipping_delay,
+        fulfillment_provider {id name}
+      }
+      shippingreceipt { id status tracking {carrier id} created_at }
+    }`;
+}
+
+export function transactionWithSessionResponse(): string {
+  return `
+    id alias amount processor_response type result created_at updated_at,
+    merchant_provider { id name }
+    rebill { id amount
+      parentsession {
+        id alias created_at updated_at completed,
+        customer { ${customerResponseQuery()} }
+        campaign { id name }
+      }
+    }
     products { amount,
       product { id name sku ship shipping_delay,
         fulfillment_provider {id name}
