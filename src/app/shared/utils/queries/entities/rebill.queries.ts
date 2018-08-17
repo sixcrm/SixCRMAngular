@@ -4,6 +4,7 @@ import {
 } from './entities-helper.queries';
 import {Rebill} from '../../../models/rebill.model';
 import {IndexQueryParameters} from '../index-query-parameters.model';
+import {sessionResponseQuery} from './session.queries';
 
 export function rebillsListQuery(params: IndexQueryParameters): string {
   return `{
@@ -31,6 +32,14 @@ export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {
 			${rebillResponseQuery()}
+    }
+  }`
+}
+
+export function rebillWithFullSessionQuery(id: string): string {
+  return `{
+		rebill (id: "${id}") {
+			${rebillWithSessionResponse()}
     }
   }`
 }
@@ -86,6 +95,15 @@ export function rebillResponseQuery(): string {
     state, previous_state,
     history { state entered_at exited_at error_message }
     paid {detail updated_at}
+  `
+}
+
+export function rebillWithSessionResponse(): string {
+  return `
+    id bill_at created_at updated_at,
+    parentsession { 
+      ${sessionResponseQuery()}
+    }
   `
 }
 

@@ -172,10 +172,13 @@ export class HttpWrapperService {
   }
 
   handleError(error) {
-    if (!error || !error.message) return;
+    if (error && ((!error.error && !error.error.message) || (!error.message))) return;
 
-    const duration = error.code === 403 ? 6000 : 3000;
-    this.snackbarService.showErrorSnack(error.message, duration);
+    const duration = error.code === 403 ? 6000 : 4000;
+
+    const message = error.error ? (error.error.message || error.message) : error.message;
+
+    this.snackbarService.showErrorSnack(message, duration);
   }
 
   setInProgress() {

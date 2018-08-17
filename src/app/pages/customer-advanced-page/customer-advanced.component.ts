@@ -31,6 +31,8 @@ import {firstIndexOf} from '../../shared/utils/array.utils';
 })
 export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
+  @ViewChild('customernotes') customerNotesComponent: CustomerInfoNotesComponent;
+
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'Customers', url: '/customers'}
   ];
@@ -51,13 +53,12 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   selectedIndex: number = 0;
   selectedSecondaryIndex: number = 0;
 
-  @ViewChild('customernotes') customerNotesComponent: CustomerInfoNotesComponent;
-
   infoVisible: boolean = true;
 
   customerId: string;
   sessionId: string;
   orderId: string;
+  transactionId: string;
 
   session: Session;
   customer: Customer;
@@ -65,6 +66,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   orders: Order[];
   selectedOrder: Order;
   transactions: Transaction[];
+  selectedTransaction: Transaction;
   shippingReceipts: ShippingReceipt[];
 
   detailsElement: ElementRef;
@@ -86,165 +88,31 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     public navigation: NavigationService,
     private dialog: MatDialog,
     private router: Router
-  ) {
+  ) { }
 
+  ngOnInit() {
     this.route.queryParams.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
       this.sessionId = !!params['session'] ? params['session'] : null;
       this.customerId = !!params['customer'] ? params['customer'] : null;
       this.orderId = !!params['order'] ? params['order'] : null;
+      this.transactionId = !!params['transaction'] ? params['transaction'] : null;
 
       this.init();
-    })
-  }
+    });
 
-  ngOnInit() {
     this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedules => {
       this.sessionService.updateEntity(this.session.copyWithWatermark(productSchedules, this.session.watermark.extractedProducts), {ignoreSnack: true});
     });
-
-    this.customerService.entity$.takeUntil(this.unsubscribe$).subscribe(customer => {
-      if (customer instanceof CustomServerError) return;
-
-      this.breadcrumbs = [
-        {label: () => 'Customers', url: '/customers/advanced?customer=' + customer.id},
-        {label: () => `${customer.firstName} ${customer.lastName}`}
-      ];
-      this.customer = customer;
-    });
-
-    this.sessionService.entity$.merge(this.sessionService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(session => {
-      if (session instanceof CustomServerError) return;
-
-      this.productSchedulesWaitingForUpdate = null;
-
-      this.session = session;
-
-      this.tabHeaders = [
-        {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
-        {name: 'orders', label: 'ORDERS'},
-        {name: 'transactions', label: 'TRANSACTIONS'},
-        {name: 'fulfillment', label: 'FULFILLMENT'},
-        {name: 'activity', label: 'ACTIVITY'},
-        {name: 'watermark', label: 'WATERMARK'}
-      ];
-
-      this.route.fragment.take(1).subscribe(frag => {
-        if (frag === 'watermark') {
-          this.setIndex(5);
-        }
-      });
-
-      this.breadcrumbs = [
-        {label: () => 'Customers', url: '/customers'},
-        {label: () => `${session.customer.firstName} ${session.customer.lastName}`, url: '/customers/advanced?customer=' + session.customer.id},
-        {label: () => 'Session'},
-        {label: () => session.alias, url: '/customers/advanced?session=' + session.id}
-      ];
-
-      this.customer = session.customer;
-      this.rebills = session.rebills
-        .filter(rebill => rebill.billAt.isAfter(utc()))
-        .map(rebill => {
-          rebill.parentSession.campaign = this.session.campaign.inverse();
-
-          return rebill;
-        });
-      this.transactions = session.rebills
-        .map(rebill => {
-          if (!rebill.transactions) return [];
-
-          return rebill.transactions.map(transaction => {
-            transaction.rebill = new Rebill({id: rebill.id});
-
-            return transaction;
-          });
-        })
-        .reduce((a,b) => a.concat(b), [])
-        .map(transaction => {
-          transaction.rebill.parentSession = new Session({id: session.id, alias: session.alias});
-
-          return transaction;
-        });
-      this.shippingReceipts = this.transactions
-        .map(transaction => transaction.products)
-        .reduce((a,b) => a.concat(b), [])
-        .map(products => products.shippingReceipt)
-        .filter(receipt => !!receipt.id)
-    });
-
   }
 
-  init() {
-    if (this.customerId === null && this.sessionId === null && this.orderId === null) return;
-
-    this.orders = undefined;
-    this.selectedOrder= undefined;
-    this.transactions = undefined;
-    this.shippingReceipts = undefined;
-    this.rebills = undefined;
-    this.session = undefined;
-
-    if (this.orderId) {
-      this.initOrder();
-    } else if (this.sessionId) {
-      this.initSession();
-    } else {
-      this.initCustomer();
-    }
-  }
-
-  initCustomer() {
-    this.tabHeaders = [
-      {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
-      {name: 'orders', label: 'ORDERS'},
-      {name: 'transactions', label: 'TRANSACTIONS'},
-      {name: 'fulfillment', label: 'FULFILLMENT'},
-      {name: 'activity', label: 'ACTIVITY'}
-    ];
-
-    if (this.selectedIndex === 5) {
-      this.setIndex(0);
-    }
-
-    this.customerService.getEntity(this.customerId);
-
-    this.rebillService.getPendingRebillsByCustomer(this.customerId, {}).subscribe(rebills => {
-      this.rebills = rebills;
-    });
-
-    this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
-      this.orders = this.filterOrders(orders);
-    });
-
-    this.shippingReceiptsService.getShippingReceiptsByCustomer(this.customerId, {}).subscribe(receipts => {
-      this.shippingReceipts = receipts;
-    });
-
-    this.transactionService.getTransactionsByCustomer(this.customerId).subscribe(transactions => {
-      this.transactions = transactions;
-    })
-  }
-
-  private filterOrders(orders: Order[]): Order[] {
-    if (!orders || orders.length === 0) return [];
-
-    return orders.filter(o => o.rebill && o.rebill.billAt && o.rebill.billAt.isSameOrBefore(utc()));
-  }
-
-  initOrder() {
-    this.rebillService.entity$.take(1).subscribe(rebill => {
-      if (rebill instanceof CustomServerError) return;
-
-      this.sessionId = rebill.parentSession.id;
-
-      this.initSession(rebill);
-    });
-
-    this.rebillService.getEntity(this.orderId);
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
   navigateToOrder(id: string) {
     this.orderId = id;
+
     const selectedOrder = firstIndexOf(this.orders, (order) => order.rebill.id === this.orderId);
 
     if (selectedOrder !== -1) {
@@ -255,34 +123,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     }
 
     this.initOrder();
-  }
-
-  initSession(selectedOrder?: Rebill) {
-    this.sessionService.getEntity(this.sessionId);
-    this.orderService.getOrdersBySession(this.sessionId, {}).subscribe(orders => {
-      this.orders = this.filterOrders(orders);
-
-      if (selectedOrder) {
-
-        if (selectedOrder.billAt.isAfter(utc())) {
-          this.router.navigate([], {fragment: 'subscriptions', replaceUrl: true, queryParamsHandling: 'preserve'});
-          return;
-        }
-
-        const index = firstIndexOf(this.orders, (order) => order.rebill.id === selectedOrder.id);
-
-        if (index !== -1) {
-          this.selectedOrder = this.orders[index];
-          this.router.navigate([], {fragment: 'orders', replaceUrl: true, queryParamsHandling: 'preserve'});
-        }
-
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next(true);
-    this.unsubscribe$.complete();
   }
 
   setIndex(index: number) {
@@ -316,16 +156,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       this.transactionService.getTransactionsByCustomer(this.customerId).subscribe(transactions => {
         this.transactions = transactions;
       })
-    }
-  }
-
-  refreshSelectedOrder() {
-    if (this.selectedOrder && this.selectedOrder.id) {
-      const index = firstIndexOf(this.orders, (order) => order.id === this.selectedOrder.id);
-
-      if (index !== -1) {
-        this.selectedOrder = this.orders[index];
-      }
     }
   }
 
@@ -374,10 +204,230 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   }
 
   getTitle(): string {
+    if (this.selectedTransaction) return this.selectedTransaction.alias;
+
     if (this.sessionId && this.session) return this.session.alias;
 
     if (this.customerId && this.customer) return `${this.customer.firstName} ${this.customer.lastName}`;
 
     return null;
   }
+
+  private init() {
+    if (this.customerId === null
+      && this.sessionId === null
+      && this.orderId === null
+      && this.transactions === null
+    ) {
+      return;
+    }
+
+    this.breadcrumbs = [
+      {label: () => 'Customers', url: '/customers'}
+    ];
+
+    this.orders = undefined;
+    this.selectedOrder= undefined;
+    this.transactions = undefined;
+    this.selectedTransaction = undefined;
+    this.shippingReceipts = undefined;
+    this.rebills = undefined;
+    this.session = undefined;
+
+    if (this.customerId) {
+      this.initCustomer();
+    } else if (this.sessionId) {
+      this.initSession();
+    } else if (this.orderId) {
+      this.initOrder();
+    } else {
+      this.initTransaction();
+    }
+  }
+
+  private initCustomer() {
+    this.tabHeaders = [
+      {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
+      {name: 'orders', label: 'ORDERS'},
+      {name: 'transactions', label: 'TRANSACTIONS'},
+      {name: 'fulfillment', label: 'FULFILLMENT'},
+      {name: 'activity', label: 'ACTIVITY'}
+    ];
+
+    if (this.selectedIndex === 5) {
+      this.setIndex(0);
+    }
+
+    this.customerService.entity$.takeUntil(this.unsubscribe$).subscribe(customer => {
+      if (customer instanceof CustomServerError) return;
+
+      this.breadcrumbs = [
+        {label: () => 'Customers', url: '/customers/advanced?customer=' + customer.id},
+        {label: () => `${customer.firstName} ${customer.lastName}`}
+      ];
+
+      this.customer = customer;
+    });
+
+    this.customerService.getEntity(this.customerId);
+
+    this.rebillService.getPendingRebillsByCustomer(this.customerId, {}).subscribe(rebills => {
+      this.rebills = rebills;
+    });
+
+    this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
+      this.orders = this.filterOrders(orders);
+    });
+
+    this.shippingReceiptsService.getShippingReceiptsByCustomer(this.customerId, {}).subscribe(receipts => {
+      this.shippingReceipts = receipts;
+    });
+
+    this.transactionService.getTransactionsByCustomer(this.customerId).subscribe(transactions => {
+      this.transactions = transactions;
+    })
+  }
+
+  private initSession(session?: Session, selectedOrder?: Rebill) {
+
+    this.sessionService
+      .entity$
+      .merge(this.sessionService.entityUpdated$)
+      .takeUntil(this.unsubscribe$)
+      .subscribe(session => {
+        if (session instanceof CustomServerError) return;
+
+        this.productSchedulesWaitingForUpdate = null;
+
+        this.session = session;
+
+        this.tabHeaders = [
+          {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
+          {name: 'orders', label: 'ORDERS'},
+          {name: 'transactions', label: 'TRANSACTIONS'},
+          {name: 'fulfillment', label: 'FULFILLMENT'},
+          {name: 'activity', label: 'ACTIVITY'},
+          {name: 'watermark', label: 'WATERMARK'}
+        ];
+
+        this.route.fragment.take(1).subscribe(frag => {
+          if (frag === 'watermark') {
+            this.setIndex(5);
+          }
+        });
+
+        this.breadcrumbs = [
+          {label: () => 'Customers', url: '/customers'},
+          {label: () => `${session.customer.firstName} ${session.customer.lastName}`, url: '/customers/advanced?customer=' + session.customer.id},
+          {label: () => 'Session'},
+          {label: () => session.alias, url: '/customers/advanced?session=' + session.id}
+        ];
+
+        this.customer = session.customer;
+        this.rebills = session.rebills
+          .filter(rebill => rebill.billAt.isAfter(utc()))
+          .map(rebill => {
+            rebill.parentSession.campaign = this.session.campaign.inverse();
+
+            return rebill;
+          });
+        this.transactions = session.rebills
+          .map(rebill => {
+            if (!rebill.transactions) return [];
+
+            return rebill.transactions.map(transaction => {
+              transaction.rebill = new Rebill({id: rebill.id});
+
+              return transaction;
+            });
+          })
+          .reduce((a,b) => a.concat(b), [])
+          .map(transaction => {
+            transaction.rebill.parentSession = new Session({id: session.id, alias: session.alias});
+
+            return transaction;
+          });
+        this.shippingReceipts = this.transactions
+          .map(transaction => transaction.products)
+          .reduce((a,b) => a.concat(b), [])
+          .map(products => products.shippingReceipt)
+          .filter(receipt => !!receipt.id)
+      });
+
+    if (session && session.id) {
+      this.sessionId = session.id;
+      this.sessionService.entity$.next(session);
+    } else {
+      this.sessionService.getEntity(this.sessionId);
+    }
+
+    this.orderService.getOrdersBySession(this.sessionId, {}).subscribe(orders => {
+      this.orders = this.filterOrders(orders);
+
+      if (selectedOrder) {
+
+        if (selectedOrder.billAt.isAfter(utc())) {
+          this.router.navigate([], {fragment: 'subscriptions', replaceUrl: true, queryParamsHandling: 'preserve'});
+          return;
+        }
+
+        const index = firstIndexOf(this.orders, (order) => order.rebill.id === selectedOrder.id);
+
+        if (index !== -1) {
+          this.selectedOrder = this.orders[index];
+          this.router.navigate([], {fragment: 'orders', replaceUrl: true, queryParamsHandling: 'preserve'});
+        }
+
+      }
+    });
+  }
+
+  private initOrder() {
+    this.rebillService.entity$.take(1).subscribe(rebill => {
+      if (rebill instanceof CustomServerError) return;
+
+      this.sessionId = rebill.parentSession.id;
+
+      this.initSession(rebill.parentSession, rebill);
+    });
+
+    this.rebillService.getRebillWithFullSessionDetails(this.orderId);
+  }
+
+  private initTransaction() {
+    this.transactionService.entity$.take(1).subscribe(transaction => {
+      if (transaction instanceof CustomServerError) return;
+
+      this.selectedTransaction = transaction;
+      this.customer = this.selectedTransaction.rebill.parentSession.customer;
+
+      this.breadcrumbs = [
+        {label: () => 'Customers', url: '/customers'},
+        {label: () => `${this.customer.firstName} ${this.customer.lastName}`, url: '/customers/advanced?customer=' + this.customer.id},
+        {label: () => 'Session'},
+        {label: () => this.selectedTransaction.rebill.parentSession.alias, url: '/customers/advanced?session=' + this.selectedTransaction.rebill.parentSession.id},
+        {label: () => 'Transaction'},
+        {label: () => this.selectedTransaction.alias, url: '/customers/advanced?transaction=' + this.selectedTransaction.id}
+      ];
+    });
+
+    this.transactionService.getTransactionWithSessionDetails(this.transactionId);
+  }
+
+  private filterOrders(orders: Order[]): Order[] {
+    if (!orders || orders.length === 0) return [];
+
+    return orders.filter(o => o.rebill && o.rebill.billAt && o.rebill.billAt.isSameOrBefore(utc()));
+  }
+
+  private refreshSelectedOrder() {
+    if (this.selectedOrder && this.selectedOrder.id) {
+      const index = firstIndexOf(this.orders, (order) => order.id === this.selectedOrder.id);
+
+      if (index !== -1) {
+        this.selectedOrder = this.orders[index];
+      }
+    }
+  }
+
 }
