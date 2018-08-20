@@ -45,7 +45,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
         .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#1EBEA5' : '#ffffff')
         .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
-      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()).setSortName('amount'),
+      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '–').setSortName('amount'),
       new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–').setSortName('refund'),
       new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
         .setSortName('merchant_provider_name')
