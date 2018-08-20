@@ -114,8 +114,8 @@ describe('Transactions', function() {
 
     browser.sleep(1000);
     page.getBackButton().click();
-    waitForUrlContains('/transactions');
-    expectUrlToContain('/transactions');
+    waitForUrlContains('/customers/advanced?transaction=');
+    expectUrlToContain('/customers/advanced?transaction=');
   });
 
   it('should open orders and navigate back to transactions', () => {
