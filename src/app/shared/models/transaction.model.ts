@@ -5,12 +5,14 @@ import {Products} from './products.model';
 import {Moment, utc} from 'moment';
 import {MerchantProvider} from './merchant-provider/merchant-provider.model';
 import {Currency} from '../utils/currency/currency';
+import {CreditCard} from './credit-card.model';
 
 export class Transaction implements Entity<Transaction>{
   id: string;
   alias: string;
   amount: Currency;
   merchantProvider: MerchantProvider;
+  creditCard: CreditCard;
   createdAt: Moment;
   updatedAt: Moment;
   processorResponse: ProcessorResponse;
@@ -29,6 +31,7 @@ export class Transaction implements Entity<Transaction>{
     this.alias = obj.alias || '';
     this.amount = new Currency(obj.amount);
     this.merchantProvider = new MerchantProvider(obj.merchant_provider);
+    this.creditCard = new CreditCard(obj.creditcard);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.processorResponse = new ProcessorResponse(obj.processor_response);
@@ -90,6 +93,7 @@ export class Transaction implements Entity<Transaction>{
       amount: this.amount.amount,
       created_at: this.createdAt.clone().format(),
       merchant_provider: this.merchantProvider.inverse(),
+      creditcard: this.creditCard.inverse(),
       processor_response: this.processorResponse.inverse(),
       rebill: this.rebill.inverse(),
       products: this.products.map(p => p.inverse()),

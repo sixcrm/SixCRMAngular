@@ -45,11 +45,11 @@
             </mat-form-field>
 
             <mat-form-field class="entity-view__card__content__item">
-              <input disabled matInput placeholder="Credit Type" [value]="_transaction.processorResponse.getCard().brand" type="text">
+              <input disabled matInput placeholder="Credit Type" [value]="_transaction.creditCard.type" type="text">
             </mat-form-field>
 
             <mat-form-field class="entity-view__card__content__item">
-              <input disabled matInput placeholder="Credit Number" [value]="'**** ' + _transaction.processorResponse.getCard().last4" type="text">
+              <input disabled matInput placeholder="Credit Number" [value]="'**** ' + _transaction.creditCard.lastFour" type="text">
             </mat-form-field>
 
           </div>

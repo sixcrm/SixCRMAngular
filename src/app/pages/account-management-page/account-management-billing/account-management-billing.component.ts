@@ -84,10 +84,10 @@ export class AccountManagementBillingComponent implements OnInit {
     return rebill.transactions[0].processorResponse.code;
   }
 
-  getCard(rebill): {brand?: string, last4?: string} {
-    if (!rebill.transactions || !rebill.transactions[0]) return {};
+  getCard(rebill): CreditCard {
+    if (!rebill.transactions || !rebill.transactions[0]) return new CreditCard();
 
-    return rebill.transactions[0].processorResponse.getCard();
+    return rebill.transactions[0].creditCard;
   }
 
   getPlanPrice(rebill) {

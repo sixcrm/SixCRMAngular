@@ -73,6 +73,7 @@ export function transactionResponseQuery(): string {
     id alias amount processor_response type result created_at updated_at,
     merchant_provider { id name }
     rebill { id amount }
+    creditcard { id, last_four, type }
     products { amount,
       product { id name sku ship shipping_delay,
         fulfillment_provider {id name}
@@ -85,6 +86,7 @@ export function transactionWithSessionResponse(): string {
   return `
     id alias amount processor_response type result created_at updated_at,
     merchant_provider { id name }
+    creditcard { id, last_four, type }
     rebill { id amount
       parentsession {
         id alias created_at updated_at completed,
