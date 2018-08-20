@@ -33,9 +33,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
   @ViewChild('customernotes') customerNotesComponent: CustomerInfoNotesComponent;
 
-  breadcrumbs: BreadcrumbItem[] = [
-    {label: () => 'Customers', url: '/customers'}
-  ];
+  breadcrumbs: BreadcrumbItem[] = [];
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
@@ -204,9 +202,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   }
 
   getTitle(): string {
-    if (this.selectedTransaction) return this.selectedTransaction.alias;
+    if (this.selectedTransaction) return `Transaction – ${this.selectedTransaction.alias}`;
 
-    if (this.sessionId && this.session) return this.session.alias;
+    if (this.sessionId && this.session) return `Session – ${this.session.alias}`;
 
     if (this.customerId && this.customer) return `${this.customer.firstName} ${this.customer.lastName}`;
 
@@ -222,9 +220,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.breadcrumbs = [
-      {label: () => 'Customers', url: '/customers'}
-    ];
+    this.breadcrumbs = [];
 
     this.orders = undefined;
     this.selectedOrder= undefined;
@@ -262,8 +258,8 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       if (customer instanceof CustomServerError) return;
 
       this.breadcrumbs = [
-        {label: () => 'Customers', url: '/customers/advanced?customer=' + customer.id},
-        {label: () => `${customer.firstName} ${customer.lastName}`}
+        {label: () => `Customer`},
+        {label: () => ''}
       ];
 
       this.customer = customer;
@@ -317,10 +313,8 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         });
 
         this.breadcrumbs = [
-          {label: () => 'Customers', url: '/customers'},
           {label: () => `${session.customer.firstName} ${session.customer.lastName}`, url: '/customers/advanced?customer=' + session.customer.id},
-          {label: () => 'Session'},
-          {label: () => session.alias, url: '/customers/advanced?session=' + session.id}
+          {label: () => ''},
         ];
 
         this.customer = session.customer;
@@ -407,12 +401,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       this.customer = this.selectedTransaction.rebill.parentSession.customer;
 
       this.breadcrumbs = [
-        {label: () => 'Customers', url: '/customers'},
         {label: () => `${this.customer.firstName} ${this.customer.lastName}`, url: '/customers/advanced?customer=' + this.customer.id},
-        {label: () => 'Session'},
-        {label: () => this.selectedTransaction.rebill.parentSession.alias, url: '/customers/advanced?session=' + this.selectedTransaction.rebill.parentSession.id},
-        {label: () => 'Transaction'},
-        {label: () => this.selectedTransaction.alias, url: '/customers/advanced?transaction=' + this.selectedTransaction.id}
+        {label: () => `Session – ${this.selectedTransaction.rebill.parentSession.alias}`, url: '/customers/advanced?session=' + this.selectedTransaction.rebill.parentSession.id},
+        {label: () => ''},
       ];
     });
 
