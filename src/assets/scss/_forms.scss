@@ -9,6 +9,18 @@
 .error {
   color: $danger-color;
 
+  .mat-form-field-underline {
+    background-color: $danger-color !important;
+  }
+
+  .mat-form-field-label {
+    color: $danger-color !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: $danger-color !important;
+  }
+
   .dropdown-component__text {
     color: $danger-color;
     border-color: $danger-color

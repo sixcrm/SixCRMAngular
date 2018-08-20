@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, clearAuth0SSO} from '../utils/navigation.utils';
 import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
@@ -24,7 +24,7 @@ describe('Transactions', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to transactions page', () => {
@@ -109,8 +109,8 @@ describe('Transactions', function() {
   it('should open transaction and navigate back to transactions', () => {
     browser.sleep(1000);
     page.getLink(0,7).click();
-    waitForUrlContains('/transactions/');
-    expectUrlToContain('/transactions/');
+    waitForUrlContains('/customers/advanced?transaction=');
+    expectUrlToContain('/customers/advanced?transaction=');
 
     browser.sleep(1000);
     page.getBackButton().click();

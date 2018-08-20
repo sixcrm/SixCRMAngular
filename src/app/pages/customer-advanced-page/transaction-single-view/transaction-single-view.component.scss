@@ -4,6 +4,15 @@
   align-items: flex-start;
 }
 
+table-memory {
+  display: block;
+  min-width: 400px;
+}
+
+.response-text {
+  margin-top: 14px;
+}
+
 .transaction-view__content__item {
   padding: 0;
 }

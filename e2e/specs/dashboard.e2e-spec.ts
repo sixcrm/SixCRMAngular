@@ -5,7 +5,7 @@ import {
   expectUrlToContain, expectNotPresent, expectDefined, expectPresent,
 } from '../utils/assertation.utils';
 import {AppPage} from '../po/app.po';
-import {waitForNotPresenceOf, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForNotPresenceOf, waitForUrlContains, clearLocalStorage, clearAuth0SSO} from '../utils/navigation.utils';
 import {NavPage} from '../po/nav.po';
 
 describe('Dashboard', function() {
@@ -26,7 +26,7 @@ describe('Dashboard', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to dashboard after login', () => {

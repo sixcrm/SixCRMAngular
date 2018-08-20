@@ -1,6 +1,6 @@
 import { AuthPage } from '../po/auth.po';
 import {expectPresent, expectNotPresent} from '../utils/assertation.utils';
-import {clearLocalStorage} from '../utils/navigation.utils';
+import {clearLocalStorage, clearAuth0SSO} from '../utils/navigation.utils';
 import {browser} from 'protractor';
 
 describe('App load', function() {
@@ -14,7 +14,7 @@ describe('App load', function() {
   afterEach(() => {
     browser.waitForAngularEnabled(true);
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should load Auth component', () => {

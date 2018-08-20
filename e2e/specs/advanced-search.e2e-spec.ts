@@ -1,6 +1,6 @@
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {
-  clearLocalStorage, waitForUrlContains
+  clearLocalStorage, waitForUrlContains, clearAuth0SSO
 } from '../utils/navigation.utils';
 import {expectUrlToContain} from '../utils/assertation.utils';
 import {browser} from 'protractor';
@@ -28,7 +28,7 @@ describe('Advanced search', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to advanced search page', () => {

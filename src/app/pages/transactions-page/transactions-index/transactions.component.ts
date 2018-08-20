@@ -45,14 +45,15 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
         .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#1EBEA5' : '#ffffff')
         .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
-      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()).setSortName('amount'),
+      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '–').setSortName('amount'),
       new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–').setSortName('refund'),
       new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
         .setSortName('merchant_provider_name')
         .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
       new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias)
         .setSortName('alias')
-        .setLink((e: TransactionAnalytics) => `/transactions/${e.id}`),
+        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
       new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias)
         .setSortName('rebill_alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
@@ -95,7 +96,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   optionSelected(option: {item: any, option: string}) {
     switch (option.option) {
       case 'View': {
-        this.router.navigate(['/transactions', option.item.id]);
+        this.router.navigate(['/customers', 'advanced'], {queryParams: {transaction: option.item.id}});
         break;
       }
     }

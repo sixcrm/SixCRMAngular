@@ -21,7 +21,7 @@
       </div>
       <div>{{transaction.alias}}</div>
       <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm a'}}</div>
-      <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+      <div>{{transaction.creditCard.type}} {{transaction.creditCard.lastFour}}</div>
       <div>{{transaction.amount.usd()}} <button mat-button (click)="showTransactionDetails(transaction)">View</button></div>
     </div>
   </div>
