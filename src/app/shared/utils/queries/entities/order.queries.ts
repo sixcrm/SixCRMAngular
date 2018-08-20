@@ -32,7 +32,7 @@ export function orderResponseQuery(): string {
   }
   session { id alias created_at campaign { id name } }
   rebill { id resolved_amount created_at updated_at bill_at
-    transactions { id amount alias created_at updated_at processor_response chargeback type result merchant_provider {id name}}
+    transactions { id amount alias created_at updated_at processor_response chargeback type result creditcard { id, last_four, type } merchant_provider {id name}}
     paid {detail updated_at}
   }`
 }

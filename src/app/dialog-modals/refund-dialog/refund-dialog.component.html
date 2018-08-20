@@ -20,7 +20,7 @@
         <td><mat-checkbox class="checkbox-blue" [(ngModel)]="transaction.selected"></mat-checkbox></td>
         <td>
           <div class="with-image">
-            <img src="{{'/assets/cards/' + (transaction.processorResponse.getCard().brand || '').toLowerCase() + '.svg'}}"> **** {{transaction.processorResponse.getCard().last4}}
+            <img src="{{'/assets/cards/' + (transaction.creditCard.type || '').toLowerCase() + '.svg'}}"> **** {{transaction.creditCard.lastFour}}
           </div>
         </td>
         <td>{{transaction.createdAt | formatDateTime}}</td>
