@@ -2,7 +2,10 @@ import {AuthPage} from '../po/auth.po';
 import {RegisterPage} from '../po/register.po';
 import {AcceptInvitePage} from '../po/accept-invite.po';
 import {browser} from 'protractor';
-import {waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {
+  waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage,
+  clearAuth0SSO
+} from '../utils/navigation.utils';
 import {doSignUp} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
@@ -31,7 +34,7 @@ describe('Register', function() {
     browser.waitForAngularEnabled(true);
 
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   beforeAll(() => {

@@ -1,6 +1,7 @@
 import {browser, protractor, ElementFinder} from 'protractor';
 import {AuthPage} from '../po/auth.po';
 import {createTestAuth0JWT, getJwtContent} from './jwt.utils';
+import {getEnvModel} from './env.utils';
 
 export function navigateSuperuserToHomepage() {
   browser.get('/');
@@ -18,6 +19,11 @@ export function addSuperUserToken() {
 
 export function clearLocalStorage() {
   browser.executeScript(`window.localStorage.clear();`);
+}
+
+export function clearAuth0SSO() {
+  const auth0domain = getEnvModel().domain;
+  browser.get(`https://${auth0domain}/logout?federated`);
 }
 
 export function addToLocalStorage(token: string, payload: any) {

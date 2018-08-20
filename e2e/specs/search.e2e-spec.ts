@@ -1,5 +1,6 @@
 import {
-  clearLocalStorage, waitForUrlContains, waitForPresenceOf, waitForNotPresenceOf, navigateSuperuserToHomepage
+  clearLocalStorage, waitForUrlContains, waitForPresenceOf, waitForNotPresenceOf, navigateSuperuserToHomepage,
+  clearAuth0SSO
 } from '../utils/navigation.utils';
 import {expectUrlToContain, expectPresent, expectNotPresent} from '../utils/assertation.utils';
 import {browser, protractor} from 'protractor';
@@ -32,7 +33,7 @@ describe('Search', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to search page', () => {
