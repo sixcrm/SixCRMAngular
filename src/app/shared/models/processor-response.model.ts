@@ -34,14 +34,6 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
     }
   }
 
-  getCard(): {brand?: string, last4?: string} {
-    if (!this.response || !this.response.body || !this.response.body.source || !this.response.body.source.card) {
-      return {}
-    }
-
-    return this.response.body.source.card;
-  }
-
   copy(): ProcessorResponse {
     return new ProcessorResponse(this.originalResponse);
   }

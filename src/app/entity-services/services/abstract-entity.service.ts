@@ -57,22 +57,7 @@ export abstract class AbstractEntityService<T> {
   }
 
   getEntity(id: string): void {
-    if (!this.hasViewPermission()) {
-      return;
-    }
-
-    this.queryRequest(this.viewQuery(id)).subscribe(data => {
-      if (data instanceof CustomServerError) {
-        this.entity$.next(data);
-        return;
-      }
-
-      const json = extractData(data);
-      const entityKey = Object.keys(json)[0];
-      const entityData =json[entityKey];
-
-      this.entity$.next(this.toEntity(entityData));
-    })
+    this.customEntityQuery(this.viewQuery(id), {});
   }
 
   deleteEntity(id: string): void {
@@ -254,6 +239,25 @@ export abstract class AbstractEntityService<T> {
         this.requestInProgress$.next(false)
       }
     )
+  }
+
+  customEntityQuery(query: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
+    if (!this.hasViewPermission()) {
+      return;
+    }
+
+    this.queryRequest(query, requestBehaviourOptions).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        this.entity$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+      const entityKey = Object.keys(json)[0];
+      const entityData =json[entityKey];
+
+      this.entity$.next(this.toEntity(entityData));
+    })
   }
 
   planeCustomEntitiesQuery(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<T[]> {

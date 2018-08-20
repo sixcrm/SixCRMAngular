@@ -4,7 +4,8 @@ import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 @Component({
   selector: 'shipment-status',
   templateUrl: './shipment-status.component.html',
-  styleUrls: ['./shipment-status.component.scss']
+  styleUrls: ['./shipment-status.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class ShipmentStatusComponent implements OnInit {
 
@@ -15,6 +16,12 @@ export class ShipmentStatusComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onKeyDown(key) {
+    if (key && key.key === 'Escape') {
+      this.close.emit(true);
+    }
   }
 
 }

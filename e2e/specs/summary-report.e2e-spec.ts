@@ -21,7 +21,7 @@ describe('Summary Report', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+   clearAuth0SSO();
   });
 
   it('should navigate to summary report page', () => {

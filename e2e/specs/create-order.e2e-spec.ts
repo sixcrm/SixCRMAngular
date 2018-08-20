@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf, clearAuth0SSO} from '../utils/navigation.utils';
 import {tosCheck, customLogin} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectPresent, expectNotPresent} from '../utils/assertation.utils';
@@ -27,7 +27,7 @@ describe('New Order', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should open create order modal', () => {

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {transactionsRouting} from './transactions.routing';
 import {TransactionsComponent} from './transactions-index/transactions.component';
-import {TransactionViewComponent} from './transaction-view/transaction-view.component';
 import {TransactionsAclGuard} from '../guards/transactions-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
@@ -25,8 +24,7 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     TranslationModule
   ],
   declarations : [
-    TransactionsComponent,
-    TransactionViewComponent
+    TransactionsComponent
   ],
   exports : [ ],
   providers: [

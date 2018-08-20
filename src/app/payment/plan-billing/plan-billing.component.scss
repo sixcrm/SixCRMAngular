@@ -65,6 +65,17 @@
         margin-top: 14.5px;
         margin-bottom: 30px;
 
+        .error {
+          mat-icon {
+            margin-left: auto;
+            color: $danger-color;
+          }
+
+          div {
+            color: $danger-color;
+          }
+        }
+
         .element {
           width: calc(50% - 10px);
           display: flex;

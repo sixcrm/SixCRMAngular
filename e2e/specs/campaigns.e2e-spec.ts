@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf, clearAuth0SSO} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
@@ -27,7 +27,7 @@ describe('Campaigns', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to campaigns page', () => {
@@ -94,7 +94,7 @@ describe('Campaigns', function() {
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
     browser.sleep(500);
     campaignPage.getCampaignFormSaveButton().click();
-    browser.sleep(3000);
+    browser.sleep(3500);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
   });
 
@@ -106,7 +106,7 @@ describe('Campaigns', function() {
   });
 
   it( 'should delete the campaign', () => {
-    browser.sleep(2000);
+    browser.sleep(3000);
     campaignPage.getCampaignDeleteButton().click();
     browser.sleep(1000);
     campaignPage.getCampaignDeleteModalButton().click();

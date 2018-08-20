@@ -13,7 +13,7 @@ import {
   waitForNotPresenceOf,
   waitForPresenceOf,
   waitForUrlContains,
-  waitForVisibilityOf,
+  waitForVisibilityOf, clearAuth0SSO,
 } from '../utils/navigation.utils';
 
 describe('Customers', function() {
@@ -36,7 +36,7 @@ describe('Customers', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to customers index page', () => {
