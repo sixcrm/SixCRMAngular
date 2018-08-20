@@ -26,7 +26,7 @@
   }
 
   .body {
-    margin: 15px auto 40px;
+    margin: 15px auto 40px 170px;
 
     .status-item {
 
@@ -49,7 +49,7 @@
           color: #5F6368;
           width: 200px;
 
-          div {
+          .status-info {
             text-transform: capitalize;
           }
 

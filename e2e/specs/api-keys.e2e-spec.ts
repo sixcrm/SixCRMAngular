@@ -4,7 +4,10 @@ import { EntityIndexPage } from '../po/entity-index.po';
 import { ProfilePage } from '../po/profile.po';
 import { NavPage } from '../po/nav.po';
 import { login } from '../utils/action.utils';
-import { clearLocalStorage, waitForElementToBeClickable, waitForUrlContains, waitForVisibilityOf } from '../utils/navigation.utils';
+import {
+  clearLocalStorage, waitForElementToBeClickable, waitForUrlContains, waitForVisibilityOf,
+  clearAuth0SSO
+} from '../utils/navigation.utils';
 import { AccountPage } from '../po/account.po';
 
 describe('API Keys', function() {
@@ -24,7 +27,7 @@ describe('API Keys', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to signing strings page', () => {

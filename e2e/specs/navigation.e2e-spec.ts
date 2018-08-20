@@ -1,4 +1,4 @@
-import { clearLocalStorage, waitForUrlContains } from '../utils/navigation.utils';
+import {clearLocalStorage, waitForUrlContains, clearAuth0SSO} from '../utils/navigation.utils';
 import {expectUrlToContain} from '../utils/assertation.utils';
 import {browser} from 'protractor';
 import {login, tosCheck} from '../utils/action.utils';
@@ -24,7 +24,7 @@ describe('Navigation', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should render full sidenav when registered as master', () => {

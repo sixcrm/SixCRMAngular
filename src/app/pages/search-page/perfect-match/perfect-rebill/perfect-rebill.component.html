@@ -41,7 +41,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let transaction of rebill.transactions" [routerLink]="['/transactions', transaction.id]">
+        <tr *ngFor="let transaction of rebill.transactions" [routerLink]="['/customers', 'advanced']" [queryParams]="{transaction: transaction.id}">
           <td>{{transaction.amount.usd() | numberlocale}}</td>
           <td>{{transaction.alias}}</td>
           <td>{{transaction.processorResponse.message}}</td>

@@ -23,9 +23,9 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   columnParams: ColumnParams<Transaction>[] = [];
   rowColorFunction = (e: Transaction) => e.chargeback ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
   options: OptionItem[] = [
-    {label: 'Refund', visible: (e: Transaction) => e.isSale()},
-    {label: 'Notify User', visible: (e: Transaction) => true},
-    {label: 'View Details', visible: (e: Transaction) => true}
+    {label: 'View Transaction', visible: (e: Transaction) => true},
+    {label: 'Refund', visible: (e: Transaction) => e.isRefundable()},
+    {label: 'Notify User', visible: (e: Transaction) => true}
   ];
 
   bulkOptions: string[] = ['Refund'];
@@ -45,7 +45,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : '#ffffff'),
       new ColumnParams('Order', (e: Transaction) => e.rebill.alias || e.rebill.id).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('Session', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
-      new ColumnParams('Amount', (e: Transaction) => e.amount.usd()),
+      new ColumnParams('Amount', (e: Transaction) => e.isRefund() ? '-' : e.amount.usd()),
       new ColumnParams('Refund', (e: Transaction) => e.isRefund() ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('Chargeback', (e: Transaction) => e.chargeback ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('MID', (e: Transaction) => e.merchantProvider.name).setClickable(true).setColor('#2C98F0'),
@@ -64,7 +64,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         break
       }
       case ('Alias'): {
-        this.router.navigate(['/transactions', option.item.id]);
+        this.router.navigate(['/customers', 'advanced'], { queryParams: { transaction: option.item.id } });
         break
       }
       case ('Session'): {
@@ -91,8 +91,8 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
 
   optionSelected(result: {item: Transaction, option: OptionItem}) {
     switch (result.option.label) {
-      case ('View Details'): {
-        this.showTransactionDetails(result.item);
+      case ('View Transaction'): {
+        this.router.navigate(['/customers', 'advanced'], { queryParams: {transaction: result.item.id}});
         break
       }
       case ('Refund'): {
@@ -101,16 +101,6 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       }
       default: {}
     }
-  }
-
-  showTransactionDetails(transaction: Transaction) {
-    let ref = this.dialog.open(ViewTransactionDialogComponent, {backdropClass: 'backdrop-blue'});
-
-    ref.componentInstance.transaction = transaction.copy();
-
-    ref.afterClosed().take(1).subscribe(() => {
-      ref = null;
-    })
   }
 
   openRefundDialog(transactions: Transaction[]) {

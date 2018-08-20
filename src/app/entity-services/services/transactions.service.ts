@@ -5,7 +5,8 @@ import {Transaction} from '../../shared/models/transaction.model';
 import { HttpWrapperService, extractData, FailStrategy } from '../../shared/services/http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
-  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionsByCustomer
+  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionsByCustomer,
+  transactionWithSessionQuery
 } from '../../shared/utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
@@ -106,5 +107,9 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
       return transactions && transactions.length > 0;
     })
+  }
+
+  getTransactionWithSessionDetails(transactionId: string): void {
+    return this.customEntityQuery(transactionWithSessionQuery(transactionId));
   }
 }

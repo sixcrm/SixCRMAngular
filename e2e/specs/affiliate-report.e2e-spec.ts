@@ -1,4 +1,7 @@
-import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
+import {
+  waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage,
+  clearAuth0SSO
+} from '../utils/navigation.utils';
 import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectNotPresent, expectPresent} from '../utils/assertation.utils';
@@ -21,7 +24,7 @@ describe('Affiliate Report', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to affiliate report page', () => {

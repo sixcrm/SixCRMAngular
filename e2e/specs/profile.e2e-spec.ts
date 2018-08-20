@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, clearAuth0SSO} from '../utils/navigation.utils';
 import {ProfilePage} from '../po/profile.po';
 import {TopnavPage} from '../po/topnav.po';
 import {login} from '../utils/action.utils';
@@ -28,7 +28,7 @@ describe('Profile', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to profile/user settings page', () => {

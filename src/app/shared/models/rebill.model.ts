@@ -1,4 +1,3 @@
-import {ParentSession} from './parent-session.model';
 import {ProductSchedule} from './product-schedule.model';
 import {Transaction} from './transaction.model';
 import {Entity} from './entity.interface';
@@ -9,6 +8,7 @@ import {ShippingReceipt} from './shipping-receipt.model';
 import {Products} from './products.model';
 import {firstIndexOf} from '../utils/array.utils';
 import {RebillPaidStatus} from './rebill-paid-status.model';
+import {Session} from './session.model';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -18,7 +18,7 @@ export class Rebill implements Entity<Rebill> {
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
-  parentSession: ParentSession;
+  parentSession: Session;
   productSchedules: ProductSchedule[] = [];
   products: Products[] = [];
   transactions: Transaction[] = [];
@@ -39,7 +39,7 @@ export class Rebill implements Entity<Rebill> {
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
-    this.parentSession = new ParentSession(obj.parentsession);
+    this.parentSession = new Session(obj.parentsession);
     this.state = obj.state || '';
 
     if (obj.product_schedules) {
