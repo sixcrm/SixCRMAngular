@@ -31,10 +31,17 @@ export class Transaction implements Entity<Transaction>{
     this.alias = obj.alias || '';
     this.amount = new Currency(obj.amount);
     this.merchantProvider = new MerchantProvider(obj.merchant_provider);
-    this.creditCard = new CreditCard(obj.creditcard);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.processorResponse = new ProcessorResponse(obj.processor_response);
+
+    if (obj.creditcard) {
+      this.creditCard = new CreditCard(obj.creditcard);
+    } else {
+      const processorResponseCard = this.processorResponse.getCard();
+      this.creditCard = new CreditCard({type: processorResponseCard.brand, last_four: processorResponseCard.last4});
+    }
+
     this.rebill = new Rebill(obj.rebill);
     this.chargeback = !!obj.chargeback;
     this.products = [];
