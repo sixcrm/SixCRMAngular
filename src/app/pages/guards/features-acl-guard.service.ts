@@ -7,15 +7,9 @@ import {NavigationService} from '../../navigation/navigation.service';
 import {MatDialog} from '@angular/material';
 
 @Injectable()
-export class AccountsAclGuard extends AbstractAclGuard implements CanActivate, CanDeactivate<AccountViewComponent> {
+export class FeaturesAclGuard implements CanActivate {
 
-  constructor(authService: AuthenticationService,
-              router: Router,
-              dialog: MatDialog,
-              navigation: NavigationService
-  ) {
-    super(authService, router, dialog, navigation);
-  }
+  constructor(private authService: AuthenticationService) { }
 
   canActivate(): boolean {
     return this.authService.isActiveOrActingAclMasterAccount();
