@@ -37,6 +37,8 @@ export class AccountsComponent extends AbstractEntityIndexComponent<Account> imp
       new ColumnParams('ACCOUNT_INDEX_HEADER_ID', (e: Account) => e.id).setSelected(false),
       new ColumnParams('ACCOUNT_INDEX_HEADER_NAME', (e: Account) => e.name),
       new ColumnParams('ACCOUNT_INDEX_HEADER_ACTIVE', (e: Account) => e.active + ''),
+      new ColumnParams('Plan', (e: Account) => e.billing ? e.billing.plan : '–'),
+      new ColumnParams('Disable At', (e: Account) => e.billing && e.billing.disable ? e.billing.disable.tz(f).format('MM/DD/YYYY') : '–'),
       new ColumnParams('ACCOUNT_INDEX_HEADER_CREATED', (e: Account) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('ACCOUNT_INDEX_HEADER_UPDATED', (e: Account) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];

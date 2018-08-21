@@ -18,6 +18,39 @@
           (save)="saveOrUpdate($event)">
         </account-add-new>
 
+      <div class="entity-view__card" *ngIf="authService.isActiveAclMasterAccount()">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Plan Details</div>
+        </div>
+
+        <div class="entity-view__card__content plan-details">
+
+          <div class="entity-view__card__content__item">
+            <div>Plan</div>
+            <div class="plan">{{entity.billing ? entity.billing.plan : '–'}}</div>
+          </div>
+
+          <div class="entity-view__card__content__item">
+            <div>Disable Date</div>
+            <div>
+              {{entity.billing ? entity.billing.disable || '–' : '–'}}
+            </div>
+          </div>
+
+          <div class="entity-view__card__content__item">
+            <div>Session ID</div>
+            <ng-container *ngIf="entity.billing && entity.billing.session; else nolink">
+              <div><a [routerLink]="['/customers', 'advanced']" [queryParams]="{session: entity.billing.session}">{{entity.billing.session}}</a></div>
+            </ng-container>
+            <ng-template #nolink>
+              <div>-</div>
+            </ng-template>
+          </div>
+
+        </div>
+      </div>
+
+
     </mat-tab>
     <mat-tab>
       <table-memory
