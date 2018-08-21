@@ -7,6 +7,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {FeaturesComponent} from "./features-index/features.component";
 import {FeaturesSideCardComponent} from './features-side-card/features-side-card.component';
 import {PageComponentsModule} from "../components/pages-components.module";
+import {FeaturesAclGuard} from '../guards/features-acl-guard.service';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import {PageComponentsModule} from "../components/pages-components.module";
     FeaturesComponent,
     FeaturesSideCardComponent
   ],
-  providers: [ ]
+  providers: [ FeaturesAclGuard ]
 })
 export class FeaturesModule { }

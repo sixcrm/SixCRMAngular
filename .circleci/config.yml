@@ -130,81 +130,6 @@ jobs:
             name: Run local smoke e2e
             command: npm run e2e.local -- --suite smoke
             no_output_timeout: 20m
-  e2e_auth:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install Chrome
-          command: |
-            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get -y install google-chrome-stable
-      - run:
-          name: Update webdriver
-          command: npm run pree2e
-      - run:
-          name: Run e2e auth
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "development" ]; then
-              npm run e2e.dev -- --suite auth
-            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              npm run e2e.stage -- --suite auth
-            fi
-          no_output_timeout: 20m
-  e2e_crm:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install Chrome
-          command: |
-            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get -y install google-chrome-stable
-      - run:
-          name: Update webdriver
-          command: npm run pree2e
-      - run:
-          name: Run e2e crm
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "development" ]; then
-              npm run e2e.dev -- --suite crm
-            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              npm run e2e.stage -- --suite crm
-            fi
-          no_output_timeout: 20m
-  e2e_app:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install Chrome
-          command: |
-            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get -y install google-chrome-stable
-      - run:
-          name: Update webdriver
-          command: npm run pree2e
-      - run:
-          name: Run e2e app
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "development" ]; then
-              npm run e2e.dev -- --suite app
-            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              npm run e2e.stage -- --suite app
-            fi
-          no_output_timeout: 20m
   e2e_all_deploy_s3:
     <<: *job-defaults
     steps:
@@ -285,31 +210,11 @@ workflows:
                 - staging
                 - production
                 - priority
-      - e2e_auth:
-          requires:
-            - deploy_cloudfront
-          filters:
-            branches:
-              only:
-                - development
-      - e2e_app:
-          requires:
-            - deploy_cloudfront
-          filters:
-            branches:
-              only:
-                - development
-      - e2e_crm:
-          requires:
-            - deploy_cloudfront
-          filters:
-            branches:
-              only:
-                - development
       - e2e_all_deploy_s3:
           requires:
             - deploy_cloudfront
           filters:
             branches:
               only:
+                - development
                 - staging
