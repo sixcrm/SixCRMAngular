@@ -84,7 +84,7 @@ export function accountResponseQuery(): string {
 }
 
 export function accountInfoResponseQuery(): string {
-  return 'id name active created_at updated_at acl{ id }';
+  return 'id name active created_at updated_at acl{ id } billing {plan, disable, session}';
 }
 
 export function accountInputQuery(account: Account, includeId?: boolean): string {

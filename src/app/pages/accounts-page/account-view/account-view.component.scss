@@ -7,3 +7,27 @@
     display: flex;
   }
 }
+
+.plan-details {
+
+  .entity-view__card__content__item {
+    margin-bottom: 24px;
+
+    div {
+      &:first-of-type {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.38);
+        font-weight: 500;
+      }
+
+      &:last-of-type {
+        font-size: 18px;
+        margin-top: 8px;
+      }
+    }
+
+    .plan {
+      text-transform: capitalize;
+    }
+  }
+}
