@@ -11,7 +11,8 @@ import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-i
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {Subscription, Subject, BehaviorSubject, Observable} from 'rxjs';
+import {Subscription, Observable} from 'rxjs';
+import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 
 @Component({
   selector: 'transactions',
@@ -105,6 +106,40 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
   openFiltersDialog() {
     super.openFiltersDialog(TransactionFiltersDialogComponent);
+  }
+
+  download(format: 'csv' | 'json') {
+    if (format !== 'csv' && format !== 'json') return;
+
+    this.analyticsService.getTransactions({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    }).subscribe(transactions => {
+      if (!transactions || transactions instanceof CustomServerError) {
+        return;
+      }
+
+      const parsedTransactions = transactions.map(t => {
+        let parsed: any = t;
+        parsed['amount'] = t.amount.amount;
+        parsed['refund'] = t.refund.amount;
+        delete parsed['obj'];
+
+        return parsed;
+      });
+
+      const fileName = `${this.authService.getActiveAccount().name} Transactions ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+
+      if (format === 'json') {
+        downloadJSON(parsedTransactions, `${fileName}.json`);
+      } else {
+        downloadCSV(parsedTransactions, `${fileName}.csv`);
+      }
+    });
+
   }
 
   fetch() {
