@@ -110,7 +110,7 @@ describe('Campaigns', function() {
     campaignPage.getCampaignDeleteButton().click();
     browser.sleep(2000);
     campaignPage.getCampaignDeleteModalButton().click();
-    waitForPresenceOf(page.getSuccessSnackbar());
+    browser.sleep(2250);
     expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
   });
 
