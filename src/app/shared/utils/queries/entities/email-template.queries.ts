@@ -100,5 +100,9 @@ export function emailTemplateInputQuery(emailTemplate: EmailTemplate, includeId?
     body = `body: "${emailTemplate.body.replace(/"/g, '\\"')}",`
   }
 
-  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", ${addUpdatedAtApi(emailTemplate, includeId)}`;
+  const campaigns = emailTemplate.campaigns.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
+  const products = emailTemplate.products.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
+  const productSchedules = emailTemplate.productSchedules.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
+
+  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", campaigns: [${campaigns}], products: [${products}], product_schedules: [${productSchedules}], ${addUpdatedAtApi(emailTemplate, includeId)}`;
 }

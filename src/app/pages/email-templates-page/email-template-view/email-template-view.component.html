@@ -49,11 +49,50 @@
         </div>
       </div>
     </mat-tab>
+
+    <mat-tab>
+      <table-memory
+          [data]="entity.campaigns"
+          [columnParams]="campaignColumnParams"
+          [associateData]="campaignsService.entities$ | async"
+          [textOptions]="campaignText"
+          [associateDataMapper]="campaignMapper"
+          (associate)="associateCampaign($event)"
+          (disassociate)="disassociateCampaign($event)"
+          (view)="viewCampaign($event)">
+      </table-memory>
+    </mat-tab>
+
+    <mat-tab>
+      <table-memory
+          [data]="entity.products"
+          [columnParams]="productColumnParams"
+          [associateData]="productsService.entities$ | async"
+          [textOptions]="productText"
+          [associateDataMapper]="productMapper"
+          (associate)="associateProduct($event)"
+          (disassociate)="disassociateProduct($event)"
+          (view)="viewProduct($event)">
+      </table-memory>
+    </mat-tab>
+
+    <mat-tab>
+      <table-memory
+          [data]="entity.productSchedules"
+          [columnParams]="productScheduleColumnParams"
+          [associateData]="productSchedulesService.entities$ | async"
+          [textOptions]="productScheduleText"
+          [associateDataMapper]="productScheduleMapper"
+          (associate)="associateProductSchedule($event)"
+          (disassociate)="disassociateProductSchedule($event)"
+          (view)="viewProductSchedule($event)">
+      </table-memory>
+    </mat-tab>
   </mat-tab-group>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [cardsExpression]="'650px'" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="5" [cardsExpression]="'650px'" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>
 
 
