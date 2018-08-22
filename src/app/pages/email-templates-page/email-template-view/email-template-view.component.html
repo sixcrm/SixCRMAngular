@@ -15,7 +15,6 @@
                                 [tokenSubject]="addTokenSubject"
                                 [editorRefreshSubject]="editorRefreshSubject"
                                 [editorBodySubject]="editorBodySubject"
-                                [editEnabled]="!isShared"
                                 (cancel)="cancelEdit()"
                                 (changeMode)="setMode($event)"
                                 (save)="updateEntity($event)">

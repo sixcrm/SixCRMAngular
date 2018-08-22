@@ -9,7 +9,6 @@ import {Token, TokenGroup} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {EmailTemplatesSharedService} from '../../../entity-services/services/email-templates-shared.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
@@ -102,8 +101,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     noDataText: 'No Product Schedules Found.'
   };
 
-  isShared: boolean;
-
   tokenGroups: TokenGroup[] = [];
   selectedGroup: TokenGroup;
   allTokens: Token[] = [];
@@ -113,7 +110,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
     public smtpProviderService: SmtpProvidersService,
-    private sharedService: EmailTemplatesSharedService,
     public authService: AuthenticationService,
     private snackService: SnackbarService,
     public campaignsService: CampaignsService,
@@ -125,15 +121,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   }
 
   ngOnInit() {
-    this.activatedRoute.url.subscribe(data => {
-      if (data[0].path === 'shared') {
-        this.service = this.sharedService;
-        this.isShared = true;
-      }
-
-      this.init(() => this.navigation.goToNotFoundPage());
-    });
-
+    this.init(() => this.navigation.goToNotFoundPage());
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.smtpProviderService.getEntities());
     this.emailTemplateService.tokenGroups.take(1).subscribe(groups => {
