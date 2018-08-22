@@ -56,6 +56,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
 
   @Output() updatedTabs: EventEmitter<FilterTableTab[]> = new EventEmitter();
   @Output() updatedColumns: EventEmitter<ColumnParams<any>[]> = new EventEmitter();
+  @Output() download: EventEmitter<string> = new EventEmitter();
 
   numberOfSelected: number = 0;
 
