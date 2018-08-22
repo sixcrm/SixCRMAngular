@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
@@ -11,7 +11,7 @@ import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-i
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {Subscription, Subject, BehaviorSubject, Observable} from 'rxjs';
+import {Subscription, Observable} from 'rxjs';
 
 @Component({
   selector: 'transactions',
@@ -20,7 +20,7 @@ import {Subscription, Subject, BehaviorSubject, Observable} from 'rxjs';
 })
 export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE', url: '/transactions'}];
   transactions: TransactionAnalytics[] = [];
 
   sub: Subscription;
@@ -29,6 +29,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     auth: AuthenticationService,
     dialog: MatDialog,
     router: Router,
+    private route: ActivatedRoute,
     public featuresFlagService: FeatureFlagService,
     private analyticsService: AnalyticsService
   ) {
@@ -83,7 +84,15 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   ngOnInit() {
-    this.fetch();
+    this.route.queryParams.take(1).takeUntil(this.unsubscribe$).subscribe(params => {
+      this.parseFiltersFromParams(params);
+    })
+  }
+
+  parseFiltersFromParams(params: Params): void {
+    this.parseParams(params);
+
+    this.fetchData();
   }
 
   ngOnDestroy() {
@@ -108,6 +117,23 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   fetch() {
+    this.router.navigate(
+      ['/transactions'],
+      {
+        queryParams: {
+          start: this.date.start.clone().format(),
+          end: this.date.end.clone().format(),
+          sort: this.getSortColumn().sortName,
+          sortOrder: this.getSortColumn().sortOrder,
+          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
+          filters: JSON.stringify(this.filters)
+        }
+      });
+
+    this.fetchData();
+  }
+
+  fetchData() {
     this.loadingData = true;
 
     if (this.sub) {
