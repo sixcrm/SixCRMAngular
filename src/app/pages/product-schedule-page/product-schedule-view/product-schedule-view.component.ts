@@ -19,6 +19,8 @@ import {utc, Moment} from 'moment'
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
+import {EmailTemplate} from '../../../shared/models/email-template.model';
+import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 
 @Component({
   selector: 'product-schedule-view',
@@ -100,6 +102,25 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     return schedule;
   };
 
+  emailTemplateMapper = (el: EmailTemplate) => el.name;
+  emailTemplateColumnParams = [
+    new ColumnParams('Name', (e: EmailTemplate) => e.name),
+    new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
+    new ColumnParams('Type', (e: EmailTemplate) => e.type),
+    new ColumnParams('SMTP Provider', (e: EmailTemplate) => e.smtpProvider.name)
+  ];
+
+  emailText: TableMemoryTextOptions = {
+    title: 'Associated Email Templates',
+    viewOptionText: 'View Email Template',
+    associateOptionText: 'Associate Email Template',
+    disassociateOptionText: 'Disassociate Email Template',
+    associateModalTitle: 'Select Email Template',
+    disassociateModalTitle: 'Are you sure you want to delete?',
+    associateModalButtonText: 'ADD',
+    noDataText: 'No Email Templates Found.'
+  };
+
   tableTexts: TableMemoryTextOptions = {
     title: 'PRODUCTSCHEDULE_CYCLE_TITLE',
     editOptionText: 'PRODUCTSCHEDULE_CYCLE_EDIT',
@@ -113,7 +134,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
     {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
     {name: 'list', label: 'PRODUCTSCHEDULE_TAB_LIST'},
-    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
+    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'},
+    {name: 'emailtemplates', label: 'EMAIL TEMPLATES'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
@@ -134,7 +156,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public authService: AuthenticationService,
     private router: Router,
     private productService: ProductsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public emailTemplateService: EmailTemplatesService
   ) {
     super(service, route);
   }
@@ -172,6 +195,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
         this.scheduleColumnParams[1].setAutocompleteOptions(products);
       });
       this.productService.getEntities();
+      this.emailTemplateService.getEntities();
     }
   }
 
@@ -260,5 +284,25 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.productScheduleWaitingForUpdate = productSchedules[0];
       this.saveDebouncer.next(productSchedules[0]);
     }
+  }
+
+  viewEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.router.navigate(['/emailtemplates', emailTemplate.id]);
+  }
+
+  disassociateEmailTemplate(emailTemplate: EmailTemplate): void {
+    let index = firstIndexOf(this.entity.emailTemplates, (el) => el.id === emailTemplate.id);
+
+    if (index > -1) {
+      this.entity.emailTemplates.splice(index, 1);
+      this.entity.emailTemplates = this.entity.emailTemplates.slice();
+    }
+  }
+
+  associateEmailTemplate(emailTemplate: EmailTemplate): void {
+    let list = this.entity.emailTemplates.slice();
+    list.push(emailTemplate);
+
+    this.entity.emailTemplates = list;
   }
 }

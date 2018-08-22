@@ -2,6 +2,7 @@ import {Schedule} from './schedule.model';
 import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
 import {Currency} from '../utils/currency/currency';
+import {EmailTemplate} from './email-template.model';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
@@ -14,6 +15,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
+  emailTemplates: EmailTemplate[] = [];
 
   start: number;
   end: number;
@@ -27,6 +29,10 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.name = obj.name || '';
     this.quantity = additional && additional.quantity ? additional.quantity : 1;
     this.instantiationDate = additional && additional.instantiationDate ? additional.instantiationDate : null;
+
+    if (obj.email_templates) {
+      this.emailTemplates = obj.email_templates.map(e => new EmailTemplate(e));
+    }
 
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
@@ -121,6 +127,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       id: this.id,
       name: this.name,
       schedule: this.schedules.map(s => s.inverse()),
+      email_templates: this.emailTemplates.map(e => e.inverse()),
       updated_at: this.updatedAtAPI,
       created_at: this.createdAt.format()
     }
