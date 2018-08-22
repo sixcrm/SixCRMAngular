@@ -167,8 +167,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     if (index > -1) {
       this.entity.emailTemplates.splice(index, 1);
       this.entity.emailTemplates = this.entity.emailTemplates.slice();
-
-      this.update();
     }
   }
 
@@ -177,8 +175,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     list.push(emailTemplate);
 
     this.entity.emailTemplates = list;
-
-    this.update();
   }
 
   viewProductSchedule(productSchedule: ProductSchedule): void {
