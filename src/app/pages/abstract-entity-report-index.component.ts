@@ -53,7 +53,11 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     }
 
     for (let i = 0; i < this.tabs.length; i++) {
-      this.tabs[i].selected = params['tab'] && this.tabs[i].visible && this.tabs[i].label === params['tab'];
+      if (!params['tab']) {
+        this.tabs[i].selected = (i === 0);
+      } else {
+        this.tabs[i].selected = this.tabs[i].visible && this.tabs[i].label === params['tab'];
+      }
     }
 
     if (params['filters']) {
