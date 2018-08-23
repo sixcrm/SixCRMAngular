@@ -53,4 +53,11 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
   ngOnDestroy() {
     this.destroy();
   }
+
+  copyTemplate(emailTemplate: EmailTemplate) {
+    const copy = emailTemplate.copy();
+    copy.name += '(copy)';
+
+    this.createEntity(copy);
+  }
 }
