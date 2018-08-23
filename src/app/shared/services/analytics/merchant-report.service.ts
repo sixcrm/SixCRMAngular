@@ -28,7 +28,7 @@ export class MerchantReportService {
             this.merchants$.next(merchants.map(merchant => new MerchantReport(merchant)))
           }
         } else {
-          downloadJSON(data.body, 'merchants-report.json');
+          downloadJSON(data.body, 'merchants-report');
         }
       })
   }
