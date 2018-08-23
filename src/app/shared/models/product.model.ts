@@ -5,6 +5,7 @@ import {ProductAttributes} from './product-attributes.model';
 import {Moment, utc} from 'moment';
 import {SixImage} from './six-image.model';
 import {ProductDynamicPricing} from './product-dynamic-pricing.model';
+import {EmailTemplate} from './email-template.model';
 
 export class Product implements Entity<Product> {
   id: string;
@@ -22,6 +23,7 @@ export class Product implements Entity<Product> {
   dynamicPrice: ProductDynamicPricing;
   quantity: number = 1;
   price: Currency;
+  emailTemplates: EmailTemplate[] = [];
 
   constructor(obj?: any, additional?: any) {
     if (!obj) {
@@ -41,6 +43,7 @@ export class Product implements Entity<Product> {
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.dynamicPrice = new ProductDynamicPricing(obj.dynamic_pricing);
+    this.emailTemplates = (obj.emailtemplates || []).map(e => new EmailTemplate(e));
 
     if (additional) {
       this.quantity = additional.quantity || 1;
@@ -83,7 +86,8 @@ export class Product implements Entity<Product> {
       fulfillment_provider: this.fulfillmentProvider.inverse(),
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI,
-      dynamic_pricing: this.dynamicPrice.enabled ? this.dynamicPrice.inverse() : null
+      dynamic_pricing: this.dynamicPrice.enabled ? this.dynamicPrice.inverse() : null,
+      emailtemplates: this.emailTemplates.map(e => e.inverse())
     }
   }
 }

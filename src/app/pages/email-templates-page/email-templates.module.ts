@@ -11,8 +11,6 @@ import { TokenListComponent } from './email-template-view/token-list/token-list.
 import { TokenViewComponent } from './email-template-view/token-view/token-view.component';
 import { EmailTemplateAddNewComponent } from './email-template-view/email-template-add-new/email-template-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
-import { EmailTemplatesSharedComponent } from './email-templates-index/email-templates-shared/email-templates-shared.component';
-import { EmailTemplatesCustomComponent } from './email-templates-index/email-templates-custom/email-templates-custom.component';
 import { FilterTemplatesByTypePipe } from './filter-templates-by-type.pipe';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
@@ -34,8 +32,6 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     TokenListComponent,
     TokenViewComponent,
     EmailTemplateAddNewComponent,
-    EmailTemplatesSharedComponent,
-    EmailTemplatesCustomComponent,
     FilterTemplatesByTypePipe
   ],
   providers: [

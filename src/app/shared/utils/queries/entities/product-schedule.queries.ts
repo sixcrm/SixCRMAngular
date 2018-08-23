@@ -66,7 +66,8 @@ export function productScheduleResponseQuery(): string {
     id name created_at updated_at,
     schedule { price start end period samedayofmonth,
       product { id name ship attributes { images { path default_image } } }
-    }`
+    },
+    emailtemplates { id, name, subject, smtp_provider { id name } }`
 }
 
 export function productScheduleInfoResponseQuery(): string {

@@ -1,12 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
-import {Modes} from '../../abstract-entity-view.component';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {MatDialog} from '@angular/material';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
@@ -14,86 +14,50 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
   templateUrl: './email-templates.component.html',
   styleUrls: ['./email-templates.component.scss']
 })
-export class EmailTemplatesComponent implements OnInit, OnDestroy {
+export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailTemplate> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'EMAILTEMPLATE_INDEX_TITLE'}];
 
-  modes = Modes;
-  selectedIndex: number = 0;
-  addMode: boolean;
-  entity: EmailTemplate = new EmailTemplate();
+  constructor(emailsService: EmailTemplatesService,
+              auth: AuthenticationService,
+              dialog: MatDialog,
+              paginationService: PaginationService,
+              router: Router,
+              activatedRoute: ActivatedRoute) {
 
-  tabHeaders: TabHeaderElement[] = [
-    {name: 'custom', label: 'EMAILTEMPLATE_TAB_CUSTOM'},
-    {name: 'shared', label: 'EMAILTEMPLATE_TAB_SHARED'}
-  ];
+    super(emailsService, auth, dialog, paginationService, router, activatedRoute);
 
-  createSub: Subscription;
+    this.entityFactory = () => new EmailTemplate();
+    this.openInEditModeAfterCreation = true;
 
-  constructor(
-    private emailTemplateService: EmailTemplatesService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {}
+    let f = this.authService.getTimezone();
+    this.columnParams = [
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_ID', (e: EmailTemplate) => e.id).setSelected(false),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_NAME', (e: EmailTemplate) => e.name),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_SUBJECT', (e: EmailTemplate) => e.subject),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_TYPE', (e: EmailTemplate) => e.getTypeFormatted()),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_SMTPPROVIDER', (e: EmailTemplate) => e.smtpProvider.name),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_CREATED', (e: EmailTemplate) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_UPDATED', (e: EmailTemplate) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+    ];
+  }
 
-  ngOnInit() { }
+  openAddMode() {
+    super.openAddMode();
+  }
+
+  ngOnInit() {
+    this.init();
+  }
 
   ngOnDestroy() {
-    if (this.createSub) {
-      this.createSub.unsubscribe();
-    }
+    this.destroy();
   }
 
-  setIndex(index: number) {
-    this.selectedIndex = index;
-  }
+  copyTemplate(emailTemplate: EmailTemplate) {
+    const copy = emailTemplate.copy();
+    copy.name += '(copy)';
 
-  copyShared(emailTemplate: EmailTemplate) {
-    this.entity = emailTemplate.copy();
-    this.entity.name += ' Copy';
-    this.entity.smtpProvider = new SmtpProvider();
-
-    this.toggleAddModal();
-  }
-
-  addTemplate() {
-    this.entity = new EmailTemplate();
-
-    this.toggleAddModal();
-  }
-
-  toggleAddModal() {
-    this.addMode = !this.addMode;
-  }
-
-  overlayClicked(event: any): void {
-    if (event && event.target && event.target.className === 'full-overlay') {
-      this.toggleAddModal();
-    }
-  }
-
-  createEntity(template: EmailTemplate) {
-    this.createSub = this.emailTemplateService.entityCreated$.take(1).subscribe(entity => {
-      if (entity instanceof CustomServerError) return;
-
-      this.viewEntity(entity.id, true)
-    });
-
-    this.emailTemplateService.createEntity(template);
-  }
-
-  closeAddMode() {
-    this.addMode = false;
-    this.entity = new EmailTemplate();
-  }
-
-  viewEntity(id: string, editMode?: boolean): void {
-    let params = [id];
-    let query = {};
-    if (editMode) {
-      query['edit'] = true;
-    }
-
-    this.router.navigate(params, {relativeTo: this.activatedRoute, queryParams: query});
+    this.createEntity(copy);
   }
 }
