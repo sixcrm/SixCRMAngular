@@ -30,8 +30,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.quantity = additional && additional.quantity ? additional.quantity : 1;
     this.instantiationDate = additional && additional.instantiationDate ? additional.instantiationDate : null;
 
-    if (obj.email_templates) {
-      this.emailTemplates = obj.email_templates.map(e => new EmailTemplate(e));
+    if (obj.emailtemplates) {
+      this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
 
     this.createdAt = utc(obj.created_at);
@@ -127,7 +127,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       id: this.id,
       name: this.name,
       schedule: this.schedules.map(s => s.inverse()),
-      email_templates: this.emailTemplates.map(e => e.inverse()),
+      emailtemplates: this.emailTemplates.map(e => e.inverse()),
       updated_at: this.updatedAtAPI,
       created_at: this.createdAt.format()
     }

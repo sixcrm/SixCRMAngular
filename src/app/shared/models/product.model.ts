@@ -43,7 +43,7 @@ export class Product implements Entity<Product> {
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.dynamicPrice = new ProductDynamicPricing(obj.dynamic_pricing);
-    this.emailTemplates = (obj.email_templates || []).map(e => new EmailTemplate(e));
+    this.emailTemplates = (obj.emailtemplates || []).map(e => new EmailTemplate(e));
 
     if (additional) {
       this.quantity = additional.quantity || 1;
@@ -87,7 +87,7 @@ export class Product implements Entity<Product> {
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI,
       dynamic_pricing: this.dynamicPrice.enabled ? this.dynamicPrice.inverse() : null,
-      email_templates: this.emailTemplates.map(e => e.inverse())
+      emailtemplates: this.emailTemplates.map(e => e.inverse())
     }
   }
 }

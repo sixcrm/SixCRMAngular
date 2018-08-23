@@ -123,7 +123,7 @@ export class TableMemoryComponent implements OnInit {
     }
 
     this.associateDialogRef = this.dialog.open(AssociateDialogComponent);
-    this.associateDialogRef.componentInstance.options = this.associateData.filter(a => firstIndexOf(this.entities, (el) => el.id === a.id) === -1);
+    this.associateDialogRef.componentInstance.options = (this.associateData || []).filter(a => firstIndexOf(this.entities, (el) => el.id === a.id) === -1);
     this.associateDialogRef.componentInstance.text = this.textOptions.associateModalTitle || `Select ${this.title} to associate`;
     this.associateDialogRef.componentInstance.associateButtonText = this.textOptions.associateModalButtonText || `Associate`;
     this.associateDialogRef.componentInstance.mapper = this.associateDataMapper;

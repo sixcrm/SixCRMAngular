@@ -70,7 +70,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     new ColumnParams('Name', (e: Product) => e.name),
     new ColumnParams('SKU', (e: Product) => e.sku),
     new ColumnParams('Default Price', (e: Product) => e.defaultPrice.usd()),
-    new ColumnParams('Ship', (e: Product) => e.ship + '')
+    new ColumnParams('Ship', (e: Product) => !!e.ship + '')
   ];
 
   productText: TableMemoryTextOptions = {

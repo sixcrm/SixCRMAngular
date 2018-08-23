@@ -93,6 +93,7 @@ export function emailTemplateInfoResponseQuery(): string {
 export function emailTemplateResponseQuery(): string {
   return `id name subject body type created_at updated_at
     smtp_provider { ${smtpProviderResponseQuery()} }
+    campaigns { id name }
     products { id name sku }
     product_schedules { id name schedule { product { id } } }
   `
