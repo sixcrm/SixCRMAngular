@@ -16,6 +16,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'product-view',
@@ -203,18 +204,18 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   disassociateEmailTemplate(emailTemplate: EmailTemplate): void {
-    let index = firstIndexOf(this.entity.emailTemplates, (el) => el.id === emailTemplate.id);
+    this.emailTemplateService.removeEmailTemplateAssociation(emailTemplate.id, 'product', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
 
-    if (index > -1) {
-      this.entity.emailTemplates.splice(index, 1);
-      this.entity.emailTemplates = this.entity.emailTemplates.slice();
-    }
+      this.entity.emailTemplates = this.entity.emailTemplates.filter(e => e.id !== template.id);
+    });
   }
 
   associateEmailTemplate(emailTemplate: EmailTemplate): void {
-    let list = this.entity.emailTemplates.slice();
-    list.push(emailTemplate);
+    this.emailTemplateService.addEmailTemplateAssociation(emailTemplate.id, 'product', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
 
-    this.entity.emailTemplates = list;
+      this.entity.emailTemplates = [...this.entity.emailTemplates, template];
+    });
   }
 }

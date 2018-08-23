@@ -291,18 +291,18 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   disassociateEmailTemplate(emailTemplate: EmailTemplate): void {
-    let index = firstIndexOf(this.entity.emailTemplates, (el) => el.id === emailTemplate.id);
+    this.emailTemplateService.removeEmailTemplateAssociation(emailTemplate.id, 'product_schedule', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
 
-    if (index > -1) {
-      this.entity.emailTemplates.splice(index, 1);
-      this.entity.emailTemplates = this.entity.emailTemplates.slice();
-    }
+      this.entity.emailTemplates = this.entity.emailTemplates.filter(e => e.id !== template.id);
+    });
   }
 
   associateEmailTemplate(emailTemplate: EmailTemplate): void {
-    let list = this.entity.emailTemplates.slice();
-    list.push(emailTemplate);
+    this.emailTemplateService.addEmailTemplateAssociation(emailTemplate.id, 'product_schedule', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
 
-    this.entity.emailTemplates = list;
+      this.entity.emailTemplates = [...this.entity.emailTemplates, template];
+    });
   }
 }

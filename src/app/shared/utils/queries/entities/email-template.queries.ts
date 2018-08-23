@@ -45,6 +45,22 @@ export function emailTemplateQuery(id: string): string {
     }`
 }
 
+export function addEmailTemplateAssociation(emailTemplateId: string, entityType: 'product' | 'campaign' | 'product_schedule', entityId: string): string {
+  return `mutation {
+    addemailtemplateassociation (emailtemplateid: "${emailTemplateId}", entitytype: ${entityType}, entityid: "${entityId}") {
+      id, name, smtp_provider { id, name }, subject, type
+    }
+  }`
+}
+
+export function removeEmailTemplateAssociation(emailTemplateId: string, entityType: 'product' | 'campaign' | 'product_schedule', entityId: string): string {
+  return `mutation {
+    removeemailtemplateassociation (emailtemplateid: "${emailTemplateId}", entitytype: ${entityType}, entityid: "${entityId}") {
+      id, name, smtp_provider { id, name }, subject, type
+    }
+  }`
+}
+
 export function emailTemplateSharedQuery(id: string): string {
   return `
     {
