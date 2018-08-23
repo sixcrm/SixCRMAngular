@@ -117,6 +117,23 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     super.openFiltersDialog(TransactionFiltersDialogComponent);
   }
 
+  private parseTransactionsForDownload(transactions: TransactionAnalytics[]): any {
+    return transactions.map(t => {
+      return {
+        'Date/Time': t.date.format('MM/DD/YYYY h:mm A'),
+        'Customer': t.customer,
+        'Amount': t.amount.amount,
+        'Transaction ID': t.alias,
+        'Order ID': t.rebillAlias,
+        'Session': t.sessionAlias,
+        'Response': t.response,
+        'MID': t.merchantProvider,
+        'Refund': t.refund.amount ? t.refund.usd() : '–',
+        'Chargeback': t.chargeback ? 'true' : '–'
+      };
+    });
+  }
+
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
@@ -131,21 +148,14 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         return;
       }
 
-      const parsedTransactions = transactions.map(t => {
-        let parsed: any = t;
-        parsed['amount'] = t.amount.amount;
-        parsed['refund'] = t.refund.amount;
-        delete parsed['obj'];
-
-        return parsed;
-      });
+      const parsedTransactions = this.parseTransactionsForDownload(transactions);
 
       const fileName = `${this.authService.getActiveAccount().name} Transactions ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
 
       if (format === 'json') {
-        downloadJSON(parsedTransactions, `${fileName}.json`);
+        downloadJSON(parsedTransactions, fileName);
       } else {
-        downloadCSV(parsedTransactions, `${fileName}.csv`);
+        downloadCSV(parsedTransactions, fileName);
       }
     });
 

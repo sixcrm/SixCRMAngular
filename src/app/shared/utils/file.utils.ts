@@ -6,7 +6,7 @@ export function download(data: any, name: string, format: string) {
 }
 
 export function downloadJSON(data: any, name: string) {
-  download(JSON.stringify(data), name, 'application/json');
+  download(JSON.stringify(data), `${name}.json`, 'application/json');
 }
 
 export function downloadCSV(data: any[], name: string) {
@@ -21,7 +21,7 @@ export function downloadCSV(data: any[], name: string) {
     }
   }
 
-  download(csvString, name, 'application/csv');
+  download(csvString, `${name}.csv`, 'application/csv');
 }
 
 export function downloadFile(data: any, name: string, format: string) {
