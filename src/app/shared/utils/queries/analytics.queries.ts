@@ -183,33 +183,15 @@ export function activitiesByCustomer(start: string, end: string, customer: strin
           values: ["${end}"]
         },
         {
-          facet: "actor"
-          values: ["${customer}"]
-        },
-        {
-          facet: "actorType"
-          values: ["customer"]
-        },
-        {
           facet: "actedUpon"
           values: ["${customer}"]
         },
         {
           facet: "actedUponType"
           values: ["customer"]
-        },
-        {
-          facet: "associatedWith"
-          values: ["${customer}"]
-        },
-        {
-          facet: "associatedWithType"
-          values: ["customer"]
         }
-        ]
+      ]
       pagination: {
-        limit: 10,
-        offset: ${offset},
         order: ["datetime"]
       }
     ) {
