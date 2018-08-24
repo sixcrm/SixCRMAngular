@@ -39,9 +39,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
     {name: 'preview', label: 'EMAILTEMPLATE_TAB_PREVIEW'},
-    {name: 'campaigns', label: 'CAMPAIGNS'},
-    {name: 'products', label: 'PRODUCTS'},
-    {name: 'productschedules', label: 'PRODUCT SCHEDULES'}
+    {name: 'associations', label: 'TRIGGERS'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
@@ -55,14 +53,14 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   ];
 
   campaignText: TableMemoryTextOptions = {
-    title: 'Associated Campaigns',
+    title: 'Campaigns',
     viewOptionText: 'View Campaign',
-    associateOptionText: 'Associate Campaign',
-    disassociateOptionText: 'Disassociate Campaign',
+    associateOptionText: 'Add Campaign',
+    disassociateOptionText: 'Delete Campaign',
     associateModalTitle: 'Select Campaign',
     disassociateModalTitle: 'Are you sure you want to delete?',
     associateModalButtonText: 'ADD',
-    noDataText: 'No Campaigns Found.'
+    noDataText: 'No Campaigns set as triggers.'
   };
 
   productMapper = (el: Product) => el.name;
@@ -74,14 +72,14 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   ];
 
   productText: TableMemoryTextOptions = {
-    title: 'Associated Products',
+    title: 'Products',
     viewOptionText: 'View Product',
     associateOptionText: 'Associate Product',
     disassociateOptionText: 'Disassociate Product',
     associateModalTitle: 'Select Product',
     disassociateModalTitle: 'Are you sure you want to delete?',
     associateModalButtonText: 'ADD',
-    noDataText: 'No Products Found.'
+    noDataText: 'No Products set as triggers.'
   };
 
   productScheduleMapper = (el: ProductSchedule) => el.name;
@@ -91,14 +89,14 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   ];
 
   productScheduleText: TableMemoryTextOptions = {
-    title: 'Associated Product Schedules',
+    title: 'Product Schedules',
     viewOptionText: 'View Product Schedule',
     associateOptionText: 'Associate Product Schedule',
     disassociateOptionText: 'Disassociate Product Schedule',
     associateModalTitle: 'Select Product Schedule',
     disassociateModalTitle: 'Are you sure you want to delete?',
     associateModalButtonText: 'ADD',
-    noDataText: 'No Product Schedules Found.'
+    noDataText: 'No Product Schedules set as triggers.'
   };
 
   tokenGroups: TokenGroup[] = [];
@@ -133,10 +131,13 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       this.allTokens = this.tokenGroups.map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
     });
 
+    this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => {
+      this.campaignsService.getEntities();
+      this.productsService.getEntities();
+      this.productSchedulesService.getEntities();
+    });
+
     this.emailTemplateService.getTokens();
-    this.campaignsService.getEntities();
-    this.productsService.getEntities();
-    this.productSchedulesService.getEntities();
   }
 
   ngOnDestroy() {
