@@ -22,7 +22,7 @@ export class CustomerAdvancedEventsComponent implements OnInit {
         start: utc().subtract(1, 'M').format(),
         end: utc().format(),
         customer: customerId,
-        limit: 10,
+        limit: 100,
         offset: 0
       });
     }
