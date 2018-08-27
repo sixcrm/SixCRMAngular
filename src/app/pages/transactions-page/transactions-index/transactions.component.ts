@@ -12,7 +12,6 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Subscription, Observable} from 'rxjs';
-import {Subscription, Observable} from 'rxjs';
 import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 
 @Component({
@@ -23,7 +22,6 @@ import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE', url: '/transactions'}];
-  transactions: TransactionAnalytics[] = [];
 
   sub: Subscription;
 
