@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
 import {Token, TokenGroup} from './token-list/token-list.component';
-import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -22,7 +21,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Product} from '../../../shared/models/product.model';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 
-declare var tinymce;
+declare var grapesjs;
 
 @Component({
   selector: 'email-template-view',
@@ -32,13 +31,10 @@ declare var tinymce;
 export class EmailTemplateViewComponent extends AbstractEntityViewComponent<EmailTemplate> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
-  addTokenSubject: Subject<Token> = new Subject();
-  editorRefreshSubject: Subject<boolean> = new Subject();
-  editorBodySubject: Subject<string> = new Subject();
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
-    {name: 'preview', label: 'EMAILTEMPLATE_TAB_PREVIEW'},
+    {name: 'template', label: 'TEMPLATE'},
     {name: 'associations', label: 'TRIGGERS'}
   ];
 
@@ -103,6 +99,8 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   selectedGroup: TokenGroup;
   allTokens: Token[] = [];
 
+  grapesEditor;
+
   constructor(
     private emailTemplateService: EmailTemplatesService,
     private activatedRoute: ActivatedRoute,
@@ -140,13 +138,113 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     this.emailTemplateService.getTokens();
   }
 
+  initGrapesJS() {
+    this.grapesEditor = grapesjs.init({
+      container : '#grapesjs',
+      components: this.entity.body,
+      css: this.entity.css,
+      storageManager: { type: 'simple-storage' },
+      blockManager: {
+        blocks: [
+          {
+            id: 'header',
+            label: '<b>Header</b>',
+            content: `
+                <section id="header-section">
+                  Dear {{customer.firstname}} {{customer.lastname}}!
+                </section>
+                <br>
+            `
+          },
+          {
+            id: 'footer',
+            label: '<b>Footer</b>',
+            content: `
+                <section id="footer-section">
+                  Thank you for using ${this.authService.getActiveAccount().name}!
+                </section>
+            `
+          },
+          {
+            id: 'order-summary',
+            label: '<b>Order Summary</b>',
+            content: `
+                <section id="order-summary-section">
+                  <div>Order Number: {{rebill.alias}}</div>
+                  <div>Total Amount: \${{rebill.amount}}</div>
+                </section>
+                <br>
+            `
+          },
+          {
+            id: 'products-summary',
+            label: '<b>Products Summary</b>',
+            content: `
+                <section id="products-summary-section">
+                  {{#order.products}}
+                  <div>{{product.name}} \${{amount}} x {{quantity}}</div>
+                  {{/order.products}}
+                </section>
+                <br>
+            `
+          },
+          {
+            id: 'customer-summary',
+            label: '<b>Customer Summary</b>',
+            content: `
+                <section id="customer-summary-section">
+                  <div>Customer Information</div>
+                  <div>{{customer.firstname}} {{customer.lastname}}</div>
+                  <div>{{customer.address.line1}}, {{customer.address.line2}}</div>
+                  <div>{{customer.address.city}} {{customer.address.state}}, {{customer.address.zip}}</div>
+                </section>
+                <br>
+            `
+          },
+          {
+            id: 'billing-summary',
+            label: '<b>Billing Summary</b>',
+            content: `
+                <section id="billing-summary-section">
+                  <div>Billing Information</div>
+                  <div>{{creditcard.name}}</div>
+                  <div>{{creditcard.type}} ****{{creditcard.last_four}}</div>
+                  <div>{{creditcard.address.city}} {{creditcard.address.state}}, {{creditcard.address.zip}}</div>
+                </section>
+                <br>
+            `
+          }
+        ]
+      }
+    });
+
+    class Storage {
+      constructor(private parent: EmailTemplateViewComponent) {};
+
+      load(keys, clb, clbErr) {
+        clb(keys);
+      }
+
+      store(data, clb, clbErr) {
+        this.parent.entity.body = data['gjs-html'];
+        this.parent.entity.css = data['gjs-css'];
+
+        clb();
+      }
+    }
+
+    this.grapesEditor.StorageManager.add('simple-storage', new Storage(this));
+  }
+
   ngOnDestroy() {
     this.destroy();
   }
 
   setIndex(value: number): void {
-    if (value === 0) {
-      this.editorRefreshSubject.next(true);
+    if (value === 1) {
+      setTimeout(() => {
+        this.initGrapesJS();
+      }, 1);
     }
 
     this.selectedIndex = value;
@@ -155,13 +253,10 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   cancelEdit(): void {
     this.setMode(this.modes.View);
     this.entity = this.entityBackup.copy();
-    this.editorRefreshSubject.next(true);
   }
 
   addToken(token: Token) {
     if (this.viewMode) return;
-
-    this.addTokenSubject.next(token);
   }
 
   sendTestEmail() {
@@ -173,33 +268,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
       this.snackService.showSuccessSnack('Test E-Mail Sent', 2500);
     })
-  }
-
-  parseTemplateBody(): string {
-    if (!this.entity || !this.entity.body) return '';
-
-    if (!this.allTokens || this.allTokens.length === 0) return this.entity.body;
-
-    const matches = this.entity.body.match(/{{.+?}}/g) || [];
-    let result = this.entity.body;
-
-    const strip = function (match) {
-      return match.replace('{{', '').replace('}}', '');
-    };
-
-    const findTokenExample = (value) => {
-      const index = firstIndexOf(this.allTokens, (token) => token.value === value);
-
-      if (index === -1) return value;
-
-      return this.allTokens[index].example;
-    };
-
-    matches.forEach((match) => {
-      result = result.replace(new RegExp(match,'g'), findTokenExample(strip(match)));
-    });
-
-    return result;
   }
 
   viewCampaign(campaign: Campaign): void {
