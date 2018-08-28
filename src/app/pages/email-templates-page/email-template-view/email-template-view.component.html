@@ -9,44 +9,25 @@
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
 
-      <div class="flex-custom email-template-view__card-container">
+      <div class="email-template-view__card-container">
         <email-template-add-new [entity]="entity"
                                 [mode]="viewMode ? modes.View : modes.Update"
-                                [tokenSubject]="addTokenSubject"
-                                [editorRefreshSubject]="editorRefreshSubject"
-                                [editorBodySubject]="editorBodySubject"
                                 (cancel)="cancelEdit()"
                                 (changeMode)="setMode($event)"
                                 (save)="updateEntity($event)">
         </email-template-add-new>
 
-        <div class="helper-container">
-          <token-list [style.display]="viewMode ? 'none' : 'inline-block'"
-                      [tokenGroups]="tokenGroups"
-                      [selectedGroup]="selectedGroup"
-                      (tokenSelected)="addToken($event)"
-                      class="entity-view__card">
-          </token-list>
-
-          <button [class.alone]="viewMode" mat-button class="test-button" (click)="sendTestEmail()">Send test E-Mail</button>
-        </div>
+        <button mat-button class="test-button" (click)="sendTestEmail()">Send test E-Mail</button>
       </div>
 
     </mat-tab>
 
     <mat-tab>
-      <div class="entity-view__card entity-view__card--large">
-        <div class="entity-view__card__header">
-          <div>
-            <div class="entity-view__card__header__title">{{'EMAILTEMPLATE_PREVIEW_TITLE' | translate}}</div>
-            <div class="entity-view__card__header__subtitle">{{'EMAILTEMPLATE_PREVIEW_SUBTITLE' | translate}}</div>
-          </div>
-        </div>
 
-        <div class="entity-view__card__content">
-          <div class="email-template-view__preview__body" [innerHTML]="parseTemplateBody()"></div>
-        </div>
+      <div>
+        <div id="grapesjs"></div>
       </div>
+
     </mat-tab>
 
     <mat-tab>

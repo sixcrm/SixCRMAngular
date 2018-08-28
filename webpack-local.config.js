@@ -412,11 +412,8 @@ module.exports = {
       "sourceMap": true,
       "filename": "scripts.bundle.js",
       "scripts": [
-        "node_modules/tinymce/tinymce.js",
-        "node_modules/tinymce/themes/modern/theme.js",
-        "node_modules/tinymce/plugins/link/plugin.js",
-        "node_modules/tinymce/plugins/code/plugin.js",
-        "node_modules/tinymce/plugins/preview/plugin.js", "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js"
+        "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js",
+        "node_modules/grapesjs/dist/grapes.min.js"
       ],
       "basePath": "."
     }),
