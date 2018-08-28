@@ -449,7 +449,7 @@ module.exports = {
       "sourceMap": false,
       "filename": "scripts.[hash:20].bundle.js",
       "scripts": [
-        "node_modules/tinymce/plugins/preview/plugin.js", "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js",
+        "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js",
         "node_modules/grapesjs/dist/grapes.min.js"
       ],
       "basePath": "."
