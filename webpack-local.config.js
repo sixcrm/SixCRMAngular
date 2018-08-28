@@ -154,8 +154,7 @@ module.exports = {
     "styles": [
       "./src/styles.scss",
       "./node_modules/codemirror/lib/codemirror.css",
-      "./node_modules/codemirror/theme/material.css",
-      "./node_modules/grapesjs/dist/css/grapes.min.css"
+      "./node_modules/codemirror/theme/material.css"
     ]
   },
   "output": {
@@ -190,8 +189,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -212,8 +210,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -242,8 +239,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -270,8 +266,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.styl$/,
         "use": [
@@ -299,8 +294,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -322,8 +316,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -353,8 +346,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -382,8 +374,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.styl$/,
         "use": [

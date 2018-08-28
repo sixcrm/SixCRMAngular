@@ -158,8 +158,7 @@ module.exports = {
     "styles": [
       "./src/styles.scss",
       "./node_modules/codemirror/lib/codemirror.css",
-      "./node_modules/codemirror/theme/material.css",
-      "./node_modules/grapesjs/dist/css/grapes.min.css"
+      "./node_modules/codemirror/theme/material.css"
     ]
   },
   "output": {
@@ -211,8 +210,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -233,8 +231,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -263,8 +260,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -291,8 +287,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.styl$/,
         "use": [
@@ -320,8 +315,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.css$/,
         "loaders": ExtractTextPlugin.extract({
@@ -345,8 +339,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.scss$|\.sass$/,
         "loaders": ExtractTextPlugin.extract({
@@ -378,8 +371,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.less$/,
         "loaders": ExtractTextPlugin.extract({
@@ -409,8 +401,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "src/styles.scss"),
           path.join(process.cwd(), "node_modules/codemirror/lib/codemirror.css"),
-          path.join(process.cwd(), "node_modules/codemirror/theme/material.css"),
-          path.join(process.cwd(), "node_modules/grapesjs/dist/css/grapes.min.css")
+          path.join(process.cwd(), "node_modules/codemirror/theme/material.css")
         ],
         "test": /\.styl$/,
         "loaders": ExtractTextPlugin.extract({
@@ -459,7 +450,7 @@ module.exports = {
       "filename": "scripts.[hash:20].bundle.js",
       "scripts": [
         "node_modules/tinymce/plugins/preview/plugin.js", "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js",
-        "node_modules/grapesjs/dist/css/grapes.min.css"
+        "node_modules/grapesjs/dist/grapes.min.js"
       ],
       "basePath": "."
     }),

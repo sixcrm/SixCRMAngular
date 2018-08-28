@@ -10,7 +10,6 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   name: string;
   subject: string;
   body: string;
-  css: string;
   type: string;
   createdAt: Moment;
   updatedAt: Moment;
@@ -30,7 +29,6 @@ export class EmailTemplate implements Entity<EmailTemplate> {
     this.name = obj.name || '';
     this.subject = obj.subject || '';
     this.body = obj.body || '';
-    this.css = obj.css || '';
     this.type = obj.type || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
@@ -76,7 +74,6 @@ export class EmailTemplate implements Entity<EmailTemplate> {
       name: this.name,
       subject: this.subject,
       body: this.body,
-      css: this.css,
       type: this.type,
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI,

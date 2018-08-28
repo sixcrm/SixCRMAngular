@@ -28,6 +28,7 @@
 @import "assets/scss/_mat-rewrites.scss";
 @import "assets/scss/_bluescreen.scss";
 @import "assets/scss/_graph-qldocs.scss";
+@import "assets/scss/_grapes-rewrites";
 
 /***************
   HTML Styles
@@ -73,8 +74,4 @@ h5 > span {
   font-size: 14px;
   margin-left: 15px;
   color: #777;
-}
-
-.gjs-block {
-  min-height: 36px !important;
 }
