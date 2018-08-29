@@ -412,7 +412,6 @@ module.exports = {
       "sourceMap": true,
       "filename": "scripts.bundle.js",
       "scripts": [
-        "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js",
         "node_modules/grapesjs/dist/grapes.min.js"
       ],
       "basePath": "."
