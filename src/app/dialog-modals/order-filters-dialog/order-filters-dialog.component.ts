@@ -32,7 +32,13 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
 
     this.filterColumns = [
       { name: 'amount', label: 'Sale Amount' },
-      { name: 'customerName', label: 'Customer Name' }
+      { name: 'items', label: 'Items' },
+      { name: 'returns', label: 'Returns' },
+      { name: 'refunds', label: 'Refunds' },
+      { name: 'chargebacks', label: 'Chargebacks' },
+      { name: 'total', label: 'Total' },
+      { name: 'alias', label: 'Order ID' },
+      { name: 'customerName', label: 'Customer' }
     ];
   }
 

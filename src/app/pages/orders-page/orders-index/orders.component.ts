@@ -11,6 +11,7 @@ import {OrderFiltersDialogComponent} from '../../../dialog-modals/order-filters-
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {OrderAnalytics} from '../../../shared/models/analytics/order-analytics.model';
+import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 
 @Component({
   selector: 'orders',
@@ -35,18 +36,25 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('Date', (e: OrderAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Status', (e: OrderAnalytics) => '–'),
-      new ColumnParams('Sale Amount', (e: OrderAnalytics) => e.amount.usd()),
-      new ColumnParams('Items', (e: OrderAnalytics) => e.items),
-      new ColumnParams('Returns', (e: OrderAnalytics) => e.returns || '–'),
-      new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds ? e.refunds.usd() : '–'),
-      new ColumnParams('Chargebacks', (e: OrderAnalytics) => e.chargebacks ? e.chargebacks.usd() : '–'),
-      new ColumnParams('Total', (e: OrderAnalytics) => e.total.usd()),
-      new ColumnParams('Order ID', (e: OrderAnalytics) => e.alias || '–'),
-      new ColumnParams('Order Campaign', (e: OrderAnalytics) => e.campaignName || '–'),
-      new ColumnParams('Type', (e: OrderAnalytics) => e.type || '–'),
+      new ColumnParams('Date', (e: OrderAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
+      new ColumnParams('Type', (e: OrderAnalytics) => e.type || '–').setSortName('type').setCapitalize(true),
+      new ColumnParams('Sale Amount', (e: OrderAnalytics) => e.amount.usd()).setSortName('amount'),
+      new ColumnParams('Items', (e: OrderAnalytics) => e.items).setSortName('items'),
+      new ColumnParams('Returns', (e: OrderAnalytics) => e.returns || '–').setSortName('returns'),
+      new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–').setSortName('refunds'),
+      new ColumnParams('Chargebacks', (e: OrderAnalytics) => e.chargebacks.amount ? e.chargebacks.usd() : '–').setSortName('chargebacks'),
+      new ColumnParams('Total', (e: OrderAnalytics) => e.total.usd()).setSortName('total'),
+      new ColumnParams('Order ID', (e: OrderAnalytics) => e.alias || '–')
+        .setSortName('alias')
+        .setLink((e: OrderAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: OrderAnalytics) => { return { order: e.id } }),
+      new ColumnParams('Order Campaign', (e: OrderAnalytics) => e.campaignName || '–')
+        .setSortName('campaign_name')
+        .setLink((e: OrderAnalytics) => `/campaigns/${e.campaign}`),
       new ColumnParams('Customer', (e: OrderAnalytics) => e.customerName || '–')
+        .setSortName('customer_name')
+        .setLink((e: OrderAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: OrderAnalytics) => { return { customer: e.customer } })
     ];
 
     this.date = {start: utc().subtract(7,'d'), end: utc()};
@@ -82,6 +90,51 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
     this.parseParams(params);
 
     this.fetchData();
+  }
+
+  private parseOrdersForDownload(orders: OrderAnalytics[]): any {
+    return orders.map(o => {
+      return {
+        'Date/Time': o.date.format('MM/DD/YYYY h:mm A'),
+        'Type': o.type,
+        'Sale Amount': o.amount.usd(),
+        'Items': o.items,
+        'Returns': o.returns ? o.returns : '–',
+        'Refunds': o.refunds.amount ? o.refunds.usd() : '–',
+        'Chargebacks': o.chargebacks.amount ? o.chargebacks.usd() : '–',
+        'Total': o.total.usd(),
+        'Order ID': o.alias,
+        'Campaign': o.campaignName,
+        'Customer': o.customerName
+      };
+    });
+  }
+
+  download(format: 'csv' | 'json') {
+    if (format !== 'csv' && format !== 'json') return;
+
+    this.analyticsService.getOrders({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    }).subscribe(orders => {
+      if (!orders || orders instanceof CustomServerError) {
+        return;
+      }
+
+      const parsedOrders = this.parseOrdersForDownload(orders);
+
+      const fileName = `${this.authService.getActiveAccount().name} Orders ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+
+      if (format === 'json') {
+        downloadJSON(parsedOrders, fileName);
+      } else {
+        downloadCSV(parsedOrders, fileName);
+      }
+    });
+
   }
 
   fetch() {
@@ -126,6 +179,41 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
 
       this.entities = [...this.entities, ...orders];
       this.hasMore = orders.length === this.limit;
+    });
+
+    this.fetchCounts();
+  }
+
+  fetchCounts() {
+    if (this.lastCountsDate
+      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
+      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
+    ) {
+      return;
+    }
+
+    this.lastCountsDate = {
+      start: this.date.start.clone(),
+      end: this.date.end.clone()
+    };
+
+    this.tabs.forEach(t => t.count = Observable.of(null));
+
+    this.analyticsService.getOrders({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format()
+    }).subscribe(orders => {
+      if (orders instanceof CustomServerError) {
+        return;
+      }
+
+      this.tabs[0].count = Observable.of(orders.length);
+      this.tabs[1].count = Observable.of(0);
+      this.tabs[2].count = Observable.of(0);
+      this.tabs[3].count = Observable.of(0);
+      this.tabs[4].count = Observable.of(orders.filter(o => o.refunds.amount > 0).length);
+      this.tabs[5].count = Observable.of(orders.filter(o => o.returns > 0).length);
+      this.tabs[6].count = Observable.of(orders.filter(o => o.chargebacks.amount > 0).length);
     });
   }
 
