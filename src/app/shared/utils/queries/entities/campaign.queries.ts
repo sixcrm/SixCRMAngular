@@ -16,6 +16,16 @@ export function campaignsInfoListQuery(params: IndexQueryParameters): string {
     }}`
 }
 
+export function campaignsNamesListQuery(params: IndexQueryParameters): string {
+  return `{
+    campaignlist ${listQueryParams(params)} {
+      campaigns {
+        id name
+      }
+      ${fullPaginationStringResponseQuery()}
+    }}`
+}
+
 export function campaignsByProductSchedule(id: string, params: IndexQueryParameters): string {
   return `{
     campaignlistbyproductschedule (productschedule: "${id}", ${paginationParamsQuery(params, true)}) {

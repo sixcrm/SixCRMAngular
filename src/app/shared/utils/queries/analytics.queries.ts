@@ -1,4 +1,3 @@
-import {parseFilterTerms, parseAdditionalFilters} from './helper.queries';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
@@ -104,7 +103,8 @@ export function campaignsByAmountQuery(start: string, end: string): string {
   `;
 }
 
-export function transactionsQuery(params: {
+export function analyticsDetailQuery(params: {
+  reportName?: string,
   start: string,
   end: string,
   limit?: number,
@@ -123,7 +123,7 @@ export function transactionsQuery(params: {
   return `
     query {
       analytics (
-        reportType: transactionDetail
+        reportType: ${params.reportName}
         facets: [{
           facet: "start"
             values: ["${params.start}"]
@@ -198,8 +198,4 @@ export function activitiesByCustomer(start: string, end: string, customer: strin
 			records { key value }
 		}
 	}`;
-}
-
-function dateRange(start: string, end: string): string {
-  return `start:"${start}" end:"${end}"`;
 }

@@ -7,7 +7,6 @@ import {AuthenticationService} from "../../../authentication/authentication.serv
 import {UsersService} from "../../../entity-services/services/users.service";
 import {TermsDialogComponent} from "../../../dialog-modals/terms-dialog/terms-dialog.component";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
-import {MarkdownService} from "angular2-markdown";
 
 @Component({
   selector: 'agreements',
@@ -24,8 +23,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthenticationService,
     private userService: UsersService,
-    private dialog: MatDialog,
-    private markdownService: MarkdownService
+    private dialog: MatDialog
   ) {
   }
 
@@ -87,11 +85,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
 
   }
 
-  private stripNonAsciiCharacters(text: string) {
-    return text.replace(/[^\x00-\x7F]/g, "");
-  }
-
-  private openTerms(title: string, text: string) {
+  openTerms(title: string, text: string) {
     let ref = this.dialog.open(TermsDialogComponent);
     ref.componentInstance.title = title;
     ref.componentInstance.text = text;
@@ -99,6 +93,10 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     ref.afterClosed().take(1).subscribe(() => {
       ref = null;
     });
+  }
+
+  private stripNonAsciiCharacters(text: string) {
+    return text.replace(/[^\x00-\x7F]/g, "");
   }
 
 }

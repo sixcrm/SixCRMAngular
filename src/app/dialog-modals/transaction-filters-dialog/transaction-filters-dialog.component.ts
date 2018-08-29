@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import { ValueFilterOperator } from '../../shared/components/value-filter/value-filter.component';
 import {AbstractFilterDialog, FilterDialogResponse} from '../abstract-filter-dialog';
-import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Moment} from 'moment';
 
 @Component({
@@ -53,16 +52,6 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
     });
 
     this.filters.push({column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''});
-  }
-
-  private initValues(filter: {facet: string, values: string[]}) {
-    const index = firstIndexOf(this.filterColumns, (el) => el.name === filter.facet);
-
-    if (index !== -1) {
-      filter.values.forEach(value => {
-        this.filters = [...this.filters, {column: this.filterColumns[index], operator: ValueFilterOperator.EQUALS, value}]
-      })
-    }
   }
 
   private initChargeback(filter: {facet: string; values: string[]}) {
@@ -199,24 +188,6 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
     return [];
   }
 
-  private parseValueFilters(): {facet: string, values: string[]}[] {
-    const filters: {facet: string; values: string[]}[] = [];
-
-    this.filters
-      .filter(filter => !!filter.value)
-      .forEach(filter => {
-        const index = firstIndexOf(filters, (f) => f.facet === filter.column.name);
-
-        if (index !== -1) {
-          filters[index].values.push(filter.value);
-        } else {
-          filters.push({facet: filter.column.name, values: [filter.value]})
-        }
-      });
-
-    return filters;
-  }
-
   allStatusSelected(event) {
     if (event.checked) {
       this.saleStatus = false;
@@ -245,14 +216,6 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
     if (event.checked) {
       this.allResponse = false;
     }
-  }
-
-  save(data: {name: string, apply: boolean}) {
-    this.dialogRef.close({filters: this.parseFilters(), meta: data});
-  }
-
-  filter() {
-    this.dialogRef.close({filters: this.parseFilters()});
   }
 
 }
