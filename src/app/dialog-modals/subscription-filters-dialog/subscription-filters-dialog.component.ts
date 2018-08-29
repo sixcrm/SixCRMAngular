@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractFilterDialog} from '../abstract-filter-dialog';
+import {AbstractFilterDialog, FilterDialogResponse} from '../abstract-filter-dialog';
 import {MatDialogRef} from '@angular/material';
 import {ValueFilterOperator} from '../../shared/components/value-filter/value-filter.component';
 import {Campaign} from '../../shared/models/campaign.model';
@@ -40,8 +40,11 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
     this.selectedCampaigns.splice(index, 1);
   }
 
-
   init(start: Moment, end: Moment, filters: {facet: string, values: string[]}[]) {
 
+  }
+
+  parseFilters(): FilterDialogResponse {
+    return null;
   }
 }

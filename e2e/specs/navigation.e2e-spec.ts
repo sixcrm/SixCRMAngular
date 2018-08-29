@@ -53,20 +53,20 @@ describe('Navigation', function() {
     expectUrlToContain('customers');
   });
 
-  it('should navigate to sessions', () => {
+  it('should navigate to orders', () => {
     nav.getNavToggler().click();
     nav.getLink(2).click();
 
-    waitForUrlContains('sessions');
-    expectUrlToContain('sessions');
+    waitForUrlContains('orders');
+    expectUrlToContain('orders');
   });
 
-  it('should navigate to rebills', () => {
+  it('should navigate to sessions', () => {
     nav.getNavToggler().click();
     nav.getLink(3).click();
 
-    waitForUrlContains('rebills');
-    expectUrlToContain('rebills');
+    waitForUrlContains('sessions');
+    expectUrlToContain('sessions');
   });
 
   it('should navigate to shippingreceipts', () => {
