@@ -263,7 +263,7 @@ export function initGrapesJS(
                                 <table>
                                 <tr>
                                     <td>
-                                        <img src="" alt="" style="min-width: 60px; min-height: 60px; background: grey; display: inline-block;">
+                                        <img src="{{image}}" alt="" style="min-width: 60px; min-height: 60px; background: grey; display: inline-block;">
                                     </td>
                                     <td>
                                         <div style="margin-left: 30px;">
