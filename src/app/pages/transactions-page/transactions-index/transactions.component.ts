@@ -39,7 +39,6 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : '–').setSortName('chargeback'),
       new ColumnParams('Response', (e: TransactionAnalytics) => e.response)
         .setSortName('response')
         .setCapitalize(true)
@@ -74,7 +73,6 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
-      {label: 'Chargebacks', selected: false, visible: true, filters: [{facet: 'chargeback', values: ['yes']}]},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
       {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
@@ -127,8 +125,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         'Session': t.sessionAlias,
         'Response': t.response,
         'MID': t.merchantProvider,
-        'Refund': t.refund.amount ? t.refund.usd() : '–',
-        'Chargeback': t.chargeback ? 'true' : '–'
+        'Refund': t.refund.amount ? t.refund.usd() : '–'
       };
     });
   }
@@ -231,10 +228,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       }
 
       this.tabs[0].count = Observable.of(transactions.length);
-      this.tabs[1].count = Observable.of(transactions.filter(t=>t.chargeback).length);
-      this.tabs[2].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
+      this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
+      this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
     });
   }
 

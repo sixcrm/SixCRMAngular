@@ -6,7 +6,6 @@ export class TransactionAnalytics {
   id: string;
   date: Moment;
   transactionType: string;
-  chargeback: boolean;
   response: string;
   amount: Currency;
   refund: Currency;
@@ -33,7 +32,6 @@ export class TransactionAnalytics {
     this.id = this.getValueOf('id');
     this.date = utc(this.getValueOf('datetime'));
     this.transactionType = this.getValueOf('transaction_type');
-    this.chargeback = this.getValueOf('chargeback') === 'yes';
     this.response = this.getValueOf('response') || '';
     this.amount = new Currency(this.getValueOf('amount') || 0);
     this.refund = new Currency(this.getValueOf('refund') || 0);

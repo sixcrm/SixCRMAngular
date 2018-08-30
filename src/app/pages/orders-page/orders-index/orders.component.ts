@@ -20,7 +20,7 @@ import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 })
 export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAnalytics> implements OnInit, OnDestroy  {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'Orders'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Orders', url: '/orders'}];
 
   sub: Subscription;
 
@@ -37,12 +37,12 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
 
     this.columnParams = [
       new ColumnParams('Date', (e: OrderAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
+      new ColumnParams('Status', (e: OrderAnalytics) => e.status || '–').setSortName('status').setCapitalize(true),
       new ColumnParams('Type', (e: OrderAnalytics) => e.type || '–').setSortName('type').setCapitalize(true),
       new ColumnParams('Sale Amount', (e: OrderAnalytics) => e.amount.usd()).setSortName('amount'),
       new ColumnParams('Items', (e: OrderAnalytics) => e.items).setSortName('items'),
       new ColumnParams('Returns', (e: OrderAnalytics) => e.returns || '–').setSortName('returns'),
       new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–').setSortName('refunds'),
-      new ColumnParams('Chargebacks', (e: OrderAnalytics) => e.chargebacks.amount ? e.chargebacks.usd() : '–').setSortName('chargebacks'),
       new ColumnParams('Total', (e: OrderAnalytics) => e.total.usd()).setSortName('total'),
       new ColumnParams('Order ID', (e: OrderAnalytics) => e.alias || '–')
         .setSortName('alias')
@@ -61,12 +61,9 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
 
     this.tabs = [
       {label: 'All', selected: true, visible: true, count: Observable.of(0)},
-      {label: 'Shipped', selected: false, visible: true, count: Observable.of(0)},
-      {label: 'Closed', selected: false, visible: true, count: Observable.of(0)},
-      {label: 'Errors', selected: false, visible: true, count: Observable.of(0)},
-      {label: 'Refunds', selected: false, visible: true, count: Observable.of(0)},
-      {label: 'Returns', selected: false, visible: true, count: Observable.of(0)},
-      {label: 'Chargebacks', selected: false, visible: true, count: Observable.of(0)}
+      {label: 'Shipped', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['shipped']}]},
+      {label: 'Closed', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['processed', 'delivered']}]},
+      {label: 'Error', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['error']}]}
     ];
 
     this.options = ['View'];
@@ -101,7 +98,6 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
         'Items': o.items,
         'Returns': o.returns ? o.returns : '–',
         'Refunds': o.refunds.amount ? o.refunds.usd() : '–',
-        'Chargebacks': o.chargebacks.amount ? o.chargebacks.usd() : '–',
         'Total': o.total.usd(),
         'Order ID': o.alias,
         'Campaign': o.campaignName,
@@ -208,12 +204,9 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
       }
 
       this.tabs[0].count = Observable.of(orders.length);
-      this.tabs[1].count = Observable.of(0);
-      this.tabs[2].count = Observable.of(0);
-      this.tabs[3].count = Observable.of(0);
-      this.tabs[4].count = Observable.of(orders.filter(o => o.refunds.amount > 0).length);
-      this.tabs[5].count = Observable.of(orders.filter(o => o.returns > 0).length);
-      this.tabs[6].count = Observable.of(orders.filter(o => o.chargebacks.amount > 0).length);
+      this.tabs[1].count = Observable.of(orders.filter(o => o.status === 'shipped').length);
+      this.tabs[2].count = Observable.of(orders.filter(o => o.status === 'processed' || o.status === 'delivered').length);
+      this.tabs[3].count = Observable.of(orders.filter(o => o.status.indexOf('error') !== -1).length);
     });
   }
 
