@@ -3,11 +3,33 @@ import * as juice from 'juice';
 import * as grapesjs from 'grapesjs';
 
 function basicLayoutElementsPlugin(editor) {
+  editor.BlockManager.add('basicLayout', {
+    label: 'Basic Layout',
+    category: 'Basic Layout Elements',
+    attributes: {class:'gjs-fonts gjs-f-b1'},
+    content: `<table style="width: 100%; font-family: Helvetica, Arial, Verdana, Trebuchet MS;">
+        <tr style="height: 100px; background: #202124">
+          <td style="text-align: center"></td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <table style="width: 100%; max-width: 650px; margin: 35px auto; font-size: 13px;">
+                <tr style="height: 160px;">
+                    <td></td>
+                </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
+            <td style="text-align: center; padding: 7px 0;">If you have any questions about our privacy policy, contact our customer service center via email at customer@email.com</td>
+        </tr>
+        </table>`,
+  });
   editor.BlockManager.add('sect100', {
     label: '1 Section',
     category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b1'},
-    content: `<table style="height: 60px; width: 100%;">
+    content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr>
           <td></td>
         </tr>
@@ -17,8 +39,8 @@ function basicLayoutElementsPlugin(editor) {
     label: '1/2 Section',
     category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b2'},
-    content: `<table style="height: 60px; width: 100%;">
-        <tr>
+    content: `<table style="height: 60px; width: 100%; font-size: 13px">
+        <tr style="vertical-align: top">
           <td style="width: 50%"></td>
           <td style="width: 50%"></td>
         </tr>
@@ -28,8 +50,8 @@ function basicLayoutElementsPlugin(editor) {
     label: '1/3 Section',
     category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b3'},
-    content: `<table style="height: 60px; width: 100%;">
-        <tr>
+    content: `<table style="height: 60px; width: 100%; font-size: 13px">
+        <tr style="vertical-align: top">
           <td style="width: 33.3333%"></td>
           <td style="width: 33.3333%"></td>
           <td style="width: 33.3333%"></td>
@@ -40,8 +62,8 @@ function basicLayoutElementsPlugin(editor) {
     label: '3/7 Section',
     category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b37'},
-    content: `<table style="height: 60px; width: 100%;">
-        <tr>
+    content: `<table style="height: 60px; width: 100%; font-size: 13px">
+        <tr style="vertical-align: top">
           <td style="width:30%"></td>
           <td style="width:70%"></td>
         </tr>
@@ -167,79 +189,133 @@ export function initGrapesJS(
 ): any {
   const predefinedBlocksPlugin = (editor) => {
 
-    editor.BlockManager.add('predefined-header', {
-      label: '<b>Header</b>',
+    editor.BlockManager.add('predefined-order-title', {
+      label: '<b>Order Title</b>',
       category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="header-section">
-                  Dear {{customer.firstname}} {{customer.lastname}}!
+                <section id="order-title-section" style="text-align: center;">
+                    <div style="margin-bottom: 25px; font-size: 22px;">
+                        Thanks for your purchase, {{customer.firstname}}!
+                    </div>
+                    <div style="margin-bottom: 25px; color: #5F6368;">
+                        We're getting your order ready to be shipped. We will notify you when it's been shipped out.
+                    </div>
                 </section>
             `
     });
 
-    editor.BlockManager.add('predefined-footer', {
-      label: '<b>Footer</b>',
+    editor.BlockManager.add('predefined-order-details', {
+      label: '<b>Order Basic Details</b>',
       category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="footer-section">
-                  Thank you for using ${params.additionalFields.accountName}!
+                <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
+                    <table style="width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
+                        <tr>
+                            <td style="text-align: left; width: 50%">Order ID #{{rebill.alias}}</td>
+                            <td style="text-align: right; width: 50%">Order placed {{rebill.bill_at}}</td>
+                        </tr>
+                    </table>
                 </section>
             `
     });
 
-    editor.BlockManager.add('predefined-order-summary', {
-      label: '<b>Order Summary</b>',
+    editor.BlockManager.add('predefined-order-pricing', {
+      label: '<b>Order Pricing Details</b>',
       category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="order-summary-section">
-                  <div style="margin-bottom: 10px">Order Summary</div>
-                  <div>Order Number: {{rebill.alias}}</div>
-                  <div>Total Amount: \${{rebill.amount}}</div>
+                <div>
+                  <section id="order-pricing--details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
+                      <table style="width: 100%; font-size: 13px; color: #5F6368;">
+                          <tr>
+                              <td style="text-align: left; width: 50%;">Subtotal</td>
+                              <td style="text-align: right; width: 50%; font-weight: bold;">\${{rebill.amount}}</td>
+                          </tr>
+                      </table>
+                      {{#rebill.shipping_receipts}}
+                      <table style="width: 100%; font-size: 13px; color: #5F6368;">
+                          <tr>
+                              <td style="text-align: left; width: 50%">Shipping {{tracker.carrier}}</td>
+                              <td style="text-align: right; width: 50%; font-weight: bold">\${{amount}}</td>
+                          </tr>
+                      </table>
+                      {{/rebill.shipping_receipts}}
+                  </section>
+                  <section style="text-align: right; max-width: 650px; margin: 0 auto; font-size: 20px;">
+                      Total <span style="font-weight: bold">\${{order.amount}}</span>
+                  </section>
+                </div>
+            `
+    });
+
+    editor.BlockManager.add('predefined-order-products', {
+      label: '<b>Order Products Details</b>',
+      category: 'Predefined Token Blocks',
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="order-products-details-section" style="max-width: 650px; margin: 10px auto;">
+                    {{#order.products}}
+                    <table style="width: 100%; font-size: 13px">
+                        <tr>
+                            <td style="text-align: left; width: 80%">
+                                <table>
+                                <tr>
+                                    <td>
+                                        <img src="" alt="" style="min-width: 60px; min-height: 60px; background: grey; display: inline-block;">
+                                    </td>
+                                    <td>
+                                        <div style="margin-left: 30px;">
+                                            <div style="line-height: 24px; font-weight: bold; font-size: 18px;">{{product.name}}</div>
+                                            <div style="line-height: 24px; color: #5F6368">QTY: {{quantity}}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td style="text-align: right; width: 20%; color: #5F6368; font-weight: bold;">\${{amount}}</td>
+                        </tr>
+                    </table>
+                    {{/order.products}}
                 </section>
             `
     });
 
-    editor.BlockManager.add('predefined-product-summary', {
-      label: '<b>Products Summary</b>',
+    editor.BlockManager.add('predefined-customer-shipping', {
+      label: '<b>Customer Shipping Details</b>',
       category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="products-summary-section">
-                  <div style="margin-bottom: 10px">Products Summary</div>
-                  {{#order.products}}
-                  <div>{{product.name}} \${{amount}} x {{quantity}}</div>
-                  {{/order.products}}
+                <section id="customer-shipping-section" style="text-align: left; height: 100%;">
+                  <div style="line-height: 24px; font-weight: bold;">Shipping Address</div>
+                  <div style="color: #5F6368">
+                    <div>{{customer.firstname}} {{customer.lastname}}</div>
+                    <div>{{customer.address.line1}}</div>
+                    <div>{{customer.address.line2}}</div>
+                    <div>{{customer.address.city}}, {{customer.address.state}}</div>
+                    <div>{{customer.address.zip}}</div>
+                  </div>
                 </section>
             `
     });
 
-    editor.BlockManager.add('predefined-customer-summary', {
-      label: '<b>Customer Summary</b>',
+    editor.BlockManager.add('predefined-customer-billing', {
+      label: '<b>Customer Billing Details</b>',
       category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="customer-summary-section">
-                  <div style="margin-bottom: 10px">Customer Information</div>
-                  <div>{{customer.firstname}} {{customer.lastname}}</div>
-                  <div>{{customer.address.line1}}, {{customer.address.line2}}</div>
-                  <div>{{customer.address.city}} {{customer.address.state}}, {{customer.address.zip}}</div>
-                </section>
-            `
-    });
-
-    editor.BlockManager.add('predefined-billing-summary', {
-      label: '<b>Billing Summary</b>',
-      category: 'Predefined Token Blocks',
-      attributes: { class:'gjs-block-full-width' },
-      content: `
-                <section id="billing-summary-section">
-                  <div style="margin-bottom: 10px">Billing Information</div>
-                  <div>{{creditcard.name}}</div>
-                  <div>{{creditcard.type}} ****{{creditcard.last_four}}</div>
-                  <div>{{creditcard.address.city}} {{creditcard.address.state}}, {{creditcard.address.zip}}</div>
+                <section id="customer-billing-section" style="text-align: left; height: 100%;">
+                  <div style="line-height: 24px;font-weight: bold;">Billing Information</div>
+                  <div style="color: #5F6368">
+                    <div>{{creditcard.address.firstname}} {{creditcard.address.lastname}}</div>
+                    <div>{{creditcard.address.line1}}</div>
+                    <div>{{creditcard.address.line2}}</div>
+                    <div>{{creditcard.address.city}}, {{creditcard.address.state}}</div>
+                    <div>{{creditcard.address.zip}}</div>
+                  </div>
+                  <div style="margin-top: 12px; line-height: 24px; font-weight: bold;">Payment Method</div>
+                  <div style="color: #5F6368">{{creditcard.type}} ****{{creditcard.last_four}}</div>
                 </section>
             `
     })
