@@ -19,9 +19,6 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
   shippedStatus: boolean;
   closedStatus: boolean;
   errorsStatus: boolean;
-  refundsStatus: boolean;
-  returnsStatus: boolean;
-  chargebacksStatus: boolean;
 
   selectedCampaigns: Campaign[] = [new Campaign()];
 
@@ -32,11 +29,6 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
 
     this.filterColumns = [
       { name: 'amount', label: 'Sale Amount' },
-      { name: 'items', label: 'Items' },
-      { name: 'returns', label: 'Returns' },
-      { name: 'refunds', label: 'Refunds' },
-      { name: 'chargebacks', label: 'Chargebacks' },
-      { name: 'total', label: 'Total' },
       { name: 'alias', label: 'Order ID' },
       { name: 'customerName', label: 'Customer' }
     ];
@@ -80,24 +72,13 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
             this.shippedStatus = true;
             break;
           }
-          case 'closed': {
+          case 'delivered':
+          case 'processed': {
             this.closedStatus = true;
             break;
           }
-          case 'errors': {
+          case 'error': {
             this.errorsStatus = true;
-            break;
-          }
-          case 'refunds': {
-            this.refundsStatus = true;
-            break;
-          }
-          case 'returns': {
-            this.returnsStatus = true;
-            break;
-          }
-          case 'chargebacks': {
-            this.chargebacksStatus = true;
             break;
           }
         }
@@ -142,19 +123,11 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
         statusFacet.values.push('shipped');
       }
       if (this.closedStatus) {
-        statusFacet.values.push('closed');
+        statusFacet.values.push('delivered');
+        statusFacet.values.push('processed');
       }
       if (this.errorsStatus) {
-        statusFacet.values.push('errors');
-      }
-      if (this.refundsStatus) {
-        statusFacet.values.push('refunds');
-      }
-      if (this.returnsStatus) {
-        statusFacet.values.push('returns');
-      }
-      if (this.chargebacksStatus) {
-        statusFacet.values.push('chargebacks');
+        statusFacet.values.push('error');
       }
 
       if (statusFacet.values.length > 0) {
@@ -171,9 +144,6 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
       this.shippedStatus = false;
       this.closedStatus = false;
       this.errorsStatus = false;
-      this.refundsStatus = false;
-      this.returnsStatus = false;
-      this.chargebacksStatus = false;
     }
   }
 

@@ -5,6 +5,7 @@ export class OrderAnalytics {
 
   id: string;
   alias: string;
+  status: string;
   date: Moment;
   amount: Currency;
   items: number;
@@ -15,7 +16,6 @@ export class OrderAnalytics {
   customerName: string;
   returns: number;
   refunds: Currency;
-  chargebacks: Currency;
   total: Currency;
 
   obj: any;
@@ -29,12 +29,12 @@ export class OrderAnalytics {
 
     this.id = this.getValueOf('id');
     this.alias = this.getValueOf('alias');
+    this.status = this.getValueOf('status');
     this.date = utc(this.getValueOf('datetime'));
     this.type = this.getValueOf('type');
     this.amount = new Currency(this.getValueOf('amount') || 0);
     this.returns = +this.getValueOf('returns');
     this.refunds = new Currency(this.getValueOf('refunds') || 0);
-    this.chargebacks = new Currency(this.getValueOf('chargebacks') || 0);
     this.total = new Currency(this.getValueOf('total') || 0);
     this.items = +this.getValueOf('items');
     this.customer = this.getValueOf('customer');
