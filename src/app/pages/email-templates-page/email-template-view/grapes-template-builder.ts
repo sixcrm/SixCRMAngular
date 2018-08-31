@@ -21,7 +21,9 @@ function basicLayoutElementsPlugin(editor) {
           </td>
         </tr>
         <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
-            <td style="text-align: center; padding: 7px 0;">If you have any questions about our privacy policy, contact our customer service center via email</td>
+            <td style="text-align: center; padding: 7px 0;">
+                <div>If you have any questions about our privacy policy, contact our customer service center via email</div>
+            </td>
         </tr>
         </table>`,
   });
@@ -213,8 +215,16 @@ export function initGrapesJS(
                 <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
                     <table style="width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
                         <tr>
-                            <td style="text-align: left; width: 50%">Order ID #{{rebill.alias}}</td>
-                            <td style="text-align: right; width: 50%">Order placed {{rebill.bill_at}}</td>
+                            <td style="text-align: left; width: 50%">
+                                <div>
+                                    Order ID #{{rebill.alias}}
+                                </div>
+                            </td>
+                            <td style="text-align: right; width: 50%">
+                                <div>
+                                    Order placed {{rebill.bill_at}}
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </section>
@@ -230,15 +240,23 @@ export function initGrapesJS(
                   <section id="order-pricing--details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
                       <table style="width: 100%; font-size: 13px; color: #5F6368;">
                           <tr>
-                              <td style="text-align: left; width: 50%;">Subtotal</td>
-                              <td style="text-align: right; width: 50%; font-weight: bold;">\${{rebill.amount}}</td>
+                              <td style="text-align: left; width: 50%;">
+                                <div>Subtotal</div>
+                              </td>
+                              <td style="text-align: right; width: 50%; font-weight: bold;">
+                                <div>\${{rebill.amount}}</div>
+                              </td>
                           </tr>
                       </table>
                       {{#rebill.shipping_receipts}}
                       <table style="width: 100%; font-size: 13px; color: #5F6368;">
                           <tr>
-                              <td style="text-align: left; width: 50%">Shipping {{tracker.carrier}}</td>
-                              <td style="text-align: right; width: 50%; font-weight: bold">\${{amount}}</td>
+                              <td style="text-align: left; width: 50%">
+                                <div>Shipping {{tracker.carrier}}</div>
+                              </td>
+                              <td style="text-align: right; width: 50%; font-weight: bold">
+                                <div>\${{amount}}</div>
+                              </td>
                           </tr>
                       </table>
                       {{/rebill.shipping_receipts}}
