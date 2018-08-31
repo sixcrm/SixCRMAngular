@@ -32,9 +32,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependency-cache-{{ checksum "package-lock.json" }}
-            - v1-dependency-cache-
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: .
       - run:
@@ -53,9 +51,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependency-cache-{{ checksum "package-lock.json" }}
-            - v1-dependency-cache-
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: .
       - run:
@@ -76,9 +72,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependency-cache-{{ checksum "package-lock.json" }}
-            - v1-dependency-cache-
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: .
       - run:
@@ -92,9 +86,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependency-cache-{{ checksum "package-lock.json" }}
-            - v1-dependency-cache-
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: .
       - run:
@@ -108,9 +100,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependency-cache-{{ checksum "package-lock.json" }}
-            - v1-dependency-cache-
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -137,9 +127,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dependency-cache-{{ checksum "package-lock.json" }}
-            - v1-dependency-cache-
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: .
       - run:
