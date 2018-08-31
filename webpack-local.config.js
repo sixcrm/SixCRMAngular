@@ -411,9 +411,7 @@ module.exports = {
       "name": "scripts",
       "sourceMap": true,
       "filename": "scripts.bundle.js",
-      "scripts": [
-        "node_modules/grapesjs/dist/grapes.min.js"
-      ],
+      "scripts": [],
       "basePath": "."
     }),
     new CopyWebpackPlugin([

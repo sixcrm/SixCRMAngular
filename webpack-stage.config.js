@@ -448,9 +448,7 @@ module.exports = {
       "name": "scripts",
       "sourceMap": false,
       "filename": "scripts.[hash:20].bundle.js",
-      "scripts": [
-        "node_modules/grapesjs/dist/grapes.min.js"
-      ],
+      "scripts": [],
       "basePath": "."
     }),
     new CopyWebpackPlugin([
