@@ -21,6 +21,9 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Product} from '../../../shared/models/product.model';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {initGrapesJS} from './grapes-template-builder';
+import {MatDialog} from '@angular/material';
+import {CustomTokenBlockDialogComponent} from '../../../dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 
 @Component({
   selector: 'email-template-view',
@@ -112,7 +115,8 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     public campaignsService: CampaignsService,
     public productsService: ProductsService,
     public productSchedulesService: ProductScheduleService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     super(emailTemplateService, activatedRoute);
   }
@@ -157,6 +161,28 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
         saveCallback: () => {
           this.entity.body = this.templateBody;
           this.updateEntity(this.entity);
+        },
+        saveCustomBlockCallback: (content: string) => {
+          let dialog = this.dialog.open(CustomTokenBlockDialogComponent);
+
+          return dialog.afterClosed().take(1).map(result => {
+            dialog = null;
+
+            if (!result || !result.title) {
+              return {content: content, title: 'fail', success: false};
+            }
+
+            return {content: content, title: result.title, success: true};
+          });
+
+        },
+        deleteCustomBlockCallback: (name: string) => {
+          let dialog = this.dialog.open(DeleteDialogComponent);
+          dialog.componentInstance.text = `Are you sure you want to delete '${name}' custom token?`;
+
+          return dialog.afterClosed().take(1).map(result => {
+            return result.success;
+          })
         },
         testCallback: () => {
           this.sendTestEmail();

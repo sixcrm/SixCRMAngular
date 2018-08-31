@@ -52,6 +52,7 @@ import { CustomerFiltersDialogComponent } from './dialog-modals/customer-filters
 import { SubscriptionFiltersDialogComponent } from './dialog-modals/subscription-filters-dialog/subscription-filters-dialog.component';
 import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialog/order-filters-dialog.component';
+import { CustomTokenBlockDialogComponent } from './dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 
 @NgModule({
   declarations : [
@@ -88,7 +89,8 @@ import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialo
     CustomerFiltersDialogComponent,
     SubscriptionFiltersDialogComponent,
     ShippingreceiptFiltersDialogComponent,
-    OrderFiltersDialogComponent
+    OrderFiltersDialogComponent,
+    CustomTokenBlockDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -141,7 +143,8 @@ import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialo
     CustomerFiltersDialogComponent,
     SubscriptionFiltersDialogComponent,
     ShippingreceiptFiltersDialogComponent,
-    OrderFiltersDialogComponent
+    OrderFiltersDialogComponent,
+    CustomTokenBlockDialogComponent
   ],
   bootstrap : [AppComponent]
 })

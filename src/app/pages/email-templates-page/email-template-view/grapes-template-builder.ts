@@ -1,6 +1,7 @@
 import {Token} from './token-list/token-list.component';
 import * as juice from 'juice';
 import * as grapesjs from 'grapesjs';
+import {Observable} from 'rxjs';
 
 function basicLayoutElementsPlugin(editor) {
   editor.BlockManager.add('basicLayout', {
@@ -9,7 +10,9 @@ function basicLayoutElementsPlugin(editor) {
     attributes: {class:'fa fa-window-maximize'},
     content: `<table style="width: 100%; font-family: Helvetica, Arial, Verdana, Trebuchet MS;">
         <tr style="height: 140px; background: #202124">
-          <td style="text-align: center"></td>
+          <td style="text-align: center">
+            <img style="max-height: 150px; max-width: 150px; min-height: 50px; min-width: 100px; background: #ffffff" src="{{accountdetails.company_logo}}" alt="Company Logo">
+          </td>
         </tr>
         <tr>
           <td style="text-align: center">
@@ -22,7 +25,7 @@ function basicLayoutElementsPlugin(editor) {
         </tr>
         <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
             <td style="text-align: center; padding: 7px 0;">
-                <div>If you have any questions about our privacy policy, contact our customer service center via email</div>
+                <div>If you have any questions about our privacy policy, contact our customer service center via {{accountdetails.support_link}}</div>
             </td>
         </tr>
         </table>`,
@@ -187,9 +190,57 @@ export function initGrapesJS(
     parent: {templateBody: string, allTokens: Token[], tokensInited: boolean},
     saveCallback: () => void,
     testCallback: () => void,
+    saveCustomBlockCallback: (content: string) => Observable<{success: boolean, title: string}>,
+    deleteCustomBlockCallback: (name: string) => Observable<{success: boolean}>,
     additionalFields: {accountName: string}
   }
 ): any {
+  const saveCustomBlockPlugin = (editor) => {
+    editor.Commands.add('save-custom-block', {
+      run: (editor) => {
+        const value = editor.getSelected().view.el.outerHTML;
+
+        params.saveCustomBlockCallback(value).subscribe((param: {content, title, success}) => {
+          if (!param.content || !param.title || !param.success) return;
+
+          const id = new Date().getTime() + '';
+
+          editor.BlockManager.add(`custom-block-${id}`, {
+            label: `<b>${param.title}</b> <i id="${id}" class="fa fa-trash-o grapes-delete-icon"></i>`,
+            category: 'Custom Token Blocks',
+            attributes: { class:'gjs-block-full-width' },
+            content: param.content
+          });
+
+          document.getElementById(id).addEventListener('click', () => {
+            params.deleteCustomBlockCallback(param.title).subscribe(result => {
+              if (result) {
+                editor.BlockManager.remove(`custom-block-${id}`);
+                editor.BlockManager.render();
+              }
+            })
+          })
+        })
+      }
+    });
+
+    const defaultType = editor.DomComponents.getType('default');
+    const _initToolbar = defaultType.model.prototype.initToolbar;
+    defaultType.model.prototype.initToolbar = function() {
+      _initToolbar.apply(this, arguments);
+
+      const tb = this.get('toolbar');
+
+      if (tb.find((t) => t.command === 'save-custom-block')) return;
+
+      tb.push({
+        attributes: { class: 'fa fa-save' },
+        command: 'save-custom-block'
+      });
+
+      this.set('toolbar', tb);
+    };
+  };
   const predefinedBlocksPlugin = (editor) => {
 
     editor.BlockManager.add('predefined-order-title', {
@@ -397,6 +448,7 @@ export function initGrapesJS(
     height: 'calc(100vh - 218px)',
     components: params.parent.templateBody,
     plugins: [
+      saveCustomBlockPlugin,
       basicLayoutElementsPlugin,
       predefinedBlocksPlugin,
       tokensPlugin,
@@ -409,5 +461,5 @@ export function initGrapesJS(
   setBlocksViewDefault(grapesEditor);
   setSimpleStorageManager(grapesEditor, params.parent);
 
-  return grapesEditor
+  return grapesEditor;
 }
