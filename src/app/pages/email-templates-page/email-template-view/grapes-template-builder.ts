@@ -6,9 +6,9 @@ function basicLayoutElementsPlugin(editor) {
   editor.BlockManager.add('basicLayout', {
     label: 'Basic Layout',
     category: 'Basic Layout Elements',
-    attributes: {class:'gjs-fonts gjs-f-b1'},
+    attributes: {class:'fa fa-window-maximize'},
     content: `<table style="width: 100%; font-family: Helvetica, Arial, Verdana, Trebuchet MS;">
-        <tr style="height: 100px; background: #202124">
+        <tr style="height: 140px; background: #202124">
           <td style="text-align: center"></td>
         </tr>
         <tr>
@@ -21,7 +21,7 @@ function basicLayoutElementsPlugin(editor) {
           </td>
         </tr>
         <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
-            <td style="text-align: center; padding: 7px 0;">If you have any questions about our privacy policy, contact our customer service center via email at customer@email.com</td>
+            <td style="text-align: center; padding: 7px 0;">If you have any questions about our privacy policy, contact our customer service center via email</td>
         </tr>
         </table>`,
   });
@@ -263,7 +263,7 @@ export function initGrapesJS(
                                 <table>
                                 <tr>
                                     <td>
-                                        <img src="{{image}}" alt="" style="min-width: 60px; min-height: 60px; background: grey; display: inline-block;">
+                                        <img src="{{image}}" alt="" style="min-width: 60px; max-width: 160px; min-height: 60px; background: grey; display: inline-block;">
                                     </td>
                                     <td>
                                         <div style="margin-left: 30px;">
