@@ -143,7 +143,7 @@ function toolbarEditButtonsPlugin(editor) {
   editor.Panels.addButton('options', [
     {
       id: 'undo',
-      className: 'fa fa-undo icon-undo',
+      className: 'fa fa-undo icon-undo gjs-margin-left-25',
       command: 'undo',
       attributes: { title: 'Undo (CTRL/CMD + Z)'}
     },
@@ -185,7 +185,8 @@ export function initGrapesJS(
   params: {
     targetId: string,
     parent: {templateBody: string, allTokens: Token[], tokensInited: boolean},
-    saveClickedCallback: () => void,
+    saveCallback: () => void,
+    testCallback: () => void,
     additionalFields: {accountName: string}
   }
 ): any {
@@ -338,11 +339,21 @@ export function initGrapesJS(
             `
     })
   };
-  const saveToolbarButtonPlugin = (editor) => {
+  const toolbarActionButtonsPlugin = (editor) => {
 
     editor.Commands.add('save-template', {
       run: (editor, sender) => {
-        params.saveClickedCallback();
+        params.saveCallback();
+
+        setTimeout(() => {
+          sender.set('active', 0);
+        }, 120);
+      }
+    });
+
+    editor.Commands.add('test-template', {
+      run: (editor, sender) => {
+        params.testCallback();
 
         setTimeout(() => {
           sender.set('active', 0);
@@ -353,9 +364,15 @@ export function initGrapesJS(
     editor.Panels.addButton('options', [
       {
         id: 'save-template',
-        className: 'fa fa-save',
+        className: 'fa fa-save gjs-margin-left-25',
         command: 'save-template',
         attributes: { title: 'Save Template' }
+      },
+      {
+        id: 'test-template',
+        className: 'fa fa-envelope',
+        command: 'test-template',
+        attributes: { title: 'Test Template' }
       }
     ])
 
@@ -384,7 +401,7 @@ export function initGrapesJS(
       predefinedBlocksPlugin,
       tokensPlugin,
       toolbarEditButtonsPlugin,
-      saveToolbarButtonPlugin
+      toolbarActionButtonsPlugin
     ],
     storageManager: { type: 'simple-storage' },
   });

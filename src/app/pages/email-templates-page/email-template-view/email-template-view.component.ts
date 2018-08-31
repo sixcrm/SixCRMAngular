@@ -154,9 +154,12 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       {
         targetId: '#grapesjs',
         parent: this,
-        saveClickedCallback: () => {
+        saveCallback: () => {
           this.entity.body = this.templateBody;
           this.updateEntity(this.entity);
+        },
+        testCallback: () => {
+          this.sendTestEmail();
         },
         additionalFields: {
           accountName: this.authService.getActiveAccount().name
@@ -184,7 +187,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     this.entity = this.entityBackup.copy();
   }
 
-  sendTestEmail() {
+  sendTestEmail(): void {
     this.emailTemplateService.sendTestEmail(this.entity).subscribe((result) => {
       if (result instanceof CustomServerError) {
         this.snackService.showErrorSnack('Error when sending test E-Mail', 2500);
