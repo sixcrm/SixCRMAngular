@@ -6,7 +6,10 @@ import {Observable} from 'rxjs';
 function basicLayoutElementsPlugin(editor) {
   editor.BlockManager.add('basicLayout', {
     label: 'Basic Layout',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'fa fa-window-maximize'},
     content: `<table style="width: 100%; font-family: Helvetica, Arial, Verdana, Trebuchet MS;">
         <tr style="height: 140px; background: #202124">
@@ -32,7 +35,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect100', {
     label: '1 Section',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-b1'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr>
@@ -42,7 +48,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect50', {
     label: '1/2 Section',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-b2'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr style="vertical-align: top">
@@ -53,7 +62,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect30', {
     label: '1/3 Section',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-b3'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr style="vertical-align: top">
@@ -65,7 +77,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect37', {
     label: '3/7 Section',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-b37'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr style="vertical-align: top">
@@ -76,7 +91,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('divider', {
     label: 'Divider',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-divider'},
     content: `<table style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
         <tr>
@@ -92,7 +110,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('text', {
     label: 'Text',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-text'},
     content: {
       type: 'text',
@@ -103,7 +124,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('image', {
     label: 'Image',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'gjs-fonts gjs-f-image'},
     content: {
       type:'image',
@@ -113,7 +137,10 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('link', {
     label: 'Link',
-    category: 'Basic Layout Elements',
+    category: {
+      label: 'Basic Layout Elements',
+      open: false
+    },
     attributes: {class:'fa fa-link'},
     content: {
       type: 'link',
@@ -184,12 +211,59 @@ function setSimpleStorageManager(editor, parent: {templateBody: string}) {
 
 }
 
+function advancedDevicesPlugin(editor) {
+  const cmdm = editor.Commands;
+
+
+  cmdm.add('set-device-mobile', {
+    run(editor) {
+      editor.setDevice('Mobile portrait');
+    }
+  });
+
+  cmdm.add('set-device-tablet', {
+    run(editor) {
+      editor.setDevice('Tablet');
+    }
+  });
+
+  cmdm.add('set-device-desktop', {
+    run(editor) {
+      editor.setDevice('Desktop');
+    }
+  });
+
+  editor.getConfig().showDevices = 0;
+
+  const devicePanel = editor.Panels.addPanel({
+    id: 'devices-c'
+  });
+  devicePanel.get('buttons').add([
+    {
+      id: 'deviceMobile',
+      command: 'set-device-mobile',
+      className: 'fa fa-mobile',
+    },
+    {
+      id: 'deviceTablet',
+      command: 'set-device-tablet',
+      className: 'fa fa-tablet',
+    },
+    {
+      id: 'deviceDesktop',
+      command: 'set-device-desktop',
+      className: 'fa fa-desktop',
+      active: 1,
+    }
+  ])
+}
+
 export function initGrapesJS(
   params: {
     targetId: string,
-    parent: {templateBody: string, allTokens: Token[], tokensInited: boolean},
+    parent: {templateBody: string, allTokens: Token[]},
     saveCallback: () => void,
-    testCallback: () => void,
+    previewCallback: () => void,
     saveCustomBlockCallback: (content: string) => Observable<{success: boolean, title: string}>,
     deleteCustomBlockCallback: (name: string) => Observable<{success: boolean}>,
     additionalFields: {accountName: string}
@@ -207,7 +281,10 @@ export function initGrapesJS(
 
           editor.BlockManager.add(`custom-block-${id}`, {
             label: `<b>${param.title}</b> <i id="${id}" class="fa fa-trash-o grapes-delete-icon"></i>`,
-            category: 'Custom Token Blocks',
+            category: {
+              label: 'Custom Token Blocks',
+              open: false
+            },
             attributes: { class:'gjs-block-full-width' },
             content: param.content
           });
@@ -245,7 +322,10 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-title', {
       label: '<b>Order Title</b>',
-      category: 'Predefined Token Blocks',
+      category: {
+        label: 'Predefined Token Block',
+        open: false
+      },
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-title-section" style="text-align: center;">
@@ -261,7 +341,10 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-details', {
       label: '<b>Order Basic Details</b>',
-      category: 'Predefined Token Blocks',
+      category: {
+        label: 'Predefined Token Block',
+        open: false
+      },
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
@@ -285,7 +368,10 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-pricing', {
       label: '<b>Order Pricing Details</b>',
-      category: 'Predefined Token Blocks',
+      category: {
+        label: 'Predefined Token Block',
+        open: false
+      },
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <div>
@@ -322,7 +408,10 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-products', {
       label: '<b>Order Products Details</b>',
-      category: 'Predefined Token Blocks',
+      category: {
+        label: 'Predefined Token Block',
+        open: false
+      },
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-products-details-section" style="max-width: 650px; margin: 10px auto;">
@@ -354,7 +443,10 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-customer-shipping', {
       label: '<b>Customer Shipping Details</b>',
-      category: 'Predefined Token Blocks',
+      category: {
+        label: 'Predefined Token Block',
+        open: false
+      },
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="customer-shipping-section" style="text-align: left; height: 100%;">
@@ -372,7 +464,10 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-customer-billing', {
       label: '<b>Customer Billing Details</b>',
-      category: 'Predefined Token Blocks',
+      category: {
+        label: 'Predefined Token Block',
+        open: false
+      },
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="customer-billing-section" style="text-align: left; height: 100%;">
@@ -402,9 +497,9 @@ export function initGrapesJS(
       }
     });
 
-    editor.Commands.add('test-template', {
+    editor.Commands.add('preview', {
       run: (editor, sender) => {
-        params.testCallback();
+        params.previewCallback();
 
         setTimeout(() => {
           sender.set('active', 0);
@@ -415,15 +510,9 @@ export function initGrapesJS(
     editor.Panels.addButton('options', [
       {
         id: 'save-template',
-        className: 'fa fa-save gjs-margin-left-25',
+        className: 'fa fa-save',
         command: 'save-template',
         attributes: { title: 'Save Template' }
-      },
-      {
-        id: 'test-template',
-        className: 'fa fa-envelope',
-        command: 'test-template',
-        attributes: { title: 'Test Template' }
       }
     ])
 
@@ -431,12 +520,13 @@ export function initGrapesJS(
   const tokensPlugin = (editor) => {
     if (!params.parent.allTokens || params.parent.allTokens.length === 0) return;
 
-    params.parent.tokensInited = true;
-
     for (let token of params.parent.allTokens) {
       editor.BlockManager.add(`token-${token.value.replace(/\s/g, '-')}`, {
         label: `<b>${token.description}</b>`,
-        category: 'Tokens',
+        category: {
+          label: 'Tokens',
+          open: false
+        },
         attributes: { class:'gjs-block-full-width' },
         content: `<span>{{${token.value}}}</span>`
       });
@@ -445,9 +535,10 @@ export function initGrapesJS(
 
   const grapesEditor = grapesjs.init({
     container : params.targetId,
-    height: 'calc(100vh - 218px)',
+    height: 'calc(100vh - 166px)',
     components: params.parent.templateBody,
     plugins: [
+      advancedDevicesPlugin,
       saveCustomBlockPlugin,
       basicLayoutElementsPlugin,
       predefinedBlocksPlugin,

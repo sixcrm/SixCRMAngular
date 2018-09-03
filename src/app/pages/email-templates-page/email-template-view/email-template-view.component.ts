@@ -1,7 +1,10 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, ComponentFactoryResolver, ApplicationRef, Injector,
+  EmbeddedViewRef
+} from '@angular/core';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
-import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
@@ -24,6 +27,7 @@ import {initGrapesJS} from './grapes-template-builder';
 import {MatDialog} from '@angular/material';
 import {CustomTokenBlockDialogComponent} from '../../../dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
+import {EmailTemplateAddNewComponent} from './email-template-add-new/email-template-add-new.component';
 
 @Component({
   selector: 'email-template-view',
@@ -33,16 +37,14 @@ import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.compon
 export class EmailTemplateViewComponent extends AbstractEntityViewComponent<EmailTemplate> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
-  tokensInited: boolean;
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
-    {name: 'template', label: 'TEMPLATE'},
-    {name: 'associations', label: 'TRIGGERS'}
+    {name: 'general', label: 'GENERAL'},
+    {name: 'associations', label: 'ASSOCIATIONS'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
-    {label: () => 'EMAILTEMPLATE_INDEX_TITLE', url: '/emailtemplates'},
+    {label: () => 'Email Templates', url: '/emailtemplates'},
     {label: () => this.entity.name}
   ];
 
@@ -59,7 +61,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     associateModalTitle: 'Select Campaign',
     disassociateModalTitle: 'Are you sure you want to delete?',
     associateModalButtonText: 'ADD',
-    noDataText: 'No Campaigns set as triggers.'
+    noDataText: 'No Campaigns are associated to this email template.'
   };
 
   productMapper = (el: Product) => el.name;
@@ -78,7 +80,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     associateModalTitle: 'Select Product',
     disassociateModalTitle: 'Are you sure you want to delete?',
     associateModalButtonText: 'ADD',
-    noDataText: 'No Products set as triggers.'
+    noDataText: 'No Products are associated to this email template.'
   };
 
   productScheduleMapper = (el: ProductSchedule) => el.name;
@@ -95,12 +97,10 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     associateModalTitle: 'Select Product Schedule',
     disassociateModalTitle: 'Are you sure you want to delete?',
     associateModalButtonText: 'ADD',
-    noDataText: 'No Product Schedules set as triggers.'
+    noDataText: 'No Product Schedules are associated to this email template.'
   };
 
-  tokenGroups: TokenGroup[] = [];
-  selectedGroup: TokenGroup;
-  allTokens: Token[] = [];
+  allTokens: Token[];
 
   grapesEditor;
   templateBody: string;
@@ -116,7 +116,10 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     public productsService: ProductsService,
     public productSchedulesService: ProductScheduleService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private injector: Injector
   ) {
     super(emailTemplateService, activatedRoute);
   }
@@ -134,20 +137,21 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     this.emailTemplateService.tokenGroups.take(1).subscribe(groups => {
       const allTokensGroup: TokenGroup = new TokenGroup(groups.all);
 
-      this.tokenGroups = [allTokensGroup];
-      this.selectedGroup = allTokensGroup;
-
-      this.allTokens = this.tokenGroups.map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
-
-      if (this.selectedIndex === 1 && !this.tokensInited) {
-        this.initGrapes();
-      }
+      this.allTokens = [allTokensGroup].map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
     });
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => {
       this.campaignsService.getEntities();
       this.productsService.getEntities();
       this.productSchedulesService.getEntities();
+    });
+
+    this.service.entity$.zip(this.service.entity$).take(1).subscribe(() => {
+      if (this.selectedIndex === 0) {
+        setTimeout(() => {
+          this.initGrapes();
+        }, 1);
+      }
     });
 
     this.emailTemplateService.getTokens();
@@ -162,6 +166,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
           this.entity.body = this.templateBody;
           this.updateEntity(this.entity);
         },
+        previewCallback: () => { },
         saveCustomBlockCallback: (content: string) => {
           let dialog = this.dialog.open(CustomTokenBlockDialogComponent);
 
@@ -184,14 +189,62 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
             return result.success;
           })
         },
-        testCallback: () => {
-          this.sendTestEmail();
-        },
         additionalFields: {
           accountName: this.authService.getActiveAccount().name
         }
       }
     );
+
+    this.appendEmailTemplateUpdateComponentToGrapes();
+  }
+
+  appendEmailTemplateUpdateComponentToGrapes() {
+    // create EmailTemplateAddNewComponent template using ng component factory resolver
+    const ref = this.componentFactoryResolver
+      .resolveComponentFactory(EmailTemplateAddNewComponent)
+      .create(this.injector);
+
+    ref.instance.entity = this.entity;
+    ref.instance.mode = Modes.Update;
+    ref.instance.save.takeUntil(this.unsubscribe$).subscribe((template) => {
+      template.body = this.templateBody;
+      this.updateEntity(template);
+    });
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updatedTemplate) => {
+      if (updatedTemplate instanceof CustomServerError) return;
+
+      ref.instance.entity = updatedTemplate;
+    });
+
+    this.appRef.attachView(ref.hostView);
+
+    // append email template add new component before first grapesJS block category
+    const templateEditElement = (ref.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    const blockContainer = document.getElementsByClassName('gjs-block-categories')[0];
+
+    const updateBlock = document.createElement('div');
+    updateBlock.className = 'custom-grapes-block custom-grapes-block-opened';
+
+    // create header component that looks like grapesjs category
+    const header = document.createElement('div');
+    header.innerHTML = `
+        <div id="custom-grapes-block" class="gjs-block-category">
+            <div class="gjs-title">
+                <i class="gjs-caret-icon fa fa-caret-down"></i>
+                <i class="gjs-caret-icon fa fa-caret-right"></i>
+                General Details
+            </div>
+        </div>`;
+
+    header.addEventListener('click', () => {
+      updateBlock.classList.toggle('custom-grapes-block-opened');
+    });
+
+    updateBlock.appendChild(header);
+    updateBlock.appendChild(templateEditElement);
+
+    blockContainer.insertBefore(updateBlock, blockContainer.firstChild);
   }
 
   ngOnDestroy() {
@@ -199,18 +252,13 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   }
 
   setIndex(value: number): void {
-    if (value === 1) {
+    if (value === 0) {
       setTimeout(() => {
         this.initGrapes();
       }, 1);
     }
 
     this.selectedIndex = value;
-  }
-
-  cancelEdit(): void {
-    this.setMode(this.modes.View);
-    this.entity = this.entityBackup.copy();
   }
 
   sendTestEmail(): void {

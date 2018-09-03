@@ -1,9 +1,9 @@
 @import "colors";
 
 $primaryColor: #F3F3F3;
-$secondaryColor: $main-color-600;
-$tertiaryColor: $action-color;
-$quaternaryColor: $action-color;
+$secondaryColor: #434343;
+$tertiaryColor: $main-color-300;
+$quaternaryColor: $main-color-300;
 
 $fontPath: '~grapesjs/src/styles/fonts' !default;
 $fa-font-path: '~font-awesome/fonts' !default;
@@ -40,5 +40,74 @@ $fa-font-path: '~font-awesome/fonts' !default;
 
 .grapes-delete-icon {
   float: right;
+}
+
+.gjs-block-categories {
+  .gjs-block-category {
+    &:nth-of-type(3) {
+      order: 1;
+    }
+    &:nth-of-type(4) {
+      order: 0;
+    }
+  }
+}
+
+.gjs-pn-devices-c {
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+.gjs-pn-views {
+  width: 20% !important;
+}
+
+.gjs-pn-views-container {
+  width: 20% !important;
+  padding-top: 52px !important;
+}
+
+.gjs-cv-canvas {
+  width: 80% !important;
+  top: 52px !important;
+  height: calc(100% - 52px) !important;
+}
+
+.gjs-pn-options {
+  right: 20% !important;
+}
+
+.custom-grapes-block {
+  .fa-caret-right {
+    display: inline-block;
+  }
+  .fa-caret-down {
+    display: none;
+  }
+
+  email-template-add-new {
+    display: none;
+  }
+}
+
+.custom-grapes-block-opened {
+  .fa-caret-right {
+    display: none;
+  }
+  .fa-caret-down {
+    display: inline-block;
+  }
+
+  email-template-add-new {
+    display: block;
+  }
+}
+
+.gjs-pn-commands {
+  width: 80% !important;
+  height: 50px;
+}
+.gjs-pn-views, .gjs-pn-options, .gjs-pn-devices-c {
+  padding: 10px 5px !important;
 }
 @import "~grapesjs/src/styles/scss/main.scss";

@@ -8,7 +8,7 @@
   }
 
   &__dropdown {
-    width: 200px;
+    max-width: 200px;
 
     &:first-of-type {
       margin-bottom: 10px;
@@ -54,6 +54,14 @@
   }
 }
 
+.entity-view__card--update {
+  margin: 0;
+  width: 100% !important;
+  min-width: 100% !important;
+  text-align: left;
+  background: #F3F3F3;
+}
+
 .input-form {
   width: 650px;
 }
@@ -63,5 +71,13 @@
   margin-top: 20px;
   color: #b71c1c;
   cursor: pointer;
+}
+
+.entity-view__card__content--update {
+  padding: 10px;
+}
+
+.entity-view__card__actions--update {
+  padding: 10px 10px 15px;
 }
 

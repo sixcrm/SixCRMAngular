@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Input, Output, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';

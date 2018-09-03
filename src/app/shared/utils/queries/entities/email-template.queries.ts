@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi, clean
 } from './entities-helper.queries';
 import {smtpProviderResponseQuery} from './smtp-provider.queries';
 import {EmailTemplate} from '../../../models/email-template.model';
@@ -100,6 +100,12 @@ export function sendTestEmailQuery(emailTemplate: EmailTemplate): string {
 			result
 		}
 	}`;
+}
+
+export function getEmailBodyPreview(body: string): string {
+  return `query {
+    emailtemplatepreview(body: "${clean(body)}" ) { result }
+  }`
 }
 
 export function emailTemplateInfoResponseQuery(): string {

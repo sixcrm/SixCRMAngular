@@ -6,7 +6,7 @@ import {HttpWrapperService, extractData} from '../../shared/services/http-wrappe
 import {
   emailTemplatesListQuery, emailTemplateQuery,
   deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation,
-  sendTestEmailQuery, addEmailTemplateAssociation, removeEmailTemplateAssociation
+  sendTestEmailQuery, addEmailTemplateAssociation, removeEmailTemplateAssociation, getEmailBodyPreview
 } from '../../shared/utils/queries/entities/email-template.queries';
 import {Subject} from 'rxjs';
 import {tokenListQuery} from '../../shared/utils/queries/entities/token.queries';
@@ -80,6 +80,14 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
 
   sendTestEmail(emailTemplate: EmailTemplate): Observable<any | CustomServerError> {
     return this.queryRequest(sendTestEmailQuery(emailTemplate))
+  }
+
+  getTemplatePreview(body: string): Observable<string> {
+    return this.queryRequest(getEmailBodyPreview(body)).map(data => {
+      if (data instanceof CustomServerError) return '';
+
+      return extractData(data).result;
+    })
   }
 
 }

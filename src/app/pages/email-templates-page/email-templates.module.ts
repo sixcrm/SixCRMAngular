@@ -36,6 +36,9 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
   ],
   providers: [
     EmailTemplatesAclGuard
+  ],
+  entryComponents: [
+    EmailTemplateAddNewComponent
   ]
 })
 export class EmailTemplatesModule {
