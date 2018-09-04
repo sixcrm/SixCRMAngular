@@ -21,7 +21,7 @@ function basicLayoutElementsPlugin(editor) {
         <tr>
           <td style="text-align: center">
             <table style="width: 100%; max-width: 650px; margin: 35px auto; font-size: 13px;">
-                <tr style="height: 140px;">
+                <tr style="height: 100px;">
                     <td></td>
                 </tr>
             </table>

@@ -109,7 +109,7 @@ export function getEmailBodyPreview(body: string): string {
 }
 
 export function emailTemplateInfoResponseQuery(): string {
-  return `id name subject body type smtp_provider { id name } created_at updated_at`
+  return `id name subject body type preview smtp_provider { id name } created_at updated_at`
 }
 
 export function emailTemplateResponseQuery(): string {

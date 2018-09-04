@@ -15,7 +15,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   updatedAt: Moment;
   updatedAtAPI: string;
   smtpProvider: SmtpProvider;
-
+  preview: string;
   products: Product[] = [];
   campaigns: Campaign[] = [];
   productSchedules: ProductSchedule[] = [];
@@ -34,6 +34,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.smtpProvider = new SmtpProvider(obj.smtp_provider);
+    this.preview = obj.preview || '';
 
     if (obj.products) {
       this.products = obj.products.map(p => new Product(p));

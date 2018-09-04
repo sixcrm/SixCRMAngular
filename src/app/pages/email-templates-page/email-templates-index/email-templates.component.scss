@@ -1,0 +1,117 @@
+@import "../../../../assets/scss/colors";
+
+.body {
+  padding: 20px 25px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  button {
+    background: $main-color-200;
+    color: white;
+  }
+
+  .count {
+    margin-left: auto;
+    color: #5F6368;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .sort {
+    display: flex;
+    align-items: center;
+    margin-left: 35px;
+    color: #5F6368;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  margin-left: -12px;
+  margin-right: -12px;
+
+  .template-card {
+    position: relative;
+    margin-bottom: 24px;
+    margin-right: 12px;
+    margin-left: 12px;
+    width: calc(25% - 24px);
+    box-sizing: border-box;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.24);
+    color: #202124;
+
+    @media only screen and (max-width: 1200px) {
+      width: calc(33% - 24px);
+    }
+
+    @media only screen and (max-width: 600px) {
+      width: calc(50%);
+    }
+
+    .title {
+      position: relative;
+      background: #ffffff;
+      padding: 15px 22px;
+      font-size: 16px;
+      font-weight: 500;
+
+      mat-icon {
+        position: absolute;
+        top: 15px;
+        right: 5px;
+        color: rgba(0, 0, 0, 0.54);
+        height: 22px;
+        width: 22px;
+        font-size: 22px;
+        cursor: pointer;
+      }
+    }
+
+    .preview {
+      zoom: 0.5;
+      text-align: center;
+      height: 365px;
+      overflow: auto;
+      border-top: 1px solid rgba(0,0,0,0.46);
+      border-bottom: 1px solid rgba(0,0,0,0.46);
+    }
+
+    .details {
+      padding: 15px 22px;
+      font-size: 13px;
+      line-height: 24px;
+    }
+
+    .actions {
+      display: flex;
+      padding-bottom: 15px;
+
+      button {
+        margin-left: auto;
+        margin-right: 10px;
+        color: #2C98F0;
+      }
+    }
+  }
+}
+
+.mrw-bi-input {
+  color: #5F6368;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.add-new-button {
+  margin-right: 24px;
+}
