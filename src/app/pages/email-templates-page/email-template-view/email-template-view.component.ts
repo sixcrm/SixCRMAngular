@@ -28,6 +28,10 @@ import {MatDialog} from '@angular/material';
 import {CustomTokenBlockDialogComponent} from '../../../dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {EmailTemplateAddNewComponent} from './email-template-add-new/email-template-add-new.component';
+import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
+import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
+import {CustomBlock} from '../../../shared/models/account-details.model';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'email-template-view',
@@ -101,6 +105,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   };
 
   allTokens: Token[];
+  customBlocks: CustomBlock[];
 
   grapesEditor;
   templateBody: string;
@@ -110,6 +115,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
     public smtpProviderService: SmtpProvidersService,
+    public accountDetailsService: AccountDetailsService,
     public authService: AuthenticationService,
     private snackService: SnackbarService,
     public campaignsService: CampaignsService,
@@ -146,7 +152,13 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       this.productSchedulesService.getEntities();
     });
 
-    this.service.entity$.zip(this.service.entity$).take(1).subscribe(() => {
+    this.accountDetailsService.entity$.take(1).subscribe(accountDetails => {
+      if (accountDetails instanceof CustomServerError) return;
+
+      this.customBlocks = accountDetails.emailTemplateSettings.customBlocks;
+    });
+
+    this.service.entity$.zip(this.service.entity$).zip(this.accountDetailsService.entity$).take(1).subscribe(() => {
       if (this.selectedIndex === 0) {
         setTimeout(() => {
           this.initGrapes();
@@ -155,6 +167,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     });
 
     this.emailTemplateService.getTokens();
+    this.accountDetailsService.getEntity(this.authService.getActiveAccount().id);
   }
 
   initGrapes() {
@@ -166,31 +179,42 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
           this.entity.body = this.templateBody;
           this.updateEntity(this.entity);
         },
-        previewCallback: () => { },
-        saveCustomBlockCallback: (content: string) => {
+        previewCallback: () => {
+          this.emailTemplateService.getTemplatePreview(this.templateBody).subscribe(preview => {
+            let ref = this.dialog.open(EmailTemplatePreviewModalComponent, {backdropClass: 'backdrop-blue'});
+            ref.componentInstance.body = preview;
+
+            ref.afterClosed().subscribe(() => {
+              ref = null;
+            })
+          });
+        },
+        saveCustomBlockCallback: (body: string) => {
           let dialog = this.dialog.open(CustomTokenBlockDialogComponent);
 
-          return dialog.afterClosed().take(1).map(result => {
+          return dialog.afterClosed().take(1).flatMap(result => {
             dialog = null;
 
             if (!result || !result.title) {
-              return {content: content, title: 'fail', success: false};
+              return [{success: false, block: null}];
             }
 
-            return {content: content, title: result.title, success: true};
+            const block = new CustomBlock({id: new Date().getTime() + '', body: body, title: result.title});
+
+            return this.accountDetailsService.addCustomBlock(block).flatMap(res => [{success: res, block: block}]);
           });
-
         },
-        deleteCustomBlockCallback: (name: string) => {
+        deleteCustomBlockCallback: (block: CustomBlock) => {
           let dialog = this.dialog.open(DeleteDialogComponent);
-          dialog.componentInstance.text = `Are you sure you want to delete '${name}' custom token?`;
+          dialog.componentInstance.text = `Are you sure you want to delete '${block.title}' custom token?`;
 
-          return dialog.afterClosed().take(1).map(result => {
-            return result.success;
-          })
-        },
-        additionalFields: {
-          accountName: this.authService.getActiveAccount().name
+          return dialog.afterClosed().take(1).flatMap(result => {
+            if (!result || !result.success) {
+              return [{success: false, block: null}];
+            }
+
+            return this.accountDetailsService.removeCustomBlock(block).flatMap(res => [{success: res, block: block}])
+          });
         }
       }
     );
@@ -233,7 +257,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
             <div class="gjs-title">
                 <i class="gjs-caret-icon fa fa-caret-down"></i>
                 <i class="gjs-caret-icon fa fa-caret-right"></i>
-                General Details
+                GENERAL DETAILS
             </div>
         </div>`;
 

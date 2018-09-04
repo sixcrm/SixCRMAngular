@@ -1,4 +1,4 @@
-<div *ngIf="entity && allTokens; else spinner" class="entity-view">
+<div *ngIf="entity && allTokens && customBlocks; else spinner" class="entity-view">
 
   <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name">
     <entity-view-entityacl *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
@@ -57,7 +57,7 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [numberOfCards]="'0'" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [numberOfCards]="0" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

@@ -86,7 +86,7 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
     return this.queryRequest(getEmailBodyPreview(body)).map(data => {
       if (data instanceof CustomServerError) return '';
 
-      return extractData(data).result;
+      return extractData(data).emailtemplatepreview.result;
     })
   }
 
