@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
@@ -11,7 +11,8 @@ import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-i
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {Subscription, Subject, BehaviorSubject, Observable} from 'rxjs';
+import {Subscription, Observable} from 'rxjs';
+import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 
 @Component({
   selector: 'transactions',
@@ -20,8 +21,7 @@ import {Subscription, Subject, BehaviorSubject, Observable} from 'rxjs';
 })
 export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE'}];
-  transactions: TransactionAnalytics[] = [];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE', url: '/transactions'}];
 
   sub: Subscription;
 
@@ -29,6 +29,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     auth: AuthenticationService,
     dialog: MatDialog,
     router: Router,
+    private route: ActivatedRoute,
     public featuresFlagService: FeatureFlagService,
     private analyticsService: AnalyticsService
   ) {
@@ -38,14 +39,13 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : '–').setSortName('chargeback'),
       new ColumnParams('Response', (e: TransactionAnalytics) => e.response)
         .setSortName('response')
         .setCapitalize(true)
         .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
         .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#1EBEA5' : '#ffffff')
         .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
-      new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType.replace(/^\w/, c => c.toUpperCase()) : '–').setSortName('type'),
+      new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType : '–').setSortName('type').setCapitalize(true),
       new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '–').setSortName('amount'),
       new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–').setSortName('refund'),
       new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
@@ -73,7 +73,6 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
-      {label: 'Chargebacks', selected: false, visible: true, filters: [{facet: 'chargeback', values: ['yes']}]},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
       {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
@@ -83,7 +82,15 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   ngOnInit() {
-    this.fetch();
+    this.route.queryParams.take(1).takeUntil(this.unsubscribe$).subscribe(params => {
+      this.parseFiltersFromParams(params);
+    })
+  }
+
+  parseFiltersFromParams(params: Params): void {
+    this.parseParams(params);
+
+    this.fetchData();
   }
 
   ngOnDestroy() {
@@ -107,7 +114,67 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     super.openFiltersDialog(TransactionFiltersDialogComponent);
   }
 
+  private parseTransactionsForDownload(transactions: TransactionAnalytics[]): any {
+    return transactions.map(t => {
+      return {
+        'Date/Time': t.date.format('MM/DD/YYYY h:mm A'),
+        'Customer': t.customer,
+        'Amount': t.amount.usd(),
+        'Transaction ID': t.alias,
+        'Order ID': t.rebillAlias,
+        'Session': t.sessionAlias,
+        'Response': t.response,
+        'MID': t.merchantProvider,
+        'Refund': t.refund.amount ? t.refund.usd() : '–'
+      };
+    });
+  }
+
+  download(format: 'csv' | 'json') {
+    if (format !== 'csv' && format !== 'json') return;
+
+    this.analyticsService.getTransactions({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    }).subscribe(transactions => {
+      if (!transactions || transactions instanceof CustomServerError) {
+        return;
+      }
+
+      const parsedTransactions = this.parseTransactionsForDownload(transactions);
+
+      const fileName = `${this.authService.getActiveAccount().name} Transactions ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+
+      if (format === 'json') {
+        downloadJSON(parsedTransactions, fileName);
+      } else {
+        downloadCSV(parsedTransactions, fileName);
+      }
+    });
+
+  }
+
   fetch() {
+    this.router.navigate(
+      ['/transactions'],
+      {
+        queryParams: {
+          start: this.date.start.clone().format(),
+          end: this.date.end.clone().format(),
+          sort: this.getSortColumn().sortName,
+          sortOrder: this.getSortColumn().sortOrder,
+          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
+          filters: JSON.stringify(this.filters)
+        }
+      });
+
+    this.fetchData();
+  }
+
+  fetchData() {
     this.loadingData = true;
 
     if (this.sub) {
@@ -161,10 +228,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       }
 
       this.tabs[0].count = Observable.of(transactions.length);
-      this.tabs[1].count = Observable.of(transactions.filter(t=>t.chargeback).length);
-      this.tabs[2].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
+      this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
+      this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
     });
   }
 

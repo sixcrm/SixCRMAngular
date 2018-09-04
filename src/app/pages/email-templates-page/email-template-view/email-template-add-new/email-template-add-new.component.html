@@ -46,16 +46,6 @@
     <mat-form-field [class.error]="formInvalid && !entity.subject" class="entity-view__card__content__item">
       <input required matInput [disabled]="mode === modes.View" name="subject" placeholder="{{'EMAILTEMPLATE_INFO_SUBJECT' | translate}}" [(ngModel)]="entity.subject" type="text">
     </mat-form-field>
-
-    <ng-container *ngIf="mode !== modes.Add">
-      <div class="email-template-view__label">{{'EMAILTEMPLATE_INFO_BODY' | translate}}</div>
-      <div [class.editor-container--hidden]="mode === modes.View" class="editor-container">
-        <div id="editor-id"></div>
-      </div>
-      <div *ngIf="mode === modes.View">
-        <div class="email-template-view__body" [innerHTML]="entity.body"></div>
-      </div>
-    </ng-container>
   </form>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">

@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-content>
+    <div style="margin-bottom: 10px;">Save Custom Token Block</div>
+
+    <mat-form-field>
+      <input matInput placeholder="Title" [(ngModel)]="title" type="text">
+    </mat-form-field>
+
+  </mat-card-content>
+  <mat-card-actions class="custom-dialog__buttons">
+    <div (click)="cancel()">Cancel</div>
+    <div (click)="save()">Save</div>
+  </mat-card-actions>
+</mat-card>
