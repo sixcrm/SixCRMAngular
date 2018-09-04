@@ -12,7 +12,6 @@ import {Moment} from 'moment';
 export class TransactionFiltersDialogComponent extends AbstractFilterDialog<TransactionFiltersDialogComponent> implements OnInit {
 
   allStatus: boolean = true;
-  chargebackStatus: boolean;
   refundStatus: boolean;
   saleStatus: boolean;
   reverseStatus: boolean;
@@ -46,18 +45,11 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
       this.initStatuses(filter);
 
-      this.initChargeback(filter);
-
       this.initValues(filter);
     });
 
-    this.filters.push({column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''});
-  }
-
-  private initChargeback(filter: {facet: string; values: string[]}) {
-    if (filter.facet === 'chargeback') {
-      this.allStatus = false;
-      this.chargebackStatus = true;
+    if (this.filters.length === 0) {
+      this.filters.push({column: this.filterColumns[0], operator: ValueFilterOperator.EQUALS, value: ''});
     }
   }
 
@@ -115,7 +107,6 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
   parseFilters(): FilterDialogResponse {
     let filters: {facet: string, values: string[]}[] = [
-      ...this.parseChargebackFilters(),
       ...this.parseStatusFilters(),
       ...this.parseResponseFilters(),
       ...this.parseValueFilters()
@@ -126,16 +117,6 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
       end: this.date.end.clone(),
       filters: filters
     }
-  }
-
-  private parseChargebackFilters(): {facet: string, values: string[]}[] {
-    if (!this.allStatus) {
-      if (this.chargebackStatus) {
-        return [{facet: 'chargeback', values: ['yes']}];
-      }
-    }
-
-    return [];
   }
 
   private parseResponseFilters(): {facet: string, values: string[]}[] {
@@ -193,7 +174,6 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
       this.saleStatus = false;
       this.refundStatus = false;
       this.reverseStatus = false;
-      this.chargebackStatus = false;
     }
   }
 
