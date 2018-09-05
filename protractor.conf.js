@@ -69,6 +69,9 @@ exports.config = {
       './e2e/**/accept-invite.e2e-spec.ts',
       './e2e/**/create-order.e2e-spec.ts',
       './e2e/**/navigation.e2e-spec.ts'
+    ],
+    temp: [
+      './e2e/**/campaigns.e2e-spec.ts'
     ]
   },
   capabilities: {

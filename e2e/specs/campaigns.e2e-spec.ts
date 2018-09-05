@@ -3,7 +3,7 @@ import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
+import {expectUrlToContain, expectDefined, expectUndefined} from '../utils/assertation.utils';
 import {CampaignPage} from '../po/campaign.po';
 
 describe('Campaigns', function() {
@@ -51,7 +51,28 @@ describe('Campaigns', function() {
     expectDefined(page.getAddButton());
   });
 
+  it('should close modal when esc button is clicked', () => {
+    // campaignPage.getCampaignBody().sendKeys(ESCAPE);
+    // campaignPage.getCampaignBody().sendKeys(protractor.Key.ESCAPE);
+    browser.sleep(1200);
+    // campaignPage.getNewCampaignFormNameInput().sendKeys(protractor.Key.ESCAPE);
+    // campaignPage.selectEscapeKey();
+    // campaignPage.getNewCampaignFormNameInput().sendKeys(protractor.Key.ENTER);
+    // browser.sleep(250);
+    // campaignPage.getCampaignBody().sendKeys(protractor.Key.ESCAPE);
+    // browser.sleep(250);
+    expectUndefined(campaignPage.getNewCampaignForm());
+  });
+
   it('should render add modal when add button is clicked', () => {
+    page.getAddButton().click();
+
+    expectDefined(campaignPage.getNewCampaignForm());
+  });
+
+
+
+  xit('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
 
     expectDefined(campaignPage.getNewCampaignForm());
@@ -112,7 +133,7 @@ describe('Campaigns', function() {
     campaignPage.getCampaignDeleteModalButton().click();
     browser.sleep(2000);
     waitForPresenceOf(page.getSuccessSnackbar());
-    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
+    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!');
   });
 
 });
