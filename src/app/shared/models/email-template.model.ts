@@ -5,6 +5,22 @@ import {Product} from './product.model';
 import {Campaign} from './campaign.model';
 import {ProductSchedule} from './product-schedule.model';
 
+export function typeMapper(type: string): string {
+  switch (type) {
+    case 'initialorders': return 'Initial Order';
+    case 'allorders': return 'All Orders';
+    case 'initialfulfillment': return 'Initial Fulfillment';
+    case 'allfulfillments': return 'All Fulfillments';
+    case 'delivery': return 'Delivery';
+    case 'cancellation': return 'Order Cancellation';
+    case 'return': return 'Return';
+    case 'refund': return 'Refund';
+    case 'decline': return 'All Declines';
+  }
+
+  return ''
+}
+
 export class EmailTemplate implements Entity<EmailTemplate> {
   id: string;
   name: string;
@@ -50,19 +66,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   }
 
   getTypeFormatted() {
-    switch (this.type) {
-      case 'initialorders': return 'Initial Order';
-      case 'allorders': return 'All Orders';
-      case 'initialfulfillment': return 'Initial Fulfillment';
-      case 'allfulfillments': return 'All Fulfillments';
-      case 'delivery': return 'Delivery';
-      case 'cancellation': return 'Order Cancellation';
-      case 'return': return 'Return';
-      case 'refund': return 'Refund';
-      case 'decline': return 'All Declines';
-    }
-
-    return ''
+    return typeMapper(this.type);
   };
 
   copy(): EmailTemplate {

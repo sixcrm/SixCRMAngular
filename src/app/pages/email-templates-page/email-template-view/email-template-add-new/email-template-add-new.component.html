@@ -12,12 +12,12 @@
       <div class="placeholder">
         {{entity.type ? 'Template Type *' : ''}}
       </div>
-      <div class="content" [class.content--empty]="!entity.smtpProvider.name" [matMenuTriggerFor]="typeOptions">
-        <span>{{typeMapper(entity.type) || 'Template Type *'}}</span>
+      <div class="content" [class.content--empty]="!entity.type" [matMenuTriggerFor]="typeOptions">
+        <span>{{mapper(entity.type) || 'Template Type *'}}</span>
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       <mat-menu #typeOptions="matMenu" x-position="before">
-        <button mat-menu-item *ngFor="let type of types" (click)="entity.type = type">{{typeMapper(type)}}</button>
+        <button mat-menu-item *ngFor="let type of types" (click)="entity.type = type">{{mapper(type)}}</button>
       </mat-menu>
     </div>
 

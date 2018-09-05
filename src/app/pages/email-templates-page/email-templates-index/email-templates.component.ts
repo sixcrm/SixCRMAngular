@@ -83,4 +83,15 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
       ref = null;
     })
   }
+
+  copyEmailTemplate(template: EmailTemplate) {
+    const newTemplate = template.copy();
+
+    newTemplate.campaigns = [];
+    newTemplate.products = [];
+    newTemplate.productSchedules = [];
+    newTemplate.name += '(Copy)';
+
+    this.createEntity(newTemplate);
+  }
 }

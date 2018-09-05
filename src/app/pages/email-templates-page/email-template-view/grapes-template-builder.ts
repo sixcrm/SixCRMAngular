@@ -174,13 +174,15 @@ function toolbarEditButtonsPlugin(editor) {
   editor.Panels.addButton('options', [
     {
       id: 'undo',
-      className: 'fa fa-undo icon-undo gjs-margin-left-25',
+      className: 'material-icons',
+      label: 'undo',
       command: 'undo',
       attributes: { title: 'Undo (CTRL/CMD + Z)'}
     },
     {
       id: 'redo',
-      className: 'fa fa-repeat icon-redo',
+      className: 'material-icons',
+      label: 'redo',
       command: 'redo',
       attributes: { title: 'Redo (CTRL/CMD + SHIFT + Z)' }
     }
@@ -241,20 +243,23 @@ function advancedDevicesPlugin(editor) {
   });
   devicePanel.get('buttons').add([
     {
-      id: 'deviceMobile',
-      command: 'set-device-mobile',
-      className: 'fa fa-mobile',
+      id: 'deviceDesktop',
+      command: 'set-device-desktop',
+      className: 'material-icons',
+      label: 'desktop_mac',
+      active: 1,
     },
     {
       id: 'deviceTablet',
       command: 'set-device-tablet',
-      className: 'fa fa-tablet',
+      className: 'material-icons',
+      label: 'tablet_mac'
     },
     {
-      id: 'deviceDesktop',
-      command: 'set-device-desktop',
-      className: 'fa fa-desktop',
-      active: 1,
+      id: 'deviceMobile',
+      command: 'set-device-mobile',
+      className: 'material-icons material-icons--24',
+      label: `phone_iphone`,
     }
   ])
 }
@@ -516,12 +521,16 @@ export function initGrapesJS(
     editor.Panels.addButton('options', [
       {
         id: 'save-template',
-        className: 'fa fa-save',
+        className: 'material-icons',
+        label: 'save',
         command: 'save-template',
-        attributes: { title: 'Save Template' }
+        attributes: { title: 'Save' }
       }
     ]);
 
+    editor.Panels.getButton('options', 'export-template').set({label: 'code', className: 'material-icons'});
+    editor.Panels.getButton('options', 'preview').set({label: 'visibility', className: 'material-icons'});
+    editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', className: 'material-icons material-icons--24'});
     editor.Panels.removeButton('options', 'fullscreen');
   };
   const tokensPlugin = (editor) => {

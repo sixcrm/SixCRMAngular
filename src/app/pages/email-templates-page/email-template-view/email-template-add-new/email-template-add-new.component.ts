@@ -1,5 +1,5 @@
 import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
-import {EmailTemplate} from '../../../../shared/models/email-template.model';
+import {EmailTemplate, typeMapper} from '../../../../shared/models/email-template.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
@@ -26,21 +26,7 @@ export class EmailTemplateAddNewComponent implements OnInit {
 
   types: string[] = [ 'initialorders', 'allorders', 'initialfulfillment', 'allfulfillments', 'delivery', 'cancellation', 'return', 'refund', 'decline' ];
 
-  typeMapper = (type) => {
-    switch (type) {
-      case 'initialorders': return 'Initial Order';
-      case 'allorders': return 'All Orders';
-      case 'initialfulfillment': return 'Initial Fulfillment';
-      case 'allfulfillments': return 'All Fulfillments';
-      case 'delivery': return 'Delivery';
-      case 'cancellation': return 'Order Cancellation';
-      case 'return': return 'Return';
-      case 'refund': return 'Refund';
-      case 'decline': return 'All Declines';
-    }
-
-    return ''
-  };
+  mapper = typeMapper;
 
   smtpProviders: any = [];
 
