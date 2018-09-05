@@ -7,8 +7,6 @@ import {EmailTemplatesAclGuard} from '../guards/email-templates-acl-guard.servic
 import {SharedModule} from '../../shared/shared.module';
 import {emailTemplatesRouting} from './email-templates.routing';
 import {EmailTemplateViewComponent} from './email-template-view/email-template-view.component';
-import { TokenListComponent } from './email-template-view/token-list/token-list.component';
-import { TokenViewComponent } from './email-template-view/token-view/token-view.component';
 import { EmailTemplateAddNewComponent } from './email-template-view/email-template-add-new/email-template-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
 import { FilterTemplatesByTypePipe } from './filter-templates-by-type.pipe';
@@ -29,13 +27,14 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
   declarations : [
     EmailTemplatesComponent,
     EmailTemplateViewComponent,
-    TokenListComponent,
-    TokenViewComponent,
     EmailTemplateAddNewComponent,
     FilterTemplatesByTypePipe
   ],
   providers: [
     EmailTemplatesAclGuard
+  ],
+  entryComponents: [
+    EmailTemplateAddNewComponent
   ]
 })
 export class EmailTemplatesModule {
