@@ -39,10 +39,6 @@ export class CampaignPage {
     return element(by.css('tbody')).all(by.css('tr'));
   }
 
-  getCampaignBody() {
-    return element(by.css('body'));
-  }
-
   selectEscapeKey() {
     browser.actions().sendKeys(Key.ESCAPE).perform();
   }

@@ -2,7 +2,7 @@ import {waitForUrlContains, clearLocalStorage, waitForPresenceOf, clearAuth0SSO}
 import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
-import {browser} from 'protractor';
+import {browser, protractor} from 'protractor';
 import {expectUrlToContain, expectDefined, expectUndefined} from '../utils/assertation.utils';
 import {CampaignPage} from '../po/campaign.po';
 
@@ -51,19 +51,6 @@ describe('Campaigns', function() {
     expectDefined(page.getAddButton());
   });
 
-  it('should close modal when esc button is clicked', () => {
-    // campaignPage.getCampaignBody().sendKeys(ESCAPE);
-    // campaignPage.getCampaignBody().sendKeys(protractor.Key.ESCAPE);
-    browser.sleep(1200);
-    // campaignPage.getNewCampaignFormNameInput().sendKeys(protractor.Key.ESCAPE);
-    // campaignPage.selectEscapeKey();
-    // campaignPage.getNewCampaignFormNameInput().sendKeys(protractor.Key.ENTER);
-    // browser.sleep(250);
-    // campaignPage.getCampaignBody().sendKeys(protractor.Key.ESCAPE);
-    // browser.sleep(250);
-    expectUndefined(campaignPage.getNewCampaignForm());
-  });
-
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
 
@@ -71,8 +58,14 @@ describe('Campaigns', function() {
   });
 
 
+  it('should close modal when esc button is clicked', () => {
+    browser.sleep(1200);
+    campaignPage.selectEscapeKey();
+    browser.sleep(250);
+    expectUndefined(campaignPage.getNewCampaignForm());
+  });
 
-  xit('should render add modal when add button is clicked', () => {
+  it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
 
     expectDefined(campaignPage.getNewCampaignForm());
