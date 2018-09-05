@@ -1,8 +1,8 @@
-import {Token} from './token-list/token-list.component';
 import * as juice from 'juice';
 import * as grapesjs from 'grapesjs';
 import {Observable} from 'rxjs';
 import {CustomBlock} from '../../../shared/models/account-details.model';
+import {Token} from './email-template-view.component';
 
 function basicLayoutElementsPlugin(editor) {
   editor.BlockManager.add('basicLayout', {
@@ -530,6 +530,7 @@ export function initGrapesJS(
 
     editor.Panels.getButton('options', 'export-template').set({label: 'code', className: 'material-icons'});
     editor.Panels.getButton('options', 'preview').set({label: 'visibility', className: 'material-icons'});
+    editor.Panels.getButton('options', 'sw-visibility').set({label: 'border_clear', className: 'material-icons'});
     editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', className: 'material-icons material-icons--24'});
     editor.Panels.removeButton('options', 'fullscreen');
   };

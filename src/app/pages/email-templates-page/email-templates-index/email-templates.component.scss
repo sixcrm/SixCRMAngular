@@ -68,7 +68,7 @@
       display: flex;
       align-items: center;
       background: #ffffff;
-      padding: 10px 15px 10px 22px;
+      padding: 12px 15px 12px 22px;
       font-size: 16px;
       line-height: 24px;
       font-weight: 500;
@@ -117,7 +117,12 @@
 
     .actions {
       display: flex;
-      padding: 0 10px 15px;
+      align-items: center;
+      padding: 0 10px 15px 15px;
+
+      img {
+        height: 30px;
+      }
 
       button {
         color: #2C98F0;

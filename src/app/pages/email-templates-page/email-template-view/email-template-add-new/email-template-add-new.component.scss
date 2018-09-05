@@ -1,7 +1,7 @@
 .email-template-view {
 
   &__input {
-    max-width: 200px;
+    width: 180px;
   }
 
 }
@@ -76,5 +76,13 @@
       width: 18px;
       font-size: 18px;
     }
+  }
+}
+
+.flex-custom {
+  align-items: center;
+
+  mat-slide-toggle {
+    margin-left: 25px;
   }
 }

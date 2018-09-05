@@ -4,9 +4,14 @@
   </div>
 
   <form form #emailTemplateInput="ngForm" class="entity-view__card__content" [class.entity-view__card__content--update]="mode === modes.Update">
-    <mat-form-field [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item email-template-view__input">
-      <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'EMAILTEMPLATE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
-    </mat-form-field>
+
+    <div class="flex-custom">
+      <mat-form-field [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item email-template-view__input">
+        <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'EMAILTEMPLATE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+      </mat-form-field>
+
+      <mat-slide-toggle class="slider-blue" [(ngModel)]="entity.enabled" name="enabled"></mat-slide-toggle>
+    </div>
 
     <div class="dropdown email-template-view__input" [class.error]="formInvalid && !entity.type">
       <div class="placeholder">
@@ -29,11 +34,11 @@
         <span>{{entity.smtpProvider.name || 'SMTP Provider *'}}</span>
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
+      <div [routerLink]="['/smtpproviders']" class="text" *ngIf="smtpProviders && (smtpProviders.length === 0)">You need to create an SMTP provider first.</div>
       <mat-menu #providerOptions="matMenu" x-position="before">
-        <button mat-menu-item *ngFor="let provider of smtpProviders" (click)="entity.smtpProvider = provider">{{provider.name}}</button>
+        <button mat-menu-item *ngFor="let provider of (smtpProviders || [])" (click)="entity.smtpProvider = provider">{{provider.name}}</button>
       </mat-menu>
     </div>
-    <div [routerLink]="['/smtpproviders']" class="text" *ngIf="!smtpProviders.length">You need to create an SMTP provider first.</div>
 
     <mat-form-field [class.error]="formInvalid && !entity.subject">
       <input required matInput [disabled]="mode === modes.View" name="subject" placeholder="{{'EMAILTEMPLATE_INFO_SUBJECT' | translate}}" [(ngModel)]="entity.subject" type="text">

@@ -35,6 +35,8 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   products: Product[] = [];
   campaigns: Campaign[] = [];
   productSchedules: ProductSchedule[] = [];
+  enabled: boolean;
+  builtIn: boolean;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -51,7 +53,8 @@ export class EmailTemplate implements Entity<EmailTemplate> {
     this.updatedAtAPI = obj.updated_at;
     this.smtpProvider = new SmtpProvider(obj.smtp_provider);
     this.preview = obj.preview || '';
-
+    this.enabled = !!obj.enabled;
+    this.builtIn = !!obj.built_in;
     if (obj.products) {
       this.products = obj.products.map(p => new Product(p));
     }
@@ -80,6 +83,8 @@ export class EmailTemplate implements Entity<EmailTemplate> {
       subject: this.subject,
       body: this.body,
       type: this.type,
+      enabled: this.enabled,
+      built_in: this.builtIn,
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI,
       smtp_provider: this.smtpProvider.inverse(),

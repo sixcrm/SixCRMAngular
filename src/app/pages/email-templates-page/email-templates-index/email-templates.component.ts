@@ -54,7 +54,7 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
               activatedRoute: ActivatedRoute) {
     super(emailsService, auth, dialog, paginationService, router, activatedRoute);
 
-    this.entityFactory = () => new EmailTemplate();
+    this.entityFactory = () => new EmailTemplate({enabled: true});
   }
 
   openAddMode() {
@@ -90,7 +90,7 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
     newTemplate.campaigns = [];
     newTemplate.products = [];
     newTemplate.productSchedules = [];
-    newTemplate.name += '(Copy)';
+    newTemplate.name += ' (Copy)';
 
     this.createEntity(newTemplate);
   }

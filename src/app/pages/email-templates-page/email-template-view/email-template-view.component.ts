@@ -8,7 +8,6 @@ import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.com
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
-import {Token, TokenGroup} from './token-list/token-list.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -31,6 +30,47 @@ import {EmailTemplateAddNewComponent} from './email-template-add-new/email-templ
 import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
 import {CustomBlock} from '../../../shared/models/account-details.model';
+
+export class TokenGroup {
+
+  name: string;
+  description: string;
+  tokens: Token[] = [];
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.name = obj.name || '';
+    this.description = obj.description || '';
+    this.tokens = (obj.tokens || []).map(t => new Token(t));
+  }
+
+}
+
+export class Token {
+
+  value: string;
+  description: string;
+  example: string;
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.description = obj.description || '';
+    this.value = obj.value || '';
+    this.example = obj.example || '';
+  }
+
+  contains(filter: string) {
+    return (this.value || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1
+      || (this.description || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1;
+  }
+
+}
 
 @Component({
   selector: 'email-template-view',
@@ -164,7 +204,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       if (this.selectedIndex === 0) {
         setTimeout(() => {
           this.initGrapes();
-        }, 1);
+        }, 25);
       }
     });
 
@@ -258,10 +298,10 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   }
 
   setIndex(value: number): void {
-    if (value === 0) {
+    if (this.selectedIndex !== 0 && this.entity && this.allTokens && this.customBlocks && value === 0) {
       setTimeout(() => {
         this.initGrapes();
-      }, 1);
+      }, 25);
     }
 
     this.selectedIndex = value;

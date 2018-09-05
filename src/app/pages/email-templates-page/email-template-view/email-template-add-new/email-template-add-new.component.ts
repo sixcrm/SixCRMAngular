@@ -3,6 +3,7 @@ import {EmailTemplate, typeMapper} from '../../../../shared/models/email-templat
 import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'email-template-add-new',
@@ -28,12 +29,17 @@ export class EmailTemplateAddNewComponent implements OnInit {
 
   mapper = typeMapper;
 
-  smtpProviders: any = [];
+  smtpProviders: SmtpProvider[];
 
   constructor(public smtpProviderService: SmtpProvidersService) { }
 
   ngOnInit() {
     this.smtpProviderService.entities$.take(1).subscribe((providers) => {
+      if (providers instanceof CustomServerError) {
+        this.smtpProviders = [];
+        return;
+      }
+
       this.smtpProviders = providers;
     });
 
