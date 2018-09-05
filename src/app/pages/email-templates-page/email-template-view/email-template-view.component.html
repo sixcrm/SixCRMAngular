@@ -4,22 +4,20 @@
     <entity-view-entityacl *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
   </blue-header>
 
-  <tab-header class="tab-header--email-template" [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)">
-    <button class="send-test-button" mat-button (click)="sendTestEmail()">SEND TEST EMAIL</button>
-  </tab-header>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
 
-      <div>
+      <div class="grapes-wrapper">
+        <button class="send-test-button" [class.send-test-button--inactive]="isTemplateChanged()" mat-button (click)="sendTestEmail()">SEND TEST EMAIL</button>
+
         <div id="grapesjs"></div>
       </div>
 
     </mat-tab>
 
     <mat-tab>
-      <div class="tab-header--placeholder"></div>
-
       <table-memory
           [data]="entity.campaigns"
           [columnParams]="campaignColumnParams"

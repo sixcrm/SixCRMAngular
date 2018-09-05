@@ -16,17 +16,23 @@ entity-view-entityacl {
   background: #3D6EB3;
 }
 
-.tab-header--placeholder {
-  width: 100%;
-  background: #F3F3F3;
-  height: 52px;
-}
+.grapes-wrapper {
+  position: relative;
 
-.send-test-button {
-  color: #ffffff;
-  background: #2C98F0;
-  padding: 0 12px;
-  height: 32px;
-  line-height: 32px;
-  font-size: 12px;
+  .send-test-button {
+    position: absolute;
+    z-index: 5;
+    top: 10px;
+    left: 25px;
+    color: #ffffff;
+    background: #2C98F0;
+    padding: 0 16px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+
+    &--inactive {
+      background: #8FC5F2;
+    }
+  }
 }

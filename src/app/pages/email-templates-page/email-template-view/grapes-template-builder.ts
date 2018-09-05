@@ -542,7 +542,7 @@ export function initGrapesJS(
 
   const grapesEditor = grapesjs.init({
     container : params.targetId,
-    height: 'calc(100vh - 166px)',
+    height: 'calc(100vh - 218px)',
     components: params.parent.templateBody,
     plugins: [
       advancedDevicesPlugin,

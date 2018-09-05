@@ -31,7 +31,6 @@ import {EmailTemplateAddNewComponent} from './email-template-add-new/email-templ
 import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
 import {CustomBlock} from '../../../shared/models/account-details.model';
-import {Subject} from 'rxjs';
 
 @Component({
   selector: 'email-template-view',
@@ -109,6 +108,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
   grapesEditor;
   templateBody: string;
+  lastSavedTemplateBody: string;
 
   constructor(
     private emailTemplateService: EmailTemplatesService,
@@ -137,6 +137,8 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       if (template instanceof CustomServerError) return;
 
       this.templateBody = template.body;
+      this.lastSavedTemplateBody = this.templateBody;
+
       this.smtpProviderService.getEntities()
     });
 
@@ -177,6 +179,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
         parent: this,
         saveCallback: () => {
           this.entity.body = this.templateBody;
+          this.lastSavedTemplateBody = this.templateBody;
           this.updateEntity(this.entity);
         },
         previewCallback: () => {
@@ -247,28 +250,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       .rootNodes[0] as HTMLElement;
     const blockContainer = document.getElementsByClassName('gjs-block-categories')[0];
 
-    const updateBlock = document.createElement('div');
-    updateBlock.className = 'custom-grapes-block custom-grapes-block-opened';
-
-    // create header component that looks like grapesjs category
-    const header = document.createElement('div');
-    header.innerHTML = `
-        <div id="custom-grapes-block" class="gjs-block-category">
-            <div class="gjs-title">
-                <i class="gjs-caret-icon fa fa-caret-down"></i>
-                <i class="gjs-caret-icon fa fa-caret-right"></i>
-                GENERAL DETAILS
-            </div>
-        </div>`;
-
-    header.addEventListener('click', () => {
-      updateBlock.classList.toggle('custom-grapes-block-opened');
-    });
-
-    updateBlock.appendChild(header);
-    updateBlock.appendChild(templateEditElement);
-
-    blockContainer.insertBefore(updateBlock, blockContainer.firstChild);
+    blockContainer.insertBefore(templateEditElement, blockContainer.firstChild);
   }
 
   ngOnDestroy() {
@@ -285,7 +267,18 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     this.selectedIndex = value;
   }
 
+  isTemplateChanged(): boolean {
+    if (this.templateBody.length !== this.lastSavedTemplateBody.length) return true;
+
+    return this.templateBody !== this.lastSavedTemplateBody;
+  }
+
   sendTestEmail(): void {
+    if (this.isTemplateChanged()) {
+      this.snackService.showErrorSnack('Please save changes before sending a test email.', 2500);
+      return;
+    }
+
     this.emailTemplateService.sendTestEmail(this.entity).subscribe((result) => {
       if (result instanceof CustomServerError) {
         this.snackService.showErrorSnack('Error when sending test E-Mail', 2500);

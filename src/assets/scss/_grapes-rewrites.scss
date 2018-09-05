@@ -1,6 +1,6 @@
 @import "colors";
 
-$primaryColor: #F3F3F3;
+$primaryColor: #F1F3F4;
 $secondaryColor: #434343;
 $tertiaryColor: $main-color-300;
 $quaternaryColor: $main-color-300;
@@ -8,8 +8,26 @@ $quaternaryColor: $main-color-300;
 $fontPath: '~grapesjs/src/styles/fonts' !default;
 $fa-font-path: '~font-awesome/fonts' !default;
 
-.gjs-block {
-  min-height: 36px !important;
+.gjs-blocks-c {
+  .gjs-block {
+    min-height: 40px !important;
+    background-color: #E9EAEB !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    .gjs-block-label {
+      font-size: 14px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 10px !important;
+    }
+
+    &:hover {
+      color: $action-color !important;
+      box-shadow: 0 4px 4px rgba(0,0,0,0.25) !important;
+    }
+  }
 }
 
 .gjs-block-full-width {
@@ -17,6 +35,8 @@ $fa-font-path: '~font-awesome/fonts' !default;
 }
 
 .gjs-pn-views {
+  background-color: #FAFAFA !important;
+
   .gjs-pn-buttons {
 
     .gjs-pn-btn {
@@ -44,6 +64,17 @@ $fa-font-path: '~font-awesome/fonts' !default;
 
 .gjs-block-categories {
   .gjs-block-category {
+    background: #FAFAFA;
+
+    .gjs-title {
+      color: #434443;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #E9EAEB;
+      line-height: 24px;
+      padding: 12px 15px;
+    }
+
     &:nth-of-type(4) {
       order: 1;
     }
@@ -63,13 +94,15 @@ $fa-font-path: '~font-awesome/fonts' !default;
 }
 
 .gjs-pn-views-container {
+  background-color: #FAFAFA !important;
   width: 20% !important;
   padding-top: 52px !important;
 }
 
 .gjs-cv-canvas {
-  width: 80% !important;
+  width: calc(80% - 50px) !important;
   top: 52px !important;
+  left: 25px !important;
   height: calc(100% - 52px) !important;
 }
 
