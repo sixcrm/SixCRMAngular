@@ -550,6 +550,20 @@ export function initGrapesJS(
     }
   };
 
+  const setDeleteOptionForCustomBlocks = () => {
+    params.parent.customBlocks.forEach(block => {
+      document.getElementById(block.id).addEventListener('click', () => {
+
+        params.deleteCustomBlockCallback(block).subscribe(deleteResult => {
+          if (deleteResult.success) {
+            grapesEditor.BlockManager.remove(`custom-block-${deleteResult.block.id}`);
+          }
+        })
+
+      })
+    });
+  };
+
   const grapesEditor = grapesjs.init({
     container : params.targetId,
     height: 'calc(100vh - 218px)',
@@ -568,19 +582,7 @@ export function initGrapesJS(
 
   setBlocksViewDefault(grapesEditor);
   setSimpleStorageManager(grapesEditor, params.parent);
-
-  // set delete option for custom blocks, must be done after grapes editor initialized
-  params.parent.customBlocks.forEach(block => {
-    document.getElementById(block.id).addEventListener('click', () => {
-
-      params.deleteCustomBlockCallback(block).subscribe(deleteResult => {
-        if (deleteResult.success) {
-          grapesEditor.BlockManager.remove(`custom-block-${deleteResult.block.id}`);
-        }
-      })
-
-    })
-  });
+  setDeleteOptionForCustomBlocks();
 
   return grapesEditor;
 }
