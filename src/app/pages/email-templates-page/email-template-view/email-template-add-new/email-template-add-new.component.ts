@@ -42,8 +42,7 @@ export class EmailTemplateAddNewComponent implements OnInit {
     return ''
   };
 
-  smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
-  smtpProviders: any = [null];
+  smtpProviders: any = [];
 
   constructor(public smtpProviderService: SmtpProvidersService) { }
 
