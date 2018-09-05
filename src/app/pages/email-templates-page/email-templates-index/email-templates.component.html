@@ -40,7 +40,7 @@
         </div>
 
         <div class="actions">
-          <img *ngIf="!template.builtIn" src="/assets/images/logo-navigation-small.svg" alt="">
+          <img *ngIf="template.builtIn" src="/assets/images/logo-navigation-small.svg" alt="">
           <button mat-button (click)="previewTemplate(template)">PREVIEW</button>
           <button mat-button [routerLink]="['/emailtemplates', template.id]">EDIT</button>
         </div>
