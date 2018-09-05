@@ -6,8 +6,8 @@ import {AbstractEntityIndexComponent} from '../../abstract-entity-index.componen
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 
 @Component({
   selector: 'c-email-templates',
@@ -16,35 +16,7 @@ import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-t
 })
 export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailTemplate> implements OnInit, OnDestroy {
 
-  sortBy: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number}[] = [
-    {label: 'Name', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
-      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
-      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
-      return 0;
-    }},
-    {label: 'Type', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
-      if ((f.type || '').toLowerCase() < (s.type || '').toLowerCase()) return -1;
-      if ((f.type || '').toLowerCase() > (s.type || '').toLowerCase()) return 1;
-      return 0;
-    }},
-    {label: 'SMTP Provider', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
-      if ((f.smtpProvider.name || '').toLowerCase() < (s.smtpProvider.name || '').toLowerCase()) return -1;
-      if ((f.smtpProvider.name || '').toLowerCase() > (s.smtpProvider.name || '').toLowerCase()) return 1;
-      return 0;
-    }},
-    {label: 'Subject', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
-      if ((f.subject || '').toLowerCase() < (s.subject || '').toLowerCase()) return -1;
-      if ((f.subject || '').toLowerCase() > (s.subject || '').toLowerCase()) return 1;
-      return 0;
-    }}
-  ];
-
-  selectedSortBy: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number};
-
-  crumbItems: BreadcrumbItem[] = [{label: () => 'Email Templates'}];
-
-  filterString: string;
-  filterFunction = (template: EmailTemplate) => template.name;
+  crumbItems: BreadcrumbItem[] = [{label: () => 'EMAILTEMPLATE_INDEX_TITLE'}];
 
   constructor(emailsService: EmailTemplatesService,
               auth: AuthenticationService,
@@ -52,9 +24,21 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
               paginationService: PaginationService,
               router: Router,
               activatedRoute: ActivatedRoute) {
+
     super(emailsService, auth, dialog, paginationService, router, activatedRoute);
 
-    this.entityFactory = () => new EmailTemplate({enabled: true});
+    this.entityFactory = () => new EmailTemplate();
+
+    let f = this.authService.getTimezone();
+    this.columnParams = [
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_ID', (e: EmailTemplate) => e.id).setSelected(false),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_NAME', (e: EmailTemplate) => e.name),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_SUBJECT', (e: EmailTemplate) => e.subject),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_TYPE', (e: EmailTemplate) => e.getTypeFormatted()),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_SMTPPROVIDER', (e: EmailTemplate) => e.smtpProvider.name),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_CREATED', (e: EmailTemplate) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_UPDATED', (e: EmailTemplate) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+    ];
   }
 
   openAddMode() {
@@ -62,7 +46,6 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
   }
 
   ngOnInit() {
-    this.limit = 100;
     this.init();
   }
 
@@ -70,28 +53,10 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
     this.destroy();
   }
 
-  applySortBy(sort: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number}) {
-    this.selectedSortBy = sort;
-    this.entities = this.entities.sort(sort.sortFunction);
-  }
+  copyTemplate(emailTemplate: EmailTemplate) {
+    const copy = emailTemplate.copy();
+    copy.name += '(copy)';
 
-  previewTemplate(template: EmailTemplate) {
-    let ref = this.deleteDialog.open(EmailTemplatePreviewModalComponent);
-    ref.componentInstance.body = template.preview;
-
-    ref.afterClosed().subscribe(() => {
-      ref = null;
-    })
-  }
-
-  copyEmailTemplate(template: EmailTemplate) {
-    const newTemplate = template.copy();
-
-    newTemplate.campaigns = [];
-    newTemplate.products = [];
-    newTemplate.productSchedules = [];
-    newTemplate.name += ' (Copy)';
-
-    this.createEntity(newTemplate);
+    this.createEntity(copy);
   }
 }

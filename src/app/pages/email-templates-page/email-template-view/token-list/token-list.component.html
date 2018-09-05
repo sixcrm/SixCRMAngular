@@ -1,0 +1,21 @@
+<div class="token-list" *ngIf="tokenGroups && selectedGroup">
+
+  <div class="entity-view__card__header">
+    <div>
+      <div class="entity-view__card__header__title">{{'EMAILTEMPLATE_TOKEN_TITLE' | translate}}</div>
+      <div class="entity-view__card__header__subtitle">{{'EMAILTEMPLATE_TOKEN_SUBTITLE' | translate}}</div>
+    </div>
+  </div>
+  <div class="token-list__header">
+    <div class="flex-custom">
+      <mat-icon>search</mat-icon>
+      <mat-form-field>
+        <input type="text" placeholder="{{'EMAILTEMPLATE_TOKEN_SEARCH' | translate}}" matInput [(ngModel)]="filterString" autocomplete=off>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="token-list__container" *ngIf="selectedGroup && selectedGroup.tokens">
+    <token-view *ngFor="let token of selectedGroup.tokens" [token]="token" [filter]="filterString" (tokenSelected)="tokenSelected.emit($event)"></token-view>
+  </div>
+</div>

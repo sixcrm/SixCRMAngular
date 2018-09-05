@@ -1,4 +1,4 @@
-<div *ngIf="entity && allTokens && customBlocks; else spinner" class="entity-view">
+<div *ngIf="entity; else spinner" class="entity-view">
 
   <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name">
     <entity-view-entityacl *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
@@ -9,9 +9,20 @@
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
 
-      <div class="grapes-wrapper">
-        <button class="send-test-button" [class.send-test-button--inactive]="isTemplateChanged()" mat-button (click)="sendTestEmail()">SEND TEST EMAIL</button>
+      <div class="email-template-view__card-container">
+        <email-template-add-new [entity]="entity"
+                                [mode]="viewMode ? modes.View : modes.Update"
+                                (cancel)="cancelEdit()"
+                                (changeMode)="setMode($event)"
+                                (save)="updateEntity($event)">
+        </email-template-add-new>
+      </div>
 
+    </mat-tab>
+
+    <mat-tab>
+
+      <div>
         <div id="grapesjs"></div>
       </div>
 
@@ -55,7 +66,7 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [numberOfCards]="0" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="3" [cardsExpression]="'650px'" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

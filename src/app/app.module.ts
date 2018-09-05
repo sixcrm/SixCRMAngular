@@ -53,7 +53,6 @@ import { SubscriptionFiltersDialogComponent } from './dialog-modals/subscription
 import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialog/order-filters-dialog.component';
 import { CustomTokenBlockDialogComponent } from './dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
-import { EmailTemplatePreviewModalComponent } from './dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 
 @NgModule({
   declarations : [
@@ -91,8 +90,7 @@ import { EmailTemplatePreviewModalComponent } from './dialog-modals/email-templa
     SubscriptionFiltersDialogComponent,
     ShippingreceiptFiltersDialogComponent,
     OrderFiltersDialogComponent,
-    CustomTokenBlockDialogComponent,
-    EmailTemplatePreviewModalComponent
+    CustomTokenBlockDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -146,8 +144,7 @@ import { EmailTemplatePreviewModalComponent } from './dialog-modals/email-templa
     SubscriptionFiltersDialogComponent,
     ShippingreceiptFiltersDialogComponent,
     OrderFiltersDialogComponent,
-    CustomTokenBlockDialogComponent,
-    EmailTemplatePreviewModalComponent
+    CustomTokenBlockDialogComponent
   ],
   bootstrap : [AppComponent]
 })

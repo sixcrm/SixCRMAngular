@@ -1,45 +1,38 @@
+import {Token} from './token-list/token-list.component';
 import * as juice from 'juice';
 import * as grapesjs from 'grapesjs';
 import {Observable} from 'rxjs';
-import {CustomBlock} from '../../../shared/models/account-details.model';
-import {Token} from './email-template-view.component';
 
 function basicLayoutElementsPlugin(editor) {
   editor.BlockManager.add('basicLayout', {
     label: 'Basic Layout',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'fa fa-window-maximize'},
     content: `<table style="width: 100%; font-family: Helvetica, Arial, Verdana, Trebuchet MS;">
-        <tr style="height: 140px; background: #C4C4C4">
-          <td style="text-align: center; background: {{accountdetails.emailtemplatesettings.color_primary}}">
-            <img style="max-height: 100px; min-height: 50px; min-width: 50px; color: #ffffff" src="{{accountdetails.company_logo}}" alt="Company Logo" />
+        <tr style="height: 140px; background: #202124">
+          <td style="text-align: center">
+            <img style="max-height: 150px; max-width: 150px; min-height: 50px; min-width: 100px; background: #ffffff" src="{{accountdetails.company_logo}}" alt="Company Logo">
           </td>
         </tr>
         <tr>
           <td style="text-align: center">
             <table style="width: 100%; max-width: 650px; margin: 35px auto; font-size: 13px;">
-                <tr style="height: 100px;">
+                <tr style="height: 160px;">
                     <td></td>
                 </tr>
             </table>
           </td>
         </tr>
         <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
-            <td style="text-align: center; padding: 7px 12px;">
-                <div>If you have any questions about our privacy policy, contact our customer service center via <a href="mailto:{{accountdetails.support_link}}">{{accountdetails.support_link}}</a></div>
+            <td style="text-align: center; padding: 7px 0;">
+                <div>If you have any questions about our privacy policy, contact our customer service center via {{accountdetails.support_link}}</div>
             </td>
         </tr>
         </table>`,
   });
   editor.BlockManager.add('sect100', {
     label: '1 Section',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b1'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr>
@@ -49,10 +42,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect50', {
     label: '1/2 Section',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b2'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr style="vertical-align: top">
@@ -63,10 +53,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect30', {
     label: '1/3 Section',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b3'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr style="vertical-align: top">
@@ -78,10 +65,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('sect37', {
     label: '3/7 Section',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-b37'},
     content: `<table style="height: 60px; width: 100%; font-size: 13px">
         <tr style="vertical-align: top">
@@ -92,10 +76,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('divider', {
     label: 'Divider',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-divider'},
     content: `<table style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
         <tr>
@@ -111,10 +92,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('text', {
     label: 'Text',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-text'},
     content: {
       type: 'text',
@@ -125,10 +103,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('image', {
     label: 'Image',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'gjs-fonts gjs-f-image'},
     content: {
       type:'image',
@@ -138,10 +113,7 @@ function basicLayoutElementsPlugin(editor) {
   });
   editor.BlockManager.add('link', {
     label: 'Link',
-    category: {
-      label: 'BASIC LAYOUT ELEMENTS',
-      open: false
-    },
+    category: 'Basic Layout Elements',
     attributes: {class:'fa fa-link'},
     content: {
       type: 'link',
@@ -174,15 +146,13 @@ function toolbarEditButtonsPlugin(editor) {
   editor.Panels.addButton('options', [
     {
       id: 'undo',
-      className: 'material-icons',
-      label: 'undo',
+      className: 'fa fa-undo icon-undo gjs-margin-left-25',
       command: 'undo',
       attributes: { title: 'Undo (CTRL/CMD + Z)'}
     },
     {
       id: 'redo',
-      className: 'material-icons',
-      label: 'redo',
+      className: 'fa fa-repeat icon-redo',
       command: 'redo',
       attributes: { title: 'Redo (CTRL/CMD + SHIFT + Z)' }
     }
@@ -214,100 +184,42 @@ function setSimpleStorageManager(editor, parent: {templateBody: string}) {
 
 }
 
-function advancedDevicesPlugin(editor) {
-  const cmdm = editor.Commands;
-
-
-  cmdm.add('set-device-mobile', {
-    run(editor) {
-      editor.setDevice('Mobile portrait');
-    }
-  });
-
-  cmdm.add('set-device-tablet', {
-    run(editor) {
-      editor.setDevice('Tablet');
-    }
-  });
-
-  cmdm.add('set-device-desktop', {
-    run(editor) {
-      editor.setDevice('Desktop');
-    }
-  });
-
-  editor.getConfig().showDevices = 0;
-
-  const devicePanel = editor.Panels.addPanel({
-    id: 'devices-c'
-  });
-  devicePanel.get('buttons').add([
-    {
-      id: 'deviceDesktop',
-      command: 'set-device-desktop',
-      className: 'material-icons',
-      label: 'desktop_mac',
-      active: 1,
-    },
-    {
-      id: 'deviceTablet',
-      command: 'set-device-tablet',
-      className: 'material-icons',
-      label: 'tablet_mac'
-    },
-    {
-      id: 'deviceMobile',
-      command: 'set-device-mobile',
-      className: 'material-icons material-icons--24',
-      label: `phone_iphone`,
-    }
-  ])
-}
-
 export function initGrapesJS(
   params: {
     targetId: string,
-    parent: {templateBody: string, allTokens: Token[], customBlocks: CustomBlock[]},
+    parent: {templateBody: string, allTokens: Token[], tokensInited: boolean},
     saveCallback: () => void,
-    previewCallback: () => void,
-    saveCustomBlockCallback: (body: string) => Observable<{success: boolean, block: CustomBlock}>,
-    deleteCustomBlockCallback: (block: CustomBlock) => Observable<{success: boolean, block: CustomBlock}>
+    testCallback: () => void,
+    saveCustomBlockCallback: (content: string) => Observable<{success: boolean, title: string}>,
+    deleteCustomBlockCallback: (name: string) => Observable<{success: boolean}>,
+    additionalFields: {accountName: string}
   }
 ): any {
   const saveCustomBlockPlugin = (editor) => {
-    const addCustomBlock = (block: CustomBlock, enableDelete: boolean) => {
-
-      editor.BlockManager.add(`custom-block-${block.id}`, {
-        label: `<b>${block.title}</b> <i id="${block.id}" class="fa fa-trash-o grapes-delete-icon"></i>`,
-        category: {
-          label: 'CUSTOM TOKEN BLOCKS',
-          open: false
-        },
-        attributes: { class:'gjs-block-full-width' },
-        content: block.body
-      });
-
-      if (enableDelete) {
-        document.getElementById(block.id).addEventListener('click', () => {
-          params.deleteCustomBlockCallback(block).subscribe(deleteResult => {
-            if (deleteResult.success) {
-              editor.BlockManager.remove(`custom-block-${deleteResult.block.id}`);
-            }
-          })
-        })
-      }
-    };
-
-    params.parent.customBlocks.forEach(block => addCustomBlock(block, false));
-
     editor.Commands.add('save-custom-block', {
       run: (editor) => {
         const value = editor.getSelected().view.el.outerHTML;
 
-        params.saveCustomBlockCallback(value).subscribe(result => {
-          if (!result.block || !result.success) return;
+        params.saveCustomBlockCallback(value).subscribe((param: {content, title, success}) => {
+          if (!param.content || !param.title || !param.success) return;
 
-          addCustomBlock(result.block, true);
+          const id = new Date().getTime() + '';
+
+          editor.BlockManager.add(`custom-block-${id}`, {
+            label: `<b>${param.title}</b> <i id="${id}" class="fa fa-trash-o grapes-delete-icon"></i>`,
+            category: 'Custom Token Blocks',
+            attributes: { class:'gjs-block-full-width' },
+            content: param.content
+          });
+
+          document.getElementById(id).addEventListener('click', () => {
+            params.deleteCustomBlockCallback(param.title).subscribe(result => {
+              if (result) {
+                editor.BlockManager.remove(`custom-block-${id}`);
+                editor.BlockManager.render();
+              }
+            })
+          })
         })
       }
     });
@@ -333,10 +245,7 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-title', {
       label: '<b>Order Title</b>',
-      category: {
-        label: 'PREDEFINED TOKEN BLOCKS',
-        open: false
-      },
+      category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-title-section" style="text-align: center;">
@@ -352,10 +261,7 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-details', {
       label: '<b>Order Basic Details</b>',
-      category: {
-        label: 'PREDEFINED TOKEN BLOCKS',
-        open: false
-      },
+      category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
@@ -379,10 +285,7 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-pricing', {
       label: '<b>Order Pricing Details</b>',
-      category: {
-        label: 'PREDEFINED TOKEN BLOCKS',
-        open: false
-      },
+      category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <div>
@@ -419,10 +322,7 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-order-products', {
       label: '<b>Order Products Details</b>',
-      category: {
-        label: 'PREDEFINED TOKEN BLOCKS',
-        open: false
-      },
+      category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-products-details-section" style="max-width: 650px; margin: 10px auto;">
@@ -432,7 +332,7 @@ export function initGrapesJS(
                             <td style="text-align: left; width: 80%">
                                 <table>
                                 <tr>
-                                    <td style="width: 60px;">
+                                    <td>
                                         <img src="{{image}}" alt="" style="min-width: 60px; max-width: 160px; min-height: 60px; background: grey; display: inline-block;">
                                     </td>
                                     <td>
@@ -454,10 +354,7 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-customer-shipping', {
       label: '<b>Customer Shipping Details</b>',
-      category: {
-        label: 'PREDEFINED TOKEN BLOCKS',
-        open: false
-      },
+      category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="customer-shipping-section" style="text-align: left; height: 100%;">
@@ -475,10 +372,7 @@ export function initGrapesJS(
 
     editor.BlockManager.add('predefined-customer-billing', {
       label: '<b>Customer Billing Details</b>',
-      category: {
-        label: 'PREDEFINED TOKEN BLOCKS',
-        open: false
-      },
+      category: 'Predefined Token Blocks',
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="customer-billing-section" style="text-align: left; height: 100%;">
@@ -508,9 +402,9 @@ export function initGrapesJS(
       }
     });
 
-    editor.Commands.add('preview', {
+    editor.Commands.add('test-template', {
       run: (editor, sender) => {
-        params.previewCallback();
+        params.testCallback();
 
         setTimeout(() => {
           sender.set('active', 0);
@@ -521,47 +415,32 @@ export function initGrapesJS(
     editor.Panels.addButton('options', [
       {
         id: 'save-template',
-        className: 'material-icons',
-        label: 'save',
+        className: 'fa fa-save gjs-margin-left-25',
         command: 'save-template',
-        attributes: { title: 'Save' }
+        attributes: { title: 'Save Template' }
+      },
+      {
+        id: 'test-template',
+        className: 'fa fa-envelope',
+        command: 'test-template',
+        attributes: { title: 'Test Template' }
       }
-    ]);
+    ])
 
-    editor.Panels.getButton('options', 'export-template').set({label: 'code', className: 'material-icons'});
-    editor.Panels.getButton('options', 'preview').set({label: 'visibility', className: 'material-icons'});
-    editor.Panels.getButton('options', 'sw-visibility').set({label: 'border_clear', className: 'material-icons'});
-    editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', className: 'material-icons material-icons--24'});
-    editor.Panels.removeButton('options', 'fullscreen');
   };
   const tokensPlugin = (editor) => {
     if (!params.parent.allTokens || params.parent.allTokens.length === 0) return;
 
+    params.parent.tokensInited = true;
+
     for (let token of params.parent.allTokens) {
       editor.BlockManager.add(`token-${token.value.replace(/\s/g, '-')}`, {
         label: `<b>${token.description}</b>`,
-        category: {
-          label: 'TOKENS',
-          open: false
-        },
+        category: 'Tokens',
         attributes: { class:'gjs-block-full-width' },
         content: `<span>{{${token.value}}}</span>`
       });
     }
-  };
-
-  const setDeleteOptionForCustomBlocks = () => {
-    params.parent.customBlocks.forEach(block => {
-      document.getElementById(block.id).addEventListener('click', () => {
-
-        params.deleteCustomBlockCallback(block).subscribe(deleteResult => {
-          if (deleteResult.success) {
-            grapesEditor.BlockManager.remove(`custom-block-${deleteResult.block.id}`);
-          }
-        })
-
-      })
-    });
   };
 
   const grapesEditor = grapesjs.init({
@@ -569,11 +448,10 @@ export function initGrapesJS(
     height: 'calc(100vh - 218px)',
     components: params.parent.templateBody,
     plugins: [
-      advancedDevicesPlugin,
+      saveCustomBlockPlugin,
       basicLayoutElementsPlugin,
       predefinedBlocksPlugin,
       tokensPlugin,
-      saveCustomBlockPlugin,
       toolbarEditButtonsPlugin,
       toolbarActionButtonsPlugin
     ],
@@ -582,7 +460,6 @@ export function initGrapesJS(
 
   setBlocksViewDefault(grapesEditor);
   setSimpleStorageManager(grapesEditor, params.parent);
-  setDeleteOptionForCustomBlocks();
 
   return grapesEditor;
 }

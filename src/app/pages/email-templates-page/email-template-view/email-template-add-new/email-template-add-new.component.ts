@@ -1,9 +1,8 @@
-import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
-import {EmailTemplate, typeMapper} from '../../../../shared/models/email-template.model';
+import {Component, OnInit, EventEmitter, Input, Output, AfterViewInit, OnDestroy} from '@angular/core';
+import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'email-template-add-new',
@@ -27,19 +26,29 @@ export class EmailTemplateAddNewComponent implements OnInit {
 
   types: string[] = [ 'initialorders', 'allorders', 'initialfulfillment', 'allfulfillments', 'delivery', 'cancellation', 'return', 'refund', 'decline' ];
 
-  mapper = typeMapper;
+  typeMapper = (type) => {
+    switch (type) {
+      case 'initialorders': return 'Initial Order';
+      case 'allorders': return 'All Orders';
+      case 'initialfulfillment': return 'Initial Fulfillment';
+      case 'allfulfillments': return 'All Fulfillments';
+      case 'delivery': return 'Delivery';
+      case 'cancellation': return 'Order Cancellation';
+      case 'return': return 'Return';
+      case 'refund': return 'Refund';
+      case 'decline': return 'All Declines';
+    }
 
-  smtpProviders: SmtpProvider[];
+    return ''
+  };
+
+  smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
+  smtpProviders: any = [null];
 
   constructor(public smtpProviderService: SmtpProvidersService) { }
 
   ngOnInit() {
     this.smtpProviderService.entities$.take(1).subscribe((providers) => {
-      if (providers instanceof CustomServerError) {
-        this.smtpProviders = [];
-        return;
-      }
-
       this.smtpProviders = providers;
     });
 

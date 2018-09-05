@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi, clean
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {smtpProviderResponseQuery} from './smtp-provider.queries';
 import {EmailTemplate} from '../../../models/email-template.model';
@@ -102,18 +102,12 @@ export function sendTestEmailQuery(emailTemplate: EmailTemplate): string {
 	}`;
 }
 
-export function getEmailBodyPreview(body: string): string {
-  return `query {
-    emailtemplatepreview(body: "${clean(body)}" ) { result }
-  }`
-}
-
 export function emailTemplateInfoResponseQuery(): string {
-  return `id name subject body type preview smtp_provider { id name } enabled built_in created_at updated_at`
+  return `id name subject body type smtp_provider { id name } created_at updated_at`
 }
 
 export function emailTemplateResponseQuery(): string {
-  return `id name subject body type created_at updated_at enabled built_in
+  return `id name subject body type created_at updated_at
     smtp_provider { ${smtpProviderResponseQuery()} }
     campaigns { id name }
     products { id name sku }
@@ -131,5 +125,5 @@ export function emailTemplateInputQuery(emailTemplate: EmailTemplate, includeId?
   const products = emailTemplate.products.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
   const productSchedules = emailTemplate.productSchedules.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
 
-  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", enabled:${!!emailTemplate.enabled}, subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", campaigns: [${campaigns}], products: [${products}], product_schedules: [${productSchedules}], ${addUpdatedAtApi(emailTemplate, includeId)}`;
+  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", campaigns: [${campaigns}], products: [${products}], product_schedules: [${productSchedules}], ${addUpdatedAtApi(emailTemplate, includeId)}`;
 }

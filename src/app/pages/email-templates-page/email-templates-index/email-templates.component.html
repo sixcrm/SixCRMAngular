@@ -1,53 +1,38 @@
-<blue-header [items]="crumbItems" [titleValue]="'Email Templates'"></blue-header>
+<div class="entity-index">
 
-<div class="body">
-  <div class="header">
-    <button mat-button class="add-new-button" *ngIf="service.hasWritePermission()" (click)="openAddMode()">NEW TEMPLATE</button>
+  <blue-header [items]="crumbItems" [titleValue]="'Email Templates'"></blue-header>
 
-    <div class="mrw-bi-input">
-      <mat-form-field [floatLabel]="'never'">
-        <input matInput type="text" placeholder="Find template..." [(ngModel)]="filterString">
-      </mat-form-field>
-    </div>
+  <button mat-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
 
-    <div class="count">{{entities.length}} Templates</div>
+  <entities-table-wrapper
+          [data]="entities"
+          [loaded]="initialLoaded"
+          [columnParams]="columnParams"
+          [filterString]="filterValue"
+          [serverError]="serverError"
+          (selected)="viewEntity($event.id)"
 
-    <div class="sort" [matMenuTriggerFor]="sortoptions">
-      <div>Sort by <span>{{selectedSortBy ? ' ' + selectedSortBy.label : ''}}</span></div>
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </div>
+          [service]="service"
+          [showCopy]="true"
+          (viewClicked)="viewEntity($event.id)"
+          (copyClicked)="copyTemplate($event)"
+          (exportClicked)="exportEntity($event.id)"
+          (editClicked)="editEntity($event.id)"
+          (deleteClicked)="deleteEntity($event.id)"
+          (deleteManyClicked)="deleteMany($event)"
+          (refreshData)="refreshData()"
 
-    <mat-menu #sortoptions="matMenu" x-position="before">
-      <button mat-menu-item *ngFor="let sort of sortBy" (click)="applySortBy(sort)">{{sort.label}}</button>
-    </mat-menu>
-  </div>
-
-  <div class="content-wrapper" *ngIf="entities">
-
-    <ng-container *ngFor="let template of entities | filterStrings: filterString: filterFunction">
-      <div class="template-card">
-        <div class="title">
-          {{template.name}}
-          <mat-icon *ngIf="service.hasWritePermission() && !template.builtIn" class="delete-icon" (click)="deleteEntity(template.id)" matTooltip="Delete Template">delete</mat-icon>
-          <mat-icon *ngIf="service.hasWritePermission()" (click)="copyEmailTemplate(template)" matTooltip="Copy Template">content_copy</mat-icon>
-        </div>
-
-        <div class="preview" [innerHtml]="template.preview | htmlSanitizer"></div>
-
-        <div class="details">
-          <div>Type: {{template.getTypeFormatted()}}</div>
-          <div>{{template.subject}}</div>
-        </div>
-
-        <div class="actions">
-          <img *ngIf="template.builtIn" src="/assets/images/logo-navigation-small.svg" alt="">
-          <button mat-button (click)="previewTemplate(template)">PREVIEW</button>
-          <button mat-button [routerLink]="['/emailtemplates', template.id]">EDIT</button>
-        </div>
-      </div>
-    </ng-container>
-
-  </div>
+          [limit]="limit"
+          [paginationValues]="paginationValues"
+          [previousDisabled]="page <= 0"
+          [nextDisabled]="!hasMorePages()"
+          (previous)="previous()"
+          (next)="next()"
+          (updateLimit)="updateLimit($event)"
+          (filterChanged)="filterValue = $event"
+          (searchChanged)="setSearchString($event)"
+  >
+  </entities-table-wrapper>
 
 </div>
 

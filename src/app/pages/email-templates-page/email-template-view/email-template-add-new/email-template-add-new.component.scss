@@ -1,22 +1,61 @@
 .email-template-view {
+  &__card-container {
+    align-items: flex-start;
 
-  &__input {
-    width: 180px;
+    @media only screen and (max-width: 800px) {
+      flex-wrap: wrap;
+    }
   }
 
+  &__dropdown {
+    width: 200px;
+
+    &:first-of-type {
+      margin-bottom: 10px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 3px;
+    }
+  }
+
+  &__input {
+    max-width: 200px;
+  }
+
+  &__preview {
+
+    &__body {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__body {
+    min-height: 200px;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  &__label {
+    margin-bottom: 3px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.4);
+  }
 }
 
-.entity-view__card--update {
-  margin: 0;
-  width: 100% !important;
-  min-width: 100% !important;
-  text-align: left;
-  background: #EAF5FD;
+.editor-container {
+  height: auto;
+
+  &--hidden {
+    overflow: hidden;
+    height: 0;
+  }
 }
 
 .input-form {
   width: 650px;
-  font-size: 16px;
 }
 
 .text {
@@ -26,63 +65,3 @@
   cursor: pointer;
 }
 
-.entity-view__card__content--update {
-  padding: 5px 10px;
-}
-
-.entity-view__card__actions--update {
-  padding: 5px 10px 10px;
-}
-
-.error {
-  .content {
-    border-color: #DC2547 !important;
-
-    span {
-      color: #DC2547 !important;
-    }
-  }
-}
-
-.dropdown {
-  &--last {
-    margin: 15px 0;
-  }
-
-  .placeholder {
-    height: 0.84375em;
-    line-height: 0.84375em;
-    color: rgba(0, 0, 0, 0.54);
-    transform: translateX(-12.5%) scale(0.75);
-    font-weight: 500;
-  }
-
-  .content {
-    display: flex;
-    align-items: center;
-    padding: 0.4375em 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-    cursor: pointer;
-
-    &--empty {
-      span {
-        color: rgba(0, 0, 0, 0.54);
-      }
-    }
-
-    mat-icon {
-      margin-left: auto;
-      height: 18px;
-      width: 18px;
-      font-size: 18px;
-    }
-  }
-}
-
-.flex-custom {
-  align-items: center;
-
-  mat-slide-toggle {
-    margin-left: 25px;
-  }
-}
