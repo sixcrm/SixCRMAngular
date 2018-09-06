@@ -15,7 +15,6 @@ import {CreditCardsService} from './services/credit-cards.service';
 import {UsersService} from './services/users.service';
 import {SmtpProvidersService} from './services/smtp-providers.service';
 import {EmailTemplatesService} from './services/email-templates.service';
-import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
 import {AccessKeysService} from './services/access-keys.service';
 import {ProductScheduleService} from './services/product-schedule.service';
 import {RolesService} from './services/roles.service';
@@ -59,7 +58,6 @@ import {OrdersService} from './services/orders.service';
     UsersService,
     SmtpProvidersService,
     EmailTemplatesService,
-    EmailTemplatesSharedService,
     AccessKeysService,
     ProductScheduleService,
     RolesService,

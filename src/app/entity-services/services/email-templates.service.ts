@@ -6,7 +6,7 @@ import {HttpWrapperService, extractData} from '../../shared/services/http-wrappe
 import {
   emailTemplatesListQuery, emailTemplateQuery,
   deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation,
-  sendTestEmailQuery
+  sendTestEmailQuery, addEmailTemplateAssociation, removeEmailTemplateAssociation
 } from '../../shared/utils/queries/entities/email-template.queries';
 import {Subject} from 'rxjs';
 import {tokenListQuery} from '../../shared/utils/queries/entities/token.queries';
@@ -34,6 +34,34 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
       'emailtemplate',
       snackBar
     )
+  }
+
+  addEmailTemplateAssociation(emailTemplateId: string, entityType: 'product' | 'campaign' | 'product_schedule', entityId: string): Observable<CustomServerError | EmailTemplate> {
+    return this.queryRequest(addEmailTemplateAssociation(emailTemplateId, entityType, entityId)).map(data => {
+      if (data instanceof CustomServerError) {
+        return data;
+      }
+
+      const extracted = extractData(data);
+
+      if (!extracted) return null;
+
+      return new EmailTemplate(extracted.addemailtemplateassociation);
+    })
+  }
+
+  removeEmailTemplateAssociation(emailTemplateId: string, entityType: 'product' | 'campaign' | 'product_schedule', entityId: string) {
+    return this.queryRequest(removeEmailTemplateAssociation(emailTemplateId, entityType, entityId)).map(data => {
+      if (data instanceof CustomServerError) {
+        return data;
+      }
+
+      const extracted = extractData(data);
+
+      if (!extracted) return null;
+
+      return new EmailTemplate(extracted.removeemailtemplateassociation);
+    })
   }
 
   getTokens() {

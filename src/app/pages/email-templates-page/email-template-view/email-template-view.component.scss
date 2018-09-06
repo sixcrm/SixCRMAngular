@@ -1,68 +1,12 @@
-@import "../../../../assets/scss/colors";
-
 .email-template-view {
   &__card-container {
-    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
 
-    @media only screen and (max-width: 1200px) {
-      flex-wrap: wrap;
+    button {
+      width: 650px;
     }
   }
-
-  &__dropdown {
-    width: 200px;
-
-    &:first-of-type {
-      margin-bottom: 10px;
-    }
-
-    &:last-of-type {
-      margin-bottom: 3px;
-    }
-  }
-
-  &__input {
-    max-width: 200px;
-  }
-
-  &__preview {
-
-    &__body {
-      margin-bottom: 60px;
-    }
-  }
-
-  &__body {
-    min-height: 200px;
-    border: 1px solid rgba(0,0,0,0.2);
-    padding: 5px;
-    font-size: 14px;
-  }
-
-  &__label {
-    margin-bottom: 3px;
-    margin-top: 6px;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.4);
-  }
-}
-
-.editor-container {
-  height: auto;
-
-  &--hidden {
-    overflow: hidden;
-    height: 0;
-  }
-}
-
-.input-form {
-  width: 600px;
-}
-
-.helper-container {
-  display: flex;
-  flex-direction: column;
 }
 
 entity-view-entityacl {
@@ -70,20 +14,4 @@ entity-view-entityacl {
   border-radius: 4px;
   border: 2px solid rgba(255,255,255,0.4);
   background: #3D6EB3;
-}
-
-.test-button {
-  margin: 0 10px;
-  color: #ffffff;
-  font-size: 18px;
-  height: 46px;
-  width: 385px;
-  line-height: 46px;
-  background: $action-color;
-  color: #ffffff;
-  border-radius: 4px;
-}
-
-.alone {
-  margin-top: 10px;
 }

@@ -106,10 +106,11 @@ describe('Campaigns', function() {
   });
 
   it( 'should delete the campaign', () => {
-    browser.sleep(3000);
+    browser.sleep(2000);
     campaignPage.getCampaignDeleteButton().click();
-    browser.sleep(1000);
+    browser.sleep(2000);
     campaignPage.getCampaignDeleteModalButton().click();
+    browser.sleep(2000);
     waitForPresenceOf(page.getSuccessSnackbar());
     expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
   });

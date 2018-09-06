@@ -21,7 +21,6 @@
           <div class="box">
             <div class="label">Status</div>
             <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
-            <mat-checkbox [(ngModel)]="chargebackStatus" (change)="singleStatusSelected($event)">Chargeback</mat-checkbox>
             <mat-checkbox [(ngModel)]="refundStatus" (change)="singleStatusSelected($event)">Refund</mat-checkbox>
             <mat-checkbox [(ngModel)]="saleStatus" (change)="singleStatusSelected($event)">Sale</mat-checkbox>
             <mat-checkbox [(ngModel)]="reverseStatus" (change)="singleStatusSelected($event)">Reverse</mat-checkbox>

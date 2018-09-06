@@ -1,0 +1,44 @@
+@import "colors";
+
+$primaryColor: #F3F3F3;
+$secondaryColor: $main-color-600;
+$tertiaryColor: $action-color;
+$quaternaryColor: $action-color;
+
+$fontPath: '~grapesjs/src/styles/fonts' !default;
+$fa-font-path: '~font-awesome/fonts' !default;
+
+.gjs-block {
+  min-height: 36px !important;
+}
+
+.gjs-block-full-width {
+  width: 100% !important;
+}
+
+.gjs-pn-views {
+  .gjs-pn-buttons {
+
+    .gjs-pn-btn {
+      order: 1;
+
+      &:last-of-type {
+        order: 0;
+      }
+    }
+
+  }
+}
+
+.fa-window-maximize:before {
+  font-size: 38px;
+}
+
+.gjs-margin-left-25 {
+  margin-left: 25px;
+}
+
+.grapes-delete-icon {
+  float: right;
+}
+@import "~grapesjs/src/styles/scss/main.scss";
