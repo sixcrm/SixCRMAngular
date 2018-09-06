@@ -113,7 +113,7 @@ export function emailTemplateInfoResponseQuery(): string {
 }
 
 export function emailTemplateResponseQuery(): string {
-  return `id name subject body type created_at updated_at enabled built_in
+  return `id name subject body type created_at updated_at enabled built_in preview
     smtp_provider { ${smtpProviderResponseQuery()} }
     campaigns { id name }
     products { id name sku }

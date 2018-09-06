@@ -36,3 +36,110 @@ entity-view-entityacl {
     }
   }
 }
+
+.associations-container {
+  margin: 20px;
+  display: flex;
+
+  .associations-table {
+    margin-right: 20px;
+    width: calc(50% - 10px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.24);
+    background: #FAFAFA;
+
+    .associations-table-wrapper {
+      max-height: calc(100vh - 320px);
+      overflow: auto;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.54);
+      padding: 10px 20px;
+      background: #F2F2F2;
+
+      .filter-icon {
+        color: #5E6368;
+        height: 22px;
+        width: 22px;
+        font-size: 22px;
+        margin-right: 20px;
+      }
+
+      .count {
+        font-weight: 500;
+      }
+    }
+
+    table {
+      thead {
+        font-size: 13px;
+        font-weight: 500;
+        color: #5F6368;
+        background: #FAFAFA;
+        border-bottom: none;
+      }
+
+      tbody {
+        font-size: 14px;
+        background: #FFFFFF;
+
+        tr {
+          border-bottom: 1px solid rgba(0,0,0,0.08);
+
+          td {
+            color: #202124;
+
+            a {
+              font-weight: 500;
+              color: #202124;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      th, td {
+        line-height: 24px;
+        padding: 6px 20px;
+      }
+    }
+  }
+
+  .associations-preview {
+    width: calc(50% - 10px);
+    margin-left: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.24);
+    background: #ffffff;
+    max-height: calc(100vh - 260px);
+    overflow: auto;
+  }
+}
+
+.chip-input {
+  background: #D4D6D7;
+  width: calc(100% - 160px);
+  margin-right: 20px;
+  min-height: 40px;
+  line-height: 26px;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  mat-chip {
+    color: white;
+    background: #2C98F0;
+    border-radius: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 12px;
+
+    mat-icon {
+      color: #ffffff;
+      font-size: 14px;
+      height: 14px;
+      width: 14px;
+    }
+  }
+}

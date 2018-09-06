@@ -5,23 +5,17 @@ import {
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {ProductsService} from '../../../entity-services/services/products.service';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
-import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
-import {Campaign} from '../../../shared/models/campaign.model';
-import {ColumnParams} from '../../../shared/models/column-params.model';
-import {Product} from '../../../shared/models/product.model';
-import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {initGrapesJS} from './grapes-template-builder';
 import {MatDialog} from '@angular/material';
 import {CustomTokenBlockDialogComponent} from '../../../dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
@@ -30,6 +24,7 @@ import {EmailTemplateAddNewComponent} from './email-template-add-new/email-templ
 import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
 import {CustomBlock} from '../../../shared/models/account-details.model';
+import {GrapesFilterComponentComponent} from '../../../shared/components/grapes-filter-component/grapes-filter-component.component';
 
 export class TokenGroup {
 
@@ -91,64 +86,17 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     {label: () => this.entity.name}
   ];
 
-  campaignMapper = (el: Campaign) => el.name;
-  campaignColumnParams = [
-    new ColumnParams('Name', (e: Campaign) => e.name)
-  ];
-
-  campaignText: TableMemoryTextOptions = {
-    title: 'Campaigns',
-    viewOptionText: 'View Campaign',
-    associateOptionText: 'Add Campaign',
-    disassociateOptionText: 'Delete Campaign',
-    associateModalTitle: 'Select Campaign',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Campaigns are associated to this email template.'
-  };
-
-  productMapper = (el: Product) => el.name;
-  productColumnParams = [
-    new ColumnParams('Name', (e: Product) => e.name),
-    new ColumnParams('SKU', (e: Product) => e.sku),
-    new ColumnParams('Default Price', (e: Product) => e.defaultPrice.usd()),
-    new ColumnParams('Ship', (e: Product) => !!e.ship + '')
-  ];
-
-  productText: TableMemoryTextOptions = {
-    title: 'Products',
-    viewOptionText: 'View Product',
-    associateOptionText: 'Associate Product',
-    disassociateOptionText: 'Disassociate Product',
-    associateModalTitle: 'Select Product',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Products are associated to this email template.'
-  };
-
-  productScheduleMapper = (el: ProductSchedule) => el.name;
-  productScheduleColumnParams = [
-    new ColumnParams('Name', (e: ProductSchedule) => e.name),
-    new ColumnParams('Number of cycles', (e: ProductSchedule) => e.schedules.length)
-  ];
-
-  productScheduleText: TableMemoryTextOptions = {
-    title: 'Product Schedules',
-    viewOptionText: 'View Product Schedule',
-    associateOptionText: 'Associate Product Schedule',
-    disassociateOptionText: 'Disassociate Product Schedule',
-    associateModalTitle: 'Select Product Schedule',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Product Schedules are associated to this email template.'
-  };
-
   allTokens: Token[];
   customBlocks: CustomBlock[];
 
   grapesEditor;
   templateBody: string;
   lastSavedTemplateBody: string;
+
+  previewBody: string;
+
+  chips: string[] = [];
+  filterMapper = (el) => `${el.name} ${el.type}`;
 
   constructor(
     private emailTemplateService: EmailTemplatesService,
@@ -161,7 +109,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     public campaignsService: CampaignsService,
     public productsService: ProductsService,
     public productSchedulesService: ProductScheduleService,
-    private router: Router,
     private dialog: MatDialog,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -178,6 +125,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
       this.templateBody = template.body;
       this.lastSavedTemplateBody = this.templateBody;
+      this.previewBody = template.preview;
 
       this.smtpProviderService.getEntities()
     });
@@ -198,14 +146,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       if (accountDetails instanceof CustomServerError) return;
 
       this.customBlocks = accountDetails.emailTemplateSettings.customBlocks;
-    });
-
-    this.service.entity$.zip(this.service.entity$).zip(this.accountDetailsService.entity$).take(1).subscribe(() => {
-      if (this.selectedIndex === 0) {
-        setTimeout(() => {
-          this.initGrapes();
-        }, 25);
-      }
     });
 
     this.emailTemplateService.getTokens();
@@ -263,6 +203,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     );
 
     this.appendEmailTemplateUpdateComponentToGrapes();
+    this.setFilterComponentsGrapesBlocks();
   }
 
   appendEmailTemplateUpdateComponentToGrapes() {
@@ -293,15 +234,57 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     blockContainer.insertBefore(templateEditElement, blockContainer.firstChild);
   }
 
+  setFilterComponentsGrapesBlocks() {
+    const inputBuilder = (tokensBlockCategory) => {
+      const ref = this.componentFactoryResolver
+        .resolveComponentFactory(GrapesFilterComponentComponent)
+        .create(this.injector);
+
+      const tokensBlock = tokensBlockCategory.getElementsByClassName('gjs-blocks-c')[0];
+
+      ref.instance.valueChanged.takeUntil(this.unsubscribe$).subscribe((value) => {
+        const parsedValue = (value || '').toLowerCase();
+        const items = tokensBlock.getElementsByClassName('gjs-block');
+
+        for (let i = 0; i < items.length; i++) {
+          const elementText = (items[i].getElementsByClassName('gjs-block-label')[0].innerHTML || '').toLowerCase();
+
+          if (elementText.indexOf(parsedValue) === -1) {
+            items[i].classList.add('invisible');
+          } else {
+            items[i].classList.remove('invisible');
+          }
+        }
+      });
+
+      this.appRef.attachView(ref.hostView);
+
+      const filterComponent = (ref.hostView as EmbeddedViewRef<any>)
+        .rootNodes[0] as HTMLElement;
+
+      tokensBlockCategory.insertBefore(filterComponent, tokensBlock);
+    };
+
+    inputBuilder(document.getElementsByClassName('gjs-block-category')[1]);
+    inputBuilder(document.getElementsByClassName('gjs-block-category')[2]);
+    if (document.getElementsByClassName('gjs-block-category')[3]) {
+      inputBuilder(document.getElementsByClassName('gjs-block-category')[3]);
+    }
+  }
+
   ngOnDestroy() {
     this.destroy();
   }
 
   setIndex(value: number): void {
-    if (this.selectedIndex !== 0 && this.entity && this.allTokens && this.customBlocks && value === 0) {
+    if (value === 0) {
       setTimeout(() => {
         this.initGrapes();
       }, 25);
+    }
+
+    if (value === 1) {
+      this.setPreview();
     }
 
     this.selectedIndex = value;
@@ -329,76 +312,31 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     })
   }
 
-  viewCampaign(campaign: Campaign): void {
-    this.router.navigate(['/campaigns', campaign.id]);
-  }
+  setPreview() {
+    this.previewBody = '';
 
-  disassociateCampaign(campaign: Campaign): void {
-    let index = firstIndexOf(this.entity.campaigns, (el) => el.id === campaign.id);
-
-    if (index > -1) {
-      this.entity.campaigns.splice(index, 1);
-      this.entity.campaigns = this.entity.campaigns.slice();
-
-      this.updateEntity(this.entity);
+    if (this.templateBody) {
+      this.emailTemplateService.getTemplatePreview(this.templateBody).subscribe(preview => {
+        this.previewBody = preview;
+      });
     }
   }
 
-  associateCampaign(campaign: Campaign): void {
-    let list = this.entity.campaigns.slice();
-    list.push(campaign);
+  addChip(event): void {
+    const input = event.input;
+    const value = event.value;
 
-    this.entity.campaigns = list;
+    if ((value || '').trim()) {
+      this.chips = [...this.chips, value.trim()];
+    }
 
-    this.updateEntity(this.entity);
-  }
-
-  viewProduct(product: Product): void {
-    this.router.navigate(['/products', product.id]);
-  }
-
-  disassociateProduct(product: Product): void {
-    let index = firstIndexOf(this.entity.products, (el) => el.id === product.id);
-
-    if (index > -1) {
-      this.entity.products.splice(index, 1);
-      this.entity.products = this.entity.products.slice();
-
-      this.updateEntity(this.entity);
+    if (input) {
+      input.value = '';
     }
   }
 
-  associateProduct(product: Product): void {
-    let list = this.entity.products.slice();
-    list.push(product);
-
-    this.entity.products = list;
-
-    this.updateEntity(this.entity);
-  }
-
-  viewProductSchedule(productSchedule: ProductSchedule): void {
-    this.router.navigate(['/productschedules', productSchedule.id]);
-  }
-
-  disassociateProductSchedule(productSchedule: ProductSchedule): void {
-    let index = firstIndexOf(this.entity.productSchedules, (el) => el.id === productSchedule.id);
-
-    if (index > -1) {
-      this.entity.productSchedules.splice(index, 1);
-      this.entity.productSchedules = this.entity.productSchedules.slice();
-
-      this.updateEntity(this.entity);
-    }
-  }
-
-  associateProductSchedule(productSchedule: ProductSchedule): void {
-    let list = this.entity.productSchedules.slice();
-    list.push(productSchedule);
-
-    this.entity.productSchedules = list;
-
-    this.updateEntity(this.entity);
+  remove(chip: string): void {
+    this.chips = this.chips.filter(c => c !== chip);
   }
 
 }

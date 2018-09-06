@@ -9,6 +9,10 @@ $fontPath: '~grapesjs/src/styles/fonts' !default;
 $fa-font-path: '~font-awesome/fonts' !default;
 
 .gjs-blocks-c {
+  .invisible {
+    display: none;
+  }
+
   .gjs-block {
     min-height: 40px !important;
     background-color: #E9EAEB !important;
@@ -119,15 +123,14 @@ $fa-font-path: '~font-awesome/fonts' !default;
   }
 }
 
-.custom-grapes-block-opened {
-  .fa-caret-right {
+.gjs-block-category {
+  grapes-filter-component {
     display: none;
   }
-  .fa-caret-down {
-    display: inline-block;
-  }
+}
 
-  email-template-add-new {
+.gjs-open {
+  grapes-filter-component {
     display: block;
   }
 }

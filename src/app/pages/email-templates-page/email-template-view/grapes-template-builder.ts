@@ -13,9 +13,9 @@ function basicLayoutElementsPlugin(editor) {
     },
     attributes: {class:'fa fa-window-maximize'},
     content: `<table style="width: 100%; font-family: Helvetica, Arial, Verdana, Trebuchet MS;">
-        <tr style="height: 140px; background: #C4C4C4">
+        <tr style="height: 95px; background: #C4C4C4">
           <td style="text-align: center; background: {{accountdetails.emailtemplatesettings.color_primary}}">
-            <img style="max-height: 100px; min-height: 50px; min-width: 50px; color: #ffffff" src="{{accountdetails.company_logo}}" alt="Company Logo" />
+            <img style="max-height: 60px; min-height: 40px; min-width: 40px; color: #ffffff" src="{{accountdetails.company_logo}}" alt="Company Logo" />
           </td>
         </tr>
         <tr>
@@ -340,7 +340,7 @@ export function initGrapesJS(
       attributes: { class:'gjs-block-full-width' },
       content: `
                 <section id="order-title-section" style="text-align: center;">
-                    <div style="margin-bottom: 25px; font-size: 22px;">
+                    <div style="margin-bottom: 15px; font-size: 22px;">
                         Thanks for your purchase, {{customer.firstname}}!
                     </div>
                     <div style="margin-bottom: 25px; color: #5F6368;">
@@ -368,7 +368,7 @@ export function initGrapesJS(
                             </td>
                             <td style="text-align: right; width: 50%">
                                 <div>
-                                    Order placed {{rebill.bill_at}}
+                                    Order placed {{formatDate rebill.bill_at 'MMM D, YYYY'}}
                                 </div>
                             </td>
                         </tr>
@@ -494,7 +494,51 @@ export function initGrapesJS(
                   <div style="color: #5F6368">{{creditcard.type}} ****{{creditcard.last_four}}</div>
                 </section>
             `
-    })
+    });
+
+    editor.BlockManager.add('predefined-fulfillment-details', {
+      label: '<b>Fulfillment Details</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="fulfillment-details-section" style="max-width: 650px; margin: 10px auto;">
+                    <table style="width: 100%; font-size: 13px">
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="font-weight: bold; line-height: 24px;">Tracking Number</div>
+                                    <div><a href="">{{shipping_receipt.tracking_number}}</a></div>
+                                </div>
+                            </td>
+                            <td style="text-align: right">
+                                <div>
+                                    <div style="font-weight: bold; line-height: 24px;">Shipping Method</div>
+                                    <div>{{shipping_receipt.carrier}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div style="padding-top: 15px;">
+                                    <div style="font-weight: bold; line-height: 24px;">Order ID</div>
+                                    <div>{{rebill.alias}}</div>
+                                </div>
+                            </td>
+                            <td style="text-align: right">
+                                <div style="padding-top: 15px">
+                                    <div style="font-weight: bold; line-height: 24px;">Shipped On</div>
+                                    <div>{{formatDate shipping_receipt.created_at 'MMM D, YYYY'}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            `
+    });
   };
   const toolbarActionButtonsPlugin = (editor) => {
 
