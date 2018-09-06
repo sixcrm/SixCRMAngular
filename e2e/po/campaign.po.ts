@@ -44,7 +44,7 @@ export class CampaignPage {
   }
 
   getCampaignDeleteButton() {
-    return element(by.css('tbody')).all(by.css('tr')).first().element(by.buttonText('delete'));
+    return element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).last().all(by.css('button')).first();
   }
 
   getCampaignDeleteModalButton() {

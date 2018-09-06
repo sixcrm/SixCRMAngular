@@ -51,6 +51,8 @@ import { Daterangepicker } from 'ng2-daterangepicker';
 import { CustomerFiltersDialogComponent } from './dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
 import { SubscriptionFiltersDialogComponent } from './dialog-modals/subscription-filters-dialog/subscription-filters-dialog.component';
 import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
+import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialog/order-filters-dialog.component';
+import { CustomTokenBlockDialogComponent } from './dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 
 @NgModule({
   declarations : [
@@ -86,7 +88,9 @@ import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingr
     TransactionFiltersDialogComponent,
     CustomerFiltersDialogComponent,
     SubscriptionFiltersDialogComponent,
-    ShippingreceiptFiltersDialogComponent
+    ShippingreceiptFiltersDialogComponent,
+    OrderFiltersDialogComponent,
+    CustomTokenBlockDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -138,7 +142,9 @@ import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingr
     TransactionFiltersDialogComponent,
     CustomerFiltersDialogComponent,
     SubscriptionFiltersDialogComponent,
-    ShippingreceiptFiltersDialogComponent
+    ShippingreceiptFiltersDialogComponent,
+    OrderFiltersDialogComponent,
+    CustomTokenBlockDialogComponent
   ],
   bootstrap : [AppComponent]
 })

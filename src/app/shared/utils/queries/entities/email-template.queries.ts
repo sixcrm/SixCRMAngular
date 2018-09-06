@@ -45,6 +45,22 @@ export function emailTemplateQuery(id: string): string {
     }`
 }
 
+export function addEmailTemplateAssociation(emailTemplateId: string, entityType: 'product' | 'campaign' | 'product_schedule', entityId: string): string {
+  return `mutation {
+    addemailtemplateassociation (emailtemplateid: "${emailTemplateId}", entitytype: ${entityType}, entityid: "${entityId}") {
+      id, name, smtp_provider { id, name }, subject, type
+    }
+  }`
+}
+
+export function removeEmailTemplateAssociation(emailTemplateId: string, entityType: 'product' | 'campaign' | 'product_schedule', entityId: string): string {
+  return `mutation {
+    removeemailtemplateassociation (emailtemplateid: "${emailTemplateId}", entitytype: ${entityType}, entityid: "${entityId}") {
+      id, name, smtp_provider { id, name }, subject, type
+    }
+  }`
+}
+
 export function emailTemplateSharedQuery(id: string): string {
   return `
     {
@@ -91,7 +107,12 @@ export function emailTemplateInfoResponseQuery(): string {
 }
 
 export function emailTemplateResponseQuery(): string {
-  return `id name subject body type created_at updated_at smtp_provider { ${smtpProviderResponseQuery()} }`
+  return `id name subject body type created_at updated_at
+    smtp_provider { ${smtpProviderResponseQuery()} }
+    campaigns { id name }
+    products { id name sku }
+    product_schedules { id name schedule { product { id } } }
+  `
 }
 
 export function emailTemplateInputQuery(emailTemplate: EmailTemplate, includeId?: boolean): string {
@@ -100,5 +121,9 @@ export function emailTemplateInputQuery(emailTemplate: EmailTemplate, includeId?
     body = `body: "${emailTemplate.body.replace(/"/g, '\\"')}",`
   }
 
-  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", ${addUpdatedAtApi(emailTemplate, includeId)}`;
+  const campaigns = emailTemplate.campaigns.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
+  const products = emailTemplate.products.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
+  const productSchedules = emailTemplate.productSchedules.reduce((a,b) => `${a}${a?',':''}"${b.id}"`,'');
+
+  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", campaigns: [${campaigns}], products: [${products}], product_schedules: [${productSchedules}], ${addUpdatedAtApi(emailTemplate, includeId)}`;
 }

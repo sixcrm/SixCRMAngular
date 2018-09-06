@@ -6,9 +6,23 @@ export function download(data: any, name: string, format: string) {
 }
 
 export function downloadJSON(data: any, name: string) {
-  download(JSON.stringify(data), name, 'application/json');
+  download(JSON.stringify(data), `${name}.json`, 'application/json');
 }
 
+export function downloadCSV(data: any[], name: string) {
+  let csvString = '';
+
+  if (data.length > 0) {
+    csvString = Object.keys(data[0]).reduce((a,b) => `${a}${a?',':''}${b}`, '');
+
+    for (let i = 0; i < data.length; i++) {
+      csvString += '\n';
+      csvString += Object.keys(data[i]).reduce((a,b) => `${a}${a?',':''}${data[i][b]}`, '')
+    }
+  }
+
+  download(csvString, `${name}.csv`, 'application/csv');
+}
 
 export function downloadFile(data: any, name: string, format: string) {
   let f;

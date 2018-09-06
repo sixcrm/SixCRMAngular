@@ -1,6 +1,9 @@
 import {SmtpProvider} from './smtp-provider.model';
 import {Entity} from './entity.interface';
 import {utc, Moment} from 'moment';
+import {Product} from './product.model';
+import {Campaign} from './campaign.model';
+import {ProductSchedule} from './product-schedule.model';
 
 export class EmailTemplate implements Entity<EmailTemplate> {
   id: string;
@@ -12,6 +15,10 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   updatedAt: Moment;
   updatedAtAPI: string;
   smtpProvider: SmtpProvider;
+
+  products: Product[] = [];
+  campaigns: Campaign[] = [];
+  productSchedules: ProductSchedule[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -27,6 +34,18 @@ export class EmailTemplate implements Entity<EmailTemplate> {
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.smtpProvider = new SmtpProvider(obj.smtp_provider);
+
+    if (obj.products) {
+      this.products = obj.products.map(p => new Product(p));
+    }
+
+    if (obj.campaigns) {
+      this.campaigns = obj.campaigns.map(c => new Campaign(c));
+    }
+
+    if (obj.product_schedules) {
+      this.productSchedules = obj.product_schedules.map(p => new ProductSchedule(p));
+    }
   }
 
   getTypeFormatted() {
@@ -58,7 +77,10 @@ export class EmailTemplate implements Entity<EmailTemplate> {
       type: this.type,
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI,
-      smtp_provider: this.smtpProvider.inverse()
+      smtp_provider: this.smtpProvider.inverse(),
+      campaigns: this.campaigns.map(c => c.inverse()),
+      products: this.products.map(p => p.inverse()),
+      product_schedules: this.productSchedules.map(p => p.inverse())
     }
   }
 }

@@ -26,7 +26,7 @@
       display: flex;
       margin: 0 0 0 auto;
       align-items: center;
-      max-width: calc(100% - 600px);
+      max-width: calc(100% - 640px);
 
       .icon {
         display: flex;
@@ -273,6 +273,7 @@
 .datepicker__label {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 a {

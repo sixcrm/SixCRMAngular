@@ -32,7 +32,7 @@ export class AffiliateReportService {
             this.affiliates$.next(affiliates.map(affiliate => new AffiliateReport(affiliate)))
           }
         } else {
-          downloadJSON(data.body, 'affiliate-details-report.json');
+          downloadJSON(data.body, 'affiliate-details-report');
         }
       })
   }

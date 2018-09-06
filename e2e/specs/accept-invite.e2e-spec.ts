@@ -15,7 +15,7 @@ import {getApiEndpoint} from '../utils/env.utils';
 var supertest = require('supertest');
 var crypto = require('crypto');
 
-let newEmail = `e2e${new Date().getTime()}@sixcrm.com`;
+let newEmail = `e2e-accept-invite+${new Date().getTime()}@sixcrm.com`;
 let newPassword = '123456789';
 
 describe('Accept Invite', function () {
