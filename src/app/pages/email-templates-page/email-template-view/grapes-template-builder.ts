@@ -494,7 +494,51 @@ export function initGrapesJS(
                   <div style="color: #5F6368">{{creditcard.type}} ****{{creditcard.last_four}}</div>
                 </section>
             `
-    })
+    });
+
+    editor.BlockManager.add('predefined-fulfillment-details', {
+      label: '<b>Fulfillment Details</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="fulfillment-details-section" style="max-width: 650px; margin: 10px auto;">
+                    <table style="width: 100%; font-size: 13px">
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="font-weight: bold; line-height: 24px;">Tracking Number</div>
+                                    <div><a href="">{{shipping_receipt.tracking_number}}</a></div>
+                                </div>
+                            </td>
+                            <td style="text-align: right">
+                                <div>
+                                    <div style="font-weight: bold; line-height: 24px;">Shipping Method</div>
+                                    <div>{{shipping_receipt.carrier}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <div style="padding-top: 15px;">
+                                    <div style="font-weight: bold; line-height: 24px;">Order ID</div>
+                                    <div>{{rebill.alias}}</div>
+                                </div>
+                            </td>
+                            <td style="text-align: right">
+                                <div style="padding-top: 15px">
+                                    <div style="font-weight: bold; line-height: 24px;">Shipped On</div>
+                                    <div>{{formatDate shipping_receipt.created_at 'MM D, YYYY'}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            `
+    });
   };
   const toolbarActionButtonsPlugin = (editor) => {
 
