@@ -368,7 +368,7 @@ export function initGrapesJS(
                             </td>
                             <td style="text-align: right; width: 50%">
                                 <div>
-                                    Order placed {{rebill.bill_at}}
+                                    Order placed {{formatDate rebill.bill_at 'MMM D, YYYY'}}
                                 </div>
                             </td>
                         </tr>
@@ -531,7 +531,7 @@ export function initGrapesJS(
                             <td style="text-align: right">
                                 <div style="padding-top: 15px">
                                     <div style="font-weight: bold; line-height: 24px;">Shipped On</div>
-                                    <div>{{formatDate shipping_receipt.created_at 'MM D, YYYY'}}</div>
+                                    <div>{{formatDate shipping_receipt.created_at 'MMM D, YYYY'}}</div>
                                 </div>
                             </td>
                         </tr>
