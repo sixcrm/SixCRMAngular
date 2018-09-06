@@ -48,7 +48,7 @@ entity-view-entityacl {
     background: #FAFAFA;
 
     .associations-table-wrapper {
-      height: calc(100vh - 320px);
+      max-height: calc(100vh - 320px);
       overflow: auto;
     }
 
@@ -113,7 +113,7 @@ entity-view-entityacl {
     margin-left: auto;
     box-shadow: 0 1px 3px rgba(0,0,0,0.24);
     background: #ffffff;
-    height: calc(100vh - 260px);
+    max-height: calc(100vh - 260px);
     overflow: auto;
   }
 }
