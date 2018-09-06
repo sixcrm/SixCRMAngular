@@ -4,7 +4,7 @@
     <entity-view-entityacl *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
   </blue-header>
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)" [emitDefaultTab]="true"></tab-header>
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
