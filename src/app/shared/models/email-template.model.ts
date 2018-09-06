@@ -35,6 +35,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   products: Product[] = [];
   campaigns: Campaign[] = [];
   productSchedules: ProductSchedule[] = [];
+  associations: {url: string, type: string, name: string}[] = [];
   enabled: boolean;
   builtIn: boolean;
 
@@ -55,16 +56,20 @@ export class EmailTemplate implements Entity<EmailTemplate> {
     this.preview = obj.preview || '';
     this.enabled = !!obj.enabled;
     this.builtIn = !!obj.built_in;
+
     if (obj.products) {
       this.products = obj.products.map(p => new Product(p));
+      this.associations = [...this.associations, ...this.products.map(p => { return {url: `/products/${p.id}`, type: 'Product', name: p.name} })];
     }
 
     if (obj.campaigns) {
       this.campaigns = obj.campaigns.map(c => new Campaign(c));
+      this.associations = [...this.associations, ...this.campaigns.map(c => { return {url: `/campaigns/${c.id}`, type: 'Campaign', name: c.name} })];
     }
 
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(p => new ProductSchedule(p));
+      this.associations = [...this.associations, ...this.productSchedules.map(p => { return {url: `/productschedules/${p.id}`, type: 'Product Schedule', name: p.name} })];
     }
   }
 

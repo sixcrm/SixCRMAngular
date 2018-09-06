@@ -72,6 +72,7 @@ import { FilterDaterangePickerComponent } from './components/filter-daterange-pi
 import { SingleFilterComponent } from './components/single-filter/single-filter.component';
 import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-as.component';
 import {RouterModule} from '@angular/router';
+import { FilterChipsPipePipe } from './pipes/filter-chips-pipe.pipe';
 
 @NgModule({
   declarations : [
@@ -126,7 +127,8 @@ import {RouterModule} from '@angular/router';
     LocationFilterComponent,
     FilterDaterangePickerComponent,
     SingleFilterComponent,
-    FilterSaveAsComponent
+    FilterSaveAsComponent,
+    FilterChipsPipePipe
   ],
   exports : [
     AutocompleteComponent,
@@ -175,7 +177,8 @@ import {RouterModule} from '@angular/router';
     LocationFilterComponent,
     FilterDaterangePickerComponent,
     SingleFilterComponent,
-    FilterSaveAsComponent
+    FilterSaveAsComponent,
+    FilterChipsPipePipe
   ],
   imports : [
     FormsModule,
