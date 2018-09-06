@@ -24,6 +24,7 @@ import {EmailTemplateAddNewComponent} from './email-template-add-new/email-templ
 import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
 import {CustomBlock} from '../../../shared/models/account-details.model';
+import {GrapesFilterComponentComponent} from '../../../shared/components/grapes-filter-component/grapes-filter-component.component';
 
 export class TokenGroup {
 
@@ -202,6 +203,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     );
 
     this.appendEmailTemplateUpdateComponentToGrapes();
+    this.setFilterComponentsGrapesBlocks();
   }
 
   appendEmailTemplateUpdateComponentToGrapes() {
@@ -230,6 +232,44 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     const blockContainer = document.getElementsByClassName('gjs-block-categories')[0];
 
     blockContainer.insertBefore(templateEditElement, blockContainer.firstChild);
+  }
+
+  setFilterComponentsGrapesBlocks() {
+    const inputBuilder = (tokensBlockCategory) => {
+      const ref = this.componentFactoryResolver
+        .resolveComponentFactory(GrapesFilterComponentComponent)
+        .create(this.injector);
+
+      const tokensBlock = tokensBlockCategory.getElementsByClassName('gjs-blocks-c')[0];
+
+      ref.instance.valueChanged.takeUntil(this.unsubscribe$).subscribe((value) => {
+        const parsedValue = (value || '').toLowerCase();
+        const items = tokensBlock.getElementsByClassName('gjs-block');
+
+        for (let i = 0; i < items.length; i++) {
+          const elementText = (items[i].getElementsByClassName('gjs-block-label')[0].innerHTML || '').toLowerCase();
+
+          if (elementText.indexOf(parsedValue) === -1) {
+            items[i].classList.add('invisible');
+          } else {
+            items[i].classList.remove('invisible');
+          }
+        }
+      });
+
+      this.appRef.attachView(ref.hostView);
+
+      const filterComponent = (ref.hostView as EmbeddedViewRef<any>)
+        .rootNodes[0] as HTMLElement;
+
+      tokensBlockCategory.insertBefore(filterComponent, tokensBlock);
+    };
+
+    inputBuilder(document.getElementsByClassName('gjs-block-category')[1]);
+    inputBuilder(document.getElementsByClassName('gjs-block-category')[2]);
+    if (document.getElementsByClassName('gjs-block-category')[3]) {
+      inputBuilder(document.getElementsByClassName('gjs-block-category')[3]);
+    }
   }
 
   ngOnDestroy() {

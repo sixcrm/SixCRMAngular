@@ -73,6 +73,7 @@ import { SingleFilterComponent } from './components/single-filter/single-filter.
 import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-as.component';
 import {RouterModule} from '@angular/router';
 import { FilterChipsPipePipe } from './pipes/filter-chips-pipe.pipe';
+import { GrapesFilterComponentComponent } from './components/grapes-filter-component/grapes-filter-component.component';
 
 @NgModule({
   declarations : [
@@ -128,7 +129,8 @@ import { FilterChipsPipePipe } from './pipes/filter-chips-pipe.pipe';
     FilterDaterangePickerComponent,
     SingleFilterComponent,
     FilterSaveAsComponent,
-    FilterChipsPipePipe
+    FilterChipsPipePipe,
+    GrapesFilterComponentComponent
   ],
   exports : [
     AutocompleteComponent,

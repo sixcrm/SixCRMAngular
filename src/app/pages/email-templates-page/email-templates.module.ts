@@ -12,6 +12,7 @@ import {TranslationModule} from '../../translation/translation.module';
 import { FilterTemplatesByTypePipe } from './filter-templates-by-type.pipe';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
+import {GrapesFilterComponentComponent} from '../../shared/components/grapes-filter-component/grapes-filter-component.component';
 
 @NgModule({
   imports : [
@@ -34,7 +35,8 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     EmailTemplatesAclGuard
   ],
   entryComponents: [
-    EmailTemplateAddNewComponent
+    EmailTemplateAddNewComponent,
+    GrapesFilterComponentComponent
   ]
 })
 export class EmailTemplatesModule {
