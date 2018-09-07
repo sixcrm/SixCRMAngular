@@ -1,15 +1,37 @@
 @import "colors";
 
-$primaryColor: #F3F3F3;
-$secondaryColor: $main-color-600;
-$tertiaryColor: $action-color;
-$quaternaryColor: $action-color;
+$primaryColor: #F1F3F4;
+$secondaryColor: #434343;
+$tertiaryColor: $main-color-300;
+$quaternaryColor: $main-color-300;
 
 $fontPath: '~grapesjs/src/styles/fonts' !default;
 $fa-font-path: '~font-awesome/fonts' !default;
 
-.gjs-block {
-  min-height: 36px !important;
+.gjs-blocks-c {
+  .invisible {
+    display: none;
+  }
+
+  .gjs-block {
+    min-height: 40px !important;
+    background-color: #E9EAEB !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    .gjs-block-label {
+      font-size: 14px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 10px !important;
+    }
+
+    &:hover {
+      color: $action-color !important;
+      box-shadow: 0 4px 4px rgba(0,0,0,0.25) !important;
+    }
+  }
 }
 
 .gjs-block-full-width {
@@ -17,6 +39,8 @@ $fa-font-path: '~font-awesome/fonts' !default;
 }
 
 .gjs-pn-views {
+  background-color: #FAFAFA !important;
+
   .gjs-pn-buttons {
 
     .gjs-pn-btn {
@@ -34,11 +58,88 @@ $fa-font-path: '~font-awesome/fonts' !default;
   font-size: 38px;
 }
 
-.gjs-margin-left-25 {
-  margin-left: 25px;
-}
-
 .grapes-delete-icon {
   float: right;
+}
+
+.gjs-block-categories {
+  .gjs-block-category {
+    background: #FAFAFA;
+
+    .gjs-title {
+      color: #434443;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #E9EAEB;
+      line-height: 24px;
+      padding: 12px 15px;
+    }
+
+    &:nth-of-type(4) {
+      order: 1;
+    }
+    &:nth-of-type(5) {
+      order: 0;
+    }
+  }
+}
+
+.gjs-pn-devices-c {
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+.gjs-pn-views {
+  width: 20% !important;
+}
+
+.gjs-pn-views-container {
+  background-color: #FAFAFA !important;
+  width: 20% !important;
+  padding-top: 52px !important;
+}
+
+.gjs-cv-canvas {
+  width: calc(80% - 50px) !important;
+  top: 52px !important;
+  left: 25px !important;
+  height: calc(100% - 52px) !important;
+}
+
+.gjs-pn-options {
+  right: calc(20% + 10px) !important;
+}
+
+.custom-grapes-block {
+  .fa-caret-right {
+    display: inline-block;
+  }
+  .fa-caret-down {
+    display: none;
+  }
+
+  email-template-add-new {
+    display: none;
+  }
+}
+
+.gjs-block-category {
+  grapes-filter-component {
+    display: none;
+  }
+}
+
+.gjs-open {
+  grapes-filter-component {
+    display: block;
+  }
+}
+
+.gjs-pn-commands {
+  width: 80% !important;
+  height: 50px;
+}
+.gjs-pn-views, .gjs-pn-options, .gjs-pn-devices-c {
+  padding: 10px 5px !important;
 }
 @import "~grapesjs/src/styles/scss/main.scss";

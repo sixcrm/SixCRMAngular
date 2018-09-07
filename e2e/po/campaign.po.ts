@@ -1,4 +1,4 @@
-import {element, by} from 'protractor';
+import {element, by, browser, Key} from 'protractor';
 import any = jasmine.any;
 
 export class CampaignPage {
@@ -37,6 +37,10 @@ export class CampaignPage {
 
   getCampaignIndividualCampaign() {
     return element(by.css('tbody')).all(by.css('tr'));
+  }
+
+  selectEscapeKey() {
+    browser.actions().sendKeys(Key.ESCAPE).perform();
   }
 
   getCampaignNameInCard() {

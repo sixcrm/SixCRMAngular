@@ -1,29 +1,71 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, ComponentFactoryResolver, ApplicationRef, Injector,
+  EmbeddedViewRef
+} from '@angular/core';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
-import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
+import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
-import {Token, TokenGroup} from './token-list/token-list.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {ProductsService} from '../../../entity-services/services/products.service';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
-import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
-import {Campaign} from '../../../shared/models/campaign.model';
-import {ColumnParams} from '../../../shared/models/column-params.model';
-import {Product} from '../../../shared/models/product.model';
-import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {initGrapesJS} from './grapes-template-builder';
 import {MatDialog} from '@angular/material';
 import {CustomTokenBlockDialogComponent} from '../../../dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
+import {EmailTemplateAddNewComponent} from './email-template-add-new/email-template-add-new.component';
+import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
+import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
+import {CustomBlock} from '../../../shared/models/account-details.model';
+import {GrapesFilterComponentComponent} from '../../../shared/components/grapes-filter-component/grapes-filter-component.component';
+
+export class TokenGroup {
+
+  name: string;
+  description: string;
+  tokens: Token[] = [];
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.name = obj.name || '';
+    this.description = obj.description || '';
+    this.tokens = (obj.tokens || []).map(t => new Token(t));
+  }
+
+}
+
+export class Token {
+
+  value: string;
+  description: string;
+  example: string;
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.description = obj.description || '';
+    this.value = obj.value || '';
+    this.example = obj.example || '';
+  }
+
+  contains(filter: string) {
+    return (this.value || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1
+      || (this.description || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1;
+  }
+
+}
 
 @Component({
   selector: 'email-template-view',
@@ -33,90 +75,44 @@ import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.compon
 export class EmailTemplateViewComponent extends AbstractEntityViewComponent<EmailTemplate> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
-  tokensInited: boolean;
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
-    {name: 'template', label: 'TEMPLATE'},
-    {name: 'associations', label: 'TRIGGERS'}
+    {name: 'general', label: 'GENERAL'},
+    {name: 'associations', label: 'ASSOCIATIONS'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
-    {label: () => 'EMAILTEMPLATE_INDEX_TITLE', url: '/emailtemplates'},
+    {label: () => 'Email Templates', url: '/emailtemplates'},
     {label: () => this.entity.name}
   ];
 
-  campaignMapper = (el: Campaign) => el.name;
-  campaignColumnParams = [
-    new ColumnParams('Name', (e: Campaign) => e.name)
-  ];
-
-  campaignText: TableMemoryTextOptions = {
-    title: 'Campaigns',
-    viewOptionText: 'View Campaign',
-    associateOptionText: 'Add Campaign',
-    disassociateOptionText: 'Delete Campaign',
-    associateModalTitle: 'Select Campaign',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Campaigns set as triggers.'
-  };
-
-  productMapper = (el: Product) => el.name;
-  productColumnParams = [
-    new ColumnParams('Name', (e: Product) => e.name),
-    new ColumnParams('SKU', (e: Product) => e.sku),
-    new ColumnParams('Default Price', (e: Product) => e.defaultPrice.usd()),
-    new ColumnParams('Ship', (e: Product) => !!e.ship + '')
-  ];
-
-  productText: TableMemoryTextOptions = {
-    title: 'Products',
-    viewOptionText: 'View Product',
-    associateOptionText: 'Associate Product',
-    disassociateOptionText: 'Disassociate Product',
-    associateModalTitle: 'Select Product',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Products set as triggers.'
-  };
-
-  productScheduleMapper = (el: ProductSchedule) => el.name;
-  productScheduleColumnParams = [
-    new ColumnParams('Name', (e: ProductSchedule) => e.name),
-    new ColumnParams('Number of cycles', (e: ProductSchedule) => e.schedules.length)
-  ];
-
-  productScheduleText: TableMemoryTextOptions = {
-    title: 'Product Schedules',
-    viewOptionText: 'View Product Schedule',
-    associateOptionText: 'Associate Product Schedule',
-    disassociateOptionText: 'Disassociate Product Schedule',
-    associateModalTitle: 'Select Product Schedule',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Product Schedules set as triggers.'
-  };
-
-  tokenGroups: TokenGroup[] = [];
-  selectedGroup: TokenGroup;
-  allTokens: Token[] = [];
+  allTokens: Token[];
+  customBlocks: CustomBlock[];
 
   grapesEditor;
   templateBody: string;
+  lastSavedTemplateBody: string;
+
+  previewBody: string;
+
+  chips: string[] = [];
+  filterMapper = (el) => `${el.name} ${el.type}`;
 
   constructor(
     private emailTemplateService: EmailTemplatesService,
     private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
     public smtpProviderService: SmtpProvidersService,
+    public accountDetailsService: AccountDetailsService,
     public authService: AuthenticationService,
     private snackService: SnackbarService,
     public campaignsService: CampaignsService,
     public productsService: ProductsService,
     public productSchedulesService: ProductScheduleService,
-    private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private injector: Injector
   ) {
     super(emailTemplateService, activatedRoute);
   }
@@ -128,20 +124,16 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       if (template instanceof CustomServerError) return;
 
       this.templateBody = template.body;
+      this.lastSavedTemplateBody = this.templateBody;
+      this.previewBody = template.preview;
+
       this.smtpProviderService.getEntities()
     });
 
     this.emailTemplateService.tokenGroups.take(1).subscribe(groups => {
       const allTokensGroup: TokenGroup = new TokenGroup(groups.all);
 
-      this.tokenGroups = [allTokensGroup];
-      this.selectedGroup = allTokensGroup;
-
-      this.allTokens = this.tokenGroups.map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
-
-      if (this.selectedIndex === 1 && !this.tokensInited) {
-        this.initGrapes();
-      }
+      this.allTokens = [allTokensGroup].map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
     });
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => {
@@ -150,7 +142,14 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       this.productSchedulesService.getEntities();
     });
 
+    this.accountDetailsService.entity$.take(1).subscribe(accountDetails => {
+      if (accountDetails instanceof CustomServerError) return;
+
+      this.customBlocks = accountDetails.emailTemplateSettings.customBlocks;
+    });
+
     this.emailTemplateService.getTokens();
+    this.accountDetailsService.getEntity(this.authService.getActiveAccount().id);
   }
 
   initGrapes() {
@@ -160,38 +159,117 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
         parent: this,
         saveCallback: () => {
           this.entity.body = this.templateBody;
+          this.lastSavedTemplateBody = this.templateBody;
           this.updateEntity(this.entity);
         },
-        saveCustomBlockCallback: (content: string) => {
+        previewCallback: () => {
+          this.emailTemplateService.getTemplatePreview(this.templateBody).subscribe(preview => {
+            let ref = this.dialog.open(EmailTemplatePreviewModalComponent, {backdropClass: 'backdrop-blue'});
+            ref.componentInstance.body = preview;
+
+            ref.afterClosed().subscribe(() => {
+              ref = null;
+            })
+          });
+        },
+        saveCustomBlockCallback: (body: string) => {
           let dialog = this.dialog.open(CustomTokenBlockDialogComponent);
 
-          return dialog.afterClosed().take(1).map(result => {
+          return dialog.afterClosed().take(1).flatMap(result => {
             dialog = null;
 
             if (!result || !result.title) {
-              return {content: content, title: 'fail', success: false};
+              return [{success: false, block: null}];
             }
 
-            return {content: content, title: result.title, success: true};
+            const block = new CustomBlock({id: new Date().getTime() + '', body: body, title: result.title});
+
+            return this.accountDetailsService.addCustomBlock(block).flatMap(res => [{success: res, block: block}]);
           });
-
         },
-        deleteCustomBlockCallback: (name: string) => {
+        deleteCustomBlockCallback: (block: CustomBlock) => {
           let dialog = this.dialog.open(DeleteDialogComponent);
-          dialog.componentInstance.text = `Are you sure you want to delete '${name}' custom token?`;
+          dialog.componentInstance.text = `Are you sure you want to delete '${block.title}' custom token?`;
 
-          return dialog.afterClosed().take(1).map(result => {
-            return result.success;
-          })
-        },
-        testCallback: () => {
-          this.sendTestEmail();
-        },
-        additionalFields: {
-          accountName: this.authService.getActiveAccount().name
+          return dialog.afterClosed().take(1).flatMap(result => {
+            if (!result || !result.success) {
+              return [{success: false, block: null}];
+            }
+
+            return this.accountDetailsService.removeCustomBlock(block).flatMap(res => [{success: res, block: block}])
+          });
         }
       }
     );
+
+    this.appendEmailTemplateUpdateComponentToGrapes();
+    this.setFilterComponentsGrapesBlocks();
+  }
+
+  appendEmailTemplateUpdateComponentToGrapes() {
+    // create EmailTemplateAddNewComponent template using ng component factory resolver
+    const ref = this.componentFactoryResolver
+      .resolveComponentFactory(EmailTemplateAddNewComponent)
+      .create(this.injector);
+
+    ref.instance.entity = this.entity;
+    ref.instance.mode = Modes.Update;
+    ref.instance.save.takeUntil(this.unsubscribe$).subscribe((template) => {
+      template.body = this.templateBody;
+      this.updateEntity(template);
+    });
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updatedTemplate) => {
+      if (updatedTemplate instanceof CustomServerError) return;
+
+      ref.instance.entity = updatedTemplate;
+    });
+
+    this.appRef.attachView(ref.hostView);
+
+    // append email template add new component before first grapesJS block category
+    const templateEditElement = (ref.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    const blockContainer = document.getElementsByClassName('gjs-block-categories')[0];
+
+    blockContainer.insertBefore(templateEditElement, blockContainer.firstChild);
+  }
+
+  setFilterComponentsGrapesBlocks() {
+    const inputBuilder = (tokensBlockCategory) => {
+      const ref = this.componentFactoryResolver
+        .resolveComponentFactory(GrapesFilterComponentComponent)
+        .create(this.injector);
+
+      const tokensBlock = tokensBlockCategory.getElementsByClassName('gjs-blocks-c')[0];
+
+      ref.instance.valueChanged.takeUntil(this.unsubscribe$).subscribe((value) => {
+        const parsedValue = (value || '').toLowerCase();
+        const items = tokensBlock.getElementsByClassName('gjs-block');
+
+        for (let i = 0; i < items.length; i++) {
+          const elementText = (items[i].getElementsByClassName('gjs-block-label')[0].innerHTML || '').toLowerCase();
+
+          if (elementText.indexOf(parsedValue) === -1) {
+            items[i].classList.add('invisible');
+          } else {
+            items[i].classList.remove('invisible');
+          }
+        }
+      });
+
+      this.appRef.attachView(ref.hostView);
+
+      const filterComponent = (ref.hostView as EmbeddedViewRef<any>)
+        .rootNodes[0] as HTMLElement;
+
+      tokensBlockCategory.insertBefore(filterComponent, tokensBlock);
+    };
+
+    inputBuilder(document.getElementsByClassName('gjs-block-category')[1]);
+    inputBuilder(document.getElementsByClassName('gjs-block-category')[2]);
+    if (document.getElementsByClassName('gjs-block-category')[3]) {
+      inputBuilder(document.getElementsByClassName('gjs-block-category')[3]);
+    }
   }
 
   ngOnDestroy() {
@@ -199,21 +277,31 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   }
 
   setIndex(value: number): void {
-    if (value === 1) {
+    if (value === 0) {
       setTimeout(() => {
         this.initGrapes();
-      }, 1);
+      }, 25);
+    }
+
+    if (value === 1) {
+      this.setPreview();
     }
 
     this.selectedIndex = value;
   }
 
-  cancelEdit(): void {
-    this.setMode(this.modes.View);
-    this.entity = this.entityBackup.copy();
+  isTemplateChanged(): boolean {
+    if (this.templateBody.length !== this.lastSavedTemplateBody.length) return true;
+
+    return this.templateBody !== this.lastSavedTemplateBody;
   }
 
   sendTestEmail(): void {
+    if (this.isTemplateChanged()) {
+      this.snackService.showErrorSnack('Please save changes before sending a test email.', 2500);
+      return;
+    }
+
     this.emailTemplateService.sendTestEmail(this.entity).subscribe((result) => {
       if (result instanceof CustomServerError) {
         this.snackService.showErrorSnack('Error when sending test E-Mail', 2500);
@@ -224,76 +312,31 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     })
   }
 
-  viewCampaign(campaign: Campaign): void {
-    this.router.navigate(['/campaigns', campaign.id]);
-  }
+  setPreview() {
+    this.previewBody = '';
 
-  disassociateCampaign(campaign: Campaign): void {
-    let index = firstIndexOf(this.entity.campaigns, (el) => el.id === campaign.id);
-
-    if (index > -1) {
-      this.entity.campaigns.splice(index, 1);
-      this.entity.campaigns = this.entity.campaigns.slice();
-
-      this.updateEntity(this.entity);
+    if (this.templateBody) {
+      this.emailTemplateService.getTemplatePreview(this.templateBody).subscribe(preview => {
+        this.previewBody = preview;
+      });
     }
   }
 
-  associateCampaign(campaign: Campaign): void {
-    let list = this.entity.campaigns.slice();
-    list.push(campaign);
+  addChip(event): void {
+    const input = event.input;
+    const value = event.value;
 
-    this.entity.campaigns = list;
+    if ((value || '').trim()) {
+      this.chips = [...this.chips, value.trim()];
+    }
 
-    this.updateEntity(this.entity);
-  }
-
-  viewProduct(product: Product): void {
-    this.router.navigate(['/products', product.id]);
-  }
-
-  disassociateProduct(product: Product): void {
-    let index = firstIndexOf(this.entity.products, (el) => el.id === product.id);
-
-    if (index > -1) {
-      this.entity.products.splice(index, 1);
-      this.entity.products = this.entity.products.slice();
-
-      this.updateEntity(this.entity);
+    if (input) {
+      input.value = '';
     }
   }
 
-  associateProduct(product: Product): void {
-    let list = this.entity.products.slice();
-    list.push(product);
-
-    this.entity.products = list;
-
-    this.updateEntity(this.entity);
-  }
-
-  viewProductSchedule(productSchedule: ProductSchedule): void {
-    this.router.navigate(['/productschedules', productSchedule.id]);
-  }
-
-  disassociateProductSchedule(productSchedule: ProductSchedule): void {
-    let index = firstIndexOf(this.entity.productSchedules, (el) => el.id === productSchedule.id);
-
-    if (index > -1) {
-      this.entity.productSchedules.splice(index, 1);
-      this.entity.productSchedules = this.entity.productSchedules.slice();
-
-      this.updateEntity(this.entity);
-    }
-  }
-
-  associateProductSchedule(productSchedule: ProductSchedule): void {
-    let list = this.entity.productSchedules.slice();
-    list.push(productSchedule);
-
-    this.entity.productSchedules = list;
-
-    this.updateEntity(this.entity);
+  remove(chip: string): void {
+    this.chips = this.chips.filter(c => c !== chip);
   }
 
 }

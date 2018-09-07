@@ -115,4 +115,12 @@ export class TablePreferencesComponent implements OnInit, OnDestroy {
       this.resetColumnParams();
     });
   }
+
+  isOnlyOneSelected(param: ColumnParams<any>) {
+    const selected = (this.columnParams || []).filter(p => p.selected);
+
+    if (selected.length !== 1) return false;
+
+    return selected[0].label === param.label;
+  }
 }

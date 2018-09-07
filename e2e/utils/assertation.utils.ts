@@ -9,7 +9,11 @@ export function expectNotPresent(element: ElementFinder) {
 }
 
 export function expectDefined(element: ElementFinder) {
-  expect(element).toBeDefined();
+  expect(element).toBeDefined(false);
+}
+
+export function expectUndefined(element: ElementFinder) {
+  expect(element).toBeDefined(true);
 }
 
 export function expectUrlToContain(url: string) {

@@ -11,56 +11,50 @@
 .dashboard-top-header {
   display: flex;
   justify-content: space-between;
-}
+  padding-top: 15px;
 
-.quote {
-  display: flex;
-  flex-direction: column;
-  margin-top: 81px;
-
-  .dashboard-message {
+  .greeting {
+    font-size: 30px;
+    font-weight: lighter;
     color: #8EC9FD;
-    font-style: italic;
-    font-size: 20px;
-    font-weight: 400;
-    margin-right: 30px;
-    margin-left: 30px;
+    margin-left: 20px;
 
-    &__author {
-      font-size: 16px;
-      line-height: 23px;
-      margin-left: auto;
-    }
-  }
-}
-
-.info {
-  margin: 40px 0 25px 25px;
-  color: #B5D0FA;
-  font-weight: 300;
-
-  div {
-    &:first-of-type {
-      margin-top: 15px;
-      font-size: 16px;
-      font-weight: 400;
+    .total-revenue-text {
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 50px;
     }
 
-    &:last-of-type {
-      margin-top: 0;
-      font-size: 60px;
-      color: #ffffff;
+    .total-revenue-amount {
       display: flex;
+      color: #ffffff;
+      font-weight: 400;
+      font-size: 60px;
+      line-height: 67px;
 
-      div {
-        &:first-of-type {
-          font-size: 36px;
-          margin-top: 11px;
-          font-weight: 400;
-        }
+      :first-child {
+        font-size: 30px;
+        line-height: 43px;
+        font-weight: 400;
       }
     }
   }
+
+  .quote {
+    margin-left: auto;
+    margin-right: 20px;
+    font-size: 24px;
+    font-weight: lighter;
+    font-style: italic;
+    color: #8EC9FD;
+
+    div:last-child {
+      font-size: 16px;
+      margin-left: auto;
+      float: right;
+    }
+  }
+
 }
 
 .charts-container {

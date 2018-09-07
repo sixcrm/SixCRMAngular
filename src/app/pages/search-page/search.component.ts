@@ -25,9 +25,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
 
   queryString: string;
-  queryOptions: any[] = [];
-
-  isAdvancedSearch: boolean;
 
   currentRoute: string;
   paramsSub: Subscription;
@@ -45,12 +42,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   cardMode: boolean = true;
 
   sortBy: string = '';
-
-  queryOptsLabel = {
-    firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address',
-    alias: 'Transaction Alias', address_line_1: 'Address 1', address_line_2: 'Address 2', city: 'City', state: 'State',
-    zip: 'ZIP Code', tracking_number: 'Tracking No', first_six: 'First 6 #', last_four: 'Last 4 #'
-  };
 
   datepickerVisible: boolean = false;
   startDate: Moment;
@@ -81,23 +72,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramsSub = this.route.queryParams.subscribe(params => {
-      this.queryOptions = [];
       this.parseShareParams(params);
-
-      if (params['advanced']) {
-        this.isAdvancedSearch = true;
-        this.queryString = '';
-        Object.keys(params).forEach(key => {
-          if (this.queryOptsLabel[key]) {
-            this.queryOptions.push({key: key, value: params[key], enabled: true});
-          }
-        });
-      } else {
-        this.isAdvancedSearch = false;
-        this.queryString = params['query'] || '';
-
-        this.currentRoute = this.queryString;
-      }
+      this.queryString = params['query'] || '';
+      this.currentRoute = this.queryString;
 
       this.search();
     });
@@ -140,9 +117,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   parseShareParams(params): void {
-    this.applyDateFilter = params['startDate'] && params['endDate'];
-    this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(1,'M');
-    this.endDate = params['endDate'] ? utc(params['endDate']) : utc();
+    this.startDate = params['startDate'] ? utc(params['startDate']) : this.applyDateFilter ? this.startDate : utc().subtract(1,'M');
+    this.endDate = params['endDate'] ? utc(params['endDate']) : this.applyDateFilter ? this.endDate : utc();
+    this.applyDateFilter = this.applyDateFilter || (params['startDate'] && params['endDate']);
     this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
     this.limit = +params['limit'] || this.limit;
     this.sortBy = params['sortBy'] || this.sortBy;
@@ -212,18 +189,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    if (this.isAdvancedSearch) {
-      const opt: any = this.transformSearchOptions();
-      this.prepareNewSearch();
-      if (Object.keys(opt).length > 0) {
-        this.performSearch(opt, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
-      }
-    } else {
-      this.prepareNewSearch();
+    this.prepareNewSearch();
 
-      if (this.queryString) {
-        this.performSearch(this.queryString, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
-      }
+    if (this.queryString) {
+      this.performSearch(this.queryString, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
     }
   }
 
@@ -239,11 +208,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this.searchResults.length < this.numberOfSearchResults;
   }
 
-  toggleAdvancedSearchFieldEnabled(option: any): void {
-    option.enabled = !option.enabled;
-    this.checkboxClicked$.next(true);
-  }
-
   setSortBy(value: string): void {
     this.sortBy = value !== 'default' ? value: '' ;
     this.search();
@@ -252,15 +216,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   getShareUrl(): string {
     let url = environment.auth0RedirectUrl + '/search';
 
-    if (this.isAdvancedSearch) {
-      url += `?advanced=true`;
-
-      this.queryOptions.forEach(option => {
-        if (option.enabled) {
-          url += `&${option.key}=${option.value}`;
-        }
-      })
-    } else if (this.queryString) {
+    if (this.queryString) {
       url += `?query=${this.queryString}`;
     } else {
       return url;
@@ -279,7 +235,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   resetSearch(): void {
-    this.isAdvancedSearch = false;
     this.applyDateFilter = false;
     this.sortBy = '';
     this.startDate = utc().subtract(1, 'M');
@@ -293,7 +248,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   fetchMoreResults() {
     if (this.canFetchMore() && !this.fetchingData) {
-      const query: any = this.isAdvancedSearch ? this.transformSearchOptions() : this.queryString;
+      const query: any = this.queryString;
 
       this.performSearch(query, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
     }
@@ -308,18 +263,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.numberOfSearchResults = 0;
   }
 
-  private transformSearchOptions(): any {
-    const opt: any = {};
-    this.queryOptions.forEach(option => {
-      if (option.enabled) {
-        opt[option.key] = option.value;
-      }
-    });
-
-    return opt;
-  }
-
-  private performSearch(query: string|any, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
+  private performSearch(query: string, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
     this.fetchingData = true;
     this.searchService.searchByQuery(query, this.applyDateFilter ? createdAtRange : '', sortBy, offset, count, entityTypes);
     this.searchService.searchFacets(query, this.applyDateFilter ? createdAtRange : '');

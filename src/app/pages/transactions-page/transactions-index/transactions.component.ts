@@ -51,11 +51,11 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
         .setSortName('merchant_provider_name')
         .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
-      new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias)
+      new ColumnParams('Transaction Alias', (e: TransactionAnalytics) => e.alias)
         .setSortName('alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
-      new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias)
+      new ColumnParams('Order Alias', (e: TransactionAnalytics) => e.rebillAlias)
         .setSortName('rebill_alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: TransactionAnalytics) => { return { order: e.rebillId } }),
@@ -120,8 +120,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         'Date/Time': t.date.format('MM/DD/YYYY h:mm A'),
         'Customer': t.customer,
         'Amount': t.amount.usd(),
-        'Transaction ID': t.alias,
-        'Order ID': t.rebillAlias,
+        'Transaction Alias': t.alias,
+        'Order Alias': t.rebillAlias,
         'Session': t.sessionAlias,
         'Response': t.response,
         'MID': t.merchantProvider,

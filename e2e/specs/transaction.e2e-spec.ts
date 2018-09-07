@@ -50,8 +50,8 @@ describe('Transactions', function() {
     expect(page.getTableHeaders().get(4).getText()).toContain('Amount');
     expect(page.getTableHeaders().get(5).getText()).toContain('Refund');
     expect(page.getTableHeaders().get(6).getText()).toContain('MID');
-    expect(page.getTableHeaders().get(7).getText()).toContain('Transaction ID');
-    expect(page.getTableHeaders().get(8).getText()).toContain('Order ID');
+    expect(page.getTableHeaders().get(7).getText()).toContain('Transaction Alias');
+    expect(page.getTableHeaders().get(8).getText()).toContain('Order Alias');
     expect(page.getTableHeaders().get(9).getText()).toContain('Customer');
     expect(page.getTableHeaders().get(10).getText()).toContain('Session');
   });
