@@ -1,4 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Location} from '@angular/common';
 import {MerchantProviderGroupsService} from "../../../entity-services/services/merchant-provider-groups.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
@@ -24,9 +25,10 @@ export class MerchantProviderGroupsComponent extends AbstractEntityIndexComponen
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    location: Location
   ) {
-    super(merchantProviderGroupsService, auth, dialog, paginationService, router, activatedRoute);
+    super(merchantProviderGroupsService, auth, dialog, paginationService, router, activatedRoute, location);
 
     this.entityFactory = () => new MerchantProviderGroup();
 

@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from "../../components/models/breadcrumb-item.model";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'merchant-providers',
@@ -24,9 +25,10 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    location: Location
   ) {
-    super(merchantProvidersService, auth, dialog, paginationService, router, activatedRoute);
+    super(merchantProvidersService, auth, dialog, paginationService, router, activatedRoute, location);
 
     this.entityFactory = () => new MerchantProvider();
 
