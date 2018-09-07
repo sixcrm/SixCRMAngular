@@ -59,7 +59,8 @@ exports.config = {
     './e2e/**/product-schedule.e2e-spec.ts',
     './e2e/**/merchant-provider.e2e-spec.ts',
     './e2e/**/merchant-provider-group.e2e-spec.ts',
-    './e2e/**/transaction.e2e-spec.ts'
+    './e2e/**/transaction.e2e-spec.ts',
+    './e2e/**/order.e2e-spec.ts'
   ],
   suites:  {
     smoke: [
