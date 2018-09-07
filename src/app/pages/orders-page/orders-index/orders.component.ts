@@ -44,7 +44,7 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
       new ColumnParams('Returns', (e: OrderAnalytics) => e.returns || '–').setSortName('returns'),
       new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–').setSortName('refunds'),
       new ColumnParams('Total', (e: OrderAnalytics) => e.total.usd()).setSortName('total'),
-      new ColumnParams('Order ID', (e: OrderAnalytics) => e.alias || '–')
+      new ColumnParams('Order Alias', (e: OrderAnalytics) => e.alias || '–')
         .setSortName('alias')
         .setLink((e: OrderAnalytics) => `/customers/advanced`)
         .setQueryParams((e: OrderAnalytics) => { return { order: e.id } }),
@@ -99,7 +99,7 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
         'Returns': o.returns ? o.returns : '–',
         'Refunds': o.refunds.amount ? o.refunds.usd() : '–',
         'Total': o.total.usd(),
-        'Order ID': o.alias,
+        'Order Alias': o.alias,
         'Campaign': o.campaignName,
         'Customer': o.customerName
       };

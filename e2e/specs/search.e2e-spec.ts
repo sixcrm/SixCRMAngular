@@ -6,20 +6,17 @@ import {expectUrlToContain, expectPresent, expectNotPresent} from '../utils/asse
 import {browser, protractor} from 'protractor';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
-import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {TopnavPage} from '../po/topnav.po';
 
 describe('Search', function() {
 
   let authPage: AuthPage;
   let searchPage: SearchPage;
-  let advancedSearchPage: AdvancedSearchPage;
   let topnav: TopnavPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
     searchPage = new SearchPage();
-    advancedSearchPage = new AdvancedSearchPage();
     topnav = new TopnavPage();
   });
 
@@ -143,77 +140,6 @@ describe('Search', function() {
 
     expect(searchPage.getTableResults().count()).toBe(0);
     expect(searchPage.getResults().count()).toBeGreaterThan(0);
-  });
-
-  it('should show advanced search when no search query is defined', () => {
-    browser.get('/search');
-
-    waitForUrlContains('/search');
-
-    waitForPresenceOf(advancedSearchPage.getComponent());
-    expectPresent(advancedSearchPage.getComponent());
-    expectNotPresent(advancedSearchPage.getHiddenAdvancedSearch());
-  });
-
-  it('should not show advanced search when search query is defined', () => {
-    browser.get('/search?query=test');
-
-    waitForUrlContains('/search');
-    browser.sleep(300);
-
-    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
-  });
-
-  it('should not show advanced search when advanced search query is defined', () => {
-    browser.get('/search?advanced=true&firstname=test');
-
-    waitForUrlContains('/search');
-    browser.sleep(300);
-
-    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
-  });
-
-  it('should toggle advanced search component', () => {
-    browser.get('/search');
-
-    waitForUrlContains('/search');
-
-    waitForPresenceOf(advancedSearchPage.getComponent());
-    expectPresent(advancedSearchPage.getComponent());
-
-    searchPage.getAdvancedSearchToggle().click();
-    waitForPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
-
-    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
-
-    searchPage.getAdvancedSearchToggle().click();
-    waitForNotPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
-
-    expectNotPresent(advancedSearchPage.getHiddenAdvancedSearch());
-  });
-
-  it('should hide advanced search component on quick search', () => {
-    browser.get('/search');
-
-    waitForUrlContains('/search');
-
-    searchPage.getQuickSearchInput().sendKeys('test');
-    searchPage.getQuickSearchButton().click();
-
-    waitForPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
-    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
-  });
-
-  it('should hide advanced search component on advanced search', () => {
-    browser.get('/search');
-
-    waitForUrlContains('/search');
-
-    advancedSearchPage.getSearchInputs().get(0).sendKeys('test');
-    advancedSearchPage.getSearchButton().click();
-
-    waitForPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
-    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should clear results list when search is empty string', () => {

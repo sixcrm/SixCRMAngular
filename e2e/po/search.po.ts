@@ -60,8 +60,4 @@ export class SearchPage {
   getViewModeToggle() {
     return element(by.css('.search__content__title__options')).all(by.css('mat-icon')).last();
   }
-
-  getAdvancedSearchToggle() {
-    return element(by.css('.search__sidenav__button--advanced'));
-  }
 }

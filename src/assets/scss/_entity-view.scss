@@ -334,7 +334,7 @@ $title-color: #8D8888;
     padding-bottom: 20px;
     background: white;
     box-shadow: 0 0 3px rgba(0,0,0,0.2);
-    overflow: auto;
+    overflow: visible;
 
     &__header {
       display: flex;

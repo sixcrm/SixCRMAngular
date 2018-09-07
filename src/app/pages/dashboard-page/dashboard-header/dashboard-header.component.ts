@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Campaign} from '../../../shared/models/campaign.model';
 import {DashboardQuery, DashboardTimeFilter} from '../dashboard.exports';
 
 @Component({
@@ -9,22 +8,12 @@ import {DashboardQuery, DashboardTimeFilter} from '../dashboard.exports';
 })
 export class DashboardHeaderComponent implements OnInit {
 
-  @Input() campaigns: Campaign[] = [];
-  @Input() selectedCampaign: Campaign;
   @Input() queries: DashboardQuery[] = [];
   @Input() selectedQuery: DashboardQuery;
   @Input() timeFilters: DashboardTimeFilter[] = [];
 
-  @Output() campaignSelected: EventEmitter<Campaign> = new EventEmitter();
   @Output() querySelected: EventEmitter<DashboardQuery> = new EventEmitter();
   @Output() timeFilterSelected: EventEmitter<DashboardTimeFilter> = new EventEmitter();
-
-  campaignMapper = (c: Campaign) => c.name;
-  campaignSelectedMapper = (c: Campaign) => c === this.selectedCampaign;
-
-  queryMapper = (q: DashboardQuery) => q.label;
-  querySelectedMapper = (q: DashboardQuery) => q.selected;
-
 
   constructor() { }
 

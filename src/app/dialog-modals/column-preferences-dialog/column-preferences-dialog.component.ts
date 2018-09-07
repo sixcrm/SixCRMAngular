@@ -22,4 +22,12 @@ export class ColumnPreferencesDialogComponent implements OnInit {
   done() {
     this.dialogRef.close({params: this.columnParams});
   }
+
+  isOnlyOneSelected(param: {label: string, selected: boolean}) {
+    const selected = (this.columnParams || []).filter(p => p.selected);
+
+    if (selected.length !== 1) return false;
+
+    return selected[0].label === param.label;
+  }
 }
