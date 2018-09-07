@@ -332,19 +332,95 @@ export function initGrapesJS(
   const predefinedBlocksPlugin = (editor) => {
 
     editor.BlockManager.add('predefined-order-title', {
-      label: '<b>Order Title</b>',
+      label: '<b>General Title</b>',
       category: {
         label: 'PREDEFINED TOKEN BLOCKS',
         open: false
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="order-title-section" style="text-align: center;">
+                <section id="title-section" style="text-align: center; height: 100%;">
                     <div style="margin-bottom: 15px; font-size: 22px;">
-                        Thanks for your purchase, {{customer.firstname}}!
+                        Thank you, {{customer.firstname}}!
                     </div>
                     <div style="margin-bottom: 25px; color: #5F6368;">
-                        We're getting your order ready to be shipped. We will notify you when it's been shipped out.
+                        For your order!
+                    </div>
+                </section>
+            `
+    });
+
+    editor.BlockManager.add('predefined-refund-title', {
+      label: '<b>Refund Title</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="title-section" style="text-align: center; height: 100%;">
+                    <div style="margin-bottom: 15px; font-size: 22px;">
+                        Your refund has been processed.
+                    </div>
+                    <div style="margin-bottom: 25px; color: #5F6368;">
+                        Transaction #{{transaction.alias}} was refunded for \${{transaction.amount}} on {{formatDate transaction.created_at 'MMM D, YYYY'}}
+                    </div>
+                </section>
+            `
+    });
+
+    editor.BlockManager.add('predefined-decline-title', {
+      label: '<b>Decline Title</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="title-section" style="text-align: center; height: 100%;">
+                    <div style="margin-bottom: 15px; font-size: 22px;">
+                        A replacement payement is needed.
+                    </div>
+                    <div style="margin-bottom: 25px; color: #5F6368;">
+                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}. The payment was unsuccessful. 
+                    </div>
+                </section>
+            `
+    });
+
+    editor.BlockManager.add('predefined-return-title', {
+      label: '<b>Return Title</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="title-section" style="text-align: center; height: 100%;">
+                    <div style="margin-bottom: 15px; font-size: 22px;">
+                        Your return has been processed.
+                    </div>
+                    <div style="margin-bottom: 25px; color: #5F6368;">
+                        We have successfully received your return request. Your return ID is #{{return.alias}} 
+                    </div>
+                </section>
+            `
+    });
+
+    editor.BlockManager.add('predefined-cancel-title', {
+      label: '<b>Cancellation Title</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="title-section" style="text-align: center; height: 100%;">
+                    <div style="margin-bottom: 15px; font-size: 22px;">
+                        Your session has been cancelled.
+                    </div>
+                    <div style="margin-bottom: 25px; color: #5F6368;">
+                        Session #{{session.alis}} was cancelled at your request and your credit card has not been charged.
                     </div>
                 </section>
             `
@@ -358,7 +434,7 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
+                <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 0; height: 100%;">
                     <table style="width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
                         <tr>
                             <td style="text-align: left; width: 50%">
@@ -385,36 +461,35 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <div>
-                  <section id="order-pricing--details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 10px auto; padding: 10px 0;">
-                      <table style="width: 100%; font-size: 13px; color: #5F6368;">
-                          <tr>
-                              <td style="text-align: left; width: 50%;">
-                                <div>Subtotal</div>
-                              </td>
-                              <td style="text-align: right; width: 50%; font-weight: bold;">
-                                <div>\${{rebill.amount}}</div>
-                              </td>
-                          </tr>
-                      </table>
-                      {{#rebill.shipping_receipts}}
-                      <table style="width: 100%; font-size: 13px; color: #5F6368;">
-                          <tr>
-                              <td style="text-align: left; width: 50%">
-                                <div>Shipping {{tracker.carrier}}</div>
-                              </td>
-                              <td style="text-align: right; width: 50%; font-weight: bold">
-                                <div>\${{amount}}</div>
-                              </td>
-                          </tr>
-                      </table>
-                      {{/rebill.shipping_receipts}}
-                  </section>
-                  <section style="text-align: right; max-width: 650px; margin: 0 auto; font-size: 20px;">
-                      Total <span style="font-weight: bold">\${{order.amount}}</span>
-                  </section>
-                </div>
-            `
+              <div style="height: 100%">
+                <section id="order-pricing--details-section" style="max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 0;">
+                    <table style="width: 100%; font-size: 13px; color: #5F6368;">
+                        <tr>
+                            <td style="text-align: left; width: 50%;">
+                              <div>Subtotal</div>
+                            </td>
+                            <td style="text-align: right; width: 50%; font-weight: bold;">
+                              <div>\${{rebill.amount}}</div>
+                            </td>
+                        </tr>
+                    </table>
+                    {{#rebill.shipping_receipts}}
+                    <table style="width: 100%; font-size: 13px; color: #5F6368;">
+                        <tr>
+                            <td style="text-align: left; width: 50%">
+                              <div>Shipping {{tracker.carrier}}</div>
+                            </td>
+                            <td style="text-align: right; width: 50%; font-weight: bold">
+                              <div>\${{amount}}</div>
+                            </td>
+                        </tr>
+                    </table>
+                    {{/rebill.shipping_receipts}}
+                </section>
+                <section style="text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px;">
+                    Total <span style="font-weight: bold">\${{order.amount}}</span>
+                </section>
+              </div>`
     });
 
     editor.BlockManager.add('predefined-order-products', {
@@ -425,11 +500,11 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="order-products-details-section" style="max-width: 650px; margin: 10px auto;">
+                <section id="order-products-details-section" style="max-width: 650px; margin: 0 auto; height: 100%;">
                     {{#order.products}}
-                    <table style="width: 100%; font-size: 13px">
+                    <table style="width: 100%; font-size: 13px; border-bottom: 1px solid #E5E5E5">
                         <tr>
-                            <td style="text-align: left; width: 80%">
+                            <td style="text-align: left; width: 80%; padding: 10px 0">
                                 <table>
                                 <tr>
                                     <td style="width: 60px;">
@@ -504,10 +579,10 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="fulfillment-details-section" style="max-width: 650px; margin: 10px auto;">
+                <section id="fulfillment-details-section" style="max-width: 650px; margin: 0 auto; height: 100%;">
                     <table style="width: 100%; font-size: 13px">
                         <tr>
-                            <td>
+                            <td style="text-align: left">
                                 <div>
                                     <div style="font-weight: bold; line-height: 24px;">Tracking Number</div>
                                     <div><a href="">{{shipping_receipt.tracking_number}}</a></div>
@@ -522,10 +597,10 @@ export function initGrapesJS(
                         </tr>
                         
                         <tr>
-                            <td>
+                            <td style="text-align: left">
                                 <div style="padding-top: 15px;">
                                     <div style="font-weight: bold; line-height: 24px;">Order ID</div>
-                                    <div>{{rebill.alias}}</div>
+                                    <div>#{{rebill.alias}}</div>
                                 </div>
                             </td>
                             <td style="text-align: right">

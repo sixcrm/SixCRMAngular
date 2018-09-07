@@ -62,7 +62,9 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
   }
 
   ngOnInit() {
+    this.shareLimit = false;
     this.limit = 100;
+
     this.init();
   }
 
