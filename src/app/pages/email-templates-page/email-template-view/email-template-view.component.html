@@ -1,72 +1,71 @@
-<div *ngIf="entity; else spinner" class="entity-view">
+<div *ngIf="entity && allTokens && customBlocks; else spinner" class="entity-view">
 
   <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name">
     <entity-view-entityacl *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
   </blue-header>
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)" [emitDefaultTab]="true"></tab-header>
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
 
-      <div class="email-template-view__card-container">
-        <email-template-add-new [entity]="entity"
-                                [mode]="viewMode ? modes.View : modes.Update"
-                                (cancel)="cancelEdit()"
-                                (changeMode)="setMode($event)"
-                                (save)="updateEntity($event)">
-        </email-template-add-new>
-      </div>
+      <div class="grapes-wrapper">
+        <button class="send-test-button" [class.send-test-button--inactive]="isTemplateChanged()" mat-button (click)="sendTestEmail()">SEND TEST EMAIL</button>
 
-    </mat-tab>
-
-    <mat-tab>
-
-      <div>
         <div id="grapesjs"></div>
       </div>
 
     </mat-tab>
 
     <mat-tab>
-      <table-memory
-          [data]="entity.campaigns"
-          [columnParams]="campaignColumnParams"
-          [associateData]="campaignsService.entities$ | async"
-          [textOptions]="campaignText"
-          [associateDataMapper]="campaignMapper"
-          (associate)="associateCampaign($event)"
-          (disassociate)="disassociateCampaign($event)"
-          (view)="viewCampaign($event)">
-      </table-memory>
 
-      <table-memory
-          [data]="entity.productSchedules"
-          [columnParams]="productScheduleColumnParams"
-          [associateData]="productSchedulesService.entities$ | async"
-          [textOptions]="productScheduleText"
-          [associateDataMapper]="productScheduleMapper"
-          (associate)="associateProductSchedule($event)"
-          (disassociate)="disassociateProductSchedule($event)"
-          (view)="viewProductSchedule($event)">
-      </table-memory>
+      <div class="associations-container">
+        <div class="associations-table">
 
-      <table-memory
-          [data]="entity.products"
-          [columnParams]="productColumnParams"
-          [associateData]="productsService.entities$ | async"
-          [textOptions]="productText"
-          [associateDataMapper]="productMapper"
-          (associate)="associateProduct($event)"
-          (disassociate)="disassociateProduct($event)"
-          (view)="viewProduct($event)">
-      </table-memory>
+          <div class="title">
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+              <mat-form-field [floatLabel]="'never'" class="chip-input mrw-input--no-line mrw-input--no-padding">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let chip of chips" (removed)="remove(chip)">
+                    {{chip}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Filter..."
+                         auto-focus
+                         [matChipInputFor]="chipList"
+                         (matChipInputTokenEnd)="addChip($event)">
+                </mat-chip-list>
+              </mat-form-field>
+            <div class="count">{{entity.associations.length}} Records</div>
+          </div>
+
+          <div class="associations-table-wrapper">
+            <table>
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let association of entity.associations | filterChipsPipe : chips : filterMapper">
+                <td><a [routerLink]="[association.url]">{{association.name}}</a></td>
+                <td>{{association.type}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="associations-preview" [innerHtml]="previewBody | htmlSanitizer"></div>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="3" [cardsExpression]="'650px'" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [numberOfCards]="0" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

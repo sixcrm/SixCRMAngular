@@ -46,6 +46,14 @@ export class ReportIndexPage {
     return element(by.css('.toolbar')).element(by.css('.options')).element(by.css('div'));
   }
 
+  getFilterValuesSection(num: number) {
+    return element(by.css('order-filters-dialog')).all(by.css('.filter')).get(num);
+  }
+
+  getFirstValueInputOfFilterValuesSection(num: number) {
+    return this.getFilterValuesSection(num).all(by.css('input')).get(0);
+  }
+
   getFiltersDialog() {
     return element(by.css('.filters-dialog'));
   }

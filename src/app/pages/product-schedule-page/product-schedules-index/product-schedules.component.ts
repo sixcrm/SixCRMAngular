@@ -1,4 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Location} from '@angular/common';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
@@ -24,9 +25,10 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    location: Location
   ) {
-    super(productScheduleService, auth, dialog, paginationService, router, activatedRoute);
+    super(productScheduleService, auth, dialog, paginationService, router, activatedRoute, location);
 
     this.entityFactory = () => new ProductSchedule();
 
