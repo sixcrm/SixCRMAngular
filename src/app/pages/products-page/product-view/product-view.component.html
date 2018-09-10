@@ -43,20 +43,20 @@
       <product-merchant-provider-group-associations [id]="entity.id"></product-merchant-provider-group-associations>
     </mat-tab>
 
-    <mat-tab>
+    <!--<mat-tab>-->
 
-      <table-memory
-          [data]="entity.emailTemplates"
-          [columnParams]="emailTemplateColumnParams"
-          [associateData]="emailTemplateService.entities$ | async"
-          [textOptions]="emailText"
-          [associateDataMapper]="emailTemplateMapper"
-          (associate)="associateEmailTemplate($event)"
-          (disassociate)="disassociateEmailTemplate($event)"
-          (view)="viewEmailTemplate($event)">
-      </table-memory>
+      <!--<table-memory-->
+          <!--[data]="entity.emailTemplates"-->
+          <!--[columnParams]="emailTemplateColumnParams"-->
+          <!--[associateData]="emailTemplateService.entities$ | async"-->
+          <!--[textOptions]="emailText"-->
+          <!--[associateDataMapper]="emailTemplateMapper"-->
+          <!--(associate)="associateEmailTemplate($event)"-->
+          <!--(disassociate)="disassociateEmailTemplate($event)"-->
+          <!--(view)="viewEmailTemplate($event)">-->
+      <!--</table-memory>-->
 
-    </mat-tab>
+    <!--</mat-tab>-->
   </mat-tab-group>
 </div>
 
