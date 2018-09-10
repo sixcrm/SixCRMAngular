@@ -61,15 +61,6 @@ export function removeEmailTemplateAssociation(emailTemplateId: string, entityTy
   }`
 }
 
-export function emailTemplateSharedQuery(id: string): string {
-  return `
-    {
-      sharedemailtemplate (id: "${id}") {
-			  ${emailTemplateResponseQuery()}
-			}
-    }`
-}
-
 export function deleteEmailTemplateMutation(id: string): string {
   return deleteMutationQuery('emailtemplate', id);
 }
@@ -109,11 +100,11 @@ export function getEmailBodyPreview(body: string): string {
 }
 
 export function emailTemplateInfoResponseQuery(): string {
-  return `id name subject body type preview smtp_provider { id name } enabled built_in created_at updated_at`
+  return `id name subject body type preview smtp_provider { id name } enabled created_at updated_at`
 }
 
 export function emailTemplateResponseQuery(): string {
-  return `id name subject body type created_at updated_at enabled built_in preview
+  return `id name subject body type created_at updated_at enabled preview
     smtp_provider { ${smtpProviderResponseQuery()} }
     campaigns { id name }
     products { id name sku }
