@@ -4,7 +4,7 @@
   <div *ngIf="showParams" class="params-container">
 
     <div class="option" *ngFor="let params of columnParams">
-      <mat-checkbox class="checkbox-blue checkbox-index" [(ngModel)]="params.selected">
+      <mat-checkbox [disabled]="isOnlyOneSelected(params)" class="checkbox-blue checkbox-index" [(ngModel)]="params.selected">
         <span>
           {{params.label | translate}}
         </span>

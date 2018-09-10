@@ -38,27 +38,6 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
     return this.planeCustomEntitiesQuery(transactionsByCustomer(customerId, {}))
   }
 
-  public refundTransaction(transactionId: string, refundAmount: string): void {
-    if (!this.hasWritePermission()) {
-      return;
-    }
-
-    this.queryRequest(refundTransactionMutation(transactionId, refundAmount)).subscribe(
-      (data) => {
-        if (data instanceof CustomServerError) {
-          this.entityUpdated$.next(data);
-          return;
-        }
-
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
-
-        this.entityUpdated$.next(new Transaction(entityData.transaction));
-      }
-    );
-  }
-
   public performTransactionRefund(transaction: Transaction, amount: string): Observable<Transaction> {
     if (!this.hasWritePermission()) {
       return Observable.of(null);

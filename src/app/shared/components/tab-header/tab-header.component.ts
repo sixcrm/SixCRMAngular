@@ -17,6 +17,7 @@ export class TabHeaderComponent implements OnInit, OnDestroy {
   @Input() elements: TabHeaderElement[] = [];
   @Input() selectedIndex: number = 0;
   @Input() ignoreUrl: boolean;
+  @Input() emitDefaultTab: boolean;
   @Output() select: EventEmitter<number> = new EventEmitter();
 
   sub: Subscription;
@@ -29,7 +30,12 @@ export class TabHeaderComponent implements OnInit, OnDestroy {
     this.sub = this.route.fragment.subscribe((fragment) => {
       const tab = fragment;
 
-      if (!tab) return;
+      if (!tab) {
+        if (this.emitDefaultTab) {
+          this.select.emit(0);
+        }
+        return
+      }
 
       for (let i = 0; i < this.elements.length; i++) {
         if (this.elements[i].name === tab) {

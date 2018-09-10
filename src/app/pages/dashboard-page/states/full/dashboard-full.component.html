@@ -2,27 +2,24 @@
   <div class="dashboard">
 
     <div class="dashboard-top-header">
-      <div class="info">
-        <div>{{revenueMessage}}</div>
-        <div>
+      <div class="greeting">
+        <div>Welcome back, {{name}}</div>
+        <div class="total-revenue-text">{{revenueMessage}}</div>
+        <div class="total-revenue-amount">
           <div>$</div>
           <div>{{totalAmount.amount | numberlocale}}</div>
         </div>
       </div>
 
       <div *ngIf="quote" class="quote">
-        <div class="dashboard-message">{{quote.quote}}</div>
-        <div class="dashboard-message dashboard-message__author">-{{quote.attribution.author}}</div>
+        <div>{{quote.quote}}</div>
+        <div>-{{quote.attribution.author}}</div>
       </div>
-
     </div>
 
-    <dashboard-header [campaigns]="campaigns"
-                      [selectedCampaign]="selectedCampaign"
-                      [queries]="queries"
+    <dashboard-header [queries]="queries"
                       [selectedQuery]="selectedQuery"
                       [timeFilters]="timeFilters"
-                      (campaignSelected)="selectCampaign($event)"
                       (querySelected)="selectQuery($event)"
                       (timeFilterSelected)="selectTimeFilter($event)">
     </dashboard-header>

@@ -19,7 +19,7 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'SMTP_TAB_GENERAL'},
-    {name: 'templates', label: 'SMTP_TAB_EMAILTEMPLATE'},
+    // {name: 'templates', label: 'SMTP_TAB_EMAILTEMPLATE'},
     {name: 'validate', label: 'SMTP_TAB_VALIDATE'}
   ];
 
