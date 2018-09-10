@@ -264,6 +264,75 @@ function advancedDevicesPlugin(editor) {
   ])
 }
 
+function htmlEditorBlock(editor) {
+  const modal = editor.Modal;
+  const codeViewer = editor.CodeManager.getViewer('CodeMirror').clone();
+  const pnm = editor.Panels;
+  const container = document.createElement('div');
+  const btnEdit = document.createElement('button');
+  const previewPane = document.createElement('div');
+  const htmlContent = document.createElement('div');
+
+  htmlContent.className = 'gjs-view-html-content';
+  previewPane.className = 'gjs-view-html-content-preview';
+
+  codeViewer.set({
+    codeName: 'htmlmixed',
+    readOnly: 0,
+    theme: 'hopscotch',
+    autoBeautify: true,
+    autoCloseTags: true,
+    autoCloseBrackets: true,
+    lineWrapping: true,
+    styleActiveLine: true,
+    smartIndent: true,
+    indentWithTabs: true
+  });
+
+  btnEdit.innerHTML = 'EDIT';
+  btnEdit.className = 'gjs-view-code-button mat-button';
+  btnEdit.onclick = () => {
+    const code = codeViewer.editor.getValue();
+    editor.DomComponents.getWrapper().set('content', '');
+    editor.setComponents(code.trim());
+    modal.close();
+  };
+
+  editor.Commands.add('html-edit', {
+    run(editor, sender) {
+      sender && sender.set('active', 0);
+      let viewer = codeViewer.editor;
+      modal.setTitle('Edit code');
+
+      if (!viewer) {
+        const txtarea = document.createElement('textarea');
+        htmlContent.appendChild(txtarea);
+        htmlContent.appendChild(previewPane);
+
+        container.appendChild(htmlContent);
+        container.appendChild(btnEdit);
+
+        codeViewer.init(txtarea);
+        viewer = codeViewer.editor;
+        viewer.on('change', e => previewPane.innerHTML = viewer.getValue().trim());
+      }
+
+      const innerHtml = editor.getHtml();
+      const css = editor.getCss();
+      const juicedContent = juice(`<style>${css}</style>${innerHtml}`);
+
+      modal.setContent('');
+      modal.setContent(container);
+      previewPane.innerHTML = juicedContent;
+      codeViewer.setContent(juicedContent);
+      modal.open();
+      viewer.refresh();
+    }
+  });
+
+  pnm.getButton('options', 'export-template').set({command: 'html-edit'});
+}
+
 export function initGrapesJS(
   params: {
     targetId: string,
@@ -423,7 +492,7 @@ export function initGrapesJS(
                         Your session has been cancelled.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        This is to confirm that you have cancelled your session #{{session.alis}} with {{accountdetails.name}}.
+                        This is to confirm that you have cancelled your session #{{session.alias}} with {{accountdetails.name}}.
                         <div style="font-weight: bold">
                             If you did not request this cancellation, or if there is anything we can do to help, please  don’t hesitate to contact us on {{accountdetails.support_link}}
                         </div>
@@ -722,7 +791,8 @@ export function initGrapesJS(
       tokensPlugin,
       saveCustomBlockPlugin,
       toolbarEditButtonsPlugin,
-      toolbarActionButtonsPlugin
+      toolbarActionButtonsPlugin,
+      htmlEditorBlock
     ],
     storageManager: { type: 'simple-storage' },
   });

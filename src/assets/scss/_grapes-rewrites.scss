@@ -142,4 +142,37 @@ $fa-font-path: '~font-awesome/fonts' !default;
 .gjs-pn-views, .gjs-pn-options, .gjs-pn-devices-c {
   padding: 10px 5px !important;
 }
+
+.gjs-view-code-button {
+  margin-top: 10px !important;
+  color: #ffffff;
+  background: #2C98F0;
+}
+
+.gjs-mdl-dialog {
+  max-width: 100vw !important;
+  max-height: calc(100vh - 125px) !important;
+
+  .CodeMirror {
+    height: calc(100vh - 240px) !important;
+    font-size: 14px;
+  }
+}
+
+.gjs-view-html-content {
+  display: flex;
+  align-items: flex-start;
+
+  .CodeMirror {
+    width: calc(50% - 10px);
+    margin-right: 20px;
+  }
+
+  .gjs-view-html-content-preview {
+    width: calc(50% - 10px);
+    height: calc(100vh - 240px) !important;
+    overflow: auto;
+  }
+}
+
 @import "~grapesjs/src/styles/scss/main.scss";
