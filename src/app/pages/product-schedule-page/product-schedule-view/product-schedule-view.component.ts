@@ -134,8 +134,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
     {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
     {name: 'list', label: 'PRODUCTSCHEDULE_TAB_LIST'},
-    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
-    // {name: 'emailtemplates', label: 'EMAIL TEMPLATES'}
+    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'},
+    {name: 'emailtemplates', label: 'EMAIL TEMPLATES'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
