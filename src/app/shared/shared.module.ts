@@ -74,6 +74,8 @@ import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-a
 import {RouterModule} from '@angular/router';
 import { FilterChipsPipePipe } from './pipes/filter-chips-pipe.pipe';
 import { GrapesFilterComponentComponent } from './components/grapes-filter-component/grapes-filter-component.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import {FileUploadModule} from 'ng2-file-upload';
 
 @NgModule({
   declarations : [
@@ -130,7 +132,8 @@ import { GrapesFilterComponentComponent } from './components/grapes-filter-compo
     SingleFilterComponent,
     FilterSaveAsComponent,
     FilterChipsPipePipe,
-    GrapesFilterComponentComponent
+    GrapesFilterComponentComponent,
+    ImageUploaderComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -180,7 +183,8 @@ import { GrapesFilterComponentComponent } from './components/grapes-filter-compo
     FilterDaterangePickerComponent,
     SingleFilterComponent,
     FilterSaveAsComponent,
-    FilterChipsPipePipe
+    FilterChipsPipePipe,
+    ImageUploaderComponent
   ],
   imports : [
     FormsModule,
@@ -192,7 +196,8 @@ import { GrapesFilterComponentComponent } from './components/grapes-filter-compo
     TextMaskModule,
     TranslationModule,
     ClipboardModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    FileUploadModule
   ]
 })
 export class SharedModule {
