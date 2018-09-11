@@ -13,7 +13,6 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ProductAddNewComponent } from './product-view/product-add-new/product-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
 import { ProductAttributesComponent } from './product-view/product-attributes/product-attributes.component';
-import {FileUploadModule} from 'ng2-file-upload';
 import { ProductImagesComponent } from './product-view/product-images/product-images.component';
 import { SortByDefaultPipe } from './product-view/product-images/sort-by-default.pipe';
 import {ProductMerchantProviderGroupAssociationsComponent} from './product-view/product-merchant-provider-group-associations/product-merchant-provider-group-associations.component';
@@ -30,8 +29,7 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     SharedModule,
     EntityServicesModule,
     TextMaskModule,
-    TranslationModule,
-    FileUploadModule
+    TranslationModule
   ],
   declarations : [
     ProductsComponent,
