@@ -8,7 +8,6 @@ import {OptionItem} from '../../components/table-memory-advanced/table-memory-ad
 import {ReturnDialogComponent} from '../../../dialog-modals/return-dialog/return-dialog.component';
 import {MatDialog} from '@angular/material';
 import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
-import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Order} from '../../../shared/models/order.model';
 
 @Component({
@@ -123,6 +122,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
     let ref = this.dialog.open(ReturnDialogComponent, {backdropClass: 'backdrop-blue'});
 
     ref.componentInstance.products = order.copy().products.filter(p => p.isReturnable());
+    ref.componentInstance.transaction = order.copy().rebill.transactions.map(t => t.id)[0] || '';
 
     ref.afterClosed().take(1).subscribe(() => {
       ref = null;
