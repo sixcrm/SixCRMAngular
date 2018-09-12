@@ -497,9 +497,6 @@ export function initGrapesJS(
                         This is to confirm that you order #{{session.alias}} has been cancelled.
                         <br>
                         If payment was already received, you can expect to see a refund shortly.
-                        <div style="font-weight: bold; margin: 120px 0 0 0;">
-                            If you did not request this cancellation, or if there is anything we can do to help, please  don’t hesitate to contact us on {{accountdetails.support_link}}
-                        </div>
                     </div>
                 </section>
             `
