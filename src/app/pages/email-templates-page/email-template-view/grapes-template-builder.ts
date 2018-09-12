@@ -671,7 +671,7 @@ export function initGrapesJS(
                 <section id="customer-billing-section" style="text-align: left;">
                   <div style="line-height: 24px;font-weight: bold;">Billing Information</div>
                   <div style="color: #5F6368">
-                    <div>{{creditcard.address.firstname}} {{creditcard.address.lastname}}</div>
+                    <div>{{creditcard.name}}</div>
                     <div>{{creditcard.address.line1}}</div>
                     <div>{{creditcard.address.line2}}</div>
                     <div>{{creditcard.address.city}}, {{creditcard.address.state}}</div>

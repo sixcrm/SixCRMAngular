@@ -43,6 +43,8 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
 
   providerToAdd: MerchantProviderConfiguration = new MerchantProviderConfiguration();
   merchantProviderMapper = (e: MerchantProvider) => e.name;
+  configurationIdMapper = (e: MerchantProviderConfiguration) => e.merchantProvider.id;
+  merchantProviderIdMapper = (e: MerchantProvider) => e.id;
 
   formInvalid: boolean;
   detailsFormInvalid: boolean;

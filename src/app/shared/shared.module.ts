@@ -76,6 +76,7 @@ import { FilterChipsPipePipe } from './pipes/filter-chips-pipe.pipe';
 import { GrapesFilterComponentComponent } from './components/grapes-filter-component/grapes-filter-component.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import { RemoveItemsPipe } from './pipes/remove-items.pipe';
 
 @NgModule({
   declarations : [
@@ -133,7 +134,8 @@ import {FileUploadModule} from 'ng2-file-upload';
     FilterSaveAsComponent,
     FilterChipsPipePipe,
     GrapesFilterComponentComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    RemoveItemsPipe
   ],
   exports : [
     AutocompleteComponent,
@@ -184,7 +186,8 @@ import {FileUploadModule} from 'ng2-file-upload';
     SingleFilterComponent,
     FilterSaveAsComponent,
     FilterChipsPipePipe,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    RemoveItemsPipe
   ],
   imports : [
     FormsModule,

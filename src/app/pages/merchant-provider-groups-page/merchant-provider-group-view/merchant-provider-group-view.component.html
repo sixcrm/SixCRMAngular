@@ -42,7 +42,7 @@
                                 [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
                                 [mapFunction]="merchantProviderMapper"
                                 [initialValue]="providerToAdd.merchantProvider"
-                                [options]="merchantProviderService.entities$ | async"
+                                [options]="merchantProviderService.entities$ | async | removeItems : (entity.merchantProviderConfigurations || []) : merchantProviderIdMapper : configurationIdMapper"
                                 [placeholder]="'MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT' | translate"
                                 (selected)="providerToAdd.merchantProvider = $event">
             </autocomplete-input>
