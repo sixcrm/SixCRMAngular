@@ -451,9 +451,9 @@ export function initGrapesJS(
                         Your payment has been declined.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}. The payment was unsuccessful.
+                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}, however the payment was unsuccessful.
                         <div style="font-weight: bold">
-                          Please contact our customer support at {{accountdetails.support_link}} to fix your payment information.
+                          Please contact our customer support at {{accountdetails.support_link}} to fix your payment information and continue your order.
                         </div>
                     </div>
                 </section>
@@ -473,7 +473,9 @@ export function initGrapesJS(
                         Your return has been processed.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        We have successfully received your return request. Your return ID is #{{return.alias}} 
+                      We have received the items from <b">Order #{{rebill.alias}}</b> and have processed your return.
+                      <br>
+                      You will receive a separate message when refund for this purchase has been completed.
                     </div>
                 </section>
             `
@@ -489,11 +491,13 @@ export function initGrapesJS(
       content: `
                 <section id="title-section" style="text-align: center;">
                     <div style="margin-bottom: 12px; font-size: 22px; color: #FC1F49;">
-                        Your session has been cancelled.
+                        Your order has been cancelled.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        This is to confirm that you have cancelled your session #{{session.alias}} with {{accountdetails.name}}.
-                        <div style="font-weight: bold">
+                        This is to confirm that you order #{{session.alias}} has been cancelled.
+                        <br>
+                        If payment was already received, you can expect to see a refund shortly.
+                        <div style="font-weight: bold; margin: 120px 0 0 0;">
                             If you did not request this cancellation, or if there is anything we can do to help, please  don’t hesitate to contact us on {{accountdetails.support_link}}
                         </div>
                     </div>
