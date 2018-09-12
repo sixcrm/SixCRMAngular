@@ -19,7 +19,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
   merchantProviderGroups: MerchantProviderGroup[];
   createdAt: Moment;
   updatedAt: Moment;
-  updatedAtAPI: string
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
