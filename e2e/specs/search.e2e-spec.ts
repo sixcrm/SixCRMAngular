@@ -54,7 +54,7 @@ describe('Search', function() {
     expectUrlToContain('/search?query=test');
   });
 
-  it('should show progress bar and filter values when performing advanced search', () => {
+  xit('should show progress bar and filter values when performing advanced search', () => {
     browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
@@ -68,7 +68,7 @@ describe('Search', function() {
     expect(searchPage.getFilterValues().get(3).getText()).toEqual('1234');
   });
 
-  it('should hide progress bar when advanced search is performed', () => {
+  xit('should hide progress bar when advanced search is performed', () => {
     browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
@@ -88,7 +88,7 @@ describe('Search', function() {
     expectPresent(searchPage.getPerfectMatch());
   });
 
-  it('should perform search and display progress bar when filter value is toggled', () => {
+  xit('should perform search and display progress bar when filter value is toggled', () => {
     browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
@@ -100,7 +100,7 @@ describe('Search', function() {
     expectNotPresent(searchPage.getPerfectMatch());
   });
 
-  it('should perform search and display progress bar when category is toggled', () => {
+  xit('should perform search and display progress bar when category is toggled', () => {
     browser.get('/search?advanced=true&firstname=r');
 
     waitForUrlContains('/search?advanced=true&firstname=r');
@@ -112,7 +112,7 @@ describe('Search', function() {
     expectPresent(searchPage.getSpinner());
   });
 
-  it('should perform search and show search results when search by query "test"', () => {
+  xit('should perform search and show search results when search by query "test"', () => {
     browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=test');
@@ -123,7 +123,7 @@ describe('Search', function() {
     expect(searchPage.getCheckboxes().count()).toBeGreaterThan(0);
   });
 
-  it('should toggle between table and grid', () => {
+  xit('should toggle between table and grid', () => {
     browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=test');
@@ -142,7 +142,7 @@ describe('Search', function() {
     expect(searchPage.getResults().count()).toBeGreaterThan(0);
   });
 
-  it('should clear results list when search is empty string', () => {
+  xit('should clear results list when search is empty string', () => {
     browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=test');
@@ -155,7 +155,7 @@ describe('Search', function() {
     expect(searchPage.getResults().count()).toBe(0);
   });
 
-  it('should show suggestions when search', () => {
+  xit('should show suggestions when search', () => {
     browser.get('/search');
     waitForUrlContains('/search');
 
