@@ -26,7 +26,7 @@ export class AccountDetailsService extends AbstractEntityService<AccountDetails>
       null,
       updateAccountDetailsMutation,
       null,
-      'account',
+      'accountdetail',
       snackBar
     );
   }

@@ -23,7 +23,7 @@ export function accountDetailsResponseQuery(): string {
 }
 
 export function accountDetailsInputQuery(details: AccountDetails): string {
-  let settings = `color_primary: "${details.emailTemplateSettings.colorPrimary}", custom_blocks: [${details.emailTemplateSettings.customBlocks.reduce((a,b)=>`${a}${a?',':''}{id:"${b.id}", title:"${b.title}", body:"${clean(b.body)}"}`,'')}]`;
+  let settings = `${details.emailTemplateSettings.colorPrimary ? `color_primary: "${details.emailTemplateSettings.colorPrimary}", ` : ''}custom_blocks: [${details.emailTemplateSettings.customBlocks.reduce((a,b)=>`${a}${a?',':''}{id:"${b.id}", title:"${b.title}", body:"${clean(b.body)}"}`,'')}]`;
 
-  return `id:"${details.id}", company_logo: "${details.companyLogo}", support_link: "${details.supportLink}", emailtemplatesettings: {${settings}}, updated_at:"${details.updatedAt.format()}"`;
+  return `id:"${details.id}" ${details.companyLogo ? `, company_logo: "${details.companyLogo}"` : ''} ${details.supportLink ? `, support_link: "${details.supportLink}"` : ''}, emailtemplatesettings: {${settings}}, updated_at:"${details.updatedAt.format()}"`;
 }

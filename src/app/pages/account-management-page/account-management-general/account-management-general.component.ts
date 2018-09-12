@@ -15,6 +15,8 @@ import {isValidEmail} from '../../../shared/utils/form.utils';
 import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {AccountDetails} from '../../../shared/models/account-details.model';
+import {AccountDetailsService} from '../../../entity-services/services/account-details.service';
 
 @Component({
   selector: 'account-management-general',
@@ -27,6 +29,8 @@ export class AccountManagementGeneralComponent implements OnInit {
   accountBackup: Account;
   session: Session;
   defaultCreditCard: CreditCard;
+  accountDetails: AccountDetails;
+  accountDetailsBackup: AccountDetails;
 
   customer: Customer;
   customerBackup: Customer;
@@ -45,7 +49,8 @@ export class AccountManagementGeneralComponent implements OnInit {
     private accountService: AccountsService,
     public authService: AuthenticationService,
     private customerGraphAPI: HttpWrapperCustomerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public accountDetailsService: AccountDetailsService
   ) { }
 
   ngOnInit() {
@@ -56,7 +61,15 @@ export class AccountManagementGeneralComponent implements OnInit {
       this.accountBackup = this.account.copy();
     });
 
+    this.accountDetailsService.entity$.take(1).subscribe(accountDetails => {
+      if (accountDetails instanceof CustomServerError) return;
+
+      this.accountDetails = accountDetails;
+      this.accountDetailsBackup = this.accountDetails.copy();
+    });
+
     this.accountService.getEntity(this.authService.getActiveAccount().id);
+    this.accountDetailsService.getEntity(this.authService.getActiveAccount().id);
 
     this.fetchSession();
   }
@@ -246,5 +259,26 @@ export class AccountManagementGeneralComponent implements OnInit {
     if (index !== -1) {
       this.defaultCreditCard = this.session.customer.creditCards[index];
     }
+  }
+
+  accountDetailsEdited() {
+    return (this.accountDetails.supportLink !== this.accountDetailsBackup.supportLink)
+      || (this.accountDetails.emailTemplateSettings.colorPrimary !== this.accountDetailsBackup.emailTemplateSettings.colorPrimary)
+      || (this.accountDetails.companyLogo !== this.accountDetailsBackup.companyLogo);
+  }
+
+  cancelAccountDetailsEdit() {
+    this.accountDetails = this.accountDetailsBackup.copy();
+  }
+
+  updateAccountDetails() {
+    this.accountDetailsService.entityUpdated$.take(1).subscribe(accountDetails => {
+      if (accountDetails instanceof CustomServerError) return;
+
+      this.accountDetails = accountDetails;
+      this.accountDetailsBackup = this.accountDetails.copy();
+    });
+
+    this.accountDetailsService.updateEntity(this.accountDetails);
   }
 }

@@ -34,7 +34,7 @@ export class EmailTemplateSettings {
       obj = {};
     }
 
-    this.colorPrimary = obj.color_primary || 'ffffff';
+    this.colorPrimary = obj.color_primary || '';
     this.customBlocks = (obj.custom_blocks || []).map(cb => new CustomBlock(cb));
   }
 

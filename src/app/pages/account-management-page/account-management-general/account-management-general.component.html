@@ -13,7 +13,7 @@
   <div class="row">
 
     <div class="card column" *ngIf="accountBackup">
-      <div class="title">Account Name</div>
+      <div class="title">Account Settings</div>
       <div class="body">
         <mat-form-field>
           <input type="text" matInput [(ngModel)]="accountBackup.name" placeholder="Account Name">
@@ -65,39 +65,85 @@
 
   </div>
 
-  <div *ngIf="session && authService.hasPermissions('bill', 'read')" class="row row--start">
+  <div class="row row--start">
 
-    <div class="card column" *ngIf="customer">
-      <div class="title">Contact Information</div>
-      <div class="body">
-        <mat-form-field [class.error]="formInvalid && !customer.firstName">
-          <input type="text" matInput placeholder="Name" [(ngModel)]="customer.firstName">
-        </mat-form-field>
+    <div class="column" *ngIf="accountDetails && this.accountDetailsService.hasReadPermission()">
+      <div class="card">
+        <div class="title">Account Details</div>
 
-        <mat-form-field [class.error]="formInvalid && !validEmail()">
-          <input type="text" matInput placeholder="Email" [(ngModel)]="customer.email">
-        </mat-form-field>
+        <div class="body">
 
-        <mat-form-field [class.error]="formInvalid && !customer.phone">
-          <input matInput type="text" [textMask]="{mask: mask, guide: false}" placeholder="Phone Number" [(ngModel)]="customer.phone">
-        </mat-form-field>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Customer Service Link" [(ngModel)]="accountDetails.supportLink">
+          </mat-form-field>
+
+          <div class="flex-custom flex-custom--center">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Primary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorPrimary">
+            </mat-form-field>
+
+            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorPrimary"></div>
+          </div>
+
+          <div class="placeholder-label">Account Logo</div>
+
+          <div class="image-upload">
+            <image-uploader (imageUploaded)="accountDetails.companyLogo = $event.path"></image-uploader>
+            <div class="image-holder">
+              <img src="{{accountDetails.companyLogo}}" alt="No Logo Uploaded">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="buttons">
+          <button mat-button
+                  [disabled]="!accountDetailsEdited()"
+                  (click)="cancelAccountDetailsEdit()">
+            Cancel
+          </button>
+          <button mat-button
+                  [disabled]="!accountDetailsEdited()"
+                  [class.button-disabled]="!accountDetailsEdited()"
+                  (click)="updateAccountDetails()">
+            Save
+          </button>
+        </div>
       </div>
-      <div class="buttons">
-        <button mat-button
-                [disabled]="!customerEdited()"
-                (click)="cancelCustomerUpdate()">
-          Cancel
-        </button>
-        <button mat-button
-                [disabled]="!customerEdited()"
-                [class.button-disabled]="!customerEdited()"
-                (click)="updateCustomer()">
-          Save
-        </button>
+
+      <div *ngIf="session && authService.hasPermissions('bill', 'read') && customer" class="card">
+        <div class="title">Contact Information</div>
+        <div class="body">
+          <mat-form-field [class.error]="formInvalid && !customer.firstName">
+            <input type="text" matInput placeholder="Name" [(ngModel)]="customer.firstName">
+          </mat-form-field>
+
+          <mat-form-field [class.error]="formInvalid && !validEmail()">
+            <input type="text" matInput placeholder="Email" [(ngModel)]="customer.email">
+          </mat-form-field>
+
+          <mat-form-field [class.error]="formInvalid && !customer.phone">
+            <input matInput type="text" [textMask]="{mask: mask, guide: false}" placeholder="Phone Number" [(ngModel)]="customer.phone">
+          </mat-form-field>
+        </div>
+        <div class="buttons">
+          <button mat-button
+                  [disabled]="!customerEdited()"
+                  (click)="cancelCustomerUpdate()">
+            Cancel
+          </button>
+          <button mat-button
+                  [disabled]="!customerEdited()"
+                  [class.button-disabled]="!customerEdited()"
+                  (click)="updateCustomer()">
+            Save
+          </button>
+        </div>
       </div>
+
     </div>
 
-    <div class="card column">
+    <div *ngIf="session && authService.hasPermissions('bill', 'read')" class="card column">
       <div class="title">Cards on file</div>
 
       <ng-container *ngIf="session.customer.creditCards.length > 0; else nocards">
