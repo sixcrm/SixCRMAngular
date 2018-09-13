@@ -17,17 +17,6 @@ export function rebillsListQuery(params: IndexQueryParameters): string {
   }`
 }
 
-export function rebillsPendingListQuery(params: IndexQueryParameters): string {
-  return `{
-		rebillpendinglist ${listQueryParams(params)} {
-			rebills {
-			  ${rebillInfoResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}
-  }`
-}
-
 export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {
