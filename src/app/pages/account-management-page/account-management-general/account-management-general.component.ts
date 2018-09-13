@@ -143,8 +143,12 @@ export class AccountManagementGeneralComponent implements OnInit {
     dialogRef.componentInstance.cards = this.customer.creditCards;
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
 
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
+
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
+
+      if (editSub) editSub.unsubscribe();
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
         const customer = this.customer.copy();

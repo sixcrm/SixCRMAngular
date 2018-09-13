@@ -27,7 +27,7 @@ export class AffiliateAddNewComponent implements OnInit {
   }
 
   saveAffiliate() {
-    this.formInvalid = !this.entity.name || !this.entity.affiliateId;
+    this.formInvalid = !this.entity.affiliateId;
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);

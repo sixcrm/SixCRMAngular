@@ -36,16 +36,23 @@
   <div class="product-container">
     <div class="product-data">
       <div class="name">{{product.name}}</div>
-      <div class="sku">SKU {{product.sku || product.firstSchedule.product.sku}}</div>
-      <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.firstSchedulePrice.usd()}} <div class="subscription" *ngIf="product.firstSchedule">SUBSCRIPTION</div></div>
+      <div class="sku">SKU <span *ngIf="product.sku; else schedulessku">{{product.sku}}</span></div>
+      <ng-template #schedulessku><span class="sku-list" *ngFor="let schedule of product.initialCycleSchedules">{{schedule.product.sku || '–'}}</span></ng-template>
+      <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.initialCycleSchedulesPrice.usd()}} <div class="subscription" *ngIf="product.schedules">SUBSCRIPTION</div></div>
 
-      <div class="description">{{product.description || (product.firstSchedule ? product.firstSchedule.product.description : '') }}</div>
+      <div class="description">
+        <ng-container *ngIf="product.description; else schedulesdescription">
+          {{product.description || '–' }}
+        </ng-container>
+        <ng-template #schedulesdescription>
+          <div *ngFor="let schedule of product.initialCycleSchedules">
+            {{schedule.product.description || '–' }}
+          </div>
+        </ng-template>
+      </div>
     </div>
 
-    <img *ngIf="product.attributes && product.attributes[0]; else scheduleimage" src="{{product.attributes[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
-    <ng-template #scheduleimage>
-      <img *ngIf="product.firstSchedule && product.firstSchedule.product.attributes && product.firstSchedule.product.attributes.images[0]; else defaultimage" src="{{product.firstSchedule.product.attributes.images[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
-    </ng-template>
+    <img *ngIf="product.attributes && product.attributes[0]; else defaultimage" src="{{product.attributes[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
     <ng-template #defaultimage>
       <img src="/assets/images/product-image-placeholder.svg" alt="">
     </ng-template>

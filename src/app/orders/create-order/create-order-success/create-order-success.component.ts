@@ -55,7 +55,7 @@ export class CreateOrderSuccessComponent implements OnInit {
     return new Currency(this.products.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.firstSchedulePrice.amount || 0) * p.quantity;
+        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;

@@ -8,8 +8,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
   name: string;
   quantity: number;
-  firstSchedulePrice: Currency = new Currency(0);
-  firstSchedule: Schedule = new Schedule();
+  initialCycleSchedules: Schedule[] = [];
+  initialCycleSchedulesPrice: Currency = new Currency(0);
   schedules: Schedule[] = [];
   instantiationDate: Moment;
   createdAt: Moment;
@@ -45,29 +45,35 @@ export class ProductSchedule implements Entity<ProductSchedule> {
         return new Schedule(s, obj.days)
       });
 
-      this.firstSchedule = this.calculateFirstSchedule();
-      this.firstSchedulePrice = this.firstSchedule ? this.firstSchedule.price : new Currency(0);
+      this.initialCycleSchedules = this.calculateInitialSchedules();
+      this.initialCycleSchedulesPrice = new Currency((this.initialCycleSchedules || []).reduce((a,b)=> a + b.price.amount, 0));
       this.start = this.getStart();
       this.end = this.getEnd();
     }
   }
 
-  calculateFirstSchedule(): Schedule {
+  calculateInitialSchedules(): Schedule[] {
     let start = this.schedules[0] ? this.schedules[0].start : 0;
-    let schedule = this.schedules[0] ? this.schedules[0] : new Schedule();
+    let schedules: Schedule[] = [];
 
     for (let i = 0; i < this.schedules.length; i++) {
       if (this.schedules[i].start === 0) {
-        return this.schedules[i];
+        start = 0;
+        break;
       }
 
       if (this.schedules[i].start < start) {
         start = this.schedules[i].start;
-        schedule = this.schedules[i];
       }
     }
 
-    return schedule;
+    for (let i = 0; i < this.schedules.length; i++) {
+      if (this.schedules[i].start === start) {
+        schedules.push(this.schedules[i].copy());
+      }
+    }
+
+    return schedules;
   }
 
   getStart(): number {
