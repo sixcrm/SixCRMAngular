@@ -432,7 +432,7 @@ export function initGrapesJS(
                         Your refund has been processed.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        Transaction #{{transaction.alias}} was refunded for \${{transaction.amount}} on {{formatDate transaction.created_at 'MMM D, YYYY'}}
+                        Transaction #{{transaction.alias}} was refunded for \${{refund.amount}} on {{formatDate refund.created_at 'MMM D, YYYY'}}
                     </div>
                 </section>
             `
