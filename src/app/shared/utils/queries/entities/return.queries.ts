@@ -10,7 +10,7 @@ export function createReturnMutation(ret: Return) {
 }
 
 export function returnInputQuery(ret: Return) {
-  const transactions = ret.transactions.reduce((a,b) => `${a?',':''}{ transaction: "${b.transaction}", products: [${b.products.reduce((c,d) => `${c?',':''}{ product:"${d.product}", quantity:${d.quantity} }`,'')}] }`, '');
+  const transactions = ret.transactions.reduce((a,b) => `${a?',':''}{ transaction: "${b.transaction}", products: [${b.products.reduce((c,d) => `${c?',':''}{ product:"${d.product}", alias:"${d.product}", quantity:${d.quantity} }`,'')}] }`, '');
 
   return `transactions: [${transactions}]`;
 }
