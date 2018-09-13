@@ -43,9 +43,6 @@ describe('Search', function() {
   it ('should navigate to search page when search via topnav', () => {
     browser.get('/dashboard');
 
-    // topnav.getSearchButton().click();
-    // browser.sleep(300);
-
     waitForPresenceOf(topnav.getSearchInput());
     topnav.getSearchInput().sendKeys('test');
     topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
@@ -54,18 +51,31 @@ describe('Search', function() {
     expectUrlToContain('/search?query=test');
   });
 
-  xit('should show progress bar and filter values when performing advanced search', () => {
-    browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
+  it ('should not throw error when entering \u005C backslash in search', () => {
+    browser.get('/dashboard');
 
-    waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
+    waitForPresenceOf(topnav.getSearchInput());
+    topnav.getSearchInput().sendKeys('\u005C');
+    topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
 
-    browser.sleep(600);
+    waitForUrlContains('/search?query=%5C');
+    expectUrlToContain('/search?query=%5C');
+  });
 
-    expect(searchPage.getFilterValues().count()).toEqual(4);
-    expect(searchPage.getFilterValues().get(0).getText()).toEqual('first');
-    expect(searchPage.getFilterValues().get(1).getText()).toEqual('last');
-    expect(searchPage.getFilterValues().get(2).getText()).toEqual('portland');
-    expect(searchPage.getFilterValues().get(3).getText()).toEqual('1234');
+  it('should show filter values when performing search', () => {
+    browser.get('/dashboard');
+
+    waitForPresenceOf(topnav.getSearchInput());
+    topnav.getSearchInput().sendKeys('e2e');
+    topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
+    browser.pause();
+
+    browser.sleep(2500);
+
+    expect(searchPage.getFilterValues().count()).toEqual(3);
+    expect(searchPage.getFilterValues().get(0).getText()).toEqual('Campaign');
+    expect(searchPage.getFilterValues().get(1).getText()).toEqual('Product');
+    expect(searchPage.getFilterValues().get(2).getText()).toEqual('Product Schedule');
   });
 
   xit('should hide progress bar when advanced search is performed', () => {
