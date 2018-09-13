@@ -167,7 +167,7 @@
                     <mat-option *ngFor="let product of filteredProducts" [value]="product">
                       <div class="autocomplete-row">{{ product.name }} </div>
                       <div class="autocomplete-row">
-                        {{ product.defaultPrice ? product.defaultPrice.usd() : product.firstSchedulePrice ? product.firstSchedulePrice.usd() : '-' }}
+                        {{ product.defaultPrice ? product.defaultPrice.usd() : product.initialCycleSchedulesPrice ? product.initialCycleSchedulesPrice.usd() : '-' }}
                       </div>
                       <div class="autocomplete-row"> One line description </div>
                     </mat-option>
@@ -198,7 +198,7 @@
                     <td class="mid">
                       <div class="flex-custom flex-custom--center price-edit-container">
                         <mat-form-field class="input-align-right" [class.error]=" productInEdit.id === product.id && productInEdit['error']" [class.solo]="productInEdit.id === product.id || !product.dynamicPrice || !product.dynamicPrice.enabled">
-                          <input matInput currencyInput (keydown)="isCurrencyInput($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.firstSchedulePrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="productInEdit.defaultPrice = $event" name="defaultPrice" type="text">
+                          <input matInput currencyInput (keydown)="isCurrencyInput($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.initialCycleSchedulesPrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="productInEdit.defaultPrice = $event" name="defaultPrice" type="text">
                           <mat-hint align="end" *ngIf="productInEdit.id === product.id">{{product.dynamicPrice.min.usd()}} - {{product.dynamicPrice.max.usd()}}</mat-hint>
                         </mat-form-field>
                         <mat-icon *ngIf="productInEdit.id !== product.id && product.dynamicPrice && product.dynamicPrice.enabled" (click)="setProductInEdit(product)">edit</mat-icon>

@@ -18,7 +18,7 @@
 
     <div class="title title--separated">Order Summary</div>
     <div *ngFor="let product of products">
-      - {{product.name}} {{product.firstSchedule ? ', subscription' : ''}}
+      - {{product.name}} {{product.schedules ? ', subscription' : ''}}
     </div>
 
     <div class="summary">
