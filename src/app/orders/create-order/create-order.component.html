@@ -169,7 +169,7 @@
                       <div class="autocomplete-row">
                         {{ product.defaultPrice ? product.defaultPrice.usd() : product.initialCycleSchedulesPrice ? product.initialCycleSchedulesPrice.usd() : '-' }}
                       </div>
-                      <div class="autocomplete-row"> One line description </div>
+                      <div class="autocomplete-row">{{product.description || '–'}}</div>
                     </mat-option>
                   </mat-autocomplete>
 
@@ -312,7 +312,7 @@
                     <mat-option *ngFor="let shipping of filteredShippings" [value]="shipping">
                       <div class="autocomplete-row">{{ shipping.name }} </div>
                       <div class="autocomplete-row">{{ shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0' }} </div>
-                      <div class="autocomplete-row"> One line description </div>
+                      <div class="autocomplete-row">{{ shipping.description || '–'}}</div>
                     </mat-option>
                   </mat-autocomplete>
 
