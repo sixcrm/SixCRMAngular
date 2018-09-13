@@ -117,13 +117,11 @@ export class AccountManagementBillingComponent implements OnInit {
     dialogRef.componentInstance.cards = this.session.customer.creditCards;
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
 
-    const addSub = dialogRef.componentInstance.addCard.subscribe(() => this.openCardModal());
     const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
 
-      if (addSub) addSub.unsubscribe();
       if (editSub) editSub.unsubscribe();
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
