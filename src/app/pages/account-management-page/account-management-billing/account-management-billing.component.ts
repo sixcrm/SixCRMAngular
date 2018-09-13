@@ -11,6 +11,7 @@ import {CreditCard} from '../../../shared/models/credit-card.model';
 import {CardSwitcherDialogComponent} from '../../../dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
 
 @Component({
   selector: 'account-management-billing',
@@ -116,8 +117,14 @@ export class AccountManagementBillingComponent implements OnInit {
     dialogRef.componentInstance.cards = this.session.customer.creditCards;
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
 
+    const addSub = dialogRef.componentInstance.addCard.subscribe(() => this.openCardModal());
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
+
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
+
+      if (addSub) addSub.unsubscribe();
+      if (editSub) editSub.unsubscribe();
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
         const customer = this.session.customer.copy();
@@ -132,6 +139,28 @@ export class AccountManagementBillingComponent implements OnInit {
             this.defaultCreditCard = updatedCustomer.creditCards[index];
           }
         });
+      }
+    });
+  }
+
+  openCardModal(creditCard: CreditCard) {
+    let dialogRef = this.dialog.open(AddCreditCardDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    dialogRef.componentInstance.creditCard = creditCard.copy();
+    dialogRef.componentInstance.hideDefaultCardSelection = true;
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef = null;
+
+      if (result && result.creditCard) {
+        this.customerGraphAPI.updateCreditCard(result.creditCard).subscribe(card => {
+          const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === card.id);
+          if (index !== -1) {
+            card.type = this.session.customer.creditCards[index].type;
+            this.session.customer.creditCards[index] = card;
+            this.session.customer.creditCards = this.session.customer.creditCards.slice();
+          }
+        })
       }
     });
   }
