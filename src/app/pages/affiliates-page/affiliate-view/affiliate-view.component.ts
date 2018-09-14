@@ -28,7 +28,7 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
 
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'AFFILIATE_INDEX_TITLE', url: '/affiliates'},
-    {label: () => this.entity.name || this.entity.affiliateId}
+    {label: () => this.entity.name || 'Unnamed Affiliate'}
   ];
 
   constructor(service: AffiliatesService, route: ActivatedRoute, public navigation: NavigationService) {

@@ -1,6 +1,6 @@
 <div  *ngIf="entity; else spinner" class="entity-view">
 
-  <blue-header [items]="breadcrumbs" [titleValue]="entity.name || entity.affiliateId"></blue-header>
+  <blue-header [items]="breadcrumbs" [titleValue]="entity.name || 'Unnamed Affiliate'"></blue-header>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
