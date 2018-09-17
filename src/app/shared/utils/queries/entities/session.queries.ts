@@ -161,7 +161,7 @@ function sessionRebillResponseQuery() {
         product { id name sku ship shipping_delay,
           fulfillment_provider {id name}
         }
-        shippingreceipt { id status tracking {carrier id} created_at }
+        shippingreceipt { id status tracking {carrier id} history {status, detail, created_at} created_at }
       }
     }
   `
