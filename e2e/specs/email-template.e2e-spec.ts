@@ -3,9 +3,9 @@ import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {tosCheck, login} from '../utils/action.utils';
 import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
-import {EntityViewPage} from '../po/entity-view.po';
+import {expectUrlToContain} from '../utils/assertation.utils';
 import {EmailTemplatePage} from '../po/email-template.po';
+import {Key} from 'selenium-webdriver';
 
 describe('Email Template', function() {
   let page: EntityIndexPage;
@@ -39,6 +39,35 @@ describe('Email Template', function() {
     expectUrlToContain('emailtemplates');
   });
 
+  it('should display preset email template', () => {
+    browser.sleep(2000);
+    expect(emailTemplate.getTemplates().count()).toBeGreaterThan(0);
+  });
 
+  it('should display template preview modal', () => {
+    emailTemplate.getPreviewButton(0).click();
+    expect(emailTemplate.getPreviewModal()).toBeDefined();
+    expect(emailTemplate.getPreviewContent().getText()).toEqual('hello, Freeda');
+  });
+
+  it('should close preview modal', () => {
+    browser.actions().sendKeys(Key.ESCAPE).perform();
+    browser.sleep(2000);
+    expect(emailTemplate.getPreviewModal().isPresent()).toBeFalsy();
+  });
+
+  it('should open email template for editing', () => {
+    emailTemplate.getEditButton(0).click();
+    expectUrlToContain('emailtemplates/');
+  });
+
+  it('should display grapesjs', () => {
+    browser.sleep(2000);
+    expect(emailTemplate.getGrapesJS().isPresent()).toBeTruthy();
+  });
+
+  it('should display token blocks', () => {
+    expect(emailTemplate.getGrapesCategoryBlocks().count()).toBeGreaterThanOrEqual(3);
+  });
 
 });
