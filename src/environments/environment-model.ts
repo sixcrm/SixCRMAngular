@@ -17,8 +17,6 @@ export interface EnvironmentModel {
 export interface Branding {
   registrationLogo: string,
   sidenavLogo: string,
-  sidenavCollapsedLogo: string,
-  sidenavFooterLogo: string,
   infoScreensLogo: string,
   comingSoonLogo: string,
   errorLogo: string,
