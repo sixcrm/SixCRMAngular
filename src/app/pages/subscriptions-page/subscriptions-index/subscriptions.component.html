@@ -8,6 +8,7 @@
                 [tabs]="tabs"
                 [loading]="loadingData"
                 [singleOptions]="options"
+                (download)="download($event)"
                 (updatedColumns)="updateColumns($event)"
                 (updatedTabs)="updateTabs($event)"
                 (onSort)="updateSort($event)"

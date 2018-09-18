@@ -22,6 +22,7 @@ import {HeroChartSeries} from '../models/hero-chart-series.model';
 import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 import {TransactionAnalytics} from '../models/analytics/transaction-analytics.model';
 import {OrderAnalytics} from '../models/analytics/order-analytics.model';
+import {SubscriptionAnalytics} from '../models/analytics/subscription-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -277,6 +278,30 @@ export class AnalyticsService {
         if (!entities) return null;
 
         return entities.map(entity => new OrderAnalytics(entity));
+      })
+  }
+
+  getSubscriptions(params: {
+    reportName?: string,
+    start: string,
+    end: string,
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
+  }): Observable<SubscriptionAnalytics[] | CustomServerError> {
+    params.reportName = 'subscriptionDetail';
+
+    return this.queryRequest(analyticsDetailQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new SubscriptionAnalytics(entity));
       })
   }
 

@@ -21,7 +21,7 @@ import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 })
 export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE', url: '/transactions'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Transactions', url: '/transactions'}];
 
   sub: Subscription;
 

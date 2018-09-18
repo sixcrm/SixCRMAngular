@@ -30,8 +30,7 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
       { name: 'interval', label: 'Interval' },
       { name: 'saleAmount', label: 'Sale Amount' },
       { name: 'items', label: 'Items' },
-      { name: 'customerName', label: 'Customer' },
-      { name: 'campaignName', label: 'Campaign' },
+      { name: 'customerName', label: 'Customer' }
     ];
   }
 
