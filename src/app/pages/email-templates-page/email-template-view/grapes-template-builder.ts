@@ -698,7 +698,7 @@ export function initGrapesJS(
                             <td style="text-align: left">
                                 <div>
                                     <div style="font-weight: bold; line-height: 24px;">USPS Tracking Number</div>
-                                    <div><a href="">{{shipping_receipt.tracking_number}}</a></div>
+                                    <div><a href="">{{shipping_receipt.tracking.id}}</a></div>
                                 </div>
                             </td>
                             <td style="text-align: right">
