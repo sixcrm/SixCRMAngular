@@ -1,7 +1,7 @@
 import {getStates, getCountries} from './address.utils';
 
 export function isAllowedNumeric(event): boolean {
-  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab/;
+  const pattern = /[0-9]|Backspace|Delete|ArrowRight|ArrowLeft|Tab/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
@@ -51,7 +51,7 @@ export function isValidEmail(email): boolean {
 }
 
 export function isAllowedZip(event): boolean {
-  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab|-/;
+  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab|Delete|-/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
@@ -99,7 +99,7 @@ export function isValidCountry(country): boolean {
 export function isShorterThan(limit: number, string: string, event): boolean {
   if (!string) return true;
 
-  const pattern = /Backspace|ArrowRight|ArrowLeft|Tab/;
+  const pattern = /Backspace|Delete|ArrowRight|ArrowLeft|Tab/;
 
   if (pattern.test(event.key)) {
     return true;
