@@ -31,14 +31,7 @@ export class CreateOrderSuccessComponent implements OnInit {
   constructor(private router: Router, public authService: AuthenticationService) { }
 
   ngOnInit() {
-  }
 
-  navigateToCustomer() {
-    if (!this.checkoutResponse) return;
-
-    this.router.navigate(['/customers', 'advanced'], { queryParams: { customer: this.checkoutResponse.customer.id } });
-
-    this.done.emit(true);
   }
 
   navigateToSession() {

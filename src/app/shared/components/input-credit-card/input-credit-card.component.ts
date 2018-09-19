@@ -26,7 +26,7 @@ export class InputCreditCardComponent implements OnInit {
   }
 
   isAllowedNumeric(event): boolean {
-    const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft/;
+    const pattern = /[0-9]|Backspace|Delete|ArrowRight|ArrowLeft/;
 
     if (!pattern.test(event.key)) {
       event.preventDefault();
