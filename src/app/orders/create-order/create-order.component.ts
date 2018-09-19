@@ -262,7 +262,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
   productInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
+    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
       return;
@@ -319,7 +319,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
   shippingInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
+    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
       return;
