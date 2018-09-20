@@ -119,6 +119,8 @@ $main-color: #9B9A9B;
   &__logo {
     margin: 0 40px 0 5px;
     max-height: 50px;
+    cursor: pointer;
+    outline: none;
   }
 
   &__search {

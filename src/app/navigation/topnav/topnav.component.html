@@ -3,7 +3,7 @@
     <mat-icon id="menu-toggler-icon">menu</mat-icon>
   </button>
 
-  <img class="topnav__logo" src="{{'/assets/images/' + logo}}" alt="">
+  <img class="topnav__logo" [routerLink]="[dashboardLink]" src="{{'/assets/images/' + logo}}" alt="">
 
   <div class="topnav__search__wrapper">
     <div class="topnav__search__container">
