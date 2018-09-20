@@ -26,29 +26,10 @@ import {AccountDetailsService} from '../../../entity-services/services/account-d
 import {CustomBlock} from '../../../shared/models/account-details.model';
 import {GrapesFilterComponentComponent} from '../../../shared/components/grapes-filter-component/grapes-filter-component.component';
 
-export class TokenGroup {
-
-  name: string;
-  description: string;
-  tokens: Token[] = [];
-
-  constructor(obj?: any) {
-    if (!obj) {
-      obj = {};
-    }
-
-    this.name = obj.name || '';
-    this.description = obj.description || '';
-    this.tokens = (obj.tokens || []).map(t => new Token(t));
-  }
-
-}
-
 export class Token {
 
   value: string;
   description: string;
-  example: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -57,14 +38,55 @@ export class Token {
 
     this.description = obj.description || '';
     this.value = obj.value || '';
-    this.example = obj.example || '';
   }
 
   contains(filter: string) {
     return (this.value || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1
       || (this.description || '').toLowerCase().indexOf((filter || '').toLowerCase()) !== -1;
   }
+}
 
+export function getAllTokens(): Token[] {
+  const tokens = [
+    {description: 'Customer First Name', value: 'customer.firstname'},
+    {description: 'Customer Last Name', value: 'customer.lastname'},
+    {description: 'Customer Email', value: 'customer.email'},
+    {description: 'Customer Phone', value: 'customer.phone'},
+    {description: 'Customer Shipping Line 1', value: 'customer.address.line1'},
+    {description: 'Customer Shipping Line 2', value: 'customer.address.line2'},
+    {description: 'Customer Shipping City', value: 'customer.address.city'},
+    {description: 'Customer Shipping State', value: 'customer.address.state'},
+    {description: 'Customer Shipping Zip', value: 'customer.address.zip'},
+    {description: 'Customer Shipping Country', value: 'customer.address.country'},
+    {description: 'Customer Billing Name', value: 'creditcard.name'},
+    {description: 'Customer Billing Line 1', value: 'creditcard.address.line1'},
+    {description: 'Customer Billing Line 2', value: 'creditcard.address.line2'},
+    {description: 'Customer Billing City', value: 'creditcard.address.city'},
+    {description: 'Customer Billing State', value: 'creditcard.address.state'},
+    {description: 'Customer Billing Zip', value: 'creditcard.address.zip'},
+    {description: 'Customer Billing Country', value: 'creditcard.address.country'},
+    {description: 'Credit Card Type', value: 'creditcard.type'},
+    {description: 'Credit Card Last Four', value: 'creditcard.last_four'},
+    {description: 'Credit Card Expiration', value: 'creditcard.expiration'},
+    {description: 'Order ID', value: 'rebill.alias'},
+    {description: 'Order Date', value: 'formatDate rebill.bill_at \'MMM D, YYYY\''},
+    {description: 'Order Subtotal', value: 'rebill.amount'},
+    {description: 'Order Total', value: 'rebill.amount'},
+    {description: 'Order Cycle', value: 'rebill.cycle'},
+    {description: 'Shipping Date', value: 'formatDate shipping_receipt.created_at \'MMM D, YYYY\''},
+    {description: 'Shipping Provider', value: 'shipping_receipt.tracking.carrier'},
+    {description: 'Tracking Number', value: 'shipping_receipt.tracking.id'},
+    {description: 'Refund date', value: 'refund.transaction.created_at'},
+    {description: 'Refund Amount', value: 'refund.amount'},
+    {description: 'Refund ID', value: 'refund.alias'},
+    {description: 'Return Date', value: 'formatDate return.created_at \'MMM D, YYYY\''},
+    {description: 'Session ID', value: 'session.alias'},
+    {description: 'Support Link', value: 'accountdetails.support_link'},
+    {description: 'Company Logo', value: 'accountdetails.company_logo'},
+    {description: 'Primary Color', value: 'accountdetails.emailtemplatesettings.color_primary'}
+  ];
+
+  return tokens.map(e => new Token(e));
 }
 
 @Component({
@@ -86,7 +108,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     {label: () => this.entity.name}
   ];
 
-  allTokens: Token[];
+  allTokens: Token[] = getAllTokens();
   customBlocks: CustomBlock[];
 
   grapesEditor;
@@ -130,12 +152,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       this.smtpProviderService.getEntities()
     });
 
-    this.emailTemplateService.tokenGroups.take(1).subscribe(groups => {
-      const allTokensGroup: TokenGroup = new TokenGroup(groups.all);
-
-      this.allTokens = [allTokensGroup].map(g => g.tokens).reduce((a,b)=>a.concat(b), []);
-    });
-
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => {
       this.campaignsService.getEntities();
       this.productsService.getEntities();
@@ -148,7 +164,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
       this.customBlocks = accountDetails.emailTemplateSettings.customBlocks;
     });
 
-    this.emailTemplateService.getTokens();
     this.accountDetailsService.getEntity(this.authService.getActiveAccount().id);
   }
 
