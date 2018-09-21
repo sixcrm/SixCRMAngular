@@ -28,7 +28,7 @@ export function orderResponseQuery(): string {
   products { quantity, amount
     product { id, name, sku, ship }
     returns { quantity, return{ id, alias, created_at }}
-    shippingreceipt { id, status, tracking {id, carrier}, history {status, detail, created_at}, created_at, updated_at }
+    shippingreceipt { id, status, fulfillment_provider_reference, tracking {id, carrier}, history {status, detail, created_at}, created_at, updated_at }
   }
   session { id alias created_at campaign { id name } }
   rebill { id resolved_amount created_at updated_at bill_at
