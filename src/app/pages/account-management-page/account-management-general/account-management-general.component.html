@@ -67,11 +67,19 @@
 
   <div class="row row--start">
 
-    <div class="column" *ngIf="accountDetails && this.accountDetailsService.hasReadPermission()">
+    <div class="column" *ngIf="accountDetails && accountDetailsService.hasReadPermission()">
       <div class="card">
         <div class="title">Account Details</div>
 
         <div class="body">
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="Customer Service Email" [(ngModel)]="accountDetails.supportEmail">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="Customer Service Phone" [textMask]="{mask: mask, guide: false}" [(ngModel)]="accountDetails.supportPhone">
+          </mat-form-field>
 
           <mat-form-field>
             <input type="text" matInput placeholder="Customer Service Link" [(ngModel)]="accountDetails.supportLink">
@@ -83,6 +91,22 @@
             </mat-form-field>
 
             <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorPrimary"></div>
+          </div>
+
+          <div class="flex-custom flex-custom--center">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Secondary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorSecondary">
+            </mat-form-field>
+
+            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorSecondary"></div>
+          </div>
+
+          <div class="flex-custom flex-custom--center">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Tertiary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorTertiary">
+            </mat-form-field>
+
+            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorTertiary"></div>
           </div>
 
           <div class="placeholder-label">Account Logo</div>

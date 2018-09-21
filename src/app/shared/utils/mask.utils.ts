@@ -7,18 +7,6 @@ export function getCurrencyMask(): any {
   });
 }
 
-export function parseCurrencyMaskedValue(value: any): number {
-  if (value) {
-    let temp = value.replace(/$|,/g, '');
-    if (temp.charAt(0) === '$') {
-      temp = temp.slice(1);
-    }
-    return temp ? +temp : 0;
-  }
-
-  return 0;
-}
-
 export function getPhoneNumberMask(): any {
   return ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 }

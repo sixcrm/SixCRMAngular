@@ -268,7 +268,10 @@ export class AccountManagementGeneralComponent implements OnInit {
   accountDetailsEdited() {
     return (this.accountDetails.supportLink !== this.accountDetailsBackup.supportLink)
       || (this.accountDetails.emailTemplateSettings.colorPrimary !== this.accountDetailsBackup.emailTemplateSettings.colorPrimary)
-      || (this.accountDetails.companyLogo !== this.accountDetailsBackup.companyLogo);
+      || (this.accountDetails.emailTemplateSettings.colorSecondary !== this.accountDetailsBackup.emailTemplateSettings.colorSecondary)
+      || (this.accountDetails.emailTemplateSettings.colorTertiary !== this.accountDetailsBackup.emailTemplateSettings.colorTertiary)
+      || (this.accountDetails.companyLogo !== this.accountDetailsBackup.companyLogo)
+      || (this.accountDetails.supportEmail !== this.accountDetailsBackup.supportEmail);
   }
 
   cancelAccountDetailsEdit() {
