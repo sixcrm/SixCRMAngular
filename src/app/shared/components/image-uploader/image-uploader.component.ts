@@ -15,7 +15,11 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
 
   @Output() imageUploaded: EventEmitter<SixImage> = new EventEmitter();
 
-  public uploader: FileUploader = new FileUploader({});
+  public uploader: FileUploader = new FileUploader({
+    allowedMimeType: ['image/jpg', 'image/jpeg'],
+    maxFileSize: 1024*1024
+  });
+
   public filePreviewPath: SafeUrl;
   private rawImage: string;
 
