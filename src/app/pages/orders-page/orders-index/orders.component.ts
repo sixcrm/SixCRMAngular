@@ -107,13 +107,7 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
-    this.analyticsService.getOrders({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(orders => {
+    this.analyticsService.getOrders(this.getFetchParams(true)).subscribe(orders => {
       if (!orders || orders instanceof CustomServerError) {
         return;
       }
@@ -134,16 +128,8 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
   fetch() {
     this.router.navigate(
       ['/orders'],
-      {
-        queryParams: {
-          start: this.date.start.clone().format(),
-          end: this.date.end.clone().format(),
-          sort: this.getSortColumn().sortName,
-          sortOrder: this.getSortColumn().sortOrder,
-          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
-          filters: JSON.stringify(this.filters)
-        }
-      });
+      {queryParams: this.getQueryParams()}
+    );
 
     this.fetchData();
   }
@@ -155,15 +141,7 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
       this.sub.unsubscribe();
     }
 
-    this.sub = this.analyticsService.getOrders({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      limit: 25,
-      offset: this.entities.length,
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(orders => {
+    this.sub = this.analyticsService.getOrders(this.getFetchParams()).subscribe(orders => {
       this.loadingData = false;
 
       if (!orders || orders instanceof CustomServerError) {
@@ -179,19 +157,9 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
   }
 
   fetchCounts() {
-    if (this.lastCountsDate
-      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
-      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
-    ) {
-      return;
-    }
+    if (!this.shouldFetchCounts()) return;
 
-    this.lastCountsDate = {
-      start: this.date.start.clone(),
-      end: this.date.end.clone()
-    };
-
-    this.tabs.forEach(t => t.count = Observable.of(null));
+    this.prepareFetchCounts();
 
     this.analyticsService.getOrders({
       start: this.date.start.clone().format(),

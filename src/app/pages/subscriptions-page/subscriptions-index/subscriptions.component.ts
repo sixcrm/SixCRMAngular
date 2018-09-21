@@ -100,13 +100,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
-    this.analyticsService.getSubscriptions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(subscriptions => {
+    this.analyticsService.getSubscriptions(this.getFetchParams(true)).subscribe(subscriptions => {
       if (!subscriptions || subscriptions instanceof CustomServerError) {
         return;
       }
@@ -127,16 +121,8 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
   fetch() {
     this.router.navigate(
       ['/subscriptions'],
-      {
-        queryParams: {
-          start: this.date.start.clone().format(),
-          end: this.date.end.clone().format(),
-          sort: this.getSortColumn().sortName,
-          sortOrder: this.getSortColumn().sortOrder,
-          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
-          filters: JSON.stringify(this.filters)
-        }
-      });
+      {queryParams: this.getQueryParams()}
+    );
 
     this.fetchData();
   }
@@ -148,15 +134,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
       this.sub.unsubscribe();
     }
 
-    this.sub = this.analyticsService.getSubscriptions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      limit: 25,
-      offset: this.entities.length,
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(subscriptions => {
+    this.sub = this.analyticsService.getSubscriptions(this.getFetchParams()).subscribe(subscriptions => {
       this.loadingData = false;
 
       if (!subscriptions || subscriptions instanceof CustomServerError) {
@@ -172,19 +150,9 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
   }
 
   fetchCounts() {
-    if (this.lastCountsDate
-      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
-      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
-    ) {
-      return;
-    }
+    if (!this.shouldFetchCounts()) return;
 
-    this.lastCountsDate = {
-      start: this.date.start.clone(),
-      end: this.date.end.clone()
-    };
-
-    this.tabs.forEach(t => t.count = Observable.of(null));
+    this.prepareFetchCounts();
 
     this.analyticsService.getSubscriptions({
       start: this.date.start.clone().format(),
