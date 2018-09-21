@@ -30,7 +30,7 @@ describe('Transactions', function() {
   it('should navigate to transactions page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(5).click();
+    nav.getLink(6).click();
     waitForUrlContains('transaction');
     expectUrlToContain('transaction');
   });
