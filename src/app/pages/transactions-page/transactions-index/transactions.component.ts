@@ -69,8 +69,6 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setQueryParams((e: TransactionAnalytics) => { return { session: e.sessionId } }),
     ];
 
-    this.date = {start: utc().subtract(7,'d'), end: utc()};
-
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},

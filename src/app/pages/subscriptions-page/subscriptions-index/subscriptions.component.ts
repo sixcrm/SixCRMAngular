@@ -50,7 +50,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         .setLink((e: SubscriptionAnalytics) => `/campaigns/${e.campaignId}`)
     ];
 
-    this.date = {start: utc().subtract(7,'d'), end: utc()};
+    this.defaultDate = {start: utc(), end: utc().add(1,'M')};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},

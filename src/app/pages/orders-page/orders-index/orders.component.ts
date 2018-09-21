@@ -57,8 +57,6 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
         .setQueryParams((e: OrderAnalytics) => { return { customer: e.customer } })
     ];
 
-    this.date = {start: utc().subtract(7,'d'), end: utc()};
-
     this.tabs = [
       {label: 'All', selected: true, visible: true, count: Observable.of(0)},
       {label: 'Shipped', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['shipped']}]},
