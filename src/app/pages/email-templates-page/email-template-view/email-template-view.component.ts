@@ -81,9 +81,13 @@ export function getAllTokens(): Token[] {
     {description: 'Refund ID', value: 'refund.alias'},
     {description: 'Return Date', value: 'formatDate return.created_at \'MMM D, YYYY\''},
     {description: 'Session ID', value: 'session.alias'},
-    {description: 'Support Link', value: 'accountdetails.support_link'},
     {description: 'Company Logo', value: 'accountdetails.company_logo'},
-    {description: 'Primary Color', value: 'accountdetails.emailtemplatesettings.color_primary'}
+    {description: 'Support Email', value: 'accountdetails.support_email'},
+    {description: 'Support Phone', value: 'accountdetails.support_phone'},
+    {description: 'Support Link', value: 'accountdetails.support_link'},
+    {description: 'Primary Color', value: 'accountdetails.emailtemplatesettings.color_primary'},
+    {description: 'Secondary Color', value: 'accountdetails.emailtemplatesettings.color_secondary'},
+    {description: 'Tertiary Color', value: 'accountdetails.emailtemplatesettings.color_tertiary'}
   ];
 
   return tokens.map(e => new Token(e));

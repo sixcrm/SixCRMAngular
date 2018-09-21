@@ -183,7 +183,7 @@ function getDefaultInitialOrderTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="iso3d" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via 
-		  <a href="mailto:{{accountdetails.support_link}}" id="itsg8" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="itsg8" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -363,7 +363,7 @@ function getDefaultAllOrdersTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="ipu2az" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via   
-		  <a href="mailto:{{accountdetails.support_link}}" id="idcf5j" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="idcf5j" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -544,7 +544,7 @@ function getDefaultRefundTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="ikx6jz" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via     
-		  <a href="mailto:{{accountdetails.support_link}}" id="ihi6hl" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="ihi6hl" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -668,7 +668,7 @@ function getDefaultReturnTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="itn2zy" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via       
-		  <a href="mailto:{{accountdetails.support_link}}" id="iyhun8" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="iyhun8" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -749,7 +749,7 @@ function getDefaultCancellationTemplateBody(): string {
 					</tbody>
 				  </table>  {{/session.watermark.products}}
 				</section>
-				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us on {{accountdetails.support_link}}
+				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us on {{accountdetails.support_email}}
 				</div>
 			  </td>
 			</tr>
@@ -760,7 +760,7 @@ function getDefaultCancellationTemplateBody(): string {
 	<tr id="ikh60z" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i96arz" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="ib48y" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via 
-		  <a href="mailto:{{accountdetails.support_link}}" id="ikkxh" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="ikkxh" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -786,7 +786,7 @@ function getDefaultDeclinesTemplateBody(): string {
 				  <div id="ivvu5m" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px; color: #FC1F49; font-weight: 700;">Your payment has been declined.
 				  </div>
 				  <div id="iukpp6" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">On {{formatDate transaction.created_at 'MM/DD/YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}, however the payment was unsuccessful.
-					<div id="igxx0h" style="box-sizing: border-box; font-weight: bold;">  Please contact our customer support at {{accountdetails.support_link}} to fix your payment information and continue your order.
+					<div id="igxx0h" style="box-sizing: border-box; font-weight: bold;">  Please contact our customer support at {{accountdetails.support_email}} to fix your payment information and continue your order.
 					</div>
 				  </div>
 				</section>
@@ -941,7 +941,7 @@ function getDefaultDeclinesTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="ius4s" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via     
-		  <a href="mailto:{{accountdetails.support_link}}" id="ix186" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="ix186" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -1144,7 +1144,7 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="ifhui" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via     
-		  <a href="mailto:{{accountdetails.support_link}}" id="ix8aw" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="ix8aw" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
@@ -1347,7 +1347,7 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
 		<div id="ifhui" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via       
-		  <a href="mailto:{{accountdetails.support_link}}" id="ix8aw" style="box-sizing: border-box;">{{accountdetails.support_link}}</a>
+		  <a href="mailto:{{accountdetails.support_email}}" id="ix8aw" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
 		</div>
 	  </td>
 	</tr>
