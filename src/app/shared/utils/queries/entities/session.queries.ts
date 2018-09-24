@@ -151,7 +151,7 @@ export function sessionResponseQuery(): string {
 
 function sessionRebillResponseQuery() {
   return `
-    id bill_at amount cycle created_at updated_at state
+    id alias bill_at amount cycle created_at updated_at state
     products { quantity, amount, product { id, name, sku, ship } }
     transactions {
       creditcard { id, last_four, type }
@@ -161,7 +161,7 @@ function sessionRebillResponseQuery() {
         product { id name sku ship shipping_delay,
           fulfillment_provider {id name}
         }
-        shippingreceipt { id status fulfillment_provider_reference tracking {carrier id} history {status, detail, created_at} created_at }
+        shippingreceipt { id status fulfillment_provider_reference tracking {carrier id} fulfillment_provider {id, name} created_at }
       }
     }
   `
