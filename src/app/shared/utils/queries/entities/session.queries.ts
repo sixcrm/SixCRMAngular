@@ -151,7 +151,7 @@ export function sessionResponseQuery(): string {
 
 function sessionRebillResponseQuery() {
   return `
-    id bill_at amount created_at updated_at state
+    id bill_at amount cycle created_at updated_at state
     products { quantity, amount, product { id, name, sku, ship } }
     transactions {
       creditcard { id, last_four, type }
