@@ -73,7 +73,7 @@
 
         <div class="body">
 
-          <mat-form-field>
+          <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.supportEmail && !isValidEmail(accountDetails.supportEmail)">
             <input type="text" matInput placeholder="Customer Service Email" [(ngModel)]="accountDetails.supportEmail">
           </mat-form-field>
 
@@ -81,12 +81,12 @@
             <input type="text" matInput placeholder="Customer Service Phone" [textMask]="{mask: mask, guide: false}" [(ngModel)]="accountDetails.supportPhone">
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.supportLink && !isValidLink(accountDetails.supportLink)">
             <input type="text" matInput placeholder="Customer Service Link" [(ngModel)]="accountDetails.supportLink">
           </mat-form-field>
 
           <div class="flex-custom flex-custom--center">
-            <mat-form-field>
+            <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorPrimary && !isValidColorHex(accountDetails.emailTemplateSettings.colorPrimary)">
               <input type="text" matInput placeholder="Primary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorPrimary">
             </mat-form-field>
 
@@ -94,7 +94,7 @@
           </div>
 
           <div class="flex-custom flex-custom--center">
-            <mat-form-field>
+            <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorSecondary && !isValidColorHex(accountDetails.emailTemplateSettings.colorSecondary)">
               <input type="text" matInput placeholder="Secondary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorSecondary">
             </mat-form-field>
 
@@ -102,7 +102,7 @@
           </div>
 
           <div class="flex-custom flex-custom--center">
-            <mat-form-field>
+            <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorTertiary && !isValidColorHex(accountDetails.emailTemplateSettings.colorTertiary)">
               <input type="text" matInput placeholder="Tertiary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorTertiary">
             </mat-form-field>
 
