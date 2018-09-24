@@ -1,25 +1,20 @@
 <div class="shipment-container">
   <ng-container *ngIf="!shipment.shippingReceipt; else shipdetails">
 
-    <mat-icon>done</mat-icon>
+    <mat-icon class="shipment-icon">done</mat-icon>
     <div>No Shipment Required</div>
 
   </ng-container>
 
   <ng-template #shipdetails>
 
-    <mat-icon *ngIf="shipment.shippingReceipt.status === 'delivered'; else pendingicon">done</mat-icon>
-    <ng-template #pendingicon>
-      <mat-icon class="pending-shipment" #pending>local_shipping</mat-icon>
-    </ng-template>
-    <div><span class="status">{{shipment.shippingReceipt.status}}</span> <span class="date">{{shipment.shippingReceipt.createdAt | formatDateTime: 'MMMM DD,YYYY h:mm a'}}</span></div>
-    <div class="shipment-details">
-      <div class="link" (click)="shipment.showDetails = true">Details</div>
+    <mat-icon class="shipment-icon pending-shipment">local_shipping</mat-icon>
 
-      <shipment-status *ngIf="shipment.showDetails"
-                       [shippingReceipt]="shipment.shippingReceipt"
-                       (close)="shipment.showDetails = false">
-      </shipment-status>
+    <div>
+      <div style="margin-bottom: 3px;">Carrier: {{shipment.shippingReceipt.tracking.carrier || 'Pending'}}</div>
+      <div class="tracking-info">
+        Tracking Number: {{shipment.shippingReceipt.tracking.id || 'Pending'}}
+        <mat-icon *ngIf="shipment.shippingReceipt.tracking.id" class="copy-icon" matTooltip="Copy Tracking Number" ngxClipboard [cbContent]="shipment.shippingReceipt.tracking.id">content_copy</mat-icon></div>
     </div>
 
   </ng-template>
