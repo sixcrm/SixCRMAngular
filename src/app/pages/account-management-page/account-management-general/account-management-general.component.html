@@ -67,7 +67,7 @@
 
   <div class="row row--start">
 
-    <div class="column" *ngIf="accountDetails && accountDetailsService.hasReadPermission()">
+    <div class="column" *ngIf="accountDetailsBackup && accountDetailsService.hasReadPermission()">
       <div class="card">
         <div class="title">Account Details</div>
 
@@ -134,8 +134,37 @@
           </button>
         </div>
       </div>
+    </div>
 
-      <div *ngIf="session && authService.hasPermissions('bill', 'read') && customer" class="card">
+    <div class="column" *ngIf="session && authService.hasPermissions('bill', 'read')">
+      <div class="card">
+        <div class="title">Cards on file</div>
+
+        <ng-container *ngIf="session.customer.creditCards.length > 0; else nocards">
+          <div class="credit-card" *ngFor="let card of session.customer.creditCards">
+
+            <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
+
+            <div class="info">
+              <div class="number">**** **** **** {{card.lastFour}}</div>
+              <div class="data">{{card.name}}</div>
+              <div class="data">Expires {{card.expiration}}</div>
+            </div>
+
+            <div class="actions">
+              <mat-icon (click)="deleteCard(card)">delete</mat-icon>
+              <mat-icon (click)="openCardModal(card)">edit</mat-icon>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #nocards>
+          <div class="no-card">No Cards found</div>
+        </ng-template>
+
+        <button class="add-card-button" mat-button (click)="openCardModal()">ADD CARD</button>
+      </div>
+      <div *ngIf="customer" class="card">
         <div class="title">Contact Information</div>
         <div class="body">
           <mat-form-field [class.error]="formInvalid && !customer.firstName">
@@ -164,35 +193,6 @@
           </button>
         </div>
       </div>
-
-    </div>
-
-    <div *ngIf="session && authService.hasPermissions('bill', 'read')" class="card column">
-      <div class="title">Cards on file</div>
-
-      <ng-container *ngIf="session.customer.creditCards.length > 0; else nocards">
-        <div class="credit-card" *ngFor="let card of session.customer.creditCards">
-
-          <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
-
-          <div class="info">
-            <div class="number">**** **** **** {{card.lastFour}}</div>
-            <div class="data">{{card.name}}</div>
-            <div class="data">Expires {{card.expiration}}</div>
-          </div>
-
-          <div class="actions">
-            <mat-icon (click)="deleteCard(card)">delete</mat-icon>
-            <mat-icon (click)="openCardModal(card)">edit</mat-icon>
-          </div>
-        </div>
-      </ng-container>
-
-      <ng-template #nocards>
-        <div class="no-card">No Cards found</div>
-      </ng-template>
-
-      <button class="add-card-button" mat-button (click)="openCardModal()">ADD CARD</button>
     </div>
 
   </div>
