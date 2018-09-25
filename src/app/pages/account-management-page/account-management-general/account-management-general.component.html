@@ -115,10 +115,10 @@
           <div class="placeholder-label">Account Logo</div>
 
           <div class="image-upload">
-            <image-uploader (imageUploaded)="accountDetails.companyLogo = $event.path"></image-uploader>
             <div class="image-holder">
               <img src="{{accountDetails.companyLogo}}" alt="No Logo Uploaded">
             </div>
+            <image-uploader (imageUploaded)="accountDetails.companyLogo = $event.path"></image-uploader>
           </div>
 
         </div>
