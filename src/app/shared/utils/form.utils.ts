@@ -60,7 +60,7 @@ export function isValidLink(link): boolean {
 export function isValidColorHex(hex): boolean {
   if (!hex) return false;
 
-  let regex = /#[0-9a-fA-F]/;
+  let regex = /^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
   return regex.test(hex);
 }
 

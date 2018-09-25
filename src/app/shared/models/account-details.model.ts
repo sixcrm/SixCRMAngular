@@ -36,9 +36,9 @@ export class EmailTemplateSettings {
       obj = {};
     }
 
-    this.colorPrimary = obj.color_primary || '';
-    this.colorSecondary = obj.color_secondary || '';
-    this.colorTertiary = obj.color_tertiary || '';
+    this.colorPrimary = (obj.color_primary || '').replace(/#/g, '');
+    this.colorSecondary = (obj.color_secondary || '').replace(/#/g, '');
+    this.colorTertiary = (obj.color_tertiary || '').replace(/#/g, '');
     this.customBlocks = (obj.custom_blocks || []).map(cb => new CustomBlock(cb));
   }
 

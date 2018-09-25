@@ -23,7 +23,7 @@ export function accountDetailsResponseQuery(): string {
 }
 
 export function accountDetailsInputQuery(details: AccountDetails): string {
-  let settings = `${details.emailTemplateSettings.colorPrimary ? `color_primary: "${details.emailTemplateSettings.colorPrimary}", ` : ''}${details.emailTemplateSettings.colorSecondary ? `color_secondary: "${details.emailTemplateSettings.colorSecondary}", ` : ''}${details.emailTemplateSettings.colorTertiary ? `color_tertiary: "${details.emailTemplateSettings.colorTertiary}", ` : ''}custom_blocks: [${details.emailTemplateSettings.customBlocks.reduce((a,b)=>`${a}${a?',':''}{id:"${b.id}", title:"${b.title}", body:"${clean(b.body)}"}`,'')}]`;
+  let settings = `${details.emailTemplateSettings.colorPrimary ? `color_primary: "#${details.emailTemplateSettings.colorPrimary}", ` : ''}${details.emailTemplateSettings.colorSecondary ? `color_secondary: "#${details.emailTemplateSettings.colorSecondary}", ` : ''}${details.emailTemplateSettings.colorTertiary ? `color_tertiary: "#${details.emailTemplateSettings.colorTertiary}", ` : ''}custom_blocks: [${details.emailTemplateSettings.customBlocks.reduce((a,b)=>`${a}${a?',':''}{id:"${b.id}", title:"${b.title}", body:"${clean(b.body)}"}`,'')}]`;
 
   return `id:"${details.id}" ${details.companyLogo ? `, company_logo: "${details.companyLogo}"` : ''} ${details.supportLink ? `, support_link: "${details.supportLink}"` : ''} ${details.supportPhone ? `, support_phone: "${details.supportPhone}"` : ''} ${details.supportEmail ? `, support_email: "${details.supportEmail}"` : ''}, emailtemplatesettings: {${settings}}, updated_at:"${details.updatedAt.format()}"`;
 }

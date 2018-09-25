@@ -87,26 +87,29 @@
 
           <div class="flex-custom flex-custom--center">
             <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorPrimary && !isValidColorHex(accountDetails.emailTemplateSettings.colorPrimary)">
+              <span matPrefix># &nbsp;</span>
               <input type="text" matInput placeholder="Primary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorPrimary">
             </mat-form-field>
 
-            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorPrimary"></div>
+            <div class="color-preview" [style.background]="'#' + accountDetailsBackup.emailTemplateSettings.colorPrimary"></div>
           </div>
 
           <div class="flex-custom flex-custom--center">
             <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorSecondary && !isValidColorHex(accountDetails.emailTemplateSettings.colorSecondary)">
+              <span matPrefix># &nbsp;</span>
               <input type="text" matInput placeholder="Secondary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorSecondary">
             </mat-form-field>
 
-            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorSecondary"></div>
+            <div class="color-preview" [style.background]="'#' + accountDetailsBackup.emailTemplateSettings.colorSecondary"></div>
           </div>
 
           <div class="flex-custom flex-custom--center">
             <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorTertiary && !isValidColorHex(accountDetails.emailTemplateSettings.colorTertiary)">
+              <span matPrefix># &nbsp;</span>
               <input type="text" matInput placeholder="Tertiary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorTertiary">
             </mat-form-field>
 
-            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorTertiary"></div>
+            <div class="color-preview" [style.background]="'#' + accountDetailsBackup.emailTemplateSettings.colorTertiary"></div>
           </div>
 
           <div class="placeholder-label">Account Logo</div>
