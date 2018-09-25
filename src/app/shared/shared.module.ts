@@ -37,7 +37,6 @@ import { AddScheduleComponent } from './components/add-schedule/add-schedule.com
 import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 import {SnackbarService} from './services/snackbar.service';
-import {MerchantReportService} from './services/analytics/merchant-report.service';
 import {TextMaskPipe} from './pipes/text-mask.pipe';
 import {AffiliateReportService} from './services/analytics/affiliate-report.service';
 import {AlertComponent} from './components/alert/alert.component';
@@ -213,7 +212,6 @@ export class SharedModule {
         AnalyticsService,
         AnalyticsStorageService,
         TransactionReportService,
-        MerchantReportService,
         AffiliateReportService,
         TimeService,
         SnackbarService,

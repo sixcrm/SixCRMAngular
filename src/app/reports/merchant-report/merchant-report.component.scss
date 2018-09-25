@@ -1,16 +1,9 @@
-.report {
-  &__title {
-    font-size: 32px;
-    padding: 20px 15px 10px;
-    color: #8D8888;
-  }
-}
-
-.filter-container {
-  padding: 0 15px 10px;
-}
-
 merchant-report-chart {
   display: block;
-  padding: 15px 15px 5px;
+  margin: 35px 15px 25px;
+}
+
+filter-table {
+  display: block;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
