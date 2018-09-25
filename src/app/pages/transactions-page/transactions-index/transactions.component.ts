@@ -4,7 +4,6 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 import {utc} from 'moment';
 import {TransactionFiltersDialogComponent} from '../../../dialog-modals/transaction-filters-dialog/transaction-filters-dialog.component';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
@@ -30,7 +29,6 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     dialog: MatDialog,
     router: Router,
     private route: ActivatedRoute,
-    public featuresFlagService: FeatureFlagService,
     private analyticsService: AnalyticsService
   ) {
     super(auth, dialog, router);
