@@ -53,6 +53,7 @@ function parseSchedule(schedule: Schedule): string {
    price: ${schedule.price.amount},
    start: ${schedule.start},
    ${schedule.end ? `end: ${schedule.end},`:''}
+   samedayofmonth: ${!!schedule.sameDayOfMonth},
    period: ${schedule.period},
    product: ${parseProduct(schedule.product)}
  }`;
@@ -140,7 +141,7 @@ export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at completed,
     watermark {
-      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, product {id, name } } } },
+      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, samedayofmonth, product {id, name } } } },
       products { quantity, price, product { id name } }
     }
     customer { ${customerResponseQuery()} }
