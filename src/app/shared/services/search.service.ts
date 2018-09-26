@@ -5,8 +5,7 @@ import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
-  searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
-} from '../utils/queries/search.queries';
+  searchAdvancedFacets, dashboardFiltersQuery } from '../utils/queries/search.queries';
 import {
   extractData, HttpWrapperService, generateHeaders, RequestBehaviourOptions,
   FailStrategy
@@ -158,25 +157,6 @@ export class SearchService {
 
   searchSuggestions(query: string): void {
     this.suggestionInput$.next(query);
-  }
-
-  searchDashboardFilters(query: string): void {
-    this.dashboardFilterInput$.next(query);
-  }
-
-  searchDashboardFiltersAdvanced(query: string, type: string): Observable<any> {
-    let obs: Subject<any> = new Subject();
-
-    this.queryRequest(dashboardFiltersAdvancedQuery(query, type)).subscribe(response => {
-      if (response instanceof CustomServerError) {
-        return;
-      }
-
-      obs.next(this.parseSearchResults(response));
-      obs.complete();
-    });
-
-    return obs;
   }
 
   private fetchSuggestions(query: string): void {

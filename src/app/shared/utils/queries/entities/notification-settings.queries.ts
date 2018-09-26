@@ -2,7 +2,7 @@ import {
   NotificationSettings, NotificationGroup,
   NotificationGroupItem
 } from '../../../models/notification-settings.model';
-import {addId, addUpdatedAtApi} from './entities-helper.queries';
+import {addUpdatedAtApi} from './entities-helper.queries';
 
 export function defaultNotificationSettingsQuery(): string {
   return `

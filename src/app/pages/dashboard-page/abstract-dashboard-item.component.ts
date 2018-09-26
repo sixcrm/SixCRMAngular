@@ -2,7 +2,7 @@ import {Input} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Moment} from 'moment';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
+import {flatUp} from '../../shared/models/filter-term.model';
 
 export class AbstractDashboardItem {
 

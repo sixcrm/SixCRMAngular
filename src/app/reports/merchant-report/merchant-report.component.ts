@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MerchantAnalytics} from '../../shared/models/analytics/merchant-analytics.model';
 import {Router} from '@angular/router';
-import {ReportColumnParams} from '../components/report-table/report-table.component';
 import {AbstractEntityReportIndexComponent} from '../../pages/abstract-entity-report-index.component';
 import {BreadcrumbItem} from '../../pages/components/models/breadcrumb-item.model';
 import {Subscription} from 'rxjs';
@@ -11,6 +10,7 @@ import {AnalyticsService} from '../../shared/services/analytics.service';
 import {utc} from 'moment';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {downloadJSON, downloadCSV} from '../../shared/utils/file.utils';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'merchant-report',
@@ -32,14 +32,14 @@ export class MerchantReportComponent extends AbstractEntityReportIndexComponent<
     super(auth, dialog, router);
 
     this.columnParams = [
-      new ReportColumnParams('Merchant Provider', (e: MerchantAnalytics) => e.gateway).setSortName('gateway'),
-      new ReportColumnParams('Sales Count', (e: MerchantAnalytics) => e.sales).setSortName('sales'),
-      new ReportColumnParams('Sales Gross Revenue', (e: MerchantAnalytics) => e.salesRevenue.usd()).setSortName('sales_revenue'),
-      new ReportColumnParams('Refund Expenses', (e: MerchantAnalytics) => e.totalRefundExpense.usd()).setSortName('total_refund_expense'),
-      new ReportColumnParams('Refund Count', (e: MerchantAnalytics) => e.partialRefunds + e.fullRefunds).setSortName('partial_refunds'),
-      new ReportColumnParams('Declines', (e: MerchantAnalytics) => e.declines).setSortName('declines'),
-      new ReportColumnParams('Chargebacks', (e: MerchantAnalytics) => e.chargebacks).setSortName('chargebacks'),
-      new ReportColumnParams('Net Revenue', (e: MerchantAnalytics) => e.adjustedSalesRevenue.usd()).setSortName('adjusted_sales_revenue'),
+      new ColumnParams('Merchant Provider', (e: MerchantAnalytics) => e.gateway).setSortName('gateway'),
+      new ColumnParams('Sales Count', (e: MerchantAnalytics) => e.sales).setSortName('sales'),
+      new ColumnParams('Sales Gross Revenue', (e: MerchantAnalytics) => e.salesRevenue.usd()).setSortName('sales_revenue'),
+      new ColumnParams('Refund Expenses', (e: MerchantAnalytics) => e.totalRefundExpense.usd()).setSortName('total_refund_expense'),
+      new ColumnParams('Refund Count', (e: MerchantAnalytics) => e.partialRefunds + e.fullRefunds).setSortName('partial_refunds'),
+      new ColumnParams('Declines', (e: MerchantAnalytics) => e.declines).setSortName('declines'),
+      new ColumnParams('Chargebacks', (e: MerchantAnalytics) => e.chargebacks).setSortName('chargebacks'),
+      new ColumnParams('Net Revenue', (e: MerchantAnalytics) => e.adjustedSalesRevenue.usd()).setSortName('adjusted_sales_revenue'),
     ];
 
     this.date = {start: utc().subtract(1,'M'), end: utc()};
