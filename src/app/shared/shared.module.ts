@@ -14,10 +14,7 @@ import { ShareLinkComponent } from './components/share-link/share-link.component
 import {SubArrayPipe} from './pipes/sub-array.pipe';
 import {AnalyticsStorageService} from './services/analytics-storage.service';
 import { InViewportDirective } from './directives/in-viewport.directive';
-import {TransactionReportService} from './services/analytics/transaction-report.service';
 import {TablePaginationComponent} from './components/table-pagination/table-pagination.component';
-import { AdvancedFilterComponent } from './components/advanced-filter/advanced-filter.component';
-import {InputAutocompleteComponent} from './components/input-autocomplete/input-autocomplete.component';
 import {ChartModule} from 'angular2-highcharts';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
@@ -33,7 +30,6 @@ import { FilterEntitiesByFieldPipe } from './pipes/filter-entities-by-field.pipe
 import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
 import {AutofocusDirective} from './directives/autofocus.directive';
 import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
-import { AddScheduleComponent } from './components/add-schedule/add-schedule.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 import {SnackbarService} from './services/snackbar.service';
@@ -43,7 +39,6 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
 import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
 import { FormatDurationPipe } from './pipes/format-duration.pipe';
 import { HtmlSanitizerPipe } from './pipes/html-sanitizer.pipe';
-import {CustomerCreditCardViewComponent} from './components/customer-credit-card-view/customer-credit-card-view.component';
 import { SimpleDatepickerComponent } from './components/simple-datepicker/simple-datepicker.component';
 import {TranslationModule} from '../translation/translation.module';
 import { TabHeaderComponent } from './components/tab-header/tab-header.component';
@@ -89,8 +84,6 @@ import { RemoveItemsPipe } from './pipes/remove-items.pipe';
     InViewportDirective,
     AutofocusDirective,
     TablePaginationComponent,
-    AdvancedFilterComponent,
-    InputAutocompleteComponent,
     DropdownComponent,
     FormatDateTimePipe,
     SimpleDropdownComponent,
@@ -102,7 +95,6 @@ import { RemoveItemsPipe } from './pipes/remove-items.pipe';
     FilterEntitiesByParamsPipe,
     FilterEntitiesByFieldPipe,
     ServerErrorMessageComponent,
-    AddScheduleComponent,
     ErrorSnackBarComponent,
     TextMaskPipe,
     AlertComponent,
@@ -110,7 +102,6 @@ import { RemoveItemsPipe } from './pipes/remove-items.pipe';
     SpeLoaderComponent,
     FormatDurationPipe,
     HtmlSanitizerPipe,
-    CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
     TabHeaderComponent,
     SearchInputComponent,
@@ -146,8 +137,6 @@ import { RemoveItemsPipe } from './pipes/remove-items.pipe';
     InViewportDirective,
     AutofocusDirective,
     TablePaginationComponent,
-    AdvancedFilterComponent,
-    InputAutocompleteComponent,
     FormatDateTimePipe,
     SimpleDropdownComponent,
     CreditCardFormatPipe,
@@ -160,14 +149,12 @@ import { RemoveItemsPipe } from './pipes/remove-items.pipe';
     FilterEntitiesByParamsPipe,
     FilterEntitiesByFieldPipe,
     ServerErrorMessageComponent,
-    AddScheduleComponent,
     TextMaskPipe,
     AlertComponent,
     TableLoaderComponent,
     SpeLoaderComponent,
     FormatDurationPipe,
     HtmlSanitizerPipe,
-    CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
     TabHeaderComponent,
     SearchInputComponent,
@@ -210,7 +197,6 @@ export class SharedModule {
         SearchService,
         AnalyticsService,
         AnalyticsStorageService,
-        TransactionReportService,
         TimeService,
         SnackbarService,
         FeatureFlagService,

@@ -53,7 +53,3 @@ export function scrollByX(element: any, scrollTo: number, durationInMillis?: num
     }
   });
 }
-
-export function scrollContentToTop(durationInMillis?: number): void {
-  scrollToTop(scrollToTop(document.querySelector('.mat-sidenav-content')), durationInMillis);
-}

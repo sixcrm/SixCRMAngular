@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AffiliateAnalytics} from '../../shared/models/analytics/affiliate-analytics.model';
 import {Router} from '@angular/router';
-import {ReportColumnParams} from '../components/report-table/report-table.component';
 import {Subscription} from 'rxjs';
 import {BreadcrumbItem} from '../../pages/components/models/breadcrumb-item.model';
 import {AbstractEntityReportIndexComponent} from '../../pages/abstract-entity-report-index.component';
@@ -11,6 +10,7 @@ import {AnalyticsService} from '../../shared/services/analytics.service';
 import {utc} from 'moment';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {downloadJSON, downloadCSV} from '../../shared/utils/file.utils';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'affiliate-report',
@@ -32,18 +32,18 @@ export class AffiliateReportComponent extends AbstractEntityReportIndexComponent
     super(auth, dialog, router);
 
     this.columnParams = [
-      new ReportColumnParams('Affiliate', (e: AffiliateAnalytics) => e.affiliate || '–').setSortName('affiliate'),
-      new ReportColumnParams('Clicks', (e: AffiliateAnalytics) => e.clicks).setSortName('clicks'),
-      new ReportColumnParams('Partials Count', (e: AffiliateAnalytics) => e.partials).setSortName('partials'),
-      new ReportColumnParams('Partials Percentage', (e: AffiliateAnalytics) => e.partialsPercent.toFixed(2) + '%',).setSortName('partials_percentage'),
-      new ReportColumnParams('Declines Count', (e: AffiliateAnalytics) => e.declines).setSortName('declines'),
-      new ReportColumnParams('Declines Percentage', (e: AffiliateAnalytics) => e.declinesPercentage.toFixed(2) + '%').setSortName('declines_percentage'),
-      new ReportColumnParams('Sales Count', (e: AffiliateAnalytics) => e.sales).setSortName('sales'),
-      new ReportColumnParams('Sales Percentage', (e: AffiliateAnalytics) => e.salesPercent.toFixed(2) + '%').setSortName('sales_percentage'),
-      new ReportColumnParams('Upsell Count', (e: AffiliateAnalytics) => e.upsells).setSortName('upsells'),
-      new ReportColumnParams('Upsell Percentage', (e: AffiliateAnalytics) => e.upsellPercentage.toFixed(2) + '%').setSortName('upsells_percentage'),
-      new ReportColumnParams('Upsell Sum', (e: AffiliateAnalytics) => e.upsellRevenue.usd()).setSortName('upsells_revenue'),
-      new ReportColumnParams('Total Amount', (e: AffiliateAnalytics) => e.salesRevenue.usd()).setSortName('sales_revenue')
+      new ColumnParams('Affiliate', (e: AffiliateAnalytics) => e.affiliate || '–').setSortName('affiliate'),
+      new ColumnParams('Clicks', (e: AffiliateAnalytics) => e.clicks).setSortName('clicks'),
+      new ColumnParams('Partials Count', (e: AffiliateAnalytics) => e.partials).setSortName('partials'),
+      new ColumnParams('Partials Percentage', (e: AffiliateAnalytics) => e.partialsPercent.toFixed(2) + '%',).setSortName('partials_percentage'),
+      new ColumnParams('Declines Count', (e: AffiliateAnalytics) => e.declines).setSortName('declines'),
+      new ColumnParams('Declines Percentage', (e: AffiliateAnalytics) => e.declinesPercentage.toFixed(2) + '%').setSortName('declines_percentage'),
+      new ColumnParams('Sales Count', (e: AffiliateAnalytics) => e.sales).setSortName('sales'),
+      new ColumnParams('Sales Percentage', (e: AffiliateAnalytics) => e.salesPercent.toFixed(2) + '%').setSortName('sales_percentage'),
+      new ColumnParams('Upsell Count', (e: AffiliateAnalytics) => e.upsells).setSortName('upsells'),
+      new ColumnParams('Upsell Percentage', (e: AffiliateAnalytics) => e.upsellPercentage.toFixed(2) + '%').setSortName('upsells_percentage'),
+      new ColumnParams('Upsell Sum', (e: AffiliateAnalytics) => e.upsellRevenue.usd()).setSortName('upsells_revenue'),
+      new ColumnParams('Total Amount', (e: AffiliateAnalytics) => e.salesRevenue.usd()).setSortName('sales_revenue')
     ];
 
     this.date = {start: utc().subtract(1,'M'), end: utc()};

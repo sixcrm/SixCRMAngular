@@ -12,7 +12,7 @@ import {
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
-import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
+import {FilterTerm} from '../models/filter-term.model';
 import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
 import {HttpWrapperService, extractData, generateHeaders, FailStrategy} from './http-wrapper.service';
