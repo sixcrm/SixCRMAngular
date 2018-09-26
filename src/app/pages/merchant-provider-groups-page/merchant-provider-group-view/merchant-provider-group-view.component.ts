@@ -157,9 +157,11 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
       return isAllowedFloatNumeric(key)
     };
     dialogRef.componentInstance.inputValidatorFunction = (value) => {
-        return (value || value === 0)
-          && !isNaN(+value)
-          && +value > 0
+      if (value === '0' || value === 0) return true;
+
+      return value
+        && !isNaN(+value)
+        && +value > 0
     };
 
     dialogRef.afterClosed().subscribe(result => {
