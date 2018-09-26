@@ -123,7 +123,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         'Session': t.sessionAlias,
         'Response': t.response,
         'MID': t.merchantProvider,
-        'Refund': t.refund.amount ? t.refund.usd() : '–'
+        'Refund': t.refund.amount ? t.refund.usd() : '-'
       };
     });
   }
