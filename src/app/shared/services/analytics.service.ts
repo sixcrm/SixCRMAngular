@@ -23,6 +23,7 @@ import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 import {TransactionAnalytics} from '../models/analytics/transaction-analytics.model';
 import {OrderAnalytics} from '../models/analytics/order-analytics.model';
 import {MerchantAnalytics} from '../models/analytics/merchant-analytics.model';
+import {AffiliateAnalytics} from '../models/analytics/affiliate-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -231,6 +232,30 @@ export class AnalyticsService {
         this.analyticsStorage.setCampaignsByAmount(params.start, params.end, result);
       }
     })
+  }
+
+  getAffiliates(params: {
+    reportName?: string,
+    start: string,
+    end: string,
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
+  }): Observable<AffiliateAnalytics[] | CustomServerError> {
+    params.reportName = 'affiliateTraffic';
+
+    return this.queryRequest(analyticsDetailQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new AffiliateAnalytics(entity));
+      })
   }
 
   getMerchants(params: {

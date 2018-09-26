@@ -38,7 +38,6 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 import {SnackbarService} from './services/snackbar.service';
 import {TextMaskPipe} from './pipes/text-mask.pipe';
-import {AffiliateReportService} from './services/analytics/affiliate-report.service';
 import {AlertComponent} from './components/alert/alert.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
@@ -212,7 +211,6 @@ export class SharedModule {
         AnalyticsService,
         AnalyticsStorageService,
         TransactionReportService,
-        AffiliateReportService,
         TimeService,
         SnackbarService,
         FeatureFlagService,
