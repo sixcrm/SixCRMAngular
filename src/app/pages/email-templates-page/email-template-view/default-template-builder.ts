@@ -744,7 +744,7 @@ function getDefaultCancellationTemplateBody(): string {
 					</tbody>
 				  </table>  {{/session.watermark.products}}
 				</section>
-				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us at {{accountdetails.support_email}}
+				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us at {{accountdetails.support_phone}}
 				</div>
 			  </td>
 			</tr>
@@ -779,8 +779,8 @@ function getDefaultDeclinesTemplateBody(): string {
 				<section id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="ivvu5m" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px; color: #FC1F49; font-weight: 700;">Your payment has been declined.
 				  </div>
-				  <div id="iukpp6" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">On {{formatDate transaction.created_at 'MM/DD/YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}, however the payment was unsuccessful.
-					<div id="igxx0h" style="box-sizing: border-box; font-weight: bold;">  Please contact our customer support at {{accountdetails.support_email}} to fix your payment information and continue your order.
+				  <div id="iukpp6" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">On {{formatDate transaction.created_at 'MM/DD/YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{creditcard.type}} card ending in {{creditcard.last_four}}, however the payment was unsuccessful.
+					<div id="igxx0h" style="box-sizing: border-box; font-weight: bold;">  Please call customer support at {{accountdetails.support_phone}} to fix your payment information and continue your order.
 					</div>
 				  </div>
 				</section>
