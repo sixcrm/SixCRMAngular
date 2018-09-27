@@ -1,4 +1,4 @@
-import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
+import {FilterTerm} from '../../models/filter-term.model';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
   return `

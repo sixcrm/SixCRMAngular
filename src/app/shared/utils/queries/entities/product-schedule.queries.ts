@@ -65,13 +65,13 @@ export function productScheduleResponseQuery(): string {
   return `
     id name created_at updated_at,
     schedule { price start end period samedayofmonth,
-      product { id name ship attributes { images { path default_image } } }
+      product { id name ship sku dynamic_pricing {min, max} attributes { images { path default_image } } }
     },
     emailtemplates { id, name, subject, smtp_provider { id name } }`
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name created_at updated_at schedule { start samedayofmonth end period price product {id name default_price attributes {images {path default_image}}} }`
+  return `id name created_at updated_at schedule { start samedayofmonth end period price product {id sku name default_price description dynamic_pricing {min, max} attributes {images {path default_image}}} }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {

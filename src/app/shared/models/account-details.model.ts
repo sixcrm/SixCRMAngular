@@ -27,6 +27,8 @@ export class CustomBlock {
 
 export class EmailTemplateSettings {
   colorPrimary: string;
+  colorSecondary: string;
+  colorTertiary: string;
   customBlocks: CustomBlock[];
 
   constructor(obj?: any) {
@@ -34,13 +36,17 @@ export class EmailTemplateSettings {
       obj = {};
     }
 
-    this.colorPrimary = obj.color_primary || 'ffffff';
+    this.colorPrimary = (obj.color_primary || '').replace(/#/g, '');
+    this.colorSecondary = (obj.color_secondary || '').replace(/#/g, '');
+    this.colorTertiary = (obj.color_tertiary || '').replace(/#/g, '');
     this.customBlocks = (obj.custom_blocks || []).map(cb => new CustomBlock(cb));
   }
 
   inverse(): any {
     return {
       color_primary: this.colorPrimary,
+      color_secondary: this.colorSecondary,
+      color_tertiary: this.colorTertiary,
       custom_blocks: this.customBlocks.map(cb => cb.inverse())
     }
   }
@@ -49,7 +55,9 @@ export class EmailTemplateSettings {
 export class AccountDetails implements Entity<AccountDetails> {
   id: string;
   companyLogo: string;
-  supportLink: boolean;
+  supportLink: string;
+  supportPhone: string;
+  supportEmail: string;
   emailTemplateSettings: EmailTemplateSettings;
   createdAt: Moment;
   updatedAt: Moment;
@@ -63,6 +71,8 @@ export class AccountDetails implements Entity<AccountDetails> {
     this.id = obj.id || '';
     this.companyLogo = obj.company_logo || '';
     this.supportLink = obj.support_link || '';
+    this.supportPhone = obj.support_phone || '';
+    this.supportEmail = obj.support_email || '';
     this.emailTemplateSettings = new EmailTemplateSettings(obj.emailtemplatesettings);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
@@ -78,6 +88,8 @@ export class AccountDetails implements Entity<AccountDetails> {
       id: this.id,
       company_logo: this.companyLogo,
       support_link: this.supportLink,
+      support_phone: this.supportPhone,
+      support_email: this.supportEmail,
       emailtemplatesettings: this.emailTemplateSettings.inverse(),
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI

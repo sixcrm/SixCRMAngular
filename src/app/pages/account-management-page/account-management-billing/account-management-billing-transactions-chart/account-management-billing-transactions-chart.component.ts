@@ -4,7 +4,7 @@ import {AnalyticsService} from '../../../../shared/services/analytics.service';
 import {TransactionSummary} from '../../../../shared/models/transaction-summary.model';
 import {utc, Moment} from 'moment';
 import {Subscription} from 'rxjs';
-import {flatDown, flatUp} from '../../../../shared/components/advanced-filter/advanced-filter.component';
+import {flatDown, flatUp} from '../../../../shared/models/filter-term.model';
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
 

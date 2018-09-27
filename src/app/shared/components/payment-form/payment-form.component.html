@@ -46,11 +46,21 @@
     </mat-form-field>
 
     <mat-form-field [class.error]="formInvalid && !isCountryValid(address.country)">
-      <input type="text" required matInput [(ngModel)]="address.country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}">
+      <input type="text" matInput [(ngModel)]="address.country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}" required [matAutocomplete]="countriesAutocomplete">
+      <mat-autocomplete #countriesAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let country of countries | filterStrings: address.country: plainMapper" [value]="country">
+          <div>{{country}}</div>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field [class.error]="formInvalid && !isStateValid(address.state)">
-      <input type="text" required matInput [(ngModel)]="address.state" placeholder="{{'FORMINPUTS_STATE' | translate}}">
+      <input type="text" matInput [(ngModel)]="address.state" placeholder="{{'FORMINPUTS_STATE' | translate}}" required [matAutocomplete]="statesAutocomplete">
+      <mat-autocomplete #statesAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let state of states | filterStrings: address.state: plainMapper" [value]="state">
+          <div>{{state}}</div>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
   </div>
 

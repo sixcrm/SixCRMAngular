@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {MerchantReport} from '../../shared/models/analytics/merchant-report.model';
+import {MerchantAnalytics} from '../../shared/models/analytics/merchant-analytics.model';
 import {TranslationService} from '../../translation/translation.service';
 
 @Component({
@@ -10,9 +10,9 @@ import {TranslationService} from '../../translation/translation.service';
 export class MerchantReportChartComponent implements OnInit {
 
   chartInstance;
-  reportsToDisplay: MerchantReport[];
+  reportsToDisplay: MerchantAnalytics[];
 
-  @Input() set reports(merchantReports: MerchantReport[]) {
+  @Input() set reports(merchantReports: MerchantAnalytics[]) {
     if (merchantReports && merchantReports.length > 0) {
       this.reportsToDisplay = merchantReports;
     }
@@ -99,10 +99,10 @@ export class MerchantReportChartComponent implements OnInit {
 
     this.loaded = true;
 
-    this.chartInstance.axes[0].categories = this.reportsToDisplay.map(r => r.merchantProvider.name || r.merchantProvider.id);
+    this.chartInstance.axes[0].categories = this.reportsToDisplay.map(r => r.gateway);
     this.chartInstance.series[0].setData(
       this.reportsToDisplay.map((r, i) => {
-        return {y: +r.saleGrossRevenue.amount, color: this.colors[i % 5]}
+        return {y: +r.salesRevenue.amount, color: this.colors[i % 5]}
       }), true);
   }
 

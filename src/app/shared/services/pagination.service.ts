@@ -16,8 +16,4 @@ export class PaginationService {
     this.limit$.next(limit)
   }
 
-  setSearchResultsLimit(limit: number): void {
-    this.searchResultsLimit$.next(limit);
-  }
-
 }

@@ -21,6 +21,10 @@ export class PerfectMatchComponent implements OnInit {
   }
 
   getName(): string {
+    if (this.entity.fields.entity_type === 'affiliate') {
+      return this.entity.fields.name || 'Unnamed Affiliate';
+    }
+
     return this.entity.fields.name || this.entity.fields.alias || `${this.entity.fields.firstname}  ${this.entity.fields.lastname}`;
   }
 

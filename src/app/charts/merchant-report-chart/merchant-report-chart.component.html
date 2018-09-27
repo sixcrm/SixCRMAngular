@@ -9,6 +9,5 @@
   </div>
   <chart style="display: block" *ngIf="!loaded" [options]="loaderOptions"></chart>
 
-
   <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!reportsToDisplay || reportsToDisplay.length === 0)">{{'MERCHANTREPORT_CHART_NODATA' | translate}}</div>
 </div>

@@ -1,0 +1,34 @@
+<div class="image-upload">
+  <div
+          class="dropzone"
+          ng2FileDrop
+          (fileOver)="fileOnDropzone($event)"
+          [class.dropzone--with-content]="filePreviewPath"
+          [class.dropzone--file-over]="onDropzone"
+          type="file"
+          [uploader]="uploader">
+    <ng-container *ngIf="!filePreviewPath; else preview">
+      <div class="dropzone__text">{{'PRODUCT_IMAGE_UPLOAD_DRAGDROP' | translate}}</div>
+      <label class="select">
+        <input type="file" ng2FileSelect [uploader]="uploader"/>
+        {{'PRODUCT_IMAGE_UPLOAD_SELECT' | translate}}
+      </label>
+      <div class="allowed-instructions">
+        <div>JPG, JPEG, SVG or PNG</div>
+        <div>max size 1MB</div>
+      </div>
+    </ng-container>
+    <ng-template #preview>
+      <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone" style="width: 100%;"/>
+    </ng-template>
+
+    <div class="upload-spinner" *ngIf="uploadInProgress">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>
+
+<div class="entity-view__card__actions">
+  <div (click)="clearImage()">CLEAR</div>
+  <div (click)="uploadImage()">UPLOAD</div>
+</div>

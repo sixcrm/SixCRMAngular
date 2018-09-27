@@ -28,7 +28,7 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
 
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'AFFILIATE_INDEX_TITLE', url: '/affiliates'},
-    {label: () => this.entity.name}
+    {label: () => this.entity.name || 'Unnamed Affiliate'}
   ];
 
   constructor(service: AffiliatesService, route: ActivatedRoute, public navigation: NavigationService) {
@@ -51,12 +51,6 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
   cancelEdit() {
     this.formInvalid = false;
     this.cancelUpdate();
-  }
-
-  editAffiliate() {
-    setTimeout(() => {if (this.nameInput) this.nameInput.focus()}, 100);
-
-    this.setMode(this.modes.Update);
   }
 
   saveAffiliate(value: boolean) {

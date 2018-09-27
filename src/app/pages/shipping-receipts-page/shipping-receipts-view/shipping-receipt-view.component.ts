@@ -39,6 +39,12 @@ export class ShippingReceiptViewComponent extends AbstractEntityViewComponent<Sh
     }
   }
 
+  goToRebill(): void {
+    if (this.entity.rebill.id) {
+      this.router.navigate(['/customers', 'advanced'], {queryParams: {order: this.entity.rebill.id}})
+    }
+  }
+
   ngOnInit() {
     super.init(() => this.navigation.goToNotFoundPage());
   }
