@@ -26,12 +26,12 @@ function getDefaultInitialOrderTemplateBody(): string {
 		  <tbody id="ieefy" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="iu7pb" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="in50k" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px;">Thank you for your order, {{customer.firstname}}!
 				  </div>
 				  <div id="irq2q" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">We’re getting your order ready to be shipped. We will notify you once it has been shipped out.
 				  </div>
-				</section>
+				</div>
 				<div id="i71bh" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="izcqa" style="box-sizing: border-box;">Order Details
 				  </b>
@@ -40,7 +40,7 @@ function getDefaultInitialOrderTemplateBody(): string {
 				  <tbody id="iqdi2" style="box-sizing: border-box;">
 					<tr id="irbyv" style="box-sizing: border-box;">
 					  <td id="iey8k" style="box-sizing: border-box; padding: 0 0 0 0;">
-						<section id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						<div id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 						  <table id="ifedw" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
 							<tbody id="ickv4" style="box-sizing: border-box;">
 							  <tr id="iw03h" style="box-sizing: border-box;">
@@ -55,8 +55,8 @@ function getDefaultInitialOrderTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>
-						</section>
-						<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#order.products}}
+						</div>
+						<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#order.products}}
 						  <table id="ijpss" width="100%" style="box-sizing: border-box; font-size: 13px; border-bottom: 1px solid #E5E5E5; margin: 0 0 0 0; width: 100%;">
 							<tbody id="ic41g" style="box-sizing: border-box;">
 							  <tr id="iwfau" style="box-sizing: border-box; padding: 0 10px 0 0;">
@@ -84,9 +84,9 @@ function getDefaultInitialOrderTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>{{/order.products}}    
-						</section>
+						</div>
 						<div id="ivhau" style="box-sizing: border-box;">
-						  <section id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						  <div id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 							<table id="ign7z4" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; color: #5F6368;">
 							  <tbody id="ia0qi" style="box-sizing: border-box;">
 								<tr id="ip5as" style="box-sizing: border-box;">
@@ -115,10 +115,10 @@ function getDefaultInitialOrderTemplateBody(): string {
 								</tr>
 							  </tbody>
 							</table>{{/rebill.shipping_receipts}}    
-						  </section>
-						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
+						  </div>
+						  <div id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
 							<span id="i7tugt" style="box-sizing: border-box; font-weight: bold;">\${{order.amount}}</span>
-						  </section>
+						  </div>
 						</div>
 					  </td>
 					</tr>
@@ -132,7 +132,7 @@ function getDefaultInitialOrderTemplateBody(): string {
 				  <tbody id="i4bi6" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" tyle="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -147,10 +147,10 @@ function getDefaultInitialOrderTemplateBody(): string {
 							<div id="iy1cg" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -169,7 +169,7 @@ function getDefaultInitialOrderTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
@@ -205,13 +205,13 @@ function getDefaultAllOrdersTemplateBody(): string {
 		  <tbody id="iig6lq" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="in2ccq" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="in50k" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px;">Thank you for your order, {{customer.firstname}}!  
 				  </div>
 				  <div id="irq2q" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">We’re getting your order ready to be shipped. We will notify you once it has been shipped out.  
 				  </div>
-				</section>
-				<div id="ike668" tyle="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
+				</div>
+				<div id="ike668" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="i8x4jj" style="box-sizing: border-box;">Order Details  
 				  </b>
 				</div>
@@ -219,7 +219,7 @@ function getDefaultAllOrdersTemplateBody(): string {
 				  <tbody id="iq36nw" style="box-sizing: border-box;">
 					<tr id="iraujk" style="box-sizing: border-box;">
 					  <td id="iey8k" style="box-sizing: border-box; padding: 0 0 0 0;">
-						<section id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						<div id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 						  <table id="ifedw" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
 							<tbody id="i9ja81" style="box-sizing: border-box;">
 							  <tr id="ixdry6" style="box-sizing: border-box;">
@@ -234,8 +234,8 @@ function getDefaultAllOrdersTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>
-						</section>
-						<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}  
+						</div>
+						<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}  
 						  <table id="ijpss" width="100%" style="box-sizing: border-box; font-size: 13px; border-bottom: 1px solid #E5E5E5; margin: 0 0 0 0; width: 100%;">
 							<tbody id="ic1ski" style="box-sizing: border-box;">
 							  <tr id="iwfau" style="box-sizing: border-box; padding: 0 10px 0 0;">
@@ -263,9 +263,9 @@ function getDefaultAllOrdersTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>{{/rebill.products}}    
-						</section>
+						</div>
 						<div id="i33ue7" style="box-sizing: border-box;">
-						  <section id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						  <div id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 							<table id="ign7z4" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; color: #5F6368;">
 							  <tbody id="ibv3tl" style="box-sizing: border-box;">
 								<tr id="i84uln" style="box-sizing: border-box;">
@@ -294,10 +294,10 @@ function getDefaultAllOrdersTemplateBody(): string {
 								</tr>
 							  </tbody>
 							</table>{{/rebill.shipping_receipts}}      
-						  </section>
-						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
+						  </div>
+						  <div id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
 							<span id="i7tugt" style="box-sizing: border-box; font-weight: bold;">\${{order.amount}}</span>
-						  </section>
+						  </div>
 						</div>
 					  </td>
 					</tr>
@@ -311,7 +311,7 @@ function getDefaultAllOrdersTemplateBody(): string {
 				  <tbody id="isdc2p" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address  
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -326,10 +326,10 @@ function getDefaultAllOrdersTemplateBody(): string {
 							<div id="iv7vpi" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information  
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -348,7 +348,7 @@ function getDefaultAllOrdersTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}  
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
@@ -383,14 +383,14 @@ function getDefaultRefundTemplateBody(): string {
 		  <tbody id="imkek" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="ib25k" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="ifn1wg" style="box-sizing: border-box; margin-bottom: 12PX; font-size: 22px;">Your refund has been processed.
 				  </div>
 				  <div id="if23ds" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">Transaction #{{transaction.alias}} was refunded for 
 					<b id="i1rcpl" data-highlightable="1" style="box-sizing: border-box; color: #1EBEA5;">\${{refund.amount}}
 					</b> on {{formatDate refund.created_at 'MMM D, YYYY'}}
 				  </div>
-				</section>
+				</div>
 				<div id="i3tt6" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="i1wve" style="box-sizing: border-box;">Order Details    
 				  </b>
@@ -399,7 +399,7 @@ function getDefaultRefundTemplateBody(): string {
 				  <tbody id="ilnqo" style="box-sizing: border-box;">
 					<tr id="i8muv" style="box-sizing: border-box;">
 					  <td id="iey8k" style="box-sizing: border-box; padding: 0 0 0 0;">
-						<section id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						<div id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 						  <table id="ifedw" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
 							<tbody id="izwkh" style="box-sizing: border-box;">
 							  <tr id="i4rdj" style="box-sizing: border-box;">
@@ -414,8 +414,8 @@ function getDefaultRefundTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>
-						</section>
-						<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}
+						</div>
+						<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}
 						  <table id="ijpss" width="100%" style="box-sizing: border-box; font-size: 13px; border-bottom: 1px solid #E5E5E5; margin: 0 0 0 0; width: 100%;">
 							<tbody id="ii9sg" style="box-sizing: border-box;">
 							  <tr id="iwfau" style="box-sizing: border-box; padding: 0 10px 0 0;">
@@ -443,9 +443,9 @@ function getDefaultRefundTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table> {{/rebill.products}}    
-						</section>
+						</div>
 						<div id="i0wpl" style="box-sizing: border-box;">
-						  <section id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						  <div id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 							<table id="ign7z4" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; color: #5F6368;">
 							  <tbody id="id80e" style="box-sizing: border-box;">
 								<tr id="imtfn" style="box-sizing: border-box;">
@@ -474,10 +474,10 @@ function getDefaultRefundTemplateBody(): string {
 								</tr>
 							  </tbody>
 							</table>{{/rebill.shipping_receipts}}
-						  </section>
-						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0; color: #1EBEA5;">Total refunded
+						  </div>
+						  <div id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0; color: #1EBEA5;">Total refunded
 							<span id="i7tugt" data-highlightable="1" style="box-sizing: border-box; font-weight: bold; margin-left: 5px;">\${{refund.amount}}</span>
-						  </section>
+						  </div>
 						</div>
 					  </td>
 					</tr>
@@ -491,7 +491,7 @@ function getDefaultRefundTemplateBody(): string {
 				  <tbody id="iuox2l" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address    
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -506,10 +506,10 @@ function getDefaultRefundTemplateBody(): string {
 							<div id="ivzjau" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information    
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -528,7 +528,7 @@ function getDefaultRefundTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}    
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
@@ -563,7 +563,7 @@ function getDefaultReturnTemplateBody(): string {
 		  <tbody id="iknpw5" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="ipewug" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="is53eh" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px;">Your return has been processed.  
 				  </div>
 				  <div id="il9p18" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">We have received the items from 
@@ -572,12 +572,12 @@ function getDefaultReturnTemplateBody(): string {
 					<div id="iprfvq" style="box-sizing: border-box;">You will receive a separate message when refund for this purchase has been completed.
 					</div>
 				  </div>
-				</section>
+				</div>
 				<div id="ikyrfj" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="idkssy" style="box-sizing: border-box;">Return Details      
 				  </b>
 				</div>
-				<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; border: 1px solid rgba(0,0,0,0.12);">{{#return.transactions}}{{#products}}  
+				<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; border: 1px solid rgba(0,0,0,0.12);">{{#return.transactions}}{{#products}}  
 				  <table id="i9j57" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; border-bottom: 1px solid #E5E5E5;">
 					<tbody id="inw1g" style="box-sizing: border-box;">
 					  <tr id="imwad" style="box-sizing: border-box;">
@@ -605,7 +605,7 @@ function getDefaultReturnTemplateBody(): string {
 					  </tr>
 					</tbody>
 				  </table>{{/products}}{{/return.transactions}}    
-				</section>
+				</div>
 				<div id="igick8" style="box-sizing: border-box; padding: 0 0 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="iz1smi" style="box-sizing: border-box;">Customer Information      
 				  </b>
@@ -614,7 +614,7 @@ function getDefaultReturnTemplateBody(): string {
 				  <tbody id="i3hv9l" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address      
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -629,10 +629,10 @@ function getDefaultReturnTemplateBody(): string {
 							<div id="iq1qve" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information      
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -651,7 +651,7 @@ function getDefaultReturnTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}      
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
@@ -686,13 +686,13 @@ function getDefaultCancellationTemplateBody(): string {
 		  <tbody id="illui" style="box-sizing: border-box;">
 			<tr id="im03yh" style="box-sizing: border-box; height: 100px;">
 			  <td id="i16gg" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="imvhr" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px; color: #FC1F49;">Your order has been cancelled.
 				  </div>
 				  <div id="iz8kk" style="box-sizing: border-box; line-height: 24px; color: #5F6368; margin: 0 0 20px 0;">This is to confirm that you order #{{session.alias}} has been cancelled.
 				  </div>
-				</section>
-				<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">  {{#session.watermark.product_schedules}}      
+				</div>
+				<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">  {{#session.watermark.product_schedules}}      
 				  <table id="ip6v1l" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; border-bottom: 1px solid #E5E5E5;">
 					<tbody id="igmdgj" style="box-sizing: border-box;">
 					  <tr id="ip0mm5" style="box-sizing: border-box;">
@@ -717,8 +717,8 @@ function getDefaultCancellationTemplateBody(): string {
 					  </tr>
 					</tbody>
 				  </table>  {{/session.watermark.product_schedules}}
-				</section>
-				<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">  {{#session.watermark.products}}    
+				</div>
+				<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">  {{#session.watermark.products}}    
 				  <table id="imfarb" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; border-bottom: 1px solid #E5E5E5;">
 					<tbody id="iof2g7" style="box-sizing: border-box;">
 					  <tr id="i4t34j" style="box-sizing: border-box;">
@@ -743,7 +743,7 @@ function getDefaultCancellationTemplateBody(): string {
 					  </tr>
 					</tbody>
 				  </table>  {{/session.watermark.products}}
-				</section>
+				</div>
 				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us at {{accountdetails.support_phone}}
 				</div>
 			  </td>
@@ -776,14 +776,14 @@ function getDefaultDeclinesTemplateBody(): string {
 		  <tbody id="ifhbk" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="iyxoz" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="ivvu5m" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px; color: #FC1F49; font-weight: 700;">Your payment has been declined.
 				  </div>
 				  <div id="iukpp6" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">On {{formatDate transaction.created_at 'MM/DD/YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{creditcard.type}} card ending in {{creditcard.last_four}}, however the payment was unsuccessful.
 					<div id="igxx0h" style="box-sizing: border-box; font-weight: bold;">  Please call customer support at {{accountdetails.support_phone}} to fix your payment information and continue your order.
 					</div>
 				  </div>
-				</section>
+				</div>
 				<div id="i8o1g" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="i2quf" style="box-sizing: border-box;">Order Details    
 				  </b>
@@ -792,7 +792,7 @@ function getDefaultDeclinesTemplateBody(): string {
 				  <tbody id="iz4hu" style="box-sizing: border-box;">
 					<tr id="i0yln" style="box-sizing: border-box;">
 					  <td id="iey8k" style="box-sizing: border-box; padding: 0 0 0 0;">
-						<section id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						<div id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 						  <table id="ifedw" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
 							<tbody id="iob27" style="box-sizing: border-box;">
 							  <tr id="id17x" style="box-sizing: border-box;">
@@ -807,8 +807,8 @@ function getDefaultDeclinesTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>
-						</section>
-						<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}
+						</div>
+						<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}
 						  <table id="ijpss" width="100%" style="box-sizing: border-box; font-size: 13px; border-bottom: 1px solid #E5E5E5; margin: 0 0 0 0; width: 100%;">
 							<tbody id="i4xhe" style="box-sizing: border-box;">
 							  <tr id="iwfau" style="box-sizing: border-box; padding: 0 10px 0 0;">
@@ -836,9 +836,9 @@ function getDefaultDeclinesTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>{{/rebill.products}}    
-						</section>
+						</div>
 						<div id="imgz8" style="box-sizing: border-box;">
-						  <section id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						  <div id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 							<table id="ign7z4" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; color: #5F6368;">
 							  <tbody id="in0pf" style="box-sizing: border-box;">
 								<tr id="i1ldm" style="box-sizing: border-box;">
@@ -867,10 +867,10 @@ function getDefaultDeclinesTemplateBody(): string {
 								</tr>
 							  </tbody>
 							</table>{{/rebill.shipping_receipts}}
-						  </section>
-						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
+						  </div>
+						  <div id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
 							<span id="i7tugt" style="box-sizing: border-box; font-weight: bold;">\${{order.amount}}</span>
-						  </section>
+						  </div>
 						</div>
 					  </td>
 					</tr>
@@ -884,7 +884,7 @@ function getDefaultDeclinesTemplateBody(): string {
 				  <tbody id="is9py" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address    
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -899,10 +899,10 @@ function getDefaultDeclinesTemplateBody(): string {
 							<div id="i0old" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information    
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -921,7 +921,7 @@ function getDefaultDeclinesTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}    
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
@@ -956,17 +956,17 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 		  <tbody id="ithh9" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="izrrw" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="in50k" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px;">Your order is on the way!    
 				  </div>
 				  <div id="irq2q" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">You can track your shipment by clicking the tracking number below.    
 				  </div>
-				</section>
+				</div>
 				<div id="ifz3c" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="i1nsw" style="box-sizing: border-box;">Order Details    
 				  </b>
 				</div>
-				<section id="fulfillment-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">
+				<div id="fulfillment-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">
 				  <table id="ixye0d" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; margin: 0 0 25px 0;">
 					<tbody id="id78mq" style="box-sizing: border-box;">
 					  <tr id="iw1ztu" style="box-sizing: border-box;">
@@ -989,12 +989,12 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 					  </tr>
 					</tbody>
 				  </table>
-				</section>
+				</div>
 				<table width="100%" height="60" id="i805o" style="box-sizing: border-box; height: 60px; width: 100%; font-size: 13px; border: 1px solid rgba(0,0,0,0.12);">
 				  <tbody id="izmjf" style="box-sizing: border-box;">
 					<tr id="iqdxw" style="box-sizing: border-box;">
 					  <td id="iey8k" style="box-sizing: border-box; padding: 0 0 0 0;">
-						<section id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						<div id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 						  <table id="ifedw" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
 							<tbody id="ikdtj" style="box-sizing: border-box;">
 							  <tr id="in3hj" style="box-sizing: border-box;">
@@ -1009,8 +1009,8 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>
-						</section>
-						<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}
+						</div>
+						<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}
 						  <table id="ijpss" width="100%" style="box-sizing: border-box; font-size: 13px; border-bottom: 1px solid #E5E5E5; margin: 0 0 0 0; width: 100%;">
 							<tbody id="islke" style="box-sizing: border-box;">
 							  <tr id="iwfau" style="box-sizing: border-box; padding: 0 10px 0 0;">
@@ -1038,9 +1038,9 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>{{/rebill.products}}    
-						</section>
+						</div>
 						<div id="izyhn" style="box-sizing: border-box;">
-						  <section id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						  <div id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 							<table id="ign7z4" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; color: #5F6368;">
 							  <tbody id="ihmmc" style="box-sizing: border-box;">
 								<tr id="insy4" style="box-sizing: border-box;">
@@ -1069,10 +1069,10 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 								</tr>
 							  </tbody>
 							</table>{{/rebill.shipping_receipts}}
-						  </section>
-						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
+						  </div>
+						  <div id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
 							<span id="i7tugt" style="box-sizing: border-box; font-weight: bold;">\${{rebill.amount}}</span>
-						  </section>
+						  </div>
 						</div>
 					  </td>
 					</tr>
@@ -1086,7 +1086,7 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 				  <tbody id="i1nbg" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address    
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -1101,10 +1101,10 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 							<div id="io1pd" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information    
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -1123,7 +1123,7 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}    
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
@@ -1158,17 +1158,17 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 		  <tbody id="ithh9" style="box-sizing: border-box;">
 			<tr id="if7y4" style="box-sizing: border-box; height: 100px;">
 			  <td id="izrrw" style="box-sizing: border-box;">
-				<section id="title-section" style="box-sizing: border-box; text-align: center;">
+				<div id="title-section" style="box-sizing: border-box; text-align: center;">
 				  <div id="in50k" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px;">Your order is on the way!      
 				  </div>
 				  <div id="irq2q" style="box-sizing: border-box; line-height: 24px; color: #5F6368;">You can track your shipment by clicking the tracking number below.      
 				  </div>
-				</section>
+				</div>
 				<div id="ifz3c" style="box-sizing: border-box; padding: 0 10px 0 0; font-size: 18px; line-height: 22px; margin: 16px 0 12px 0; text-align: left;">
 				  <b id="i1nsw" style="box-sizing: border-box;">Order Details      
 				  </b>
 				</div>
-				<section id="fulfillment-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">
+				<div id="fulfillment-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">
 				  <table id="ixye0d" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; margin: 0 0 25px 0;">
 					<tbody id="id78mq" style="box-sizing: border-box;">
 					  <tr id="iw1ztu" style="box-sizing: border-box;">
@@ -1191,12 +1191,12 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 					  </tr>
 					</tbody>
 				  </table>
-				</section>
+				</div>
 				<table width="100%" height="60" id="i805o" style="box-sizing: border-box; height: 60px; width: 100%; font-size: 13px; border: 1px solid rgba(0,0,0,0.12);">
 				  <tbody id="izmjf" style="box-sizing: border-box;">
 					<tr id="iqdxw" style="box-sizing: border-box;">
 					  <td id="iey8k" style="box-sizing: border-box; padding: 0 0 0 0;">
-						<section id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						<div id="order-basic-details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 						  <table id="ifedw" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
 							<tbody id="ikdtj" style="box-sizing: border-box;">
 							  <tr id="in3hj" style="box-sizing: border-box;">
@@ -1211,8 +1211,8 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>
-						</section>
-						<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}  
+						</div>
+						<div id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto; padding: 0 0 0 0;">{{#rebill.products}}  
 						  <table id="ijpss" width="100%" style="box-sizing: border-box; font-size: 13px; border-bottom: 1px solid #E5E5E5; margin: 0 0 0 0; width: 100%;">
 							<tbody id="islke" style="box-sizing: border-box;">
 							  <tr id="iwfau" style="box-sizing: border-box; padding: 0 10px 0 0;">
@@ -1240,9 +1240,9 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 							  </tr>
 							</tbody>
 						  </table>{{/rebill.products}}    
-						</section>
+						</div>
 						<div id="izyhn" style="box-sizing: border-box;">
-						  <section id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
+						  <div id="order-pricing--details-section" style="box-sizing: border-box; max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 10px 10px 10px;">
 							<table id="ign7z4" width="100%" style="box-sizing: border-box; width: 100%; font-size: 13px; color: #5F6368;">
 							  <tbody id="ihmmc" style="box-sizing: border-box;">
 								<tr id="insy4" style="box-sizing: border-box;">
@@ -1271,10 +1271,10 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 								</tr>
 							  </tbody>
 							</table>{{/rebill.shipping_receipts}}  
-						  </section>
-						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
+						  </div>
+						  <div id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0;">Total 
 							<span id="i7tugt" style="box-sizing: border-box; font-weight: bold;">\${{rebill.amount}}</span>
-						  </section>
+						  </div>
 						</div>
 					  </td>
 					</tr>
@@ -1288,7 +1288,7 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 				  <tbody id="i1nbg" style="box-sizing: border-box;">
 					<tr id="ir6kji" valign="top" style="box-sizing: border-box; vertical-align: top;">
 					  <td id="i2jjhm" width="50%" style="box-sizing: border-box; width: 50%; padding: 30px 0 30px 30px;">
-						<section id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
+						<div id="customer-shipping-section" style="box-sizing: border-box; text-align: left; height: 100%;">
 						  <div id="i3os5f" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Shipping Address      
 						  </div>
 						  <div id="i3l4a2" style="box-sizing: border-box; color: #5F6368;">
@@ -1303,10 +1303,10 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 							<div id="io1pd" style="box-sizing: border-box;">{{customer.address.zip}}
 							</div>
 						  </div>
-						</section>
+						</div>
 					  </td>
 					  <td id="iiqavj" width="50%" style="box-sizing: border-box; width: 50%;">
-						<section id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
+						<div id="customer-billing-section" style="box-sizing: border-box; text-align: left; padding: 30px 30px 30px 0;">
 						  <div id="i68b31" style="box-sizing: border-box; line-height: 24px; font-weight: bold;">Billing Information      
 						  </div>
 						  <div id="iu5hp4" style="box-sizing: border-box; color: #5F6368;">
@@ -1325,7 +1325,7 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 						  </div>
 						  <div id="i1okl3" style="box-sizing: border-box; color: #5F6368;">{{creditcard.type}} ****{{creditcard.last_four}}      
 						  </div>
-						</section>
+						</div>
 					  </td>
 					</tr>
 				  </tbody>
