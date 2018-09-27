@@ -216,11 +216,13 @@ function setSimpleStorageManager(editor, parent: {templateBody: string}) {
 
 function advancedDevicesPlugin(editor) {
   const cmdm = editor.Commands;
+  const deviceManager = editor.DeviceManager;
 
+  deviceManager.add('Mobile large', '400px');
 
   cmdm.add('set-device-mobile', {
     run(editor) {
-      editor.setDevice('Mobile portrait');
+      editor.setDevice('Mobile large');
     }
   });
 
