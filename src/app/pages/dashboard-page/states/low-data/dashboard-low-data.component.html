@@ -6,8 +6,10 @@
           <div>Welcome back, {{name}}</div>
           <div class="total-revenue-text">{{'DASHBOARD_STATE_LOWDATA_TOTALREVENUE' | translate}}</div>
           <div class="total-revenue-amount">
-            <div>$</div>
-            <div *ngIf="revenue">{{revenue | numberlocale}}</div>
+            <ng-container *ngIf="revenue">
+              <div>$</div>
+              <div>{{revenue.parsedAmount()}}</div>
+            </ng-container>
           </div>
         </div>
 
