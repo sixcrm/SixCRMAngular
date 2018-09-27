@@ -476,7 +476,7 @@ function getDefaultRefundTemplateBody(): string {
 							</table>{{/rebill.shipping_receipts}}
 						  </section>
 						  <section id="ip3r2q" style="box-sizing: border-box; text-align: right; max-width: 650px; margin: 10px auto 0; font-size: 20px; padding: 0 10px 10px 0; color: #1EBEA5;">Total refunded
-							<span id="i7tugt" data-highlightable="1" style="box-sizing: border-box; font-weight: bold;">\${{refund.amount}}</span>
+							<span id="i7tugt" data-highlightable="1" style="box-sizing: border-box; font-weight: bold; margin-left: 5px;">\${{refund.amount}}</span>
 						  </section>
 						</div>
 					  </td>
