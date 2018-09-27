@@ -182,8 +182,7 @@ function getDefaultInitialOrderTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="iso3d" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via 
-		  <a href="mailto:{{accountdetails.support_email}}" id="itsg8" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="iso3d" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -362,8 +361,7 @@ function getDefaultAllOrdersTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="ipu2az" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via   
-		  <a href="mailto:{{accountdetails.support_email}}" id="idcf5j" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="ipu2az" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -543,8 +541,7 @@ function getDefaultRefundTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="ikx6jz" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via     
-		  <a href="mailto:{{accountdetails.support_email}}" id="ihi6hl" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="ikx6jz" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -667,8 +664,7 @@ function getDefaultReturnTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="itn2zy" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via       
-		  <a href="mailto:{{accountdetails.support_email}}" id="iyhun8" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="itn2zy" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -758,8 +754,7 @@ function getDefaultCancellationTemplateBody(): string {
 	</tr>
 	<tr id="ikh60z" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i96arz" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="ib48y" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via 
-		  <a href="mailto:{{accountdetails.support_email}}" id="ikkxh" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="ib48y" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -939,8 +934,7 @@ function getDefaultDeclinesTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="ius4s" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via     
-		  <a href="mailto:{{accountdetails.support_email}}" id="ix186" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="ius4s" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -1142,8 +1136,7 @@ function getDefaultInitialFulfillmentTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="ifhui" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via     
-		  <a href="mailto:{{accountdetails.support_email}}" id="ix8aw" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="ifhui" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
@@ -1345,8 +1338,7 @@ function getDefaultAllFulfillmentsTemplateBody(): string {
 	</tr>
 	<tr id="ik7kh" style="box-sizing: border-box; width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
 	  <td id="i567d" align="center" style="box-sizing: border-box; text-align: center; padding: 7px 12px;">
-		<div id="ifhui" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via       
-		  <a href="mailto:{{accountdetails.support_email}}" id="ix8aw" style="box-sizing: border-box;">{{accountdetails.support_email}}</a>
+		<div id="ifhui" style="box-sizing: border-box;">If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_email}}
 		</div>
 	  </td>
 	</tr>
