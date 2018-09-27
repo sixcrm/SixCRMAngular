@@ -694,7 +694,6 @@ function getDefaultCancellationTemplateBody(): string {
 				  <div id="imvhr" style="box-sizing: border-box; margin-bottom: 12px; font-size: 22px; color: #FC1F49;">Your order has been cancelled.
 				  </div>
 				  <div id="iz8kk" style="box-sizing: border-box; line-height: 24px; color: #5F6368; margin: 0 0 20px 0;">This is to confirm that you order #{{session.alias}} has been cancelled.
-					<br id="iwykk" style="box-sizing: border-box;">If payment was already received, you can expect to see a refund shortly.
 				  </div>
 				</section>
 				<section id="order-products-details-section" style="box-sizing: border-box; max-width: 650px; margin: 0 auto;">  {{#session.watermark.product_schedules}}      
@@ -749,7 +748,7 @@ function getDefaultCancellationTemplateBody(): string {
 					</tbody>
 				  </table>  {{/session.watermark.products}}
 				</section>
-				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us on {{accountdetails.support_email}}
+				<div id="i09ug" style="box-sizing: border-box; padding: 10px; text-align: center; color: #5F6368; font-weight: 700; margin: 60px 0 0 0;">If you did not request this cancellation, or if there is anything we can do to help, please don't hesitate to contact us at {{accountdetails.support_email}}
 				</div>
 			  </td>
 			</tr>
