@@ -114,9 +114,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if ((authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
     setup.children.push({label: 'Product Schedules', url: 'productschedules'});
   }
-  // if ((authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
-  //   setup.children.push({label: 'Email Templates', url: 'emailtemplates'});
-  // }
+  if ((authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
+    setup.children.push({label: 'Email Templates', url: 'emailtemplates'});
+  }
   if (setup.children.length > 0) {
     setup.children.unshift({label: 'Product Setup', isHeader: true});
 

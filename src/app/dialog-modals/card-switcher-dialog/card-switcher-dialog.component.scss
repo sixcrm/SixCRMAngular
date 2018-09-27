@@ -27,6 +27,11 @@ table {
   }
 }
 
+.body {
+  max-height: calc(100vh - 300px);
+  overflow: auto;
+}
+
 .add-new-button {
   margin: 15px 15px 0 40px;;
   width: 120px;

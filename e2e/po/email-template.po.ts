@@ -1,29 +1,33 @@
-import {element, by} from 'protractor';
+import {by, element} from 'protractor';
 
 export class EmailTemplatePage {
 
-  getNewForm() {
-    return element(by.css('email-template-add-new'));
+  getTemplates() {
+    return element.all(by.css('.template-card'));
   }
 
-  getNewFormInputs() {
-    return element(by.css('email-template-add-new')).all(by.css('input'));
+  getPreviewButton(templateNum: number) {
+    return this.getTemplates().get(templateNum).element(by.css('.actions')).all(by.css('button')).first();
   }
 
-  getNewFormSaveButton() {
-    return element(by.css('.entity-view__card__actions')).all(by.css('div')).last();
+  getEditButton(templateNum: number) {
+    return this.getTemplates().get(templateNum).element(by.css('.actions')).all(by.css('button')).last();
   }
 
-  getErrorInputs() {
-    return element(by.css('email-template-add-new')).all(by.css('.ng-invalid'));
+  getPreviewModal() {
+    return element(by.css('email-template-preview-modal'));
   }
 
-  getDropdown(num: number) {
-    return element(by.css('email-template-add-new')).all(by.css('.dropdown-component')).get(num);
+  getPreviewContent() {
+    return this.getPreviewModal().element(by.id('e2e-test-block'));
   }
 
-  getDropdownOption() {
-    return element(by.css('email-template-add-new')).element(by.css('.dropdown-component__options__item'));
+  getGrapesCategoryBlocks() {
+    return element.all(by.css('.gjs-block-category'));
+  }
+
+  getGrapesJS() {
+    return element(by.id('grapesjs'));
   }
 
 }

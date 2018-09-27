@@ -52,6 +52,8 @@ export class TopnavComponent implements OnInit {
 
   logo = environment.branding && environment.branding.sidenavLogo ? environment.branding.sidenavLogo : 'logo-navigation-white.svg';
 
+  dashboardLink = '/dashboard';
+
   constructor(
     public navigation: NavigationService,
     public authService: AuthenticationService,
@@ -77,6 +79,10 @@ export class TopnavComponent implements OnInit {
 
     this.notificationsService.notificationCount$.subscribe((count: number) => {
       this.notificationsCount = count;
+    });
+
+    this.authService.activeAcl$.subscribe((acl: Acl) => {
+      this.dashboardLink = acl && acl.role.isCustomerService() ? '/customer-service' : '/dashboard';
     });
 
     this.notificationsService.restartPoolingNotifications();

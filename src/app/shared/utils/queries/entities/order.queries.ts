@@ -28,10 +28,10 @@ export function orderResponseQuery(): string {
   products { quantity, amount
     product { id, name, sku, ship }
     returns { quantity, return{ id, alias, created_at }}
-    shippingreceipt { id, status, tracking {id, carrier}, created_at, updated_at }
+    shippingreceipt { id, status, fulfillment_provider_reference, tracking {id, carrier}, history {status, detail, created_at}, created_at, updated_at }
   }
   session { id alias created_at campaign { id name } }
-  rebill { id resolved_amount created_at updated_at bill_at
+  rebill { id resolved_amount cycle created_at updated_at bill_at
     transactions { id amount alias created_at updated_at processor_response chargeback type result creditcard { id, last_four, type } merchant_provider {id name}}
     paid {detail updated_at}
   }`

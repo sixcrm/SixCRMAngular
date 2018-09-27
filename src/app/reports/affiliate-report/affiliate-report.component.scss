@@ -1,16 +1,4 @@
-.report {
-  &__title {
-    font-size: 32px;
-    padding: 20px 15px 10px;
-    color: #8D8888;
-  }
-}
-
-.filter-container {
-  padding: 0 15px 10px;
-}
-
-table-memory {
+filter-table {
   display: block;
-  margin: 5px 5px 20px;
+  height: calc(100vh - 170px);
 }

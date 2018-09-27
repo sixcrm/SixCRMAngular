@@ -16,16 +16,6 @@ export function emailTemplatesListQuery(params: IndexQueryParameters): string {
 		}}`
 }
 
-export function emailTemplatesSharedListQuery(params: IndexQueryParameters): string {
-  return `{
-    sharedemailtemplatelist ${listQueryParams(params)} {
-			emailtemplates {
-			  ${emailTemplateInfoResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}}`
-}
-
 export function emailTemplatesListBySmtpProviderQuery(smtpproviderID: string, params: IndexQueryParameters): string {
   return `{
     emailtemplatelistbysmtpprovider (smtpprovider:"${smtpproviderID}", ${paginationParamsQuery(params, true)}) {
