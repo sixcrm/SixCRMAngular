@@ -25,7 +25,7 @@
             <div *ngIf="tab.visible" class="tabs__item" [class.tabs__item--selected]="tab.selected" (click)="tabSelected.emit(tab)">
               {{tab.label}}
 
-              <div class="counter">
+              <div *ngIf="!tab.custom" class="counter">
                 <span>
                   {{tab.count | async}}
                 </span>
@@ -43,9 +43,14 @@
     </div>
 
     <div class="options">
-      <div (click)="filtersSelected.emit(true)"><mat-icon>filter_list</mat-icon>Filters</div>
+      <div *ngIf="!ignoreFilters" (click)="filtersSelected.emit(true)"><mat-icon>filter_list</mat-icon>Filters</div>
       <div (click)="openColumnPreferencesDialog()"><mat-icon>view_column</mat-icon>Columns</div>
-      <div (click)="openTabPreferencesDialog()"><mat-icon>settings</mat-icon>Settings</div>
+      <div *ngIf="!ignoreFilters" (click)="openTabPreferencesDialog()"><mat-icon>settings</mat-icon>Settings</div>
+      <div [matMenuTriggerFor]="downloadMenu"><mat-icon>cloud_download</mat-icon>Download</div>
+      <mat-menu #downloadMenu="matMenu" x-position="before">
+        <button mat-menu-item (click)="download.emit('csv')">Download CSV</button>
+        <button mat-menu-item (click)="download.emit('json')">Download JSON</button>
+      </mat-menu>
     </div>
   </div>
 

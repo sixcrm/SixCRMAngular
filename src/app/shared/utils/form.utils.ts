@@ -1,7 +1,7 @@
 import {getStates, getCountries} from './address.utils';
 
 export function isAllowedNumeric(event): boolean {
-  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab/;
+  const pattern = /[0-9]|Backspace|Delete|ArrowRight|ArrowLeft|Tab/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
@@ -50,8 +50,22 @@ export function isValidEmail(email): boolean {
   return regex.test(email);
 }
 
+export function isValidLink(link): boolean {
+  if (!link) return false;
+
+  let regex = /^((https|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
+  return regex.test(link);
+}
+
+export function isValidColorHex(hex): boolean {
+  if (!hex) return false;
+
+  let regex = /^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  return regex.test(hex);
+}
+
 export function isAllowedZip(event): boolean {
-  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab|-/;
+  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab|Delete|-/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
@@ -99,7 +113,7 @@ export function isValidCountry(country): boolean {
 export function isShorterThan(limit: number, string: string, event): boolean {
   if (!string) return true;
 
-  const pattern = /Backspace|ArrowRight|ArrowLeft|Tab/;
+  const pattern = /Backspace|Delete|ArrowRight|ArrowLeft|Tab/;
 
   if (pattern.test(event.key)) {
     return true;

@@ -45,6 +45,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   @Input() singleOptions: string[] = [];
   @Input() bulkOptions: string[] = [];
   @Input() dateFilterEnabled: boolean = true;
+  @Input() ignoreFilters: boolean;
 
   @Output() dateChanged: EventEmitter<{start: Moment, end: Moment}> = new EventEmitter();
   @Output() tabSelected: EventEmitter<FilterTableTab> = new EventEmitter();
@@ -56,6 +57,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
 
   @Output() updatedTabs: EventEmitter<FilterTableTab[]> = new EventEmitter();
   @Output() updatedColumns: EventEmitter<ColumnParams<any>[]> = new EventEmitter();
+  @Output() download: EventEmitter<string> = new EventEmitter();
 
   numberOfSelected: number = 0;
 

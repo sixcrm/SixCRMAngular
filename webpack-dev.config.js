@@ -448,13 +448,7 @@ module.exports = {
       "name": "scripts",
       "sourceMap": false,
       "filename": "scripts.[hash:20].bundle.js",
-      "scripts": [
-        "node_modules/tinymce/tinymce.js",
-        "node_modules/tinymce/themes/modern/theme.js",
-        "node_modules/tinymce/plugins/link/plugin.js",
-        "node_modules/tinymce/plugins/code/plugin.js",
-        "node_modules/tinymce/plugins/preview/plugin.js", "node_modules/rasterizehtml/dist/rasterizeHTML.allinone.js"
-      ],
+      "scripts": [],
       "basePath": "."
     }),
     new CopyWebpackPlugin([

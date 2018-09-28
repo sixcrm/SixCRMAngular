@@ -14,10 +14,7 @@ import { ShareLinkComponent } from './components/share-link/share-link.component
 import {SubArrayPipe} from './pipes/sub-array.pipe';
 import {AnalyticsStorageService} from './services/analytics-storage.service';
 import { InViewportDirective } from './directives/in-viewport.directive';
-import {TransactionReportService} from './services/analytics/transaction-report.service';
 import {TablePaginationComponent} from './components/table-pagination/table-pagination.component';
-import { AdvancedFilterComponent } from './components/advanced-filter/advanced-filter.component';
-import {InputAutocompleteComponent} from './components/input-autocomplete/input-autocomplete.component';
 import {ChartModule} from 'angular2-highcharts';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
@@ -33,19 +30,15 @@ import { FilterEntitiesByFieldPipe } from './pipes/filter-entities-by-field.pipe
 import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
 import {AutofocusDirective} from './directives/autofocus.directive';
 import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
-import { AddScheduleComponent } from './components/add-schedule/add-schedule.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 import {SnackbarService} from './services/snackbar.service';
-import {MerchantReportService} from './services/analytics/merchant-report.service';
 import {TextMaskPipe} from './pipes/text-mask.pipe';
-import {AffiliateReportService} from './services/analytics/affiliate-report.service';
 import {AlertComponent} from './components/alert/alert.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
 import { FormatDurationPipe } from './pipes/format-duration.pipe';
 import { HtmlSanitizerPipe } from './pipes/html-sanitizer.pipe';
-import {CustomerCreditCardViewComponent} from './components/customer-credit-card-view/customer-credit-card-view.component';
 import { SimpleDatepickerComponent } from './components/simple-datepicker/simple-datepicker.component';
 import {TranslationModule} from '../translation/translation.module';
 import { TabHeaderComponent } from './components/tab-header/tab-header.component';
@@ -72,6 +65,11 @@ import { FilterDaterangePickerComponent } from './components/filter-daterange-pi
 import { SingleFilterComponent } from './components/single-filter/single-filter.component';
 import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-as.component';
 import {RouterModule} from '@angular/router';
+import { FilterChipsPipePipe } from './pipes/filter-chips-pipe.pipe';
+import { GrapesFilterComponentComponent } from './components/grapes-filter-component/grapes-filter-component.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import {FileUploadModule} from 'ng2-file-upload';
+import { RemoveItemsPipe } from './pipes/remove-items.pipe';
 
 @NgModule({
   declarations : [
@@ -86,8 +84,6 @@ import {RouterModule} from '@angular/router';
     InViewportDirective,
     AutofocusDirective,
     TablePaginationComponent,
-    AdvancedFilterComponent,
-    InputAutocompleteComponent,
     DropdownComponent,
     FormatDateTimePipe,
     SimpleDropdownComponent,
@@ -99,7 +95,6 @@ import {RouterModule} from '@angular/router';
     FilterEntitiesByParamsPipe,
     FilterEntitiesByFieldPipe,
     ServerErrorMessageComponent,
-    AddScheduleComponent,
     ErrorSnackBarComponent,
     TextMaskPipe,
     AlertComponent,
@@ -107,7 +102,6 @@ import {RouterModule} from '@angular/router';
     SpeLoaderComponent,
     FormatDurationPipe,
     HtmlSanitizerPipe,
-    CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
     TabHeaderComponent,
     SearchInputComponent,
@@ -126,7 +120,11 @@ import {RouterModule} from '@angular/router';
     LocationFilterComponent,
     FilterDaterangePickerComponent,
     SingleFilterComponent,
-    FilterSaveAsComponent
+    FilterSaveAsComponent,
+    FilterChipsPipePipe,
+    GrapesFilterComponentComponent,
+    ImageUploaderComponent,
+    RemoveItemsPipe
   ],
   exports : [
     AutocompleteComponent,
@@ -139,8 +137,6 @@ import {RouterModule} from '@angular/router';
     InViewportDirective,
     AutofocusDirective,
     TablePaginationComponent,
-    AdvancedFilterComponent,
-    InputAutocompleteComponent,
     FormatDateTimePipe,
     SimpleDropdownComponent,
     CreditCardFormatPipe,
@@ -153,14 +149,12 @@ import {RouterModule} from '@angular/router';
     FilterEntitiesByParamsPipe,
     FilterEntitiesByFieldPipe,
     ServerErrorMessageComponent,
-    AddScheduleComponent,
     TextMaskPipe,
     AlertComponent,
     TableLoaderComponent,
     SpeLoaderComponent,
     FormatDurationPipe,
     HtmlSanitizerPipe,
-    CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
     TabHeaderComponent,
     SearchInputComponent,
@@ -175,7 +169,10 @@ import {RouterModule} from '@angular/router';
     LocationFilterComponent,
     FilterDaterangePickerComponent,
     SingleFilterComponent,
-    FilterSaveAsComponent
+    FilterSaveAsComponent,
+    FilterChipsPipePipe,
+    ImageUploaderComponent,
+    RemoveItemsPipe
   ],
   imports : [
     FormsModule,
@@ -187,7 +184,8 @@ import {RouterModule} from '@angular/router';
     TextMaskModule,
     TranslationModule,
     ClipboardModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    FileUploadModule
   ]
 })
 export class SharedModule {
@@ -199,9 +197,6 @@ export class SharedModule {
         SearchService,
         AnalyticsService,
         AnalyticsStorageService,
-        TransactionReportService,
-        MerchantReportService,
-        AffiliateReportService,
         TimeService,
         SnackbarService,
         FeatureFlagService,

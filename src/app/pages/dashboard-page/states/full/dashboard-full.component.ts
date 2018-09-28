@@ -1,7 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import {Campaign} from '../../../../shared/models/campaign.model';
 import {DashboardQuery, DashboardTimeFilter} from '../../dashboard.exports';
-import {CampaignsService} from '../../../../entity-services/services/campaigns.service';
 import {AsyncSubject, Observable} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {Currency} from '../../../../shared/utils/currency/currency';
@@ -22,9 +20,6 @@ import {SeriesType} from '../../series-type';
 export class DashboardFullComponent implements OnInit, OnDestroy {
 
   @Input() renderFullChart: boolean;
-
-  campaigns: Campaign[] = [new Campaign({name: 'All Campaigns'})];
-  selectedCampaign: Campaign = this.campaigns[0];
   seriesType: SeriesType = SeriesType.amountcount;
 
   queries: DashboardQuery[] = [
@@ -109,7 +104,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
     }
   ];
 
-  totalAmount: Currency = new Currency(0);
+  totalAmount: Currency;
   revenueMessage: string = 'Last 30 Days Revenue';
 
   name: string;
@@ -130,7 +125,6 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthenticationService,
     private analyticsService: AnalyticsService,
-    private campaignService: CampaignsService,
     private translationService: TranslationService
   ) { }
 
@@ -138,14 +132,6 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe(user => {
       this.name = user.firstName;
     });
-
-    this.campaignService.entities$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
-      if (campaigns instanceof CustomServerError) return;
-
-      this.campaigns = [...this.campaigns, ...campaigns];
-    });
-
-    this.campaignService.getEntities(null, null, {ignoreProgress: true});
 
     let quoteSub = Observable.interval(50).take(40).subscribe(() => {
       if (!this.quote) {
@@ -169,26 +155,18 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
 
     if (!selectedTimeFilter || !this.selectedQuery) return;
 
-    let campaignId = this.selectedCampaign ? this.selectedCampaign.id : null;
-
     this.analyticsService.getHeroChartSeries({
       start: selectedTimeFilter.start,
       end: selectedTimeFilter.end,
       period: 'day',
       comparisonType: this.selectedQuery.comparisonType,
-      campaignId: campaignId
+      campaignId: null
     });
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
-  }
-
-  selectCampaign(campaign: Campaign) {
-    this.selectedCampaign = campaign;
-
-    this.fetchData()
   }
 
   selectQuery(query: DashboardQuery) {

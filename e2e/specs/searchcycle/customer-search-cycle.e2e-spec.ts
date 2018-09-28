@@ -1,7 +1,6 @@
 import {EntityIndexPage} from '../../po/entity-index.po';
 import {CustomerPage} from '../../po/customer.po';
 import {SearchPage} from '../../po/search.po';
-import {AdvancedSearchPage} from '../../po/advanced-search.po';
 import {browser, protractor} from 'protractor';
 import {clearLocalStorage, waitForUrlContains, waitForPresenceOf} from '../../utils/navigation.utils';
 import {login} from '../../utils/action.utils';
@@ -14,7 +13,6 @@ describe('CustomerSearchCycle', function() {
   let page: EntityIndexPage;
   let customerPage: CustomerPage;
   let searchPage: SearchPage;
-  let advancedSearchPage: AdvancedSearchPage;
   let sidenav: NavPage;
   let topnav: TopnavPage;
 
@@ -31,7 +29,6 @@ describe('CustomerSearchCycle', function() {
     page = new EntityIndexPage();
     customerPage = new CustomerPage();
     searchPage = new SearchPage();
-    advancedSearchPage = new AdvancedSearchPage();
     sidenav = new NavPage();
     topnav = new TopnavPage();
   });

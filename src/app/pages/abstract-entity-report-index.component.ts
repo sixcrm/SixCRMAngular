@@ -1,11 +1,11 @@
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../authentication/authentication.service';
-import {Router} from '@angular/router';
+import {Router, Params} from '@angular/router';
 import {Moment} from 'moment';
 import {FilterTableTab} from '../shared/components/filter-table/filter-table.component';
 import {AsyncSubject} from 'rxjs';
 import {ColumnParams} from '../shared/models/column-params.model';
-import {AbstractFilterDialog} from '../dialog-modals/abstract-filter-dialog';
+import {utc} from 'moment';
 
 export abstract class AbstractEntityReportIndexComponent<T> {
 
@@ -35,6 +35,35 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   }
 
+  parseParams(params: Params): void {
+    this.date = {
+      start: params['start'] ? utc(params['start']) : utc().subtract(7,'d'),
+      end: params['end'] ? utc(params['end']) : utc()
+    };
+
+    if (params['sort'] && params['sortOrder']) {
+      for (let i = 0; i < this.columnParams.length; i++) {
+        if (this.columnParams[i].sortName === params['sort']) {
+          this.columnParams[i].sortApplied = true;
+          this.columnParams[i].sortOrder = params['sortOrder'];
+        } else {
+          this.columnParams[i].sortApplied = false;
+        }
+      }
+    }
+
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (!params['tab']) {
+        this.tabs[i].selected = (i === 0);
+      } else {
+        this.tabs[i].selected = this.tabs[i].visible && this.tabs[i].label === params['tab'];
+      }
+    }
+
+    if (params['filters']) {
+      this.filters = JSON.parse(params['filters']);
+    }
+  }
 
   getSortColumn(): ColumnParams<T> {
     for (let i = 0; i < this.columnParams.length; i++) {
@@ -59,6 +88,16 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     });
 
     this.refetch();
+  }
+
+  getSelectedTab(): FilterTableTab {
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].visible && this.tabs[i].selected) {
+        return this.tabs[i];
+      }
+    }
+
+    return null;
   }
 
   getFacets(): {facet: string, values: string[]}[] {

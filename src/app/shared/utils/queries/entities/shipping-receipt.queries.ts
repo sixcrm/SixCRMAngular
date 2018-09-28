@@ -43,9 +43,9 @@ export function deleteShippingReceiptsMutation(id: string[]): string {
 }
 
 export function shippingReceiptInfoResponseQuery(): string {
-  return `id status fulfillment_provider { id name } tracking {carrier id} created_at updated_at`
+  return `id status fulfillment_provider { id name } tracking {carrier id} rebill {id, alias} created_at updated_at`
 }
 
 export function shippingReceiptResponseQuery(): string {
-  return `id status tracking {carrier id} fulfillment_provider {id, name} history {created_at, status, detail} created_at updated_at`
+  return `id status tracking {carrier id} fulfillment_provider {id, name} rebill {id, alias} history {created_at, status, detail} created_at updated_at`
 }

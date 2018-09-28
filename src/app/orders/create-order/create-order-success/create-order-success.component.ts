@@ -31,14 +31,7 @@ export class CreateOrderSuccessComponent implements OnInit {
   constructor(private router: Router, public authService: AuthenticationService) { }
 
   ngOnInit() {
-  }
 
-  navigateToCustomer() {
-    if (!this.checkoutResponse) return;
-
-    this.router.navigate(['/customers', 'advanced'], { queryParams: { customer: this.checkoutResponse.customer.id } });
-
-    this.done.emit(true);
   }
 
   navigateToSession() {
@@ -55,7 +48,7 @@ export class CreateOrderSuccessComponent implements OnInit {
     return new Currency(this.products.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.firstSchedulePrice.amount || 0) * p.quantity;
+        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;

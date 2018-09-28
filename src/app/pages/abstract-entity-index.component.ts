@@ -12,6 +12,7 @@ import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {areEntitiesIdentical} from '../shared/utils/entity.utils';
 import {YesNoDialogComponent} from '../dialog-modals/yes-no-dialog.component';
 import {Modes} from './abstract-entity-view.component';
+import {Location} from '@angular/common';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -56,16 +57,25 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     protected deleteDialog: MatDialog,
     protected paginationService?: PaginationService,
     protected router?: Router,
-    protected activatedRoute?: ActivatedRoute
+    protected activatedRoute?: ActivatedRoute,
+    protected location?: Location
   ) { }
 
   init(fetch: boolean = true): void {
     if (this.activatedRoute) {
+
       this.activatedRoute.queryParams.takeUntil(this.unsubscribe$).subscribe((params) => {
         if (params['action'] === 'new') {
+
+          if (this.location) {
+            const plainUrl = this.router.url.substring(0, this.router.url.indexOf('?'));
+            this.location.replaceState(plainUrl);
+          }
+
           this.openAddMode();
         }
       });
+
     }
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: (T[] | CustomServerError)) => {

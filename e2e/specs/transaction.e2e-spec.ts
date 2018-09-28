@@ -45,23 +45,22 @@ describe('Transactions', function() {
 
   it('should render transactions index table headers', () => {
     expect(page.getTableHeaders().get(1).getText()).toContain('Date');
-    expect(page.getTableHeaders().get(2).getText()).toContain('Chargeback');
-    expect(page.getTableHeaders().get(3).getText()).toContain('Response');
+    expect(page.getTableHeaders().get(2).getText()).toContain('Response');
+    expect(page.getTableHeaders().get(3).getText()).toContain('Type');
     expect(page.getTableHeaders().get(4).getText()).toContain('Amount');
     expect(page.getTableHeaders().get(5).getText()).toContain('Refund');
     expect(page.getTableHeaders().get(6).getText()).toContain('MID');
-    expect(page.getTableHeaders().get(7).getText()).toContain('Transaction ID');
-    expect(page.getTableHeaders().get(8).getText()).toContain('Order ID');
+    expect(page.getTableHeaders().get(7).getText()).toContain('Transaction Alias');
+    expect(page.getTableHeaders().get(8).getText()).toContain('Order Alias');
     expect(page.getTableHeaders().get(9).getText()).toContain('Customer');
     expect(page.getTableHeaders().get(10).getText()).toContain('Session');
   });
 
   it('should render transactions quick filters', () => {
     expect(page.getQuickFilters().get(0).getText()).toContain('All');
-    expect(page.getQuickFilters().get(1).getText()).toContain('Chargebacks');
-    expect(page.getQuickFilters().get(2).getText()).toContain('Refunds');
-    expect(page.getQuickFilters().get(3).getText()).toContain('Errors');
-    expect(page.getQuickFilters().get(4).getText()).toContain('Declines');
+    expect(page.getQuickFilters().get(1).getText()).toContain('Refunds');
+    expect(page.getQuickFilters().get(2).getText()).toContain('Errors');
+    expect(page.getQuickFilters().get(3).getText()).toContain('Declines');
   });
 
   it('should have transactions in table', () => {

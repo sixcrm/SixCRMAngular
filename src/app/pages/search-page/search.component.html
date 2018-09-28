@@ -12,18 +12,6 @@
           <input matInput placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue">
         </mat-form-field>
 
-        <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
-          <ng-container *ngFor="let option of queryOptions">
-            <div [class.option--disabled]="!option.enabled" class="search__sidenav__option">
-              <div class="search__sidenav__option__content">
-                <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
-                <span class="search__sidenav__option__value">{{option.value}}</span>
-              </div>
-              <mat-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</mat-icon>
-            </div>
-          </ng-container>
-        </div>
-
         <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">{{'SEARCH_CATEGORY' | translate}}</div>
 
         <ng-container *ngFor="let facet of facets">
@@ -53,8 +41,8 @@
               <mat-icon class="filters" [class.filters--active]="showFilters" (click)="showFilters = !showFilters">details</mat-icon>
 
               <span>{{'SEARCH_RESULTS' | translate}}
-                <span>({{numberOfSearchResults | numberlocale}})</span>
-                <span *ngIf="queryString">for "{{queryString}}"</span>
+                <span> ({{numberOfSearchResults | numberlocale}})</span>
+                <span *ngIf="queryString"> for "{{queryString}}"</span>
               </span>
 
               <div class="options">

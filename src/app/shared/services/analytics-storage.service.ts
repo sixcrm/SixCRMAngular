@@ -3,7 +3,7 @@ import {EventFunnel} from '../models/event-funnel.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {Moment, utc} from 'moment';
-import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
+import {FilterTerm} from '../models/filter-term.model';
 import {SubscriptionStats} from '../models/subscription-stats.model';
 
 export class AnalyticsStateEntry<T> {

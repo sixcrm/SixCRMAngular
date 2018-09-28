@@ -9,7 +9,7 @@ import {MatDialogRef} from '@angular/material';
         <div style="margin-bottom: 10px;">{{text | translate}}</div>
         <div style="margin-bottom: 10px;" *ngIf="secondaryText">{{secondaryText | translate}}</div>
         
-        <mat-form-field>
+        <mat-form-field [class.error]="inputInvalid && !inputValidatorFunction(inputContent)">
           <input matInput (keydown)="keydownAllowFunction($event, inputContent)" placeholder="{{inputPlaceholder | translate}}" [(ngModel)]="inputContent" type="text">
         </mat-form-field>
         
@@ -30,8 +30,11 @@ export class SingleInputDialogComponent {
   yesText: string = 'Yes';
   noText: string = 'No';
   keydownAllowFunction: (key, currentValue) => boolean = (key, currentValue) => true;
+  inputValidatorFunction: (value) => boolean = (value) => true;
 
   inputContent: string;
+
+  inputInvalid: boolean;
 
   constructor(public dialogRef: MatDialogRef<SingleInputDialogComponent>) {}
 
@@ -42,6 +45,10 @@ export class SingleInputDialogComponent {
   }
 
   yes(): void {
+    this.inputInvalid = !this.inputValidatorFunction(this.inputContent);
+
+    if (this.inputInvalid) return;
+
     this.dialogRef.close({content : this.inputContent});
   }
 

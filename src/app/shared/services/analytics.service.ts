@@ -8,11 +8,11 @@ import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
   activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery,
-  productSchedulesByAmountQuery, transactionsQuery
+  productSchedulesByAmountQuery, analyticsDetailQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
-import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
+import {FilterTerm} from '../models/filter-term.model';
 import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
 import {HttpWrapperService, extractData, generateHeaders, FailStrategy} from './http-wrapper.service';
@@ -21,6 +21,9 @@ import {SubscriptionStats} from "../models/subscription-stats.model";
 import {HeroChartSeries} from '../models/hero-chart-series.model';
 import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 import {TransactionAnalytics} from '../models/analytics/transaction-analytics.model';
+import {OrderAnalytics} from '../models/analytics/order-analytics.model';
+import {MerchantAnalytics} from '../models/analytics/merchant-analytics.model';
+import {AffiliateAnalytics} from '../models/analytics/affiliate-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -231,7 +234,56 @@ export class AnalyticsService {
     })
   }
 
+  getAffiliates(params: {
+    reportName?: string,
+    start: string,
+    end: string,
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
+  }): Observable<AffiliateAnalytics[] | CustomServerError> {
+    params.reportName = 'affiliateTraffic';
+
+    return this.queryRequest(analyticsDetailQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new AffiliateAnalytics(entity));
+      })
+  }
+
+  getMerchants(params: {
+    reportName?: string,
+    start: string,
+    end: string,
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
+  }): Observable<MerchantAnalytics[] | CustomServerError> {
+    params.reportName = 'merchantReport';
+
+    return this.queryRequest(analyticsDetailQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new MerchantAnalytics(entity));
+      })
+  }
+
   getTransactions(params: {
+    reportName?: string,
     start: string,
     end: string,
     limit?: number,
@@ -240,7 +292,9 @@ export class AnalyticsService {
     sort?: string,
     facets?: {facet: string, values: string[]}[]
   }): Observable<TransactionAnalytics[] | CustomServerError> {
-    return this.queryRequest(transactionsQuery(params))
+    params.reportName = 'transactionDetail';
+
+    return this.queryRequest(analyticsDetailQuery(params))
       .map(data => {
         if (data instanceof CustomServerError) return data;
 
@@ -249,6 +303,30 @@ export class AnalyticsService {
         if (!entities) return null;
 
         return entities.map(entity => new TransactionAnalytics(entity));
+      })
+  }
+
+  getOrders(params: {
+    reportName?: string,
+    start: string,
+    end: string,
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
+  }): Observable<OrderAnalytics[] | CustomServerError> {
+    params.reportName = 'rebillDetail';
+
+    return this.queryRequest(analyticsDetailQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new OrderAnalytics(entity));
       })
   }
 

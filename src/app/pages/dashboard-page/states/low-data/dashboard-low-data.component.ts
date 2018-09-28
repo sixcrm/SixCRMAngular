@@ -10,6 +10,7 @@ import {HeroChartSeries} from "../../../../shared/models/hero-chart-series.model
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
 import {utc} from 'moment';
 import {TransactionAnalytics} from '../../../../shared/models/analytics/transaction-analytics.model';
+import {Currency} from '../../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'c-dashboard-low-data',
@@ -31,7 +32,7 @@ export class DashboardLowDataComponent implements OnInit {
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   name: string;
-  revenue: any;
+  revenue: Currency;
   transactions: TransactionAnalytics[];
 
   constructor(
@@ -86,6 +87,6 @@ export class DashboardLowDataComponent implements OnInit {
     if (!revenues) {
       return;
     }
-    this.revenue = revenues.timeseries.map(s => s.value).reduce((a, b) => a+b, 0);
+    this.revenue = new Currency(revenues.timeseries.map(s => s.value).reduce((a, b) => a+b, 0));
   }
 }

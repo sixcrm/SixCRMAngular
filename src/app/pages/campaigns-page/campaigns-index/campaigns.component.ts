@@ -1,4 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Location} from '@angular/common';
 import {CampaignsService} from "../../../entity-services/services/campaigns.service";
 import {Campaign} from '../../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
@@ -28,9 +29,10 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute,
+    location: Location,
     private merchantProviderGroupAssociationService: MerchantProviderGroupAssociationsService
   ) {
-    super(campaignService, auth, dialog, paginationService, router, activatedRoute);
+    super(campaignService, auth, dialog, paginationService, router, activatedRoute, location);
 
     this.entityFactory = () => new Campaign();
 

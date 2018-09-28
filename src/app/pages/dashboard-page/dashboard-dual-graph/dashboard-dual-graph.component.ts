@@ -149,8 +149,8 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
           }
         },
         series: {
-          lineWidth: 4,
-          lineColor: '#86FCEA'
+          lineWidth: 12,
+          lineColor: '#2DB2F9'
         }
       },
 

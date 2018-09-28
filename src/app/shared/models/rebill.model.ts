@@ -26,6 +26,7 @@ export class Rebill implements Entity<Rebill> {
   shippingReceipts: ShippingReceipt[] = [];
   state: string;
   paid: RebillPaidStatus;
+  cycle: number;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -41,6 +42,7 @@ export class Rebill implements Entity<Rebill> {
     this.updatedAtAPI = obj.updated_at;
     this.parentSession = new Session(obj.parentsession);
     this.state = obj.state || '';
+    this.cycle = obj.cycle || 0;
 
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));
@@ -143,7 +145,8 @@ export class Rebill implements Entity<Rebill> {
       shippingreceipts: this.shippingReceipts.map(r => r.inverse()),
       transactions: this.transactions.map(t => t.inverse()),
       state: this.state,
-      paid: this.paid ? this.paid.inverse() : null
+      paid: this.paid ? this.paid.inverse() : null,
+      cycle: this.cycle
     }
   }
 
