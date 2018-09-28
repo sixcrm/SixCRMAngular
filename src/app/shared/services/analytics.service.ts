@@ -23,6 +23,8 @@ import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 import {TransactionAnalytics} from '../models/analytics/transaction-analytics.model';
 import {OrderAnalytics} from '../models/analytics/order-analytics.model';
 import {SubscriptionAnalytics} from '../models/analytics/subscription-analytics.model';
+import {AffiliateAnalytics} from '../models/analytics/affiliate-analytics.model';
+import {MerchantAnalytics} from '../models/analytics/merchant-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
