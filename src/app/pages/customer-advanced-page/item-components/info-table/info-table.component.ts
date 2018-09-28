@@ -18,7 +18,15 @@ export class InfoTableComponent implements OnInit {
   }
 
   calculateCycle() {
-    return 0;
+    if (this.rebill) {
+      return this.rebill.cycle || 0;
+    }
+
+    if (this.order) {
+      return this.order.rebill.cycle || 0;
+    }
+
+    return '–';
   }
 
 }

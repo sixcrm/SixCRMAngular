@@ -8,16 +8,12 @@ import {
   deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation,
   sendTestEmailQuery, addEmailTemplateAssociation, removeEmailTemplateAssociation, getEmailBodyPreview
 } from '../../shared/utils/queries/entities/email-template.queries';
-import {Subject} from 'rxjs';
-import {tokenListQuery} from '../../shared/utils/queries/entities/token.queries';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> {
-
-  tokenGroups: Subject<any> = new Subject();
 
   constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
@@ -61,20 +57,6 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
       if (!extracted) return null;
 
       return new EmailTemplate(extracted.removeemailtemplateassociation);
-    })
-  }
-
-  getTokens() {
-    this.queryRequest(tokenListQuery()).subscribe(data => {
-      if (data instanceof CustomServerError) {
-        return;
-      }
-
-      const extracted = extractData(data);
-
-      if (!extracted || !extracted.tokenlist || !extracted.tokenlist.tokens) return;
-
-      this.tokenGroups.next(extracted.tokenlist.tokens);
     })
   }
 

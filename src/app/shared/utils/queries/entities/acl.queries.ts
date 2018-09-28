@@ -16,17 +16,6 @@ export function aclListQuery(params: IndexQueryParameters): string {
   }`
 }
 
-export function aclListByRoleQuery(roleId: string, params: IndexQueryParameters): string {
-  return `{
-    useracllistbyrole (${paginationParamsQuery(params, true)} role: "${roleId}") {
-      useracl {
-        ${userAclResponseQuery()}
-      }
-      ${fullPaginationStringResponseQuery()}
-    }
-  }`
-}
-
 export function createAclMutation(acl: Acl): string {
   return `
     mutation {

@@ -91,11 +91,12 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
     return orders.map(o => {
       return {
         'Date/Time': o.date.format('MM/DD/YYYY h:mm A'),
+        'Status': o.status || '-',
         'Type': o.type,
         'Sale Amount': o.amount.usd(),
         'Items': o.items,
-        'Returns': o.returns ? o.returns : '–',
-        'Refunds': o.refunds.amount ? o.refunds.usd() : '–',
+        'Returns': o.returns ? o.returns : '-',
+        'Refunds': o.refunds.amount ? o.refunds.usd() : '-',
         'Total': o.total.usd(),
         'Order Alias': o.alias,
         'Campaign': o.campaignName,

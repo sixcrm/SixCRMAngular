@@ -63,7 +63,7 @@ export function updateRebillMutation(rebill: Rebill): string {
 
 export function rebillResponseQuery(): string {
   return `
-    id bill_at amount created_at updated_at,
+    id bill_at amount cycle created_at updated_at,
     parentsession { id,
       customer { id firstname lastname,
         address { line1 line2 city state zip },

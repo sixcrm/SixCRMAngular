@@ -17,16 +17,6 @@ export function notificationsListQuery(params: IndexQueryParameters): string {
 		}}`
 }
 
-export function plainNotificationsListQuery(params: IndexQueryParameters): string {
-  return `{
-    notificationlistbytype ( type:"notification", ${paginationParamsQuery(params, true)} ) {
-			notifications {
-			  ${notificationsResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}}`
-}
-
 export function alertsListQuery(): string {
   return `{
     notificationlistbytype ( type:"alert" ) {

@@ -67,31 +67,58 @@
 
   <div class="row row--start">
 
-    <div class="column" *ngIf="accountDetails && this.accountDetailsService.hasReadPermission()">
+    <div class="column" *ngIf="accountDetailsBackup && accountDetailsService.hasReadPermission()">
       <div class="card">
         <div class="title">Account Details</div>
 
         <div class="body">
 
+          <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.supportEmail && !isValidEmail(accountDetails.supportEmail)">
+            <input type="text" matInput placeholder="Customer Service Email" [(ngModel)]="accountDetails.supportEmail">
+          </mat-form-field>
+
           <mat-form-field>
+            <input type="text" matInput placeholder="Customer Service Phone" [textMask]="{mask: mask, guide: false}" [(ngModel)]="accountDetails.supportPhone">
+          </mat-form-field>
+
+          <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.supportLink && !isValidLink(accountDetails.supportLink)">
             <input type="text" matInput placeholder="Customer Service Link" [(ngModel)]="accountDetails.supportLink">
           </mat-form-field>
 
           <div class="flex-custom flex-custom--center">
-            <mat-form-field>
+            <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorPrimary && !isValidColorHex(accountDetails.emailTemplateSettings.colorPrimary)">
+              <span matPrefix># &nbsp;</span>
               <input type="text" matInput placeholder="Primary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorPrimary">
             </mat-form-field>
 
-            <div class="color-preview" [style.background]="accountDetails.emailTemplateSettings.colorPrimary"></div>
+            <div class="color-preview" [style.background]="'#' + accountDetailsBackup.emailTemplateSettings.colorPrimary"></div>
+          </div>
+
+          <div class="flex-custom flex-custom--center">
+            <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorSecondary && !isValidColorHex(accountDetails.emailTemplateSettings.colorSecondary)">
+              <span matPrefix># &nbsp;</span>
+              <input type="text" matInput placeholder="Secondary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorSecondary">
+            </mat-form-field>
+
+            <div class="color-preview" [style.background]="'#' + accountDetailsBackup.emailTemplateSettings.colorSecondary"></div>
+          </div>
+
+          <div class="flex-custom flex-custom--center">
+            <mat-form-field [class.error]="accountDetailsFormInvalid && accountDetails.emailTemplateSettings.colorTertiary && !isValidColorHex(accountDetails.emailTemplateSettings.colorTertiary)">
+              <span matPrefix># &nbsp;</span>
+              <input type="text" matInput placeholder="Tertiary Color" [(ngModel)]="accountDetails.emailTemplateSettings.colorTertiary">
+            </mat-form-field>
+
+            <div class="color-preview" [style.background]="'#' + accountDetailsBackup.emailTemplateSettings.colorTertiary"></div>
           </div>
 
           <div class="placeholder-label">Account Logo</div>
 
           <div class="image-upload">
-            <image-uploader (imageUploaded)="accountDetails.companyLogo = $event.path"></image-uploader>
             <div class="image-holder">
               <img src="{{accountDetails.companyLogo}}" alt="No Logo Uploaded">
             </div>
+            <image-uploader (imageUploaded)="accountDetails.companyLogo = $event.path"></image-uploader>
           </div>
 
         </div>
@@ -110,8 +137,37 @@
           </button>
         </div>
       </div>
+    </div>
 
-      <div *ngIf="session && authService.hasPermissions('bill', 'read') && customer" class="card">
+    <div class="column" *ngIf="session && authService.hasPermissions('bill', 'read')">
+      <div class="card">
+        <div class="title">Cards on file</div>
+
+        <ng-container *ngIf="session.customer.creditCards.length > 0; else nocards">
+          <div class="credit-card" *ngFor="let card of session.customer.creditCards">
+
+            <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
+
+            <div class="info">
+              <div class="number">**** **** **** {{card.lastFour}}</div>
+              <div class="data">{{card.name}}</div>
+              <div class="data">Expires {{card.expiration}}</div>
+            </div>
+
+            <div class="actions">
+              <mat-icon (click)="deleteCard(card)">delete</mat-icon>
+              <mat-icon (click)="openCardModal(card)">edit</mat-icon>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #nocards>
+          <div class="no-card">No Cards found</div>
+        </ng-template>
+
+        <button class="add-card-button" mat-button (click)="openCardModal()">ADD CARD</button>
+      </div>
+      <div *ngIf="customer" class="card">
         <div class="title">Contact Information</div>
         <div class="body">
           <mat-form-field [class.error]="formInvalid && !customer.firstName">
@@ -140,35 +196,6 @@
           </button>
         </div>
       </div>
-
-    </div>
-
-    <div *ngIf="session && authService.hasPermissions('bill', 'read')" class="card column">
-      <div class="title">Cards on file</div>
-
-      <ng-container *ngIf="session.customer.creditCards.length > 0; else nocards">
-        <div class="credit-card" *ngFor="let card of session.customer.creditCards">
-
-          <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
-
-          <div class="info">
-            <div class="number">**** **** **** {{card.lastFour}}</div>
-            <div class="data">{{card.name}}</div>
-            <div class="data">Expires {{card.expiration}}</div>
-          </div>
-
-          <div class="actions">
-            <mat-icon (click)="deleteCard(card)">delete</mat-icon>
-            <mat-icon (click)="openCardModal(card)">edit</mat-icon>
-          </div>
-        </div>
-      </ng-container>
-
-      <ng-template #nocards>
-        <div class="no-card">No Cards found</div>
-      </ng-template>
-
-      <button class="add-card-button" mat-button (click)="openCardModal()">ADD CARD</button>
     </div>
 
   </div>
