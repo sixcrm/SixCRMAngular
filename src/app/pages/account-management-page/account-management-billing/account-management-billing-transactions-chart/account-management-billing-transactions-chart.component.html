@@ -8,36 +8,40 @@
 
   <div class="details">
 
-    <div class="box" [class.box--error]="lastOverdue">
-      <div class="date" *ngIf="lastBillDate">
-        {{lastOverdue ? 'Past Due: ' : 'Previous Billing: '}}{{lastBillDate | formatDateTime: 'MMMM Do, YYYY h:mm A'}}
-      </div>
+    <div class="box" [class.box-error]="lastBill && !isPaid(lastBill)">
+      <ng-container *ngIf="lastBill">
+        <div class="date">
+          {{!isPaid(lastBill) ? 'Past Due: ' : 'Previous Billing: '}}{{lastBill.billAt | formatDateTime: 'MMMM Do, YYYY'}}
+        </div>
 
-      <div class="minimum">
-        <div>Minimum monthly fee</div>
-        <div>{{getPlanPrice().usd()}}</div>
-      </div>
+        <div class="minimum">
+          <div>Minimum monthly fee</div>
+          <div>{{getPlanPrice(lastBill).usd()}}</div>
+        </div>
 
-      <div class="amount" *ngIf="lastBillAmount">
-        <div>{{lastOverdue ? 'Total to be billed as of today' : 'Total billed'}}</div>
-        <div>{{lastBillAmount.usd()}}</div>
-      </div>
+        <div class="amount">
+          <div>{{!isPaid(lastBill) ? 'Total to be billed as of today' : 'Total billed'}}</div>
+          <div>{{lastBill.amount.usd()}}</div>
+        </div>
+      </ng-container>
     </div>
 
     <div class="box">
-      <div class="date" *ngIf="nextBillDate">
-        Next Billing: {{nextBillDate | formatDateTime: 'MMMM Do, YYYY'}}
-      </div>
+      <ng-container *ngIf="nextBill">
+        <div class="date">
+          Next Billing: {{nextBill.billAt | formatDateTime: 'MMMM Do, YYYY'}}
+        </div>
 
-      <div class="minimum">
-        <div>Minimum monthly fee</div>
-        <div>{{getPlanPrice().usd()}}</div>
-      </div>
+        <div class="minimum">
+          <div>Minimum monthly fee</div>
+          <div>{{getPlanPrice(nextBill).usd()}}</div>
+        </div>
 
-      <div class="amount" *ngIf="nextBillDate">
-        <div>Total to be billed as of today</div>
-        <div>{{getPlanPrice().usd()}}</div>
-      </div>
+        <div class="amount">
+          <div>Total to be billed as of today</div>
+          <div>{{nextBill.amount.usd()}}</div>
+        </div>
+      </ng-container>
     </div>
 
 

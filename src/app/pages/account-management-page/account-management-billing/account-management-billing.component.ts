@@ -24,6 +24,7 @@ export class AccountManagementBillingComponent implements OnInit {
   session: Session;
 
   lastBill: Rebill;
+  nextBill: Rebill;
 
   defaultCreditCard: CreditCard;
 
@@ -50,13 +51,17 @@ export class AccountManagementBillingComponent implements OnInit {
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {
         session.rebills = session.rebills
-          .filter(rebill => rebill.billAt.isBefore(utc()))
           .sort((f,s) => {
-            if (f.billAt.isAfter(s.billAt)) return 1;
-            if (f.billAt.isBefore(s.billAt)) return -1;
+            if (f.billAt.isAfter(s.billAt)) return -1;
+            if (f.billAt.isBefore(s.billAt)) return 1;
 
             return 0;
-          }).filter(rebill => rebill.billAt.isSameOrBefore(utc()));
+          });
+
+        this.nextBill = session.rebills[0];
+        this.lastBill = session.rebills[1];
+
+        session.rebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()));
 
         this.session = session;
 
@@ -67,8 +72,6 @@ export class AccountManagementBillingComponent implements OnInit {
             this.defaultCreditCard = this.session.customer.creditCards[index];
           }
         }
-
-        this.lastBill = this.session.rebills[0];
       });
     }
   }

@@ -1,7 +1,8 @@
 <blue-header [items]="breadcrumbs" [titleValue]="account ? account.name : null"></blue-header>
 
 <div>
-  <account-management-billing-transactions-chart [lastBill]="lastBill"></account-management-billing-transactions-chart>
+  <account-management-billing-transactions-chart [lastBill]="lastBill" [nextBill]="nextBill" >
+  </account-management-billing-transactions-chart>
 </div>
 
 <div *ngIf="session" class="options">
