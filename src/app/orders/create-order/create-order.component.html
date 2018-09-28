@@ -161,9 +161,9 @@
               <div class="expansion-body">
 
                 <mat-form-field class="autocomplete-input-container">
-                  <input type="text" matInput placeholder="Choose Subscriptions and Products" [matAutocomplete]="autoProduct" [(ngModel)]="productFilterValue" (keyup)="productInputChanged($event)" (focus)="productInputChanged()">
+                  <input #productInput type="text" matInput placeholder="Choose Subscriptions and Products" [matAutocomplete]="autoProduct" [(ngModel)]="productFilterValue" (keyup)="productInputChanged($event)" (focus)="productInputChanged()">
 
-                  <mat-autocomplete class="three-row-autocomplete" #autoProduct="matAutocomplete" [displayWith]="displayFn" (optionSelected)="productSelected($event)">
+                  <mat-autocomplete class="three-row-autocomplete" #autoProduct="matAutocomplete" [displayWith]="displayFn" (optionSelected)="productSelected($event, productInput)">
                     <mat-option *ngFor="let product of filteredProducts" [value]="product">
                       <div class="autocomplete-row">{{ product.name }} </div>
                       <div class="autocomplete-row">
@@ -306,9 +306,9 @@
               <div class="expansion-body">
 
                 <mat-form-field class="autocomplete-input-container">
-                  <input type="text" matInput placeholder="Choose Shipping and Insurance" [matAutocomplete]="autoShipping" [(ngModel)]="shippingFilterValue" (keyup)="shippingInputChanged($event)" (focus)="shippingInputChanged()">
+                  <input #shippingInput type="text" matInput placeholder="Choose Shipping and Insurance" [matAutocomplete]="autoShipping" [(ngModel)]="shippingFilterValue" (keyup)="shippingInputChanged($event)" (focus)="shippingInputChanged()">
 
-                  <mat-autocomplete class="three-row-autocomplete" #autoShipping="matAutocomplete" [displayWith]="displayFn" (optionSelected)="shippingSelected($event)">
+                  <mat-autocomplete class="three-row-autocomplete" #autoShipping="matAutocomplete" [displayWith]="displayFn" (optionSelected)="shippingSelected($event, shippingInput)">
                     <mat-option *ngFor="let shipping of filteredShippings" [value]="shipping">
                       <div class="autocomplete-row">{{ shipping.name }} </div>
                       <div class="autocomplete-row">{{ shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0' }} </div>

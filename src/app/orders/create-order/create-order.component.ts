@@ -248,9 +248,9 @@ export class CreateOrderComponent implements OnInit {
     this.selectedCampaign = new Campaign();
   }
 
-  productSelected(option) {
+  productSelected(option, input) {
     this.selectedProducts.push(option.option.value);
-    this.productFilterValue = '';
+    input.blur();
   }
 
   productFilterFunction = (product: Product) => {
@@ -305,9 +305,9 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  shippingSelected(option) {
+  shippingSelected(option, input) {
     this.selectedShippings.push(option.option.value);
-    this.shippingFilterValue = '';
+    input.blur();
   }
 
   shippingFilterFunction = (shipping: Product) => {
