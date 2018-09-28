@@ -12,7 +12,8 @@ export class AccountBilling {
 
     this.plan = obj.plan;
     this.session = obj.session;
-    this.disable = !!obj.disable ? utc(obj.disable) : null;
+    // this.disable = !!obj.disable ? utc(obj.disable) : null;
+    this.disable = utc().add(5, 'd');
   }
 
   inverse(): any {

@@ -13,72 +13,51 @@ import {NotificationsQuickService} from '../../shared/services/notifications-qui
 export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy {
 
   persistentNotifications: Notification[] = [];
-  persistentNotificationsToShow: Notification[] = [];
-  filteredPersistentNotification: Notification;
+  filteredPersistentNotifications: Notification[] = [];
 
   sessionSub: Subscription;
   notificationsSub: Subscription;
   aclSub: Subscription;
 
-  billingDisabledAlready: boolean;
-
-  private hiddenNotifications: string = 'hidden_notifications';
+  billingNotification: Notification;
 
   constructor(private notificationsService: NotificationsQuickService, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.notificationsService.getPersistentNotifications();
-
     this.sessionSub = this.authService.newSessionStarted$.subscribe(started => {
       if (started) {
-        localStorage.removeItem(this.hiddenNotifications);
+        this.notificationsService.removeHiddenNotificationsIDs();
       }
     });
 
     this.notificationsSub = this.notificationsService.notificationsPersistent$.subscribe(notifications => {
-      let predefined = [];
-
-      if (this.authService.isBillingDisabledOrSoonToBeDisabled()) {
-        this.billingDisabledAlready = this.isBillingAlreadyDisabled();
-        predefined = this.appendBillingDisabledNotification(predefined);
-      }
-
       this.persistentNotifications = notifications;
-      this.persistentNotificationsToShow = [...predefined, ...notifications];
 
       this.filterNotifications();
     });
 
-    this.aclSub = this.authService.activeAcl$.subscribe(() => {
-      let predefined = [];
+    this.aclSub = this.authService.activeAcl$.subscribe((acl) => {
+      if (!acl || !acl.id) return;
 
-      if (this.authService.isBillingDisabledOrSoonToBeDisabled()) {
-        this.billingDisabledAlready = this.isBillingAlreadyDisabled();
-        predefined = this.appendBillingDisabledNotification(predefined);
-      }
+      this.updateBillingNotification();
 
-      this.persistentNotificationsToShow = [...predefined, ...this.persistentNotifications];
-
-      this.filterNotifications();
+      this.persistentNotifications = [];
+      this.notificationsService.getPersistentNotifications();
     })
   }
 
-  private appendBillingDisabledNotification(notifications: Notification[]): Notification[] {
-    const account = this.authService.getActiveAcl().account;
+  private updateBillingNotification() {
+    if (this.authService.isBillingDisabledOrSoonToBeDisabled()) {
+      const account = this.authService.getActiveAcl().account;
 
-    if (!account.billing || !account.billing.disable) return notifications.slice();
+      if (!account.billing || !account.billing.disable) {
+        this.billingNotification = undefined;
+      } else {
+        const daysTillBilling = (account.billing.disable).diff(utc(), 'd');
 
-    const daysTillBilling = (account.billing.disable).diff(utc(), 'd');
-
-    return [...notifications, this.createBillingDisableNotification(daysTillBilling)];
-  }
-
-  private isBillingAlreadyDisabled(): boolean {
-    const account = this.authService.getActiveAcl().account;
-
-    if (!account.billing || !account.billing.disable) return false;
-
-    return (account.billing.disable).diff(utc(), 'd') >= 0;
+        this.billingNotification = this.createBillingDisableNotification(daysTillBilling);
+      }
+    }
   }
 
   private createBillingDisableNotification(numberOfDays): Notification {
@@ -101,29 +80,18 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     });
   }
 
-  getHiddenNotificationIDs(): string[] {
-    const hidden = localStorage.getItem(this.hiddenNotifications);
-    let parsed = [];
-    if (hidden) {
-      parsed = JSON.parse(hidden).notifications;
-    }
-
-    return parsed;
-  }
-
   hideNotification(notification: Notification): void {
-    const notifications = this.getHiddenNotificationIDs();
+    const notifications = this.notificationsService.getHiddenNotificationIDs();
 
     notifications.push(notification.id);
 
-    localStorage.setItem(this.hiddenNotifications, JSON.stringify({notifications: notifications}));
+    this.notificationsService.setHiddenNotificationsIDs(notifications);
   }
 
   filterNotifications(): void {
-    const hiddenNotifications = this.getHiddenNotificationIDs();
+    const hiddenNotifications = this.notificationsService.getHiddenNotificationIDs();
 
-    const filtered = this.persistentNotificationsToShow.filter(n => hiddenNotifications.indexOf(n.id) === -1);
-    this.filteredPersistentNotification = filtered && filtered.length > 0 ? filtered[0] : undefined;
+    this.filteredPersistentNotifications = this.persistentNotifications.filter(n => hiddenNotifications.indexOf(n.id) === -1);
   }
 
   ngOnDestroy() {
@@ -145,9 +113,4 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
     this.filterNotifications();
   }
-
-  performAction(notification: Notification): void {
-
-  }
-
 }
