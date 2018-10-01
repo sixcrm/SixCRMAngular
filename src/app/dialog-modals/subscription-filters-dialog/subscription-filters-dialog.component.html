@@ -22,7 +22,7 @@
             <div class="label">Status</div>
             <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
             <mat-checkbox [(ngModel)]="activeStatus" (change)="singleStatusSelected($event)">Active</mat-checkbox>
-            <mat-checkbox [(ngModel)]="cancelledStatus" (change)="singleStatusSelected($event)">Canceled</mat-checkbox>
+            <mat-checkbox [(ngModel)]="inactiveStatus" (change)="singleStatusSelected($event)">Inactive</mat-checkbox>
           </div>
         </div>
       </div>

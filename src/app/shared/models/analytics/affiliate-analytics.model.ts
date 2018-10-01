@@ -1,4 +1,5 @@
 import {Currency} from '../../utils/currency/currency';
+import {getValueOf} from './analytics-model.utilities';
 
 export class AffiliateAnalytics {
   affiliate: string;
@@ -28,33 +29,23 @@ export class AffiliateAnalytics {
 
     this.obj = obj;
 
-    this.affiliate = this.getValueOf('affiliate') || '';
-    this.clicks = this.getValueOf('clicks') || 0;
-    this.partials = this.getValueOf('partials') || 0;
-    this.partialsPercent = this.getValueOf('partials_percentage') || 0;
-    this.grossOrders = this.getValueOf('gross_orders') || 0;
-    this.grossOrdersPercentage = this.getValueOf('gross_order_percentage') || 0;
-    this.sales = this.getValueOf('sales') || 0;
-    this.salesPercent = this.getValueOf('sales_percentage') || 0;
-    this.salesRevenue = new Currency(this.getValueOf('sales_revenue'));
-    this.upsells = this.getValueOf('upsells') || 0;
-    this.upsellPercentage = this.getValueOf('upsells_percentage') || 0;
-    this.upsellRevenue = new Currency(this.getValueOf('upsells_revenue'));
-    this.blendedSales = this.getValueOf('blended_sales') || 0;
-    this.blendedSalesRevenue = new Currency(this.getValueOf('blended_sales_revenue'));
-    this.aov = this.getValueOf('aov') || 0;
-    this.declines = this.getValueOf('declines') || 0;
-    this.declinesPercentage = this.getValueOf('declines_percentage') || 0;
+    this.affiliate = getValueOf(obj, 'affiliate') || '';
+    this.clicks = getValueOf(obj, 'clicks') || 0;
+    this.partials = getValueOf(obj, 'partials') || 0;
+    this.partialsPercent = getValueOf(obj, 'partials_percentage') || 0;
+    this.grossOrders = getValueOf(obj, 'gross_orders') || 0;
+    this.grossOrdersPercentage = getValueOf(obj, 'gross_order_percentage') || 0;
+    this.sales = getValueOf(obj, 'sales') || 0;
+    this.salesPercent = getValueOf(obj, 'sales_percentage') || 0;
+    this.salesRevenue = new Currency(getValueOf(obj, 'sales_revenue'));
+    this.upsells = getValueOf(obj, 'upsells') || 0;
+    this.upsellPercentage = getValueOf(obj, 'upsells_percentage') || 0;
+    this.upsellRevenue = new Currency(getValueOf(obj, 'upsells_revenue'));
+    this.blendedSales = getValueOf(obj, 'blended_sales') || 0;
+    this.blendedSalesRevenue = new Currency(getValueOf(obj, 'blended_sales_revenue'));
+    this.aov = getValueOf(obj, 'aov') || 0;
+    this.declines = getValueOf(obj, 'declines') || 0;
+    this.declinesPercentage = getValueOf(obj, 'declines_percentage') || 0;
 
-  }
-
-  private getValueOf(key): any {
-    for (let i = 0; i < this.obj.length; i++) {
-      if (this.obj[i].key === key) {
-        return this.obj[i].value;
-      }
-    }
-
-    return '';
   }
 }

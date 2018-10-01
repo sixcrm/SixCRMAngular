@@ -37,7 +37,9 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
     this.columnParams = [
       new ColumnParams('Date', (e: SubscriptionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Alias', (e: SubscriptionAnalytics) => e.alias).setSortName('alias'),
+      new ColumnParams('Alias', (e: SubscriptionAnalytics) => e.alias).setSortName('alias')
+        .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: SubscriptionAnalytics) => { return { order: e.id } }),
       new ColumnParams('Status', (e: SubscriptionAnalytics) => e.status).setSortName('status'),
       new ColumnParams('Cycle', (e: SubscriptionAnalytics) => e.cycle + '').setSortName('cycle'),
       new ColumnParams('Interval', (e: SubscriptionAnalytics) => e.interval).setSortName('interval'),
@@ -55,7 +57,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Active', selected: false, visible: true, filters: [{facet: 'status', values: ['active']}]},
-      {label: 'Cancelled', selected: false, visible: true, filters: [{facet: 'status', values: ['cancelled']}]}
+      {label: 'Inactive', selected: false, visible: true, filters: [{facet: 'status', values: ['inactive']}]}
     ];
 
     this.options = ['View'];
@@ -164,7 +166,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
       this.tabs[0].count = Observable.of(subscriptions.length);
       this.tabs[1].count = Observable.of(subscriptions.filter(t=>t.status === 'active').length);
-      this.tabs[2].count = Observable.of(subscriptions.filter(t=>t.status === 'cancelled').length);
+      this.tabs[2].count = Observable.of(subscriptions.filter(t=>t.status !== 'active').length);
     });
   }
 
