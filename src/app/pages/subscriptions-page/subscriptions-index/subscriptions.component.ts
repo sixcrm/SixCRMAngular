@@ -57,7 +57,8 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Active', selected: false, visible: true, filters: [{facet: 'status', values: ['active']}]},
-      {label: 'Inactive', selected: false, visible: true, filters: [{facet: 'status', values: ['inactive']}]}
+      {label: 'Inactive', selected: false, visible: true, filters: [{facet: 'status', values: ['inactive']}]},
+      {label: 'Canceled', selected: false, visible: true, filters: [{facet: 'status', values: ['canceled']}]}
     ];
 
     this.options = ['View'];
@@ -166,7 +167,8 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
       this.tabs[0].count = Observable.of(subscriptions.length);
       this.tabs[1].count = Observable.of(subscriptions.filter(t=>t.status === 'active').length);
-      this.tabs[2].count = Observable.of(subscriptions.filter(t=>t.status !== 'active').length);
+      this.tabs[2].count = Observable.of(subscriptions.filter(t=>t.status === 'inactive').length);
+      this.tabs[3].count = Observable.of(subscriptions.filter(t=>t.status === 'canceled').length);
     });
   }
 

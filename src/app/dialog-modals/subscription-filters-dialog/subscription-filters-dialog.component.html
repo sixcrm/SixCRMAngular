@@ -9,13 +9,6 @@
 
     <div class="content">
 
-      <div class="date">
-
-        <div class="date__title">Date Range</div>
-        <filter-daterange-picker [date]="date" (dateChanged)="dateSelected($event)"></filter-daterange-picker>
-
-      </div>
-
       <div class="box-container">
         <div class="box-row">
           <div class="box box--single">
@@ -23,6 +16,7 @@
             <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
             <mat-checkbox [(ngModel)]="activeStatus" (change)="singleStatusSelected($event)">Active</mat-checkbox>
             <mat-checkbox [(ngModel)]="inactiveStatus" (change)="singleStatusSelected($event)">Inactive</mat-checkbox>
+            <mat-checkbox [(ngModel)]="cancelledStatus" (change)="singleStatusSelected($event)">Cancelled</mat-checkbox>
           </div>
         </div>
       </div>

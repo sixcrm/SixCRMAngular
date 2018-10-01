@@ -16,6 +16,7 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
 
   allStatus: boolean = true;
   activeStatus: boolean;
+  cancelledStatus: boolean;
   inactiveStatus: boolean;
 
   selectedCampaigns: Campaign[] = [new Campaign()];
@@ -72,6 +73,10 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
             this.activeStatus = true;
             break;
           }
+          case 'canceled': {
+            this.cancelledStatus = true;
+            break;
+          }
           case 'inactive': {
             this.inactiveStatus = true;
             break;
@@ -121,6 +126,10 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
         statusFacet.values.push('inactive');
       }
 
+      if (this.cancelledStatus) {
+        statusFacet.values.push('canceled');
+      }
+
       if (statusFacet.values.length > 0) {
         return [statusFacet];
       }
@@ -134,6 +143,7 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
     if (event.checked) {
       this.activeStatus = false;
       this.inactiveStatus = false;
+      this.cancelledStatus = false;
     }
   }
 
