@@ -20,7 +20,7 @@ function basicLayoutElementsPlugin(editor) {
         </tr>
         <tr>
           <td style="text-align: center">
-            <table style="width: 100%; max-width: 650px; margin: 35px auto; font-size: 13px;">
+            <table style="width: 100%; max-width: 650px; margin: 25px auto 60px; font-size: 13px;">
                 <tr style="height: 100px;">
                     <td></td>
                 </tr>
@@ -29,7 +29,7 @@ function basicLayoutElementsPlugin(editor) {
         </tr>
         <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
             <td style="text-align: center; padding: 7px 12px;">
-                <div>If you have any questions about our privacy policy, contact our customer service center via <a href="mailto:{{accountdetails.support_link}}">{{accountdetails.support_link}}</a></div>
+                <div>If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_link}}</div>
             </td>
         </tr>
         </table>`,
@@ -216,11 +216,13 @@ function setSimpleStorageManager(editor, parent: {templateBody: string}) {
 
 function advancedDevicesPlugin(editor) {
   const cmdm = editor.Commands;
+  const deviceManager = editor.DeviceManager;
 
+  deviceManager.add('Mobile large', '400px');
 
   cmdm.add('set-device-mobile', {
     run(editor) {
-      editor.setDevice('Mobile portrait');
+      editor.setDevice('Mobile large');
     }
   });
 
@@ -262,6 +264,75 @@ function advancedDevicesPlugin(editor) {
       label: `phone_iphone`,
     }
   ])
+}
+
+function htmlEditorBlock(editor) {
+  const modal = editor.Modal;
+  const codeViewer = editor.CodeManager.getViewer('CodeMirror').clone();
+  const pnm = editor.Panels;
+  const container = document.createElement('div');
+  const btnEdit = document.createElement('button');
+  const previewPane = document.createElement('div');
+  const htmlContent = document.createElement('div');
+
+  htmlContent.className = 'gjs-view-html-content';
+  previewPane.className = 'gjs-view-html-content-preview';
+
+  codeViewer.set({
+    codeName: 'htmlmixed',
+    readOnly: 0,
+    theme: 'hopscotch',
+    autoBeautify: true,
+    autoCloseTags: true,
+    autoCloseBrackets: true,
+    lineWrapping: true,
+    styleActiveLine: true,
+    smartIndent: true,
+    indentWithTabs: true
+  });
+
+  btnEdit.innerHTML = 'EDIT';
+  btnEdit.className = 'gjs-view-code-button mat-button';
+  btnEdit.onclick = () => {
+    const code = codeViewer.editor.getValue();
+    editor.DomComponents.getWrapper().set('content', '');
+    editor.setComponents(code.trim());
+    modal.close();
+  };
+
+  editor.Commands.add('html-edit', {
+    run(editor, sender) {
+      sender && sender.set('active', 0);
+      let viewer = codeViewer.editor;
+      modal.setTitle('Edit code');
+
+      if (!viewer) {
+        const txtarea = document.createElement('textarea');
+        htmlContent.appendChild(txtarea);
+        htmlContent.appendChild(previewPane);
+
+        container.appendChild(htmlContent);
+        container.appendChild(btnEdit);
+
+        codeViewer.init(txtarea);
+        viewer = codeViewer.editor;
+        viewer.on('change', e => previewPane.innerHTML = viewer.getValue().trim());
+      }
+
+      const innerHtml = editor.getHtml();
+      const css = editor.getCss();
+      const juicedContent = juice(`<style>${css}</style>${innerHtml}`);
+
+      modal.setContent('');
+      modal.setContent(container);
+      previewPane.innerHTML = juicedContent;
+      codeViewer.setContent(juicedContent);
+      modal.open();
+      viewer.refresh();
+    }
+  });
+
+  pnm.getButton('options', 'export-template').set({command: 'html-edit'});
 }
 
 export function initGrapesJS(
@@ -339,11 +410,11 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="title-section" style="text-align: center; height: 100%;">
-                    <div style="margin-bottom: 15px; font-size: 22px;">
+                <section id="title-section" style="text-align: center;">
+                    <div style="margin-bottom: 12px; font-size: 22px;">
                         Thank you, {{customer.firstname}}!
                     </div>
-                    <div style="margin-bottom: 25px; color: #5F6368;">
+                    <div style="line-height: 24px; color: #5F6368;">
                         For your order!
                     </div>
                 </section>
@@ -358,12 +429,12 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="title-section" style="text-align: center; height: 100%;">
-                    <div style="margin-bottom: 15px; font-size: 22px;">
+                <section id="title-section" style="text-align: center;">
+                    <div style="margin-bottom: 12PX; font-size: 22px;">
                         Your refund has been processed.
                     </div>
-                    <div style="margin-bottom: 25px; color: #5F6368;">
-                        Transaction #{{transaction.alias}} was refunded for \${{transaction.amount}} on {{formatDate transaction.created_at 'MMM D, YYYY'}}
+                    <div style="line-height: 24px; color: #5F6368;">
+                        Transaction #{{transaction.alias}} was refunded for \${{refund.amount}} on {{formatDate refund.created_at 'MMM D, YYYY'}}
                     </div>
                 </section>
             `
@@ -377,12 +448,15 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="title-section" style="text-align: center; height: 100%;">
-                    <div style="margin-bottom: 15px; font-size: 22px;">
-                        A replacement payement is needed.
+                <section id="title-section" style="text-align: center;">
+                    <div style="margin-bottom: 12px; font-size: 22px; color: #FC1F49;">
+                        Your payment has been declined.
                     </div>
-                    <div style="margin-bottom: 25px; color: #5F6368;">
-                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}. The payment was unsuccessful. 
+                    <div style="line-height: 24px; color: #5F6368;">
+                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{creditcard.type}} card ending in {{creditcard.last_four}}, however the payment was unsuccessful.
+                        <div style="font-weight: bold">
+                          Please contact our customer support at {{accountdetails.support_phone}} to fix your payment information and continue your order.
+                        </div>
                     </div>
                 </section>
             `
@@ -396,12 +470,14 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="title-section" style="text-align: center; height: 100%;">
-                    <div style="margin-bottom: 15px; font-size: 22px;">
+                <section id="title-section" style="text-align: center;">
+                    <div style="margin-bottom: 12px; font-size: 22px;">
                         Your return has been processed.
                     </div>
-                    <div style="margin-bottom: 25px; color: #5F6368;">
-                        We have successfully received your return request. Your return ID is #{{return.alias}} 
+                    <div style="line-height: 24px; color: #5F6368;">
+                      We have received the items from <b">Order #{{rebill.alias}}</b> and have processed your return.
+                      <br>
+                      You will receive a separate message when refund for this purchase has been completed.
                     </div>
                 </section>
             `
@@ -415,12 +491,12 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="title-section" style="text-align: center; height: 100%;">
-                    <div style="margin-bottom: 15px; font-size: 22px;">
-                        Your session has been cancelled.
+                <section id="title-section" style="text-align: center;">
+                    <div style="margin-bottom: 12px; font-size: 22px; color: #FC1F49;">
+                        Your order has been cancelled.
                     </div>
-                    <div style="margin-bottom: 25px; color: #5F6368;">
-                        Session #{{session.alis}} was cancelled at your request and your credit card has not been charged.
+                    <div style="line-height: 24px; color: #5F6368;">
+                        This is to confirm that you order #{{session.alias}} has been cancelled.
                     </div>
                 </section>
             `
@@ -434,7 +510,7 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="order-basic-details-section" style="max-width: 650px; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 0; height: 100%;">
+                <section id="order-basic-details-section" style="max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 0;">
                     <table style="width: 100%; font-size: 13px; font-weight: bold; color: #202124;">
                         <tr>
                             <td style="text-align: left; width: 50%">
@@ -461,7 +537,7 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-              <div style="height: 100%">
+              <div>
                 <section id="order-pricing--details-section" style="max-width: 650px; border-bottom: 1px solid #E5E5E5; margin: 0 auto; padding: 10px 0;">
                     <table style="width: 100%; font-size: 13px; color: #5F6368;">
                         <tr>
@@ -500,7 +576,7 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="order-products-details-section" style="max-width: 650px; margin: 0 auto; height: 100%;">
+                <section id="order-products-details-section" style="max-width: 650px; margin: 0 auto;">
                     {{#order.products}}
                     <table style="width: 100%; font-size: 13px; border-bottom: 1px solid #E5E5E5">
                         <tr>
@@ -527,6 +603,43 @@ export function initGrapesJS(
             `
     });
 
+    editor.BlockManager.add('predefined-return-products', {
+      label: '<b>Return Products Details</b>',
+      category: {
+        label: 'PREDEFINED TOKEN BLOCKS',
+        open: false
+      },
+      attributes: { class:'gjs-block-full-width' },
+      content: `
+                <section id="order-products-details-section" style="max-width: 650px; margin: 0 auto;">
+                    {{#return.transactions}}
+                    {{#products}}
+                    <table style="width: 100%; font-size: 13px; border-bottom: 1px solid #E5E5E5">
+                        <tr>
+                            <td style="text-align: left; width: 80%; padding: 10px 0">
+                                <table>
+                                <tr>
+                                    <td style="width: 60px;">
+                                        <img src="{{image}}" alt="" style="min-width: 60px; max-width: 160px; min-height: 60px; background: grey; display: inline-block;">
+                                    </td>
+                                    <td>
+                                        <div style="margin-left: 30px;">
+                                            <div style="line-height: 24px; font-weight: bold; font-size: 18px;">{{product.name}}</div>
+                                            <div style="line-height: 24px; color: #5F6368">QTY: {{quantity}}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td style="text-align: right; width: 20%; color: #5F6368; font-weight: bold;">\${{amount}}</td>
+                        </tr>
+                    </table>
+                    {{/products}}
+                    {{/return.transactions}}
+                </section>
+            `
+    });
+
     editor.BlockManager.add('predefined-customer-shipping', {
       label: '<b>Customer Shipping Details</b>',
       category: {
@@ -535,7 +648,7 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="customer-shipping-section" style="text-align: left; height: 100%;">
+                <section id="customer-shipping-section" style="text-align: left;">
                   <div style="line-height: 24px; font-weight: bold;">Shipping Address</div>
                   <div style="color: #5F6368">
                     <div>{{customer.firstname}} {{customer.lastname}}</div>
@@ -556,10 +669,10 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="customer-billing-section" style="text-align: left; height: 100%;">
+                <section id="customer-billing-section" style="text-align: left;">
                   <div style="line-height: 24px;font-weight: bold;">Billing Information</div>
                   <div style="color: #5F6368">
-                    <div>{{creditcard.address.firstname}} {{creditcard.address.lastname}}</div>
+                    <div>{{creditcard.name}}</div>
                     <div>{{creditcard.address.line1}}</div>
                     <div>{{creditcard.address.line2}}</div>
                     <div>{{creditcard.address.city}}, {{creditcard.address.state}}</div>
@@ -579,33 +692,18 @@ export function initGrapesJS(
       },
       attributes: { class:'gjs-block-full-width' },
       content: `
-                <section id="fulfillment-details-section" style="max-width: 650px; margin: 0 auto; height: 100%;">
+                <section id="fulfillment-details-section" style="max-width: 650px; margin: 0 auto;">
                     <table style="width: 100%; font-size: 13px">
                         <tr>
                             <td style="text-align: left">
                                 <div>
-                                    <div style="font-weight: bold; line-height: 24px;">Tracking Number</div>
-                                    <div><a href="">{{shipping_receipt.tracking_number}}</a></div>
+                                    <div style="font-weight: bold; line-height: 24px;">USPS Tracking Number</div>
+                                    <div><a href="">{{shipping_receipt.tracking.id}}</a></div>
                                 </div>
                             </td>
                             <td style="text-align: right">
                                 <div>
-                                    <div style="font-weight: bold; line-height: 24px;">Shipping Method</div>
-                                    <div>{{shipping_receipt.carrier}}</div>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="text-align: left">
-                                <div style="padding-top: 15px;">
-                                    <div style="font-weight: bold; line-height: 24px;">Order ID</div>
-                                    <div>#{{rebill.alias}}</div>
-                                </div>
-                            </td>
-                            <td style="text-align: right">
-                                <div style="padding-top: 15px">
-                                    <div style="font-weight: bold; line-height: 24px;">Shipped On</div>
+                                    <div style="font-weight: bold; line-height: 24px;">Shipped on</div>
                                     <div>{{formatDate shipping_receipt.created_at 'MMM D, YYYY'}}</div>
                                 </div>
                             </td>
@@ -694,7 +792,8 @@ export function initGrapesJS(
       tokensPlugin,
       saveCustomBlockPlugin,
       toolbarEditButtonsPlugin,
-      toolbarActionButtonsPlugin
+      toolbarActionButtonsPlugin,
+      htmlEditorBlock
     ],
     storageManager: { type: 'simple-storage' },
   });

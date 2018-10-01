@@ -104,7 +104,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
     }
   ];
 
-  totalAmount: Currency = new Currency(0);
+  totalAmount: Currency;
   revenueMessage: string = 'Last 30 Days Revenue';
 
   name: string;

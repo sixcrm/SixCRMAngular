@@ -4,6 +4,7 @@ import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {getDefaultEmailTemplateBodyForType} from '../default-template-builder';
 
 @Component({
   selector: 'email-template-add-new',
@@ -25,7 +26,7 @@ export class EmailTemplateAddNewComponent implements OnInit {
   modes = Modes;
   formInvalid: boolean;
 
-  types: string[] = [ 'initialorders', 'allorders', 'initialfulfillment', 'allfulfillments', 'delivery', 'cancellation', 'return', 'refund', 'decline' ];
+  types: string[] = [ 'initialorders', 'allorders', 'initialfulfillment', 'allfulfillments', 'cancellation', 'return', 'refund', 'decline' ];
 
   mapper = typeMapper;
 
@@ -60,6 +61,14 @@ export class EmailTemplateAddNewComponent implements OnInit {
   onKeyDown(key) {
     if (key && key.key === 'Escape') {
       this.cancel.emit(true);
+    }
+  }
+
+  setTemplateType(type) {
+    this.entity.type = type;
+
+    if (this.mode === this.modes.Add) {
+      this.entity.body = getDefaultEmailTemplateBodyForType(type)
     }
   }
 }

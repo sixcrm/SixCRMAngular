@@ -43,6 +43,8 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
 
   providerToAdd: MerchantProviderConfiguration = new MerchantProviderConfiguration();
   merchantProviderMapper = (e: MerchantProvider) => e.name;
+  configurationIdMapper = (e: MerchantProviderConfiguration) => e.merchantProvider.id;
+  merchantProviderIdMapper = (e: MerchantProvider) => e.id;
 
   formInvalid: boolean;
   detailsFormInvalid: boolean;
@@ -106,13 +108,19 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
     this.providerToAdd = new MerchantProviderConfiguration();
   }
 
+  invalidDistribution(distribution): boolean {
+    return (!distribution && distribution !== 0)
+      || isNaN(+this.providerToAdd.distribution)
+      || +this.providerToAdd.distribution < 0
+  }
+
   addProvider(valid: boolean): void {
     if (!valid) {
       this.formInvalid = true;
       return;
     }
 
-    if (isNaN(+this.providerToAdd.distribution)) {
+    if (this.invalidDistribution(this.providerToAdd.distribution)) {
       this.providerToAdd.distribution = '';
       this.formInvalid = true;
       return;
@@ -147,6 +155,13 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
     dialogRef.componentInstance.noText = 'Cancel';
     dialogRef.componentInstance.keydownAllowFunction = (key, currentValue) => {
       return isAllowedFloatNumeric(key)
+    };
+    dialogRef.componentInstance.inputValidatorFunction = (value) => {
+      if (value === '0' || value === 0) return true;
+
+      return value
+        && !isNaN(+value)
+        && +value > 0
     };
 
     dialogRef.afterClosed().subscribe(result => {

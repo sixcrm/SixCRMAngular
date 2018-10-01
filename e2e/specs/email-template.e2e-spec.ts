@@ -3,19 +3,17 @@ import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {tosCheck, login} from '../utils/action.utils';
 import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
-import {EntityViewPage} from '../po/entity-view.po';
+import {expectUrlToContain} from '../utils/assertation.utils';
 import {EmailTemplatePage} from '../po/email-template.po';
+import {Key} from 'selenium-webdriver';
 
 describe('Email Template', function() {
   let page: EntityIndexPage;
   let emailTemplate: EmailTemplatePage;
-  let view: EntityViewPage;
 
   beforeEach(() => {
     page = new EntityIndexPage();
     emailTemplate = new EmailTemplatePage();
-    view = new EntityViewPage();
   });
 
   beforeAll((done) => {
@@ -24,8 +22,8 @@ describe('Email Template', function() {
     browser.get('/');
     clearLocalStorage();
     login();
-    tosCheck(done);
     waitForUrlContains('dashboard');
+    tosCheck(done);
   });
 
   afterAll(() => {
@@ -41,55 +39,35 @@ describe('Email Template', function() {
     expectUrlToContain('emailtemplates');
   });
 
-  it('should render email templates index component', () => {
-    expectDefined(page.getComponent());
-  });
-
-  it('should render email templates index title', () => {
-    expect(page.getTitle().getText()).toContain('Email Template');
-  });
-
-  it('should render email templates index add button', () => {
-    expectDefined(page.getAddButton());
-  });
-
-  it('should render add modal when add button is clicked', () => {
-    page.getAddButton().click();
-    expectDefined(emailTemplate.getNewForm());
-  });
-
-  it('should show errors when try to submit empty form', () => {
-    emailTemplate.getNewFormSaveButton().click();
-    expect(emailTemplate.getErrorInputs().count()).toBeGreaterThan(1);
-  });
-
-  it('should remove errors when form is valid', () => {
+  it('should display preset email template', () => {
     browser.sleep(2000);
-    emailTemplate.getNewFormInputs().get(0).sendKeys('e2e email template');
-    emailTemplate.getNewFormInputs().get(1).sendKeys('e2e email template subject');
-
-    emailTemplate.getDropdown(0).click();
-    browser.sleep(200);
-    emailTemplate.getDropdownOption().click();
-    browser.sleep(200);
-
-    emailTemplate.getDropdown(1).click();
-    browser.sleep(200);
-    emailTemplate.getDropdownOption().click();
-    browser.sleep(200);
-
-    expect(emailTemplate.getErrorInputs().count()).toEqual(0);
+    expect(emailTemplate.getTemplates().count()).toBeGreaterThan(0);
   });
 
-  it('should create new product schedule and redirect email template view', () => {
-    emailTemplate.getNewFormSaveButton().click();
-    waitForUrlContains('emailtemplates/');
+  it('should display template preview modal', () => {
+    emailTemplate.getPreviewButton(0).click();
+    expect(emailTemplate.getPreviewModal()).toBeDefined();
+    expect(emailTemplate.getPreviewContent().getText()).toEqual('hello, Freeda');
+  });
+
+  it('should close preview modal', () => {
+    browser.actions().sendKeys(Key.ESCAPE).perform();
+    browser.sleep(2000);
+    expect(emailTemplate.getPreviewModal().isPresent()).toBeFalsy();
+  });
+
+  it('should open email template for editing', () => {
+    emailTemplate.getEditButton(0).click();
     expectUrlToContain('emailtemplates/');
   });
 
-  it('should display email template details', () => {
+  it('should display grapesjs', () => {
     browser.sleep(2000);
-    expect(view.getEntityNameHeaderSolo().getText()).toEqual('e2e email template');
+    expect(emailTemplate.getGrapesJS().isPresent()).toBeTruthy();
+  });
+
+  it('should display token blocks', () => {
+    expect(emailTemplate.getGrapesCategoryBlocks().count()).toBeGreaterThanOrEqual(3);
   });
 
 });

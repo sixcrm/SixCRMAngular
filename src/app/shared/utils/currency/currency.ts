@@ -16,6 +16,9 @@ export class Currency {
     return numeral(this.amount).format('$0,0.00');
   }
 
+  parsedAmount(): string {
+    return numeral(this.amount).format('0,0.00');
+  }
 
   isMoreThan(other: Currency): boolean {
     if (!other) return true;

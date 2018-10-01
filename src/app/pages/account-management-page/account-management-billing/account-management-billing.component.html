@@ -54,7 +54,7 @@
 
           <span>{{getStatus(rebill)}}</span>
         </td>
-        <td>{{rebill.billAt | formatDateTime: 'DD/MM/YY'}}</td>
+        <td>{{rebill.billAt | formatDateTime: 'MMMM Do, YYYY'}}</td>
         <td>**** {{getCard(rebill).lastFour}}</td>
         <td>{{getCard(rebill).type}}</td>
         <td>{{rebill.productSchedules[0].name}}</td>

@@ -37,6 +37,7 @@ import {EventHooksSharedService} from './services/event-hooks-shared.service';
 import {UserSettingsService} from './services/user-settings.service';
 import {OrdersService} from './services/orders.service';
 import {AccountDetailsService} from './services/account-details.service';
+import {ReturnsService} from './services/returns.service';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import {AccountDetailsService} from './services/account-details.service';
     EventHooksSharedService,
     UserSettingsService,
     OrdersService,
-    AccountDetailsService
+    AccountDetailsService,
+    ReturnsService
   ]
 })
 export class EntityServicesModule { }

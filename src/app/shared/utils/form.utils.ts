@@ -50,6 +50,20 @@ export function isValidEmail(email): boolean {
   return regex.test(email);
 }
 
+export function isValidLink(link): boolean {
+  if (!link) return false;
+
+  let regex = /^((https|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
+  return regex.test(link);
+}
+
+export function isValidColorHex(hex): boolean {
+  if (!hex) return false;
+
+  let regex = /^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  return regex.test(hex);
+}
+
 export function isAllowedZip(event): boolean {
   const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab|Delete|-/;
 

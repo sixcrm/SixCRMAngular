@@ -6,6 +6,7 @@ import {
   isValidState, isAllowedNumeric
 } from '../../utils/form.utils';
 import {utc} from 'moment';
+import {getStates, getCountries} from '../../utils/address.utils';
 
 @Component({
   selector: 'payment-form',
@@ -35,6 +36,11 @@ export class PaymentFormComponent implements OnInit {
   isAddressValid = isValidAddress;
   isCountryValid = isValidCountry;
   isStateValid = isValidState;
+
+  countries: string[] = getCountries();
+  states: string[] = getStates();
+
+  plainMapper = (el) => el;
 
   constructor() { }
 

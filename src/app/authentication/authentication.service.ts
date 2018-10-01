@@ -458,11 +458,11 @@ export class AuthenticationService {
           this.updateSettings(new UserSettings(user.usersetting));
 
           if (redirectUrl && forceRedirect) {
-            this.router.navigateByUrl(redirectUrl);
+            this.router.navigateByUrl(redirectUrl, {replaceUrl: true});
             return;
           }
 
-          this.redirectAfterAclChange(redirectUrl);
+          this.redirectAfterAclChange(redirectUrl, true);
         } else {
           this.logout();
         }
@@ -470,29 +470,29 @@ export class AuthenticationService {
     );
   }
 
-  private redirectAfterAclChange(redirectUrl?: string) {
+  private redirectAfterAclChange(redirectUrl?: string, replaceUrlState?: boolean) {
     if (this.shouldRedirectToRegister()) {
-      this.router.navigateByUrl('/register');
+      this.router.navigateByUrl('/register', {replaceUrl: !!replaceUrlState});
       return;
     }
 
     if (this.shouldRedirectToAccountInfo()) {
-      this.router.navigateByUrl('/account-info');
+      this.router.navigateByUrl('/account-info', {replaceUrl: !!replaceUrlState});
       return;
     }
 
     if (this.shouldRedirectToBillingDisabled()) {
-      this.router.navigate(['/billing-disabled']);
+      this.router.navigate(['/billing-disabled'], {replaceUrl: !!replaceUrlState});
       return;
     }
 
     if (redirectUrl) {
-      this.router.navigateByUrl(redirectUrl);
+      this.router.navigateByUrl(redirectUrl, {replaceUrl: !!replaceUrlState});
       return;
     }
 
     if (this.shouldRedirectToDashboard()) {
-      this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard');
+      this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard', {replaceUrl: !!replaceUrlState});
     }
   }
 
