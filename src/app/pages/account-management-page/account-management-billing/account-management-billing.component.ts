@@ -117,10 +117,10 @@ export class AccountManagementBillingComponent implements OnInit {
   openCardSwitcher(): void {
     let dialogRef = this.dialog.open(CardSwitcherDialogComponent, {backdropClass: 'backdrop-blue'});
 
-    dialogRef.componentInstance.cards = this.session.customer.creditCards;
+    dialogRef.componentInstance.cards = this.session.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
 
-    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card, dialogRef));
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
@@ -144,7 +144,7 @@ export class AccountManagementBillingComponent implements OnInit {
     });
   }
 
-  openCardModal(creditCard: CreditCard) {
+  openCardModal(creditCard: CreditCard, switcherRef) {
     let dialogRef = this.dialog.open(AddCreditCardDialogComponent, {backdropClass: 'backdrop-blue'});
 
     dialogRef.componentInstance.creditCard = creditCard.copy();
@@ -160,6 +160,8 @@ export class AccountManagementBillingComponent implements OnInit {
             card.type = this.session.customer.creditCards[index].type;
             this.session.customer.creditCards[index] = card;
             this.session.customer.creditCards = this.session.customer.creditCards.slice();
+
+            switcherRef.componentInstance.cards = this.session.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
           }
         })
       }
