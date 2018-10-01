@@ -76,22 +76,18 @@ export class AccountManagementBillingComponent implements OnInit {
     }
   }
 
-  isStatusSuccess(rebill): boolean {
-    if (!rebill.transactions || !rebill.transactions[0]) return false;
+  isPaid(rebill: Rebill): boolean {
+    if (!rebill) return true;
 
-    return rebill.transactions[0].processorResponse.code === 'success';
+    return rebill.transactions
+      && rebill.transactions.length > 0
+      && rebill.transactions.some(t => t.type === 'sale' && t.processorResponse.code === 'success')
   }
 
-  getStatus(rebill): string {
-    if (!rebill.transactions || !rebill.transactions[0]) return 'pending';
+  getCardNumber(rebill): string {
+    if (!rebill.transactions || !rebill.transactions[0]) return '-';
 
-    return rebill.transactions[0].processorResponse.code;
-  }
-
-  getCard(rebill): CreditCard {
-    if (!rebill.transactions || !rebill.transactions[0]) return new CreditCard();
-
-    return rebill.transactions[0].creditCard;
+    return rebill.transactions[0].creditCard.lastFour;
   }
 
   getPlanPrice(rebill) {

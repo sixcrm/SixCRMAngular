@@ -32,6 +32,14 @@
       width: 100%;
       box-sizing:  border-box;
 
+      &--error {
+        background: #DC2547;
+
+        .minimum, .date, .amount {
+          color: #ffffff;
+        }
+      }
+
       .date {
         color: white;
         font-size: 20px;

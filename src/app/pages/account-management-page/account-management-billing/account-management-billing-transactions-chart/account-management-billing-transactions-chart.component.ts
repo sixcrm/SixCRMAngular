@@ -136,7 +136,7 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
 
     return rebill.transactions
       && rebill.transactions.length > 0
-      && rebill.transactions.some(t => t.type === 'sale' && t.processorResponse.code = 'success')
+      && rebill.transactions.some(t => t.type === 'sale' && t.processorResponse.code === 'success')
   }
 
   getPlanPrice(rebill: Rebill) {
