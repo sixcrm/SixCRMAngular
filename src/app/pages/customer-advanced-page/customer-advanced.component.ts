@@ -101,6 +101,12 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedules => {
       this.sessionService.updateEntity(this.session.copyWithWatermark(productSchedules, this.session.watermark.extractedProducts), {ignoreSnack: true});
     });
+
+    this.customerService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(customer => {
+      if (customer instanceof CustomServerError) return;
+
+      this.customer = customer;
+    })
   }
 
   ngOnDestroy(): void {
