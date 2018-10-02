@@ -42,9 +42,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         .setQueryParams((e: SubscriptionAnalytics) => { return { order: e.id } }),
       new ColumnParams('Status', (e: SubscriptionAnalytics) => e.status).setCapitalize(true).setSortName('status'),
       new ColumnParams('Cycle', (e: SubscriptionAnalytics) => e.cycle + '').setSortName('cycle'),
-      new ColumnParams('Interval', (e: SubscriptionAnalytics) => e.interval).setSortName('interval'),
       new ColumnParams('Sale Amount', (e: SubscriptionAnalytics) => e.amount.usd()).setSortName('amount'),
-      new ColumnParams('Items', (e: SubscriptionAnalytics) => e.items + '').setSortName('item_count'),
       new ColumnParams('Customer', (e: SubscriptionAnalytics) => e.customerName).setSortName('customer_name')
         .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: SubscriptionAnalytics) => { return { customer: e.customerId } }),
@@ -92,7 +90,6 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         'Status': s.status,
         'Amount': s.amount.usd(),
         'Cycle': s.cycle,
-        'Interval': s.interval,
         'Items': s.items,
         'Customer': s.customerName,
         'Campaign': s.campaignName,

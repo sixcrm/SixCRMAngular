@@ -28,9 +28,7 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
 
     this.filterColumns = [
       { name: 'cycle', label: 'Cycle' },
-      { name: 'interval', label: 'Interval' },
       { name: 'saleAmount', label: 'Sale Amount' },
-      { name: 'items', label: 'Items' },
       { name: 'customerName', label: 'Customer' }
     ];
   }
