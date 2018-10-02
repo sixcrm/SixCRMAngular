@@ -109,7 +109,7 @@ describe('Register', function() {
     expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('21000');
     expect(registerPage.getConfirmAddressDetails().get(3).getText()).toContain('United States');
 
-    expectPresent(registerPage.getConfirmationScreen())
+    expectPresent(registerPage.getConfirmationScreen());
   });
 
   it('should successfully finish registration', () => {
@@ -118,6 +118,6 @@ describe('Register', function() {
     registerPage.getCompleteButton().click();
     waitForUrlContains('/dashboard?w=true', 20000);
     expectUrlToContain('/dashboard?w=true');
-  })
+  });
 
 });
