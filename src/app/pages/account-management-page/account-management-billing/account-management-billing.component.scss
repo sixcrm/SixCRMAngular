@@ -94,3 +94,19 @@
   color: $danger-color;
   font-weight: 500;
 }
+
+.paybutton {
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 13px;
+  border: 1px solid $danger-color;
+}
+
+.button-cell {
+  padding: 0 5px;
+}
+
+.number-cell {
+  text-align: right;
+}

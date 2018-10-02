@@ -163,4 +163,8 @@ export class AccountManagementBillingComponent implements OnInit {
       }
     });
   }
+
+  payRebill(rebill: Rebill) {
+
+  }
 }
