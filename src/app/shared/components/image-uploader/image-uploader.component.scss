@@ -76,3 +76,14 @@
     display: none;
   }
 }
+
+.allowed-instructions {
+  margin-top: 15px;
+  font-size: 9px;
+  color: rgba(0,0,0,0.5);
+  font-weight: 500;
+
+  div:first-of-type {
+    margin-bottom: 3px;
+  }
+}

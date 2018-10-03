@@ -248,9 +248,9 @@ export class CreateOrderComponent implements OnInit {
     this.selectedCampaign = new Campaign();
   }
 
-  productSelected(option) {
+  productSelected(option, input) {
     this.selectedProducts.push(option.option.value);
-    this.productFilterValue = '';
+    input.blur();
   }
 
   productFilterFunction = (product: Product) => {
@@ -262,7 +262,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
   productInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
+    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
       return;
@@ -305,9 +305,9 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  shippingSelected(option) {
+  shippingSelected(option, input) {
     this.selectedShippings.push(option.option.value);
-    this.shippingFilterValue = '';
+    input.blur();
   }
 
   shippingFilterFunction = (shipping: Product) => {
@@ -319,7 +319,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
   shippingInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
+    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
       return;
@@ -444,7 +444,7 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(this.selectedProducts.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.firstSchedulePrice.amount || 0) * p.quantity;
+        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;

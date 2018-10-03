@@ -9,6 +9,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { CreateOrderPreviewComponent } from './create-order/create-order-preview/create-order-preview.component';
 import { CreateOrderSuccessComponent } from './create-order/create-order-success/create-order-success.component';
 import {EntityServicesModule} from '../entity-services/entity-services.module';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {EntityServicesModule} from '../entity-services/entity-services.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialSelectionModule,
-    TextMaskModule
+    TextMaskModule,
+    ClipboardModule
   ],
   declarations: [
     CreateOrderComponent,

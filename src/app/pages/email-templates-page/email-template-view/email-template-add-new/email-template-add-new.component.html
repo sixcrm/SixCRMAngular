@@ -22,7 +22,7 @@
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       <mat-menu #typeOptions="matMenu" x-position="before">
-        <button mat-menu-item *ngFor="let type of types" (click)="entity.type = type">{{mapper(type)}}</button>
+        <button mat-menu-item *ngFor="let type of types" (click)="setTemplateType(type)">{{mapper(type)}}</button>
       </mat-menu>
     </div>
 

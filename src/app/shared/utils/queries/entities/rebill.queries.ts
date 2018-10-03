@@ -17,17 +17,6 @@ export function rebillsListQuery(params: IndexQueryParameters): string {
   }`
 }
 
-export function rebillsPendingListQuery(params: IndexQueryParameters): string {
-  return `{
-		rebillpendinglist ${listQueryParams(params)} {
-			rebills {
-			  ${rebillInfoResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}
-  }`
-}
-
 export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {
@@ -74,11 +63,11 @@ export function updateRebillMutation(rebill: Rebill): string {
 
 export function rebillResponseQuery(): string {
   return `
-    id bill_at amount created_at updated_at,
+    id bill_at amount cycle created_at updated_at,
     parentsession { id,
       customer { id firstname lastname,
         address { line1 line2 city state zip },
-        creditcards {	id expiration last_four first_six name,
+        creditcards {	id expiration last_four first_six name created_at,
           address { line1 line2 city state zip country }
         }
       }

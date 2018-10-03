@@ -11,7 +11,7 @@ import {CreditCard} from '../../../shared/models/credit-card.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Customer} from '../../../shared/models/customer.model';
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
-import {isValidEmail} from '../../../shared/utils/form.utils';
+import {isValidEmail, isValidLink, isValidColorHex} from '../../../shared/utils/form.utils';
 import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
@@ -38,12 +38,18 @@ export class AccountManagementGeneralComponent implements OnInit {
   mask = getPhoneNumberMask();
   formInvalid: boolean;
 
+  accountDetailsFormInvalid: boolean;
+
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'Account Management'},
     {label: () => 'General'}
   ];
 
   idExpanded: boolean;
+
+  isValidLink = isValidLink;
+  isValidEmail = isValidEmail;
+  isValidColorHex = isValidColorHex;
 
   constructor(
     private accountService: AccountsService,
@@ -143,8 +149,12 @@ export class AccountManagementGeneralComponent implements OnInit {
     dialogRef.componentInstance.cards = this.customer.creditCards;
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
 
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
+
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
+
+      if (editSub) editSub.unsubscribe();
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
         const customer = this.customer.copy();
@@ -264,7 +274,10 @@ export class AccountManagementGeneralComponent implements OnInit {
   accountDetailsEdited() {
     return (this.accountDetails.supportLink !== this.accountDetailsBackup.supportLink)
       || (this.accountDetails.emailTemplateSettings.colorPrimary !== this.accountDetailsBackup.emailTemplateSettings.colorPrimary)
-      || (this.accountDetails.companyLogo !== this.accountDetailsBackup.companyLogo);
+      || (this.accountDetails.emailTemplateSettings.colorSecondary !== this.accountDetailsBackup.emailTemplateSettings.colorSecondary)
+      || (this.accountDetails.emailTemplateSettings.colorTertiary !== this.accountDetailsBackup.emailTemplateSettings.colorTertiary)
+      || (this.accountDetails.companyLogo !== this.accountDetailsBackup.companyLogo)
+      || (this.accountDetails.supportEmail !== this.accountDetailsBackup.supportEmail);
   }
 
   cancelAccountDetailsEdit() {
@@ -272,6 +285,15 @@ export class AccountManagementGeneralComponent implements OnInit {
   }
 
   updateAccountDetails() {
+    this.accountDetailsFormInvalid =
+      (this.accountDetails.supportEmail && !this.isValidEmail(this.accountDetails.supportEmail))
+      || (this.accountDetails.supportLink && !this.isValidLink(this.accountDetails.supportLink))
+      || (this.accountDetails.emailTemplateSettings.colorPrimary && !this.isValidColorHex(this.accountDetails.emailTemplateSettings.colorPrimary))
+      || (this.accountDetails.emailTemplateSettings.colorSecondary && !this.isValidColorHex(this.accountDetails.emailTemplateSettings.colorSecondary))
+      || (this.accountDetails.emailTemplateSettings.colorTertiary && !this.isValidColorHex(this.accountDetails.emailTemplateSettings.colorTertiary))
+
+    if (this.accountDetailsFormInvalid) return;
+
     this.accountDetailsService.entityUpdated$.take(1).subscribe(accountDetails => {
       if (accountDetails instanceof CustomServerError) return;
 

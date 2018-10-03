@@ -15,10 +15,15 @@
             <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
             <mat-menu #actionsMenu="matMenu" x-position="before">
               <button mat-menu-item (click)="goToFulfillmentProvider()">{{'SHIPPINGRECEIPT_INFO_FULFILLMENTPROVIDERVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToRebill()">View Order</button>
             </mat-menu>
           </div>
 
           <div class="entity-view__card__content">
+            <mat-form-field class="entity-view__card__content__item">
+              <input matInput disabled placeholder="Order ID" [(ngModel)]="entity.rebill.alias" type="text">
+            </mat-form-field>
+
             <div class="flex-custom">
               <mat-form-field class="entity-view__card__content__item number-input">
                 <input matInput disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.tracking.id" type="text">
@@ -39,33 +44,6 @@
           </div>
         </div>
 
-        <div class="entity-view__card">
-          <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">{{'SHIPPINGRECEIPT_HISTORY_TITLE' | translate}}</div>
-          </div>
-
-          <div class="history-container">
-            <div class="flex-custom" *ngFor="let event of entity.history; let i = index">
-
-              <div>
-                <div class="done-icon">
-                  <mat-icon>done</mat-icon>
-                </div>
-
-                <div *ngIf="i < entity.history.length - 1" class="line"></div>
-              </div>
-
-              <div class="info-container">
-                <div class="name">{{event.parseStatus() | translate}}</div>
-                <div class="time" *ngIf="event.createdAt">
-                  {{event.createdAt.format('MM/DD/YYYY h:mm a')}}
-                </div>
-                <div class="warning">{{event.detail}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
     </mat-tab>
@@ -74,7 +52,7 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [numberOfCards]="1" [title]="'SHIPPINGRECEIPT_INDEX_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="'400px'" [title]="'SHIPPINGRECEIPT_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

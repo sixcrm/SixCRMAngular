@@ -29,7 +29,7 @@ function basicLayoutElementsPlugin(editor) {
         </tr>
         <tr style="width: 100%; font-size: 12px; color: #5F6368; background: #C4C4C4;">
             <td style="text-align: center; padding: 7px 12px;">
-                <div>If you have any questions about our privacy policy, contact our customer service center via <a href="mailto:{{accountdetails.support_link}}">{{accountdetails.support_link}}</a></div>
+                <div>If you have any questions about our privacy policy, contact our customer service center via email at {{accountdetails.support_link}}</div>
             </td>
         </tr>
         </table>`,
@@ -216,11 +216,13 @@ function setSimpleStorageManager(editor, parent: {templateBody: string}) {
 
 function advancedDevicesPlugin(editor) {
   const cmdm = editor.Commands;
+  const deviceManager = editor.DeviceManager;
 
+  deviceManager.add('Mobile large', '400px');
 
   cmdm.add('set-device-mobile', {
     run(editor) {
-      editor.setDevice('Mobile portrait');
+      editor.setDevice('Mobile large');
     }
   });
 
@@ -432,7 +434,7 @@ export function initGrapesJS(
                         Your refund has been processed.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        Transaction #{{transaction.alias}} was refunded for \${{transaction.amount}} on {{formatDate transaction.created_at 'MMM D, YYYY'}}
+                        Transaction #{{transaction.alias}} was refunded for \${{refund.amount}} on {{formatDate refund.created_at 'MMM D, YYYY'}}
                     </div>
                 </section>
             `
@@ -451,9 +453,9 @@ export function initGrapesJS(
                         Your payment has been declined.
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
-                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{transaction.credit_card.type}} card ending in {{transaction.credit_card.last_four}}, however the payment was unsuccessful.
+                        On {{formatDate transaction.created_at 'MMM D, YYYY'}}, we attempted to charge \${{transaction.amount}} to your {{creditcard.type}} card ending in {{creditcard.last_four}}, however the payment was unsuccessful.
                         <div style="font-weight: bold">
-                          Please contact our customer support at {{accountdetails.support_link}} to fix your payment information and continue your order.
+                          Please contact our customer support at {{accountdetails.support_phone}} to fix your payment information and continue your order.
                         </div>
                     </div>
                 </section>
@@ -495,8 +497,6 @@ export function initGrapesJS(
                     </div>
                     <div style="line-height: 24px; color: #5F6368;">
                         This is to confirm that you order #{{session.alias}} has been cancelled.
-                        <br>
-                        If payment was already received, you can expect to see a refund shortly.
                     </div>
                 </section>
             `
@@ -698,7 +698,7 @@ export function initGrapesJS(
                             <td style="text-align: left">
                                 <div>
                                     <div style="font-weight: bold; line-height: 24px;">USPS Tracking Number</div>
-                                    <div><a href="">{{shipping_receipt.tracking_number}}</a></div>
+                                    <div><a href="">{{shipping_receipt.tracking.id}}</a></div>
                                 </div>
                             </td>
                             <td style="text-align: right">

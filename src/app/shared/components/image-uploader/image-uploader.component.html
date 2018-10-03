@@ -13,6 +13,10 @@
         <input type="file" ng2FileSelect [uploader]="uploader"/>
         {{'PRODUCT_IMAGE_UPLOAD_SELECT' | translate}}
       </label>
+      <div class="allowed-instructions">
+        <div>JPG, JPEG, SVG or PNG</div>
+        <div>max size 1MB</div>
+      </div>
     </ng-container>
     <ng-template #preview>
       <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone" style="width: 100%;"/>

@@ -101,6 +101,12 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedules => {
       this.sessionService.updateEntity(this.session.copyWithWatermark(productSchedules, this.session.watermark.extractedProducts), {ignoreSnack: true});
     });
+
+    this.customerService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(customer => {
+      if (customer instanceof CustomServerError) return;
+
+      this.customer = customer;
+    })
   }
 
   ngOnDestroy(): void {
@@ -332,7 +338,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
             if (!rebill.transactions) return [];
 
             return rebill.transactions.map(transaction => {
-              transaction.rebill = new Rebill({id: rebill.id});
+              transaction.rebill = new Rebill({id: rebill.id, alias: rebill.alias});
 
               return transaction;
             });
@@ -346,10 +352,22 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
           .sort(sortByCreatedAtFn('desc'));
 
         this.shippingReceipts = this.transactions
-          .map(transaction => transaction.products)
+          .map(transaction =>
+            transaction.products.map(p => {
+              p.rebill = new Rebill({id: transaction.rebill.id, alias: transaction.rebill.alias});
+
+              return p;
+            })
+          )
           .reduce((a,b) => a.concat(b), [])
-          .map(products => products.shippingReceipt)
+          .map(products => {
+            const receipt = products.shippingReceipt;
+            receipt.rebill = products.rebill;
+
+            return receipt;
+          })
           .filter(receipt => !!receipt.id)
+          .reduce((a,b) => a.some(el => el.id === b.id) ? a : [...a,b], [])
           .sort(sortByCreatedAtFn('desc'));
       });
 

@@ -9,7 +9,6 @@ import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductsService} from '../../../entity-services/services/products.service';
@@ -30,7 +29,6 @@ import {EmailTemplatesService} from '../../../entity-services/services/email-tem
 export class ProductScheduleViewComponent extends AbstractEntityViewComponent<ProductSchedule> implements OnInit, OnDestroy {
 
   @ViewChild('endField') endField;
-  @ViewChild('addScheduleComponent') addScheduleComponent: AddScheduleComponent;
 
   startDate: Moment = utc().millisecond(0).second(0).minute(0).hour(0);
 
@@ -261,7 +259,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   canBeDeactivated() {
-    return super.canBeDeactivated() && (!this.addScheduleComponent || !this.addScheduleComponent.isTouched());
+    return super.canBeDeactivated();
   }
 
   openDeleteDialog(callback: () => void) {
