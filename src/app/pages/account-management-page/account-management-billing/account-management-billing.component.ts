@@ -12,6 +12,9 @@ import {CardSwitcherDialogComponent} from '../../../dialog-modals/card-switcher-
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
+import {PaymentDialogComponent} from '../../../dialog-modals/payment-dialog/payment-dialog.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {UsersService} from '../../../entity-services/services/users.service';
 
 @Component({
   selector: 'account-management-billing',
@@ -35,6 +38,7 @@ export class AccountManagementBillingComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
+    private userService: UsersService,
     private customerGraphAPI: HttpWrapperCustomerService,
     private dialog: MatDialog
   ) { }
@@ -193,6 +197,22 @@ export class AccountManagementBillingComponent implements OnInit {
   }
 
   payRebill(rebill: Rebill) {
+    let paymentDialogRef = this.dialog.open(PaymentDialogComponent, {backdropClass: 'backdrop-blue'});
 
+    paymentDialogRef.componentInstance.creditCard = new CreditCard({});
+    paymentDialogRef.componentInstance.otherCreditCards = this.session.customer.creditCards.slice();
+    paymentDialogRef.componentInstance.rebill = rebill;
+
+    this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
+      paymentDialogRef.componentInstance.terms = response.body.response.data.latesttermsandconditions;
+    });
+
+    paymentDialogRef.afterClosed().subscribe(result => {
+      paymentDialogRef = null;
+    });
   }
 }

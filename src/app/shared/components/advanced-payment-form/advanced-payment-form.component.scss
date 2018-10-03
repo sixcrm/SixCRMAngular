@@ -1,0 +1,85 @@
+@import "../../../../assets/scss/colors";
+
+.column {
+  width: 320px;
+
+  .column-title {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &:first-of-type {
+    margin-right: 35px;
+  }
+}
+
+.body {
+  padding: 35px 25px !important;
+  flex-direction: row !important;
+}
+
+.row {
+  display: flex;
+
+  mat-form-field {
+    width: 150px;
+
+    &:first-of-type {
+      margin-right: auto;
+    }
+  }
+}
+
+.input-with-codes {
+  display: flex;
+  align-items: center;
+
+  mat-form-field {
+    width: 50%;
+    margin-right: 15px;
+  }
+
+  img {
+    margin-left: auto;
+  }
+}
+
+.dates {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14.5px;
+  margin-bottom: 30px;
+
+  .error {
+    mat-icon {
+      margin-left: auto;
+      color: $danger-color;
+    }
+
+    div {
+      color: $danger-color;
+    }
+  }
+
+  .element {
+    width: calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.54);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    cursor: pointer;
+
+    mat-icon {
+      margin-left: auto;
+    }
+  }
+
+  .error {
+    border-color: $danger-color !important;
+  }
+
+  .selected {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
