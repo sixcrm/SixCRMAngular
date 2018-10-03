@@ -68,7 +68,6 @@ describe('Search', function() {
     waitForPresenceOf(topnav.getSearchInput());
     topnav.getSearchInput().sendKeys('e2e');
     topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
-    browser.pause();
 
     browser.sleep(2500);
 
