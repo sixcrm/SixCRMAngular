@@ -20,7 +20,7 @@ export class AdvancedPaymentFormComponent implements OnInit {
   }
   @Input() showSensitiveData: boolean;
 
-  private formInvalid: boolean;
+  formInvalid: boolean;
 
   plainMapper = (el) => el;
   countries: string[] = getCountries();
