@@ -1,7 +1,7 @@
 @import "../../../../assets/scss/colors";
 
 .column {
-  width: 320px;
+  width: calc(50% - 18px);
 
   .column-title {
     margin-bottom: 15px;
@@ -10,20 +10,30 @@
   }
 
   &:first-of-type {
-    margin-right: 35px;
+    margin-right: 18px;
+  }
+
+  &:last-of-type {
+    margin-left: auto;
   }
 }
 
-.body {
-  padding: 35px 25px !important;
-  flex-direction: row !important;
+.advanced-payment-body {
+  width: 100%;
+  padding: 35px 25px;
+  display: flex;
+  box-sizing: border-box;
+}
+
+mat-form-field {
+  width: 100%;
 }
 
 .row {
   display: flex;
 
   mat-form-field {
-    width: 150px;
+    width: calc(50% - 10px);
 
     &:first-of-type {
       margin-right: auto;
