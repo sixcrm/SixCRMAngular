@@ -1,6 +1,6 @@
 defaults: &job-defaults
   docker:
-    - image: circleci/node:8.10-stretch-browsers
+    - image: circleci/node:8.12-stretch-browsers
       environment:
         - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
         - CHROME_BIN: "/usr/bin/google-chrome"
@@ -14,10 +14,11 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependency-cache-{{ checksum "package-lock.json" }}
+            - v1-dependency-cache-
       - run: git submodule update --init --remote --merge
       - run:
           name: npm install
-          command: npm install
+          command: npm ci
       - save_cache:
           key: v1-dependency-cache-{{ checksum "package-lock.json" }}
           paths:
