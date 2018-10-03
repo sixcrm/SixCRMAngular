@@ -88,6 +88,7 @@ export class CustomerInfoComponent implements OnInit, OnDestroy {
       dialogRef.componentInstance.cards = customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
       dialogRef.componentInstance.selectedDefaultCard = this.getDefaultCard(customer) || new CreditCard();
       dialogRef.componentInstance.updateEmbedded = true;
+      dialogRef.componentInstance.addEmbedded = true;
     };
 
     const customerUpdateSub = this.customerService.entityUpdated$.subscribe((updatedCustomer) => {

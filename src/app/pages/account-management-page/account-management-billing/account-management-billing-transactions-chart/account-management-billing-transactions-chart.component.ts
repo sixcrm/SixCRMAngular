@@ -65,7 +65,7 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
       {
         color: '#999999',
         name: 'transactions',
-        data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10, 3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10, 3, 3, 5, 4, 6, 8, 6, 9, 10],
+        data: [],
         pointStart: utc().subtract(30, 'd'),
         pointInterval: 24 * 3600 * 1000 // one day
       }

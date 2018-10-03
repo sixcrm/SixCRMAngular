@@ -87,7 +87,7 @@ export class AccountManagementBillingComponent implements OnInit {
   getCardNumber(rebill): string {
     if (!rebill.transactions || !rebill.transactions[0]) return '-';
 
-    return rebill.transactions[0].creditCard.lastFour;
+    return `**** ${rebill.transactions[0].creditCard.lastFour}`;
   }
 
   getPlanPrice(rebill) {
@@ -115,13 +115,17 @@ export class AccountManagementBillingComponent implements OnInit {
 
     dialogRef.componentInstance.cards = this.session.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
+    dialogRef.componentInstance.updateEmbedded = true;
+    dialogRef.componentInstance.addEmbedded = true;
 
-    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card, dialogRef));
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(dialogRef, card));
+    const addSub = dialogRef.componentInstance.addCard.subscribe((card) => this.openCardModal(dialogRef));
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
 
       if (editSub) editSub.unsubscribe();
+      if (addSub) editSub.unsubscribe();
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
         const customer = this.session.customer.copy();
@@ -140,26 +144,50 @@ export class AccountManagementBillingComponent implements OnInit {
     });
   }
 
-  openCardModal(creditCard: CreditCard, switcherRef) {
+  openCardModal(switcherRef, creditCard?: CreditCard) {
     let dialogRef = this.dialog.open(AddCreditCardDialogComponent, {backdropClass: 'backdrop-blue'});
 
-    dialogRef.componentInstance.creditCard = creditCard.copy();
-    dialogRef.componentInstance.hideDefaultCardSelection = true;
+    dialogRef.componentInstance.creditCard = creditCard ? creditCard.copy() : new CreditCard({});
+    dialogRef.componentInstance.hideDefaultCardSelection = !!creditCard;
+    dialogRef.componentInstance.isDefaultCreditCard = !creditCard;
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
 
       if (result && result.creditCard) {
-        this.customerGraphAPI.updateCreditCard(result.creditCard).subscribe(card => {
-          const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === card.id);
-          if (index !== -1) {
-            card.type = this.session.customer.creditCards[index].type;
-            this.session.customer.creditCards[index] = card;
-            this.session.customer.creditCards = this.session.customer.creditCards.slice();
 
-            switcherRef.componentInstance.cards = this.session.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
+        if (creditCard) {
+          this.customerGraphAPI.updateCreditCard(result.creditCard).subscribe(card => {
+            const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === card.id);
+            if (index !== -1) {
+              card.type = this.session.customer.creditCards[index].type;
+              this.session.customer.creditCards[index] = card;
+              this.session.customer.creditCards = this.session.customer.creditCards.slice();
+
+              switcherRef.componentInstance.cards = this.session.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
+            }
+          })
+        } else {
+          if (result.isDefaultCard) {
+            switcherRef.close({});
           }
-        })
+
+          this.customerGraphAPI.createCreditCard(result.creditCard).subscribe(card => {
+            this.session.customer.creditCards = [...this.session.customer.creditCards, card];
+
+            if (result.isDefaultCard) {
+              this.defaultCreditCard = card.copy();
+              this.session.customer.defaultCreditCard = this.defaultCreditCard.id;
+            } else {
+              switcherRef.componentInstance.cards = [...switcherRef.componentInstance.cards, card];
+            }
+
+            this.customerGraphAPI.updateCustomerInfo(this.session.customer.copy()).subscribe(customer => {
+              this.session.customer = customer;
+            })
+          })
+        }
+
       }
     });
   }
