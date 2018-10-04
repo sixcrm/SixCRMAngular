@@ -130,8 +130,8 @@ describe('Register with behaviors', function() {
   it ('should enter CC info', () => {
     browser.sleep(2000);
     registerPage.getInputs().get(0).sendKeys(4242424242424241);
-    registerPage.getInputs().get(1).sendKeys('Card Name');
-    registerPage.getInputs().get(2).sendKeys(123);
+    registerPage.getInputs().get(1).sendKeys(123);
+    registerPage.getInputs().get(2).sendKeys('Card Name');
     registerPage.getPaymentEntryCardDate().first().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(6).click();
@@ -142,8 +142,8 @@ describe('Register with behaviors', function() {
     registerPage.getInputs().get(3).sendKeys('1 test');
     registerPage.getInputs().get(4).sendKeys('test line');
     registerPage.getInputs().get(5).sendKeys('New York');
-    registerPage.getInputs().get(6).sendKeys('21000');
-    registerPage.getInputs().get(7).sendKeys('Oregon');
+    registerPage.getInputs().get(6).sendKeys('Oregon');
+    registerPage.getInputs().get(7).sendKeys('21000');
     registerPage.getInputs().get(8).sendKeys('United States');
   });
 
