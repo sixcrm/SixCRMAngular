@@ -1,9 +1,10 @@
-<div class="persistent-notification"
-     *ngIf="filteredPersistentNotification"
-     [class.notification]="billingDisabledAlready"
->
+<div class="persistent-notification billing-notification" *ngIf="billingNotification">
   <mat-icon>error_outline</mat-icon>
-  <div>{{filteredPersistentNotification.body}}</div>
-  <mat-icon *ngIf="filteredPersistentNotification.id" (click)="dismissPersistent(filteredPersistentNotification)">close</mat-icon>
-  <button mat-button [routerLink]="['/payment']">{{'NOTIFICATIONSPERSISTENT_PAY' | translate}}</button>
+  <div>{{billingNotification.body}}</div>
+  <button mat-button [routerLink]="['/accountmanagement/billing']">PAY NOW</button>
+</div>
+
+<div class="persistent-notification notification" *ngFor="let notification of filteredPersistentNotifications">
+  <div>{{notification.body}}</div>
+  <mat-icon class="close-icon" (click)="dismissPersistent(notification)">close</mat-icon>
 </div>

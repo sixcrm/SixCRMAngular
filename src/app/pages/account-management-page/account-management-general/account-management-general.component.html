@@ -156,7 +156,7 @@
 
             <div class="actions">
               <mat-icon (click)="deleteCard(card)">delete</mat-icon>
-              <mat-icon (click)="openCardModal(card)">edit</mat-icon>
+              <mat-icon (click)="openCardModal(card, false)">edit</mat-icon>
             </div>
           </div>
         </ng-container>
@@ -165,7 +165,7 @@
           <div class="no-card">No Cards found</div>
         </ng-template>
 
-        <button class="add-card-button" mat-button (click)="openCardModal()">ADD CARD</button>
+        <button class="add-card-button" mat-button (click)="openCardModal(null, true)">ADD CARD</button>
       </div>
       <div *ngIf="customer" class="card">
         <div class="title">Contact Information</div>

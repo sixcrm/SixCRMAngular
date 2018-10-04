@@ -1,67 +1,104 @@
-<div class="payment-container" *ngIf="creditCard">
+<div class="advanced-payment-body">
 
-  <div class="info">
-    <mat-form-field [class.error]="formInvalid && !creditCard.name">
-      <input type="text" required matInput [(ngModel)]="creditCard.name" placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}">
-    </mat-form-field>
-
-    <mat-form-field [class.error]="formInvalid && ccNumberInvalid(creditCard)">
-      <input type="text" required matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.ccnumber" placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}">
-    </mat-form-field>
-
-    <mat-form-field [class.error]="formInvalid && cvvInvalid(creditCard)">
-      <input type="text" matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.cvv" placeholder="{{'FORMINPUTS_CREDITCARD_CVV' | translate}}">
-    </mat-form-field>
-
-    <div class="row">
-      <mat-form-field [class.error]="formInvalid && expirationMonthInvalid(creditCard)">
-        <input type="text" required matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.expirationMonth" placeholder="{{'CUSTOMER_CREDITCARD_EXPIRATIONMONTH' | translate}}">
-        <mat-hint>Format: MM</mat-hint>
-      </mat-form-field>
-
-      <mat-form-field [class.error]="formInvalid && expirationYearInvalid(creditCard)">
-        <input type="text" required matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.expirationYear" placeholder="{{'CUSTOMER_CREDITCARD_EXPIRATIONYEAR' | translate}}">
-        <mat-hint>Format: YYYY</mat-hint>
-      </mat-form-field>
-    </div>
+  <div class="cards">
+    <img src="/assets/cards/visa.svg">
+    <img src="/assets/cards/mastercard.svg">
+    <img src="/assets/cards/amex.svg">
+    <img src="/assets/cards/discover.svg">
   </div>
 
-  <div class="address">
-    <mat-checkbox *ngIf="defaultAddressBackup" [(ngModel)]="sameAsDefaultAddress" (change)="sameAsDefaultAddressSwitched($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</mat-checkbox>
+  <div class="columns">
+    <div class="column">
 
-    <mat-form-field>
-      <input type="text" required matInput [(ngModel)]="address.line1" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}">
-    </mat-form-field>
+      <div class="column-title">Card Information</div>
 
-    <mat-form-field>
-      <input type="text" matInput [(ngModel)]="address.line2" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}">
-    </mat-form-field>
+      <mat-form-field (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCcNumberInvalid()" *ngIf="!_creditCard.id || showSensitiveData">
+        <input type="text" matInput placeholder="Credit Card Number" [(ngModel)]="_creditCard.ccnumber">
+      </mat-form-field>
 
-    <mat-form-field [class.error]="formInvalid && !isCityValid(address.city)">
-      <input type="text" required matInput [(ngModel)]="address.city" placeholder="{{'FORMINPUTS_CITY' | translate}}">
-    </mat-form-field>
+      <div class="input-with-codes" *ngIf="!_creditCard.id || showSensitiveData">
+        <mat-form-field class="code" (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCvvInvalid()">
+          <input type="text" matInput placeholder="CVV" [(ngModel)]="_creditCard.cvv">
+        </mat-form-field>
+        <img class="code__image" src="/assets/images/security_code.png">
+      </div>
 
-    <mat-form-field [class.error]="formInvalid && !isZipValid(address.zip)">
-      <input type="text" required matInput (keydown)="isAllowedZipKey($event)" [(ngModel)]="address.zip" placeholder="{{'FORMINPUTS_ZIP' | translate}}">
-    </mat-form-field>
+      <mat-form-field [class.error]="formInvalid && !_creditCard.name">
+        <input type="text" matInput placeholder="Full Name" [(ngModel)]="_creditCard.name">
+      </mat-form-field>
 
-    <mat-form-field [class.error]="formInvalid && !isCountryValid(address.country)">
-      <input type="text" matInput [(ngModel)]="address.country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}" required [matAutocomplete]="countriesAutocomplete">
-      <mat-autocomplete #countriesAutocomplete="matAutocomplete">
-        <mat-option *ngFor="let country of countries | filterStrings: address.country: plainMapper" [value]="country">
-          <div>{{country}}</div>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+      <div class="dates">
+        <div class="element"
+             [matMenuTriggerFor]="monthMenu"
+             [class.error]="formInvalid && !_creditCard.expirationMonth"
+             [class.selected]="_creditCard.expirationMonth">
+          <div>{{(_creditCard.expirationMonth || 'Month') | translate}}</div>
+          <mat-icon>arrow_drop_down</mat-icon>
+          <mat-menu #monthMenu="matMenu">
+            <button mat-menu-item *ngFor="let month of months" (click)="setMonth(month)">{{month}}</button>
+          </mat-menu>
+        </div>
 
-    <mat-form-field [class.error]="formInvalid && !isStateValid(address.state)">
-      <input type="text" matInput [(ngModel)]="address.state" placeholder="{{'FORMINPUTS_STATE' | translate}}" required [matAutocomplete]="statesAutocomplete">
-      <mat-autocomplete #statesAutocomplete="matAutocomplete">
-        <mat-option *ngFor="let state of states | filterStrings: address.state: plainMapper" [value]="state">
-          <div>{{state}}</div>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+        <div class="element"
+             [matMenuTriggerFor]="yearMenu"
+             [class.error]="formInvalid && !_creditCard.expirationYear"
+             [class.selected]="_creditCard.expirationYear">
+          <div>{{(_creditCard.expirationYear || 'Year') | translate}}</div>
+          <mat-icon>arrow_drop_down</mat-icon>
+          <mat-menu #yearMenu="matMenu">
+            <button mat-menu-item *ngFor="let year of years" (click)="setYear(year)">{{year}}</button>
+          </mat-menu>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="column">
+      <div class="column-title">
+        <div> Billing Address</div>
+        <mat-checkbox *ngIf="_defaultAddress" class="checkbox-blue same-checkbox" [(ngModel)]="useDefaultAddress" (change)="defaultAddressSwitched($event)">Same as Shipping Address</mat-checkbox>
+      </div>
+
+      <mat-form-field [class.error]="formInvalid && (!_creditCard.address.line1 || !isAddressValid(_creditCard.address.line1))">
+        <input type="text" matInput placeholder="Street Address" [(ngModel)]="_creditCard.address.line1">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" matInput placeholder="Street Address 2 (optional)" [(ngModel)]="_creditCard.address.line2">
+      </mat-form-field>
+
+      <mat-form-field [class.error]="formInvalid && !isCityValid(_creditCard.address.city)">
+        <input type="text" matInput placeholder="City" [(ngModel)]="_creditCard.address.city">
+      </mat-form-field>
+
+      <div class="row">
+
+        <mat-form-field [class.error]="formInvalid && !isStateValid(_creditCard.address.state)">
+          <input type="text" matInput [(ngModel)]="_creditCard.address.state" placeholder="State" name="state" [matAutocomplete]="statesAutocomplete">
+          <mat-autocomplete #statesAutocomplete="matAutocomplete">
+            <mat-option *ngFor="let state of states | filterStrings: _creditCard.address.state: plainMapper" [value]="state">
+              <div>{{state}}</div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field [class.error]="formInvalid && !isZipValid(_creditCard.address.zip)">
+          <input type="text" (keydown)="isAllowedZipKey($event)" matInput [(ngModel)]="_creditCard.address.zip" placeholder="Postal Code">
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field [class.error]="formInvalid && !isCountryValid(_creditCard.address.country)">
+        <input type="text" matInput [(ngModel)]="_creditCard.address.country" placeholder="Country" name="country" [matAutocomplete]="countriesAutocomplete">
+        <mat-autocomplete #countriesAutocomplete="matAutocomplete">
+          <mat-option *ngFor="let country of countries | filterStrings: _creditCard.address.country: plainMapper" [value]="country">
+            <div>{{country}}</div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </div>
   </div>
 
 </div>

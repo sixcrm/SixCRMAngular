@@ -129,4 +129,16 @@ export class CreateOrderPage {
   getOrderCompleteDoneButton() {
     return this.getOrderCompleteContainer().all(by.css('.column')).last().element(by.css('button'));
   }
+
+  getAddressCheckbox() {
+    return element(by.css('.same-checkbox'));
+  }
+
+  getDropdownOptions() {
+    return element(by.css('.mat-menu-content')).all(by.css('button'));
+  }
+
+  getBillingDateDropdowns() {
+    return element(by.css('.dates')).all(by.css('.element'));
+  }
 }
