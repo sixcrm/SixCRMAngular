@@ -13,6 +13,7 @@ export class CardSwitcherDialogComponent implements OnInit {
   cards: CreditCard[];
   selectedDefaultCard: CreditCard = new CreditCard();
   updateEmbedded: boolean;
+  addEmbedded: boolean;
 
   editCard: Subject<CreditCard> = new Subject();
   addCard: Subject<boolean> = new Subject();

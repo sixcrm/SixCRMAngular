@@ -1,7 +1,9 @@
 .container {
   display: flex;
+  position: relative;
+  top: 80px;
   flex-direction: column;
-  margin: 80px auto auto;
+  margin: auto;
   width: 360px;
   background: #DC2547;
   border-radius: 4px;
