@@ -1,12 +1,12 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {CreditCard} from '../../models/credit-card.model';
-import {Address} from '../../models/address.model';
+import {getCountries, getStates} from '../../utils/address.utils';
 import {
-  isValidCity, isValidAddress, isValidZip, isAllowedZip, isValidCountry,
+  isValidZip, isAllowedZip, isValidCity, isValidAddress, isValidCountry,
   isValidState, isAllowedNumeric
 } from '../../utils/form.utils';
 import {utc} from 'moment';
-import {getStates, getCountries} from '../../utils/address.utils';
+import {Address} from '../../models/address.model';
 
 @Component({
   selector: 'payment-form',
@@ -15,97 +15,120 @@ import {getStates, getCountries} from '../../utils/address.utils';
 })
 export class PaymentFormComponent implements OnInit {
 
-  address: Address = new Address();
-  defaultAddressBackup: Address;
-  sameAsDefaultAddress: boolean = false;
-  formInvalid: boolean = false;
+  _creditCard: CreditCard = new CreditCard();
+  _defaultAddress: Address;
+  useDefaultAddress: boolean;
 
-  @Input() creditCard: CreditCard = new CreditCard();
+  @Input() set creditCard(card: CreditCard) {
+    this._creditCard = card ? card.copy() : new CreditCard();
+  }
   @Input() set defaultAddress(address: Address) {
-    if (!address) return;
+    this._defaultAddress = address ? address.copy() : undefined;
+  }
+  @Input() showSensitiveData: boolean;
 
-    this.address = address.copy();
-    this.defaultAddressBackup = address.copy();
-    this.sameAsDefaultAddress = true;
-  };
+  formInvalid: boolean;
 
-  isAllowedNumericKey = isAllowedNumeric;
+  plainMapper = (el) => el;
+  countries: string[] = getCountries();
+  states: string[] = getStates();
+
   isZipValid = isValidZip;
   isAllowedZipKey = isAllowedZip;
   isCityValid = isValidCity;
   isAddressValid = isValidAddress;
   isCountryValid = isValidCountry;
   isStateValid = isValidState;
+  isAllowedNumericKey = isAllowedNumeric;
 
-  countries: string[] = getCountries();
-  states: string[] = getStates();
-
-  plainMapper = (el) => el;
+  months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+  years = ['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028'];
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  ccNumberInvalid(creditCard: CreditCard): boolean {
-    if (!creditCard.ccnumber) return true;
+  public getValidCreditCard(): CreditCard {
+    this.formInvalid = !this.isFormValid();
 
-    return !/[0-9]/.test(creditCard.ccnumber) || creditCard.ccnumber.length < 12 || creditCard.ccnumber.length > 20;
+    if (this.formInvalid) return;
+
+    this._creditCard.expiration = `${this._creditCard.expirationMonth}/${this._creditCard.expirationYear}`;
+
+    return this._creditCard.copy();
   }
 
-  cvvInvalid(creditCard: CreditCard): boolean {
-    if (!creditCard.cvv) return true;
-
-    return !/[0-9]/.test(creditCard.cvv) || creditCard.cvv.length < 3 || creditCard.cvv.length > 4;
+  public isFormValid(): boolean {
+    return !this.isCardInvalid() && !this.isAddressInvalid();
   }
 
-  expirationMonthInvalid(creditCard: CreditCard): boolean {
-    if (!creditCard.expirationMonth) return true;
+  private isCardInvalid(): boolean {
+    return !this._creditCard.name
+      || this.isCcNumberInvalid()
+      || this.isCvvInvalid()
+      || this.isExpirationMonthInvalid()
+      || this.isExpirationYearInvalid();
+  }
 
-    if(!/[0-9]/.test(creditCard.expirationMonth)) {
+  private isAddressInvalid() {
+    return !this._creditCard.address.line1 || !this.isAddressValid(this._creditCard.address.line1)
+      || !this.isCityValid(this._creditCard.address.city)
+      || !this.isStateValid(this._creditCard.address.state)
+      || !this._creditCard.address.zip || !this.isZipValid(this._creditCard.address.zip)
+      || !this.isCountryValid(this._creditCard.address.country);
+  }
+
+  isCcNumberInvalid(): boolean {
+    if (this._creditCard.id) return false;
+
+    if (!this._creditCard.ccnumber) return true;
+
+    return !/[0-9]/.test(this._creditCard.ccnumber) || this._creditCard.ccnumber.length < 12 || this._creditCard.ccnumber.length > 20;
+  }
+
+  isCvvInvalid(): boolean {
+    if (this._creditCard.id) return false;
+
+    if (!this._creditCard.cvv) return true;
+
+    return !/[0-9]/.test(this._creditCard.cvv) || this._creditCard.cvv.length < 3 || this._creditCard.cvv.length > 4;
+  }
+
+  isExpirationMonthInvalid(): boolean {
+    if (!this._creditCard.expirationMonth) return true;
+
+    if(!/[0-9]/.test(this._creditCard.expirationMonth)) {
       return true;
     }
 
-    return +creditCard.expirationMonth < 1 || +creditCard.expirationMonth > 12;
+    return +this._creditCard.expirationMonth < 1 || +this._creditCard.expirationMonth > 12;
   }
 
-  expirationYearInvalid(creditCard: CreditCard): boolean {
-    if (!creditCard.expirationYear) return true;
+  isExpirationYearInvalid(): boolean {
+    if (!this._creditCard.expirationYear) return true;
 
-    if(!/[0-9]/.test(creditCard.expirationYear)) {
+    if(!/[0-9]/.test(this._creditCard.expirationYear)) {
       return true;
     }
 
-    return +creditCard.expirationYear < utc().year() || +creditCard.expirationYear > utc().year()+20;
+    return +this._creditCard.expirationYear < utc().year() || +this._creditCard.expirationYear > utc().year()+20;
   }
 
-  isValid(): boolean {
-    this.formInvalid = !this.creditCard.name
-      || this.ccNumberInvalid(this.creditCard)
-      || (this.creditCard.cvv && this.cvvInvalid(this.creditCard))
-      || this.expirationMonthInvalid(this.creditCard)
-      || this.expirationYearInvalid(this.creditCard)
-      || !this.address.line1 || !this.isAddressValid(this.address.line1)
-      || !this.isCityValid(this.address.city)
-      || !this.isStateValid(this.address.state)
-      || !this.address.zip || !this.isZipValid(this.address.zip)
-      || !this.isCountryValid(this.address.country);
-
-    if (this.formInvalid) {
-      return false;
-    }
-
-    this.creditCard.address = this.address.copy();
-    this.creditCard.expiration = this.creditCard.expirationMonth + '/' + this.creditCard.expirationYear;
-
-    return true;
+  setMonth(month) {
+    this._creditCard.expirationMonth = month;
   }
 
-  sameAsDefaultAddressSwitched(value) {
+  setYear(year) {
+    this._creditCard.expirationYear = year;
+  }
+
+  defaultAddressSwitched(value) {
     if (value.checked) {
-      this.address = this.defaultAddressBackup.copy();
+      this._creditCard.address = this._defaultAddress.copy();
     } else {
-      this.address = new Address();
+      this._creditCard.address = new Address();
     }
   }
+
 }

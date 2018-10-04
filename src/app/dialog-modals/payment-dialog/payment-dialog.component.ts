@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-payment-form/advanced-payment-form.component';
+import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {MatDialogRef, MatDialog} from '@angular/material';
 import {Rebill} from '../../shared/models/rebill.model';
@@ -12,7 +12,7 @@ import {TermsDialogComponent} from '../terms-dialog/terms-dialog.component';
 })
 export class PaymentDialogComponent implements OnInit {
 
-  @ViewChild(AdvancedPaymentFormComponent) paymentForm: AdvancedPaymentFormComponent;
+  @ViewChild(PaymentFormComponent) paymentForm: PaymentFormComponent;
 
   otherCreditCards: CreditCard[] = [];
   creditCard: CreditCard;
