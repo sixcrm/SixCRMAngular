@@ -4,7 +4,7 @@
       <div class="heading">Payment</div>
       <div *ngIf="otherCreditCards && otherCreditCards.length > 0" class="cards" [matMenuTriggerFor]="cardsMenu">
         <div>Saved Cards</div>
-        <mat-icon class="arrow-icon">keyboard_arrow_down</mat-icon>
+        <mat-icon class="arrow-icon">arrow_drop_down</mat-icon>
       </div>
       <mat-menu #cardsMenu="matMenu" x-position="before">
         <button *ngFor="let card of (otherCreditCards || [])" mat-menu-item (click)="selectCard(card)">
@@ -17,13 +17,6 @@
           </div>
         </button>
       </mat-menu>
-    </div>
-
-    <div class="images">
-      <img src="/assets/cards/visa.svg">
-      <img src="/assets/cards/mastercard.svg">
-      <img src="/assets/cards/amex.svg">
-      <img src="/assets/cards/discover.svg">
     </div>
 
     <advanced-payment-form [creditCard]="creditCard" [showSensitiveData]="true"></advanced-payment-form>
