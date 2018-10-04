@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
-import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-payment-form/advanced-payment-form.component';
+import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 
 @Component({
   selector: 'plan-billing',
@@ -9,7 +9,7 @@ import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-pay
   styleUrls: ['plan-billing.component.scss']
 })
 export class PlanBillingComponent implements OnInit {
-  @ViewChild(AdvancedPaymentFormComponent) paymentForm: AdvancedPaymentFormComponent;
+  @ViewChild(PaymentFormComponent) paymentForm: PaymentFormComponent;
 
   @Input() plan: Plan;
   @Input() creditCard: CreditCard = new CreditCard();

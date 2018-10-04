@@ -31,7 +31,7 @@ import {CampaignsService} from '../../entity-services/services/campaigns.service
 import {AccessKey} from '../../shared/models/access-key.model';
 import {AccessKeysService} from '../../entity-services/services/access-keys.service';
 import {Router} from '@angular/router';
-import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-payment-form/advanced-payment-form.component';
+import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 
 @Component({
   selector: 'create-order',
@@ -39,7 +39,7 @@ import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-pay
   styleUrls: ['./create-order.component.scss']
 })
 export class CreateOrderComponent implements OnInit {
-  @ViewChild(AdvancedPaymentFormComponent) paymentForm: AdvancedPaymentFormComponent;
+  @ViewChild(PaymentFormComponent) paymentForm: PaymentFormComponent;
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   selectedCustomer: Customer;
