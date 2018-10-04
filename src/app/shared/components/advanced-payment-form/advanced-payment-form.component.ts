@@ -6,6 +6,7 @@ import {
   isValidState, isAllowedNumeric
 } from '../../utils/form.utils';
 import {utc} from 'moment';
+import {Address} from '../../models/address.model';
 
 @Component({
   selector: 'advanced-payment-form',
@@ -13,10 +14,16 @@ import {utc} from 'moment';
   styleUrls: ['./advanced-payment-form.component.scss']
 })
 export class AdvancedPaymentFormComponent implements OnInit {
+
   _creditCard: CreditCard = new CreditCard();
+  _defaultAddress: Address;
+  useDefaultAddress: boolean;
 
   @Input() set creditCard(card: CreditCard) {
     this._creditCard = card ? card.copy() : new CreditCard();
+  }
+  @Input() set defaultAddress(address: Address) {
+    this._defaultAddress = address ? address.copy() : undefined;
   }
   @Input() showSensitiveData: boolean;
 
@@ -114,6 +121,14 @@ export class AdvancedPaymentFormComponent implements OnInit {
 
   setYear(year) {
     this._creditCard.expirationYear = year;
+  }
+
+  defaultAddressSwitched(value) {
+    if (value.checked) {
+      this._creditCard.address = this._defaultAddress.copy();
+    } else {
+      this._creditCard.address = new Address();
+    }
   }
 
 }

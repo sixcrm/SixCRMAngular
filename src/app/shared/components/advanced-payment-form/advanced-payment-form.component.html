@@ -55,7 +55,10 @@
     </div>
 
     <div class="column">
-      <div class="column-title">Billing Address</div>
+      <div class="column-title">
+        <div> Billing Address</div>
+        <mat-checkbox *ngIf="_defaultAddress" class="checkbox-blue same-checkbox" [(ngModel)]="useDefaultAddress" (change)="defaultAddressSwitched($event)">Same as Shipping Address</mat-checkbox>
+      </div>
 
       <mat-form-field [class.error]="formInvalid && (!_creditCard.address.line1 || !isAddressValid(_creditCard.address.line1))">
         <input type="text" matInput placeholder="Street Address" [(ngModel)]="_creditCard.address.line1">

@@ -12,7 +12,6 @@ import {Address} from '../../shared/models/address.model';
 import {Currency} from '../../shared/utils/currency/currency';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {Subscription, Subject} from 'rxjs';
-import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
   isValidZip, isAllowedCurrency, isAllowedEmail
@@ -32,6 +31,7 @@ import {CampaignsService} from '../../entity-services/services/campaigns.service
 import {AccessKey} from '../../shared/models/access-key.model';
 import {AccessKeysService} from '../../entity-services/services/access-keys.service';
 import {Router} from '@angular/router';
+import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-payment-form/advanced-payment-form.component';
 
 @Component({
   selector: 'create-order',
@@ -39,7 +39,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./create-order.component.scss']
 })
 export class CreateOrderComponent implements OnInit {
-  @ViewChild('paymentForm') paymentForm: PaymentFormComponent;
+  @ViewChild(AdvancedPaymentFormComponent) paymentForm: AdvancedPaymentFormComponent;
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   selectedCustomer: Customer;
@@ -376,8 +376,9 @@ export class CreateOrderComponent implements OnInit {
 
   billingNextStep() {
     if (this.paymentForm) {
-      if (this.paymentForm.isValid()) {
-        this.selectedCreditCard = this.newCreditCard.copy();
+      const card = this.paymentForm.getValidCreditCard();
+      if (card) {
+        this.selectedCreditCard = card.copy();
       } else {
         return;
       }

@@ -81,10 +81,13 @@
   }
 
   .expansion-body {
-    margin-left: 180px;
-
     display: flex;
     align-items: center;
+    margin-left: 180px;
+
+    &--no-margin {
+      margin-left: 0;
+    }
 
     .autocomplete-input-container {
       width: 240px;
@@ -240,10 +243,6 @@
     mat-radio-button {
       padding: 0 5px 0 5px;
     }
-
-    payment-form {
-      margin-top: 15px;
-    }
   }
 
   .price-edit-container {
@@ -261,6 +260,10 @@
       margin-right: auto;
     }
   }
+}
+
+advanced-payment-form {
+  width: 100%;
 }
 
 create-order-preview {
