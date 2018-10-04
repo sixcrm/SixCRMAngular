@@ -46,8 +46,15 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
       new ColumnParams('Customer', (e: SubscriptionAnalytics) => e.customerName).setSortName('customer_name')
         .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: SubscriptionAnalytics) => { return { customer: e.customerId } }),
+      new ColumnParams('Product Schedule', (e: SubscriptionAnalytics) => e.productScheduleName || '–').setSortName('product_schedule_name')
+        .setLink((e: SubscriptionAnalytics) => `/productschedules/${e.productScheduleId}`),
       new ColumnParams('Campaign', (e: SubscriptionAnalytics) => e.campaignName).setSortName('campaign_name')
-        .setLink((e: SubscriptionAnalytics) => `/campaigns/${e.campaignId}`)
+        .setLink((e: SubscriptionAnalytics) => `/campaigns/${e.campaignId}`),
+      new ColumnParams('Session', (e: SubscriptionAnalytics) => e.sessionAlias || '–').setSortName('session_alias')
+        .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: SubscriptionAnalytics) => { return { session: e.sessionId } }),
+      new ColumnParams('Merchant Provider', (e: SubscriptionAnalytics) => e.merchantProviderName || '–').setSortName('merchant_provider_name')
+        .setLink((e: SubscriptionAnalytics) => `/merchantproviders/${e.merchantProviderId}`)
     ];
 
     this.defaultDate = {start: utc(), end: utc().add(1,'M')};
