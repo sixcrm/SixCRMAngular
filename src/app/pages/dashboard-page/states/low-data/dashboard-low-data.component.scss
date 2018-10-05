@@ -158,32 +158,15 @@
           background-color: #1ebea5;
 
           mat-icon {
-            margin: auto;
             color: white;
+            margin: auto;
             font-size: 18px;
             width: 18px;
             height: 18px;
           }
-        }
-
-        .icon-holder {
-          margin-right: 10px;
-          margin-top: 3px;
-          display: flex;
-          border-radius: 50%;
-          width: 20px;
-          height: 20px;
 
           &__success {
             background-color: #1ebea5;
-
-            .success-icon {
-              color: white;
-              margin: auto;
-              font-size: 18px;
-              width: 18px;
-              height: 18px;
-            }
           }
 
           &__error {
@@ -191,7 +174,6 @@
 
             .error-icon {
               color: #DC2547;
-              margin: auto;
               font-size: 24px;
               width: 24px;
               height: 24px;
@@ -203,12 +185,16 @@
 
             .decline-icon {
               color: #DC2547;
-              margin: auto;
               font-size: 24px;
               width: 24px;
               height: 24px;
             }
           }
+        }
+
+
+        .refund-icon {
+          background-color: rgb(255, 151, 67);
         }
       }
     }
