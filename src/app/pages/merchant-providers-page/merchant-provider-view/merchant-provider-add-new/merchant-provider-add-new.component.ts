@@ -31,7 +31,7 @@ export class MerchantProviderAddNewComponent implements OnInit {
   isEmail = isAllowedEmail;
   mask = getPhoneNumberMask();
 
-  allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'Discover', 'LOCAL CARD'];
+  allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'Discover', 'Local Card'];
   allProviders: string[] = ['NMI', 'Innovio', 'Test', 'Stripe', 'AuthorizeNet', 'PaymentXP'];
 
   shouldEditSettings: boolean;
