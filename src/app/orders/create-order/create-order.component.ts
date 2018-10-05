@@ -249,7 +249,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   productSelected(option, input) {
-    this.selectedProducts.push(option.option.value);
+    this.selectedProducts.push(option.option.value.copy());
     input.blur();
   }
 
