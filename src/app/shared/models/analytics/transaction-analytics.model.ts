@@ -19,6 +19,8 @@ export class TransactionAnalytics {
   creditCard: string;
   customer: string;
   customerId: string;
+  merchantCode: string;
+  merchantMessage: string;
 
   obj: any;
 
@@ -44,7 +46,9 @@ export class TransactionAnalytics {
     this.sessionId= this.getValueOf('session') || '';
     this.creditCard = this.getValueOf('creditcard') || '';
     this.customer = this.getValueOf('customer_name') || '';
-    this.customerId = this.getValueOf('customer')
+    this.customerId = this.getValueOf('customer');
+    this.merchantCode = this.getValueOf('merchant_code');
+    this.merchantMessage = this.getValueOf('merchant_message');
   }
 
   private getValueOf(key): any {
