@@ -128,7 +128,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
   fetch() {
     this.router.navigate(
       ['/subscriptions'],
-      {queryParams: this.getQueryParams()}
+      {queryParams: this.getQueryParams(), replaceUrl: true}
     );
 
     this.fetchData();
