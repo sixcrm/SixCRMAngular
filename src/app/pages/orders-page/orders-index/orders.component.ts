@@ -145,7 +145,8 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
           sortOrder: this.getSortColumn().sortOrder,
           tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
           filters: JSON.stringify(this.filters)
-        }
+        },
+        replaceUrl: true
       });
 
     this.fetchData();
