@@ -166,7 +166,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
           sortOrder: this.getSortColumn().sortOrder,
           tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
           filters: JSON.stringify(this.filters)
-        }
+        },
+        replaceUrl: true
       });
 
     this.fetchData();
