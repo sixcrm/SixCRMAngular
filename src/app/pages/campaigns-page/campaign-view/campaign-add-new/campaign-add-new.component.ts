@@ -16,6 +16,7 @@ export class CampaignAddNewComponent implements OnInit {
 
   @Input() mode: Modes;
   @Input() entity: Campaign;
+  @Input() planLimitReached: boolean;
   @Output() save: EventEmitter<Campaign> = new EventEmitter();
 
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
