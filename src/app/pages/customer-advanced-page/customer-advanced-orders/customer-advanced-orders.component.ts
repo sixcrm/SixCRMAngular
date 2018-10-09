@@ -34,11 +34,13 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
   options: OptionItem[] = [
     {label: 'Refund', visible: (e: Order) => e.canRefund()},
     {label: 'Return', visible: (e: Order) => e.canReturn()},
-    {label: 'Notify User', visible: (e: Order) => true},
     {label: 'View Details', visible: (e: Order) => true}
   ];
 
   originIndex: number;
+
+  filterString: string;
+  filterMapper = (order: Order) => !this.filterString || order.rebill.alias.toLowerCase().includes(this.filterString.toLowerCase());
 
   constructor(
     private authService: AuthenticationService,
@@ -48,21 +50,21 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_REBILL_STATE', (e: Order) => e.hasChargeback() ? 'Chargeback' : e.rebill.state)
+      new ColumnParams('Status', (e: Order) => e.hasChargeback() ? 'Chargeback' : e.rebill.state)
         .setMaterialIconMapper((e: Order) => e.hasChargeback() ? 'error' : 'done')
         .setMaterialIconBackgroundColorMapper((e: Order) => e.hasChargeback() ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Order) => e.hasChargeback() ? '#DC2547' : '#ffffff'),
-      new ColumnParams('CUSTOMER_REBILL_BILLED',(e: Order) => e.date.tz(f).format('MM/DD/YY')),
-      new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Order) => e.amount.usd()),
-      new ColumnParams('CUSTOMER_REBILL_ITEMS', (e: Order) => e.products.length + ''),
-      new ColumnParams('CUSTOMER_REBILL_RETURNS', (e: Order) => e.getReturned().length > 0 ? e.getReturned().length + '' : '-'),
-      new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Order) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
-      new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Order) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
-      new ColumnParams('CUSTOMER_REBILL_TOTAL', (e: Order) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
-      new ColumnParams('CUSTOMER_REBILL_ORDER',(e: Order) => e.id).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Session',(e: Order) => e.session.alias).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('CUSTOMER_REBILL_CAMPAIGN', (e: Order) => e.session.campaign.name).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('CUSTOMER_REBILL_TYPE', (e: Order) => '-').setAlign('center')
+      new ColumnParams('Bill at',(e: Order) => e.date.tz(f).format('MM/DD/YY')),
+      new ColumnParams('Amount', (e: Order) => e.amount.usd()),
+      new ColumnParams('Items', (e: Order) => e.products.length + ''),
+      new ColumnParams('Returns', (e: Order) => e.getReturned().length > 0 ? e.getReturned().length + '' : '-'),
+      new ColumnParams('Refunds', (e: Order) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
+      new ColumnParams('Chargebacks', (e: Order) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
+      new ColumnParams('Total', (e: Order) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
+      new ColumnParams('Order Alias',(e: Order) => e.id).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Session Alias',(e: Order) => e.session.alias).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Campaign', (e: Order) => e.session.campaign.name).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Type', (e: Order) => e.rebill.cycle === 0 ? 'Sale' : 'Recurring').setAlign('center')
     ];
 
   }
@@ -71,16 +73,16 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
 
   itemClicked(option: {item: Order, param: ColumnParams<Order>}) {
     switch (option.param.label) {
-      case ('CUSTOMER_REBILL_CAMPAIGN'): {
+      case ('Campaign'): {
         this.router.navigate(['/campaigns', option.item.session.campaign.id]);
         break
       }
-      case ('Session'): {
+      case ('Session Alias'): {
         this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.session.id }, fragment: 'watermark' });
 
         break
       }
-      case ('CUSTOMER_REBILL_ORDER'): {
+      case ('Order Alias'): {
         this.viewSingleOrder(option.item);
 
         break
@@ -88,7 +90,6 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
       default: {}
     }
   }
-
 
   setIndex(index: number) {
     this.selectedIndex = index;
@@ -115,6 +116,14 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
   optionSelected(event: {item: Order, option: OptionItem}) {
     if (event.option.label === 'View Details') {
       this.viewSingleOrder(event.item);
+    }
+
+    if (event.option.label === 'Refund') {
+      this.openRefundDialog(event.item);
+    }
+
+    if (event.option.label === 'Return') {
+      this.openReturnDialog(event.item);
     }
   }
 
