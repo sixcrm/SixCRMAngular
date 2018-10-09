@@ -70,6 +70,7 @@ import { ImageUploaderComponent } from './components/image-uploader/image-upload
 import {FileUploadModule} from 'ng2-file-upload';
 import { RemoveItemsPipe } from './pipes/remove-items.pipe';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
+import { FilterSimplePipe } from './pipes/filter-simple.pipe';
 
 @NgModule({
   declarations : [
@@ -124,7 +125,8 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
     GrapesFilterComponentComponent,
     ImageUploaderComponent,
     RemoveItemsPipe,
-    PaymentFormComponent
+    PaymentFormComponent,
+    FilterSimplePipe
   ],
   exports : [
     AutocompleteComponent,
@@ -172,7 +174,8 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
     FilterChipsPipePipe,
     ImageUploaderComponent,
     RemoveItemsPipe,
-    PaymentFormComponent
+    PaymentFormComponent,
+    FilterSimplePipe
   ],
   imports : [
     FormsModule,

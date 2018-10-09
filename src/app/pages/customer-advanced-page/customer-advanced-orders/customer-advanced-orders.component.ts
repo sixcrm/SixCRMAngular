@@ -39,6 +39,9 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
 
   originIndex: number;
 
+  filterString: string;
+  filterMapper = (order: Order) => !this.filterString || order.rebill.alias.toLowerCase().includes(this.filterString.toLowerCase());
+
   constructor(
     private authService: AuthenticationService,
     private router: Router,
