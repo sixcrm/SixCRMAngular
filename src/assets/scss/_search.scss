@@ -162,15 +162,19 @@ $border-color: rgba(0, 0, 0, 0.2);
           color: $main-color;
           font-size: 16px;
 
-          span {
-            vertical-align: middle;
-          }
-
           .options {
             margin-left: auto;
             display: flex;
             align-items: center;
             font-size: 12px;
+
+            .sort-value {
+              margin-left: 3px;
+            }
+
+            .button {
+              margin-right: 6px;
+            }
           }
 
           mat-icon {

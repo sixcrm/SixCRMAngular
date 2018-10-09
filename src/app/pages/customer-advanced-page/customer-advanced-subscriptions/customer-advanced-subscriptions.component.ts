@@ -11,6 +11,9 @@ export class CustomerAdvancedSubscriptionsComponent implements OnInit {
   @Input() rebills: Rebill[];
   @Input() sessionMode: boolean;
 
+  filterString: string;
+  filterMapper = (rebill: Rebill) => !this.filterString || rebill.alias.toLowerCase().includes(this.filterString.toLowerCase());
+
   constructor() { }
 
   ngOnInit() {

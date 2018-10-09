@@ -61,21 +61,21 @@
       </div>
 
       <mat-form-field [class.error]="formInvalid && (!_creditCard.address.line1 || !isAddressValid(_creditCard.address.line1))">
-        <input type="text" matInput placeholder="Street Address" [(ngModel)]="_creditCard.address.line1">
+        <input type="text" matInput placeholder="Street Address" [(ngModel)]="_creditCard.address.line1" [readonly]="useDefaultAddress">
       </mat-form-field>
 
       <mat-form-field>
-        <input type="text" matInput placeholder="Street Address 2 (optional)" [(ngModel)]="_creditCard.address.line2">
+        <input type="text" matInput placeholder="Street Address 2 (optional)" [(ngModel)]="_creditCard.address.line2" [readonly]="useDefaultAddress">
       </mat-form-field>
 
       <mat-form-field [class.error]="formInvalid && !isCityValid(_creditCard.address.city)">
-        <input type="text" matInput placeholder="City" [(ngModel)]="_creditCard.address.city">
+        <input type="text" matInput placeholder="City" [(ngModel)]="_creditCard.address.city" [readonly]="useDefaultAddress">
       </mat-form-field>
 
       <div class="row">
 
         <mat-form-field [class.error]="formInvalid && !isStateValid(_creditCard.address.state)">
-          <input type="text" matInput [(ngModel)]="_creditCard.address.state" placeholder="State" name="state" [matAutocomplete]="statesAutocomplete">
+          <input type="text" matInput [(ngModel)]="_creditCard.address.state" placeholder="State" name="state" [matAutocomplete]="statesAutocomplete" [readonly]="useDefaultAddress">
           <mat-autocomplete #statesAutocomplete="matAutocomplete">
             <mat-option *ngFor="let state of states | filterStrings: _creditCard.address.state: plainMapper" [value]="state">
               <div>{{state}}</div>
@@ -84,13 +84,13 @@
         </mat-form-field>
 
         <mat-form-field [class.error]="formInvalid && !isZipValid(_creditCard.address.zip)">
-          <input type="text" (keydown)="isAllowedZipKey($event)" matInput [(ngModel)]="_creditCard.address.zip" placeholder="Postal Code">
+          <input type="text" (keydown)="isAllowedZipKey($event)" matInput [(ngModel)]="_creditCard.address.zip" placeholder="Postal Code" [readonly]="useDefaultAddress">
         </mat-form-field>
 
       </div>
 
       <mat-form-field [class.error]="formInvalid && !isCountryValid(_creditCard.address.country)">
-        <input type="text" matInput [(ngModel)]="_creditCard.address.country" placeholder="Country" name="country" [matAutocomplete]="countriesAutocomplete">
+        <input type="text" matInput [(ngModel)]="_creditCard.address.country" placeholder="Country" name="country" [matAutocomplete]="countriesAutocomplete" [readonly]="useDefaultAddress">
         <mat-autocomplete #countriesAutocomplete="matAutocomplete">
           <mat-option *ngFor="let country of countries | filterStrings: _creditCard.address.country: plainMapper" [value]="country">
             <div>{{country}}</div>
