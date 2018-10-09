@@ -14,7 +14,6 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
   allStatus: boolean = true;
   activeStatus: boolean;
   partialStatus: boolean;
-  blacklistedStatus: boolean;
 
   constructor(dialogRef: MatDialogRef<CustomerFiltersDialogComponent>) {
     super(dialogRef);
@@ -83,10 +82,6 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
             this.partialStatus = true;
             break;
           }
-          case 'blacklisted': {
-            this.blacklistedStatus = true;
-            break;
-          }
         }
 
       })
@@ -134,9 +129,6 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
       if (this.partialStatus) {
         statusFacet.values.push('partial');
       }
-      if (this.blacklistedStatus) {
-        statusFacet.values.push('blacklisted');
-      }
 
       if (statusFacet.values.length > 0) {
         return [statusFacet];
@@ -151,7 +143,6 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
     if (event.checked) {
       this.activeStatus = false;
       this.partialStatus = false;
-      this.blacklistedStatus = false;
     }
   }
 

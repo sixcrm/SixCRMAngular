@@ -48,8 +48,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Active', selected: false, visible: true},
-      {label: 'Partial', selected: false, visible: true},
-      {label: 'Blacklisted', selected: false, visible: true},
+      {label: 'Partial', selected: false, visible: true}
     ];
 
     this.options = ['View'];
@@ -74,7 +73,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
   }
 
   openFiltersDialog() {
-    super.openFiltersDialog(CustomerFiltersDialogComponent, true);
+    super.openFiltersDialog(CustomerFiltersDialogComponent);
   }
 
   fetch() {
