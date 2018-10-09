@@ -34,16 +34,11 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   const salesSub: NavigationMenuSection = { items: [ {label: 'Sales', icon: 'credit_card', children: [] } ] };
 
   if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
-    // salesSub.items[0].children.push({label: 'Orders', url: 'coming-soon'})
+    salesSub.items[0].children.push({label: 'Orders', url: 'orders'})
   }
 
   if (authService.hasPermissions('session', 'read') || authService.isBillingDisabled()) {
     salesSub.items[0].children.push({label: 'Sessions', url: 'sessions'})
-  }
-
-  if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Orders', url: 'orders'});
-    salesSub.items[0].children.push({label: 'Rebills', url: 'rebills'})
   }
 
   if (authService.hasPermissions('shippingreceipt', 'read') || authService.isBillingDisabled()) {

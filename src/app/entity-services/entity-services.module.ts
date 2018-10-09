@@ -15,7 +15,6 @@ import {CreditCardsService} from './services/credit-cards.service';
 import {UsersService} from './services/users.service';
 import {SmtpProvidersService} from './services/smtp-providers.service';
 import {EmailTemplatesService} from './services/email-templates.service';
-import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
 import {AccessKeysService} from './services/access-keys.service';
 import {ProductScheduleService} from './services/product-schedule.service';
 import {RolesService} from './services/roles.service';
@@ -37,6 +36,8 @@ import {EventHooksService} from './services/event-hooks.service';
 import {EventHooksSharedService} from './services/event-hooks-shared.service';
 import {UserSettingsService} from './services/user-settings.service';
 import {OrdersService} from './services/orders.service';
+import {AccountDetailsService} from './services/account-details.service';
+import {ReturnsService} from './services/returns.service';
 
 @NgModule({
   imports: [
@@ -59,7 +60,6 @@ import {OrdersService} from './services/orders.service';
     UsersService,
     SmtpProvidersService,
     EmailTemplatesService,
-    EmailTemplatesSharedService,
     AccessKeysService,
     ProductScheduleService,
     RolesService,
@@ -80,7 +80,9 @@ import {OrdersService} from './services/orders.service';
     EventHooksService,
     EventHooksSharedService,
     UserSettingsService,
-    OrdersService
+    OrdersService,
+    AccountDetailsService,
+    ReturnsService
   ]
 })
 export class EntityServicesModule { }

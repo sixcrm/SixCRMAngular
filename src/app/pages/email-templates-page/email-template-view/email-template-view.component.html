@@ -1,59 +1,71 @@
-<div *ngIf="entity; else spinner" class="entity-view">
+<div *ngIf="entity && allTokens && customBlocks; else spinner" class="entity-view">
 
   <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name">
     <entity-view-entityacl *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
   </blue-header>
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)" [emitDefaultTab]="true"></tab-header>
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
 
-      <div class="flex-custom email-template-view__card-container">
-        <email-template-add-new [entity]="entity"
-                                [mode]="viewMode ? modes.View : modes.Update"
-                                [tokenSubject]="addTokenSubject"
-                                [editorRefreshSubject]="editorRefreshSubject"
-                                [editorBodySubject]="editorBodySubject"
-                                [editEnabled]="!isShared"
-                                (cancel)="cancelEdit()"
-                                (changeMode)="setMode($event)"
-                                (save)="updateEntity($event)">
-        </email-template-add-new>
+      <div class="grapes-wrapper">
+        <button class="send-test-button" [class.send-test-button--inactive]="isTemplateChanged()" mat-button (click)="sendTestEmail()">SEND TEST EMAIL</button>
 
-        <div class="helper-container">
-          <token-list [style.display]="viewMode ? 'none' : 'inline-block'"
-                      [tokenGroups]="tokenGroups"
-                      [selectedGroup]="selectedGroup"
-                      (tokenSelected)="addToken($event)"
-                      class="entity-view__card">
-          </token-list>
-
-          <button [class.alone]="viewMode" mat-button class="test-button" (click)="sendTestEmail()">Send test E-Mail</button>
-        </div>
+        <div id="grapesjs"></div>
       </div>
 
     </mat-tab>
 
     <mat-tab>
-      <div class="entity-view__card entity-view__card--large">
-        <div class="entity-view__card__header">
-          <div>
-            <div class="entity-view__card__header__title">{{'EMAILTEMPLATE_PREVIEW_TITLE' | translate}}</div>
-            <div class="entity-view__card__header__subtitle">{{'EMAILTEMPLATE_PREVIEW_SUBTITLE' | translate}}</div>
+
+      <div class="associations-container">
+        <div class="associations-table">
+
+          <div class="title">
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+              <mat-form-field [floatLabel]="'never'" class="chip-input mrw-input--no-line mrw-input--no-padding">
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let chip of chips" (removed)="remove(chip)">
+                    {{chip}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Filter..."
+                         auto-focus
+                         [matChipInputFor]="chipList"
+                         (matChipInputTokenEnd)="addChip($event)">
+                </mat-chip-list>
+              </mat-form-field>
+            <div class="count">{{entity.associations.length}} Records</div>
           </div>
+
+          <div class="associations-table-wrapper">
+            <table>
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let association of entity.associations | filterChipsPipe : chips : filterMapper">
+                <td><a [routerLink]="[association.url]">{{association.name}}</a></td>
+                <td>{{association.type}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
 
-        <div class="entity-view__card__content">
-          <div class="email-template-view__preview__body" [innerHTML]="parseTemplateBody()"></div>
-        </div>
+        <div class="associations-preview" [innerHtml]="previewBody | htmlSanitizer"></div>
       </div>
     </mat-tab>
   </mat-tab-group>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [cardsExpression]="'650px'" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [numberOfCards]="0" [title]="'EMAILTEMPLATE_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

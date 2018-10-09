@@ -85,7 +85,7 @@ export class Schedule implements Entity<Schedule>{
     while (start < end) {
 
       if (this.sameDayOfMonth && this.instantiationDate) {
-        const startDate = this.instantiationDate.add(start, 'd');
+        const startDate = this.instantiationDate.clone().add(start, 'd');
         const monthFromStartDate = startDate.clone().add(1, 'M');
 
         period = monthFromStartDate.diff(startDate, 'd');

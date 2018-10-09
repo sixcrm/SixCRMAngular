@@ -101,19 +101,6 @@ export function dashboardFiltersQuery(query: string): string {
 	}`;
 }
 
-export function dashboardFiltersAdvancedQuery(query: string, type: string): string {
-  let entityTypesQuery: string = `(or entity_type:'${type}')`;
-
-  return `{
-		search (search: {query: "${query}*" filterQuery:"${entityTypesQuery}"}) {
-			status { timems rid }
-			hits { found start,
-				hit { id fields }
-			}
-		}
-	}`;
-}
-
 export function buildEntityTypes(entityTypes?: string[]): string {
   let entityTypesQuery: string = '';
 

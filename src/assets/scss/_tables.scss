@@ -159,3 +159,25 @@ td,th {
     height: 16px;
   }
 }
+
+c-email-templates {
+  .preview {
+    td, th {
+      padding: 0;
+    }
+  }
+}
+
+email-template-preview-modal {
+  td, th {
+    padding: 0;
+  }
+}
+
+email-template-view {
+  .associations-preview {
+    td, th {
+      padding: 0;
+    }
+  }
+}

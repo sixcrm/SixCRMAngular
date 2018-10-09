@@ -4,7 +4,7 @@ import {AnalyticsService} from '../../../../shared/services/analytics.service';
 import {TransactionSummary} from '../../../../shared/models/transaction-summary.model';
 import {utc, Moment} from 'moment';
 import {Subscription} from 'rxjs';
-import {flatDown, flatUp} from '../../../../shared/components/advanced-filter/advanced-filter.component';
+import {flatDown, flatUp} from '../../../../shared/models/filter-term.model';
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
 
@@ -17,21 +17,9 @@ import {Currency} from '../../../../shared/utils/currency/currency';
 export class AccountManagementBillingTransactionsChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer') chartContainer;
 
-  @Input() set lastBill(rebill: Rebill) {
-    if (rebill) {
-      this.lastBillDate = rebill.billAt;
-      this.lastOverdue = !rebill.transactions || !rebill.transactions[0] || rebill.transactions[0].processorResponse.code !== 'success';
-      this.lastBillAmount = rebill.amount;
-      this.nextBillDate = this.lastBillDate.clone().add(1, 'month');
-      this.plan = rebill.productSchedules[0].name;
-    }
-  };
+  @Input() lastBill: Rebill;
 
-  lastBillDate: Moment;
-  lastOverdue: boolean;
-  nextBillDate: Moment;
-
-  lastBillAmount: Currency;
+  @Input() nextBill: Rebill;
 
   summaries: TransactionSummary[];
   summariesSub: Subscription;
@@ -77,7 +65,7 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
       {
         color: '#999999',
         name: 'transactions',
-        data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10, 3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10, 3, 3, 5, 4, 6, 8, 6, 9, 10],
+        data: [],
         pointStart: utc().subtract(30, 'd'),
         pointInterval: 24 * 3600 * 1000 // one day
       }
@@ -143,16 +131,26 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
     this.chartInstance.series[0].setData(data, true, true);
   }
 
-  getPlanPrice() {
-    if (this.plan === 'Basic Subscription') {
+  isPaid(rebill: Rebill): boolean {
+    if (!rebill) return true;
+
+    return rebill.transactions
+      && rebill.transactions.length > 0
+      && rebill.transactions.some(t => t.type === 'sale' && t.processorResponse.code === 'success')
+  }
+
+  getPlanPrice(rebill: Rebill) {
+    const plan = rebill.productSchedules[0].name;
+
+    if (plan === 'Basic Subscription') {
       return new Currency(30);
     }
 
-    if (this.plan === 'Professional Subscription') {
+    if (plan === 'Professional Subscription') {
       return new Currency(150);
     }
 
-    if (this.plan === 'Premium Subscription') {
+    if (plan === 'Premium Subscription') {
       return new Currency(2000);
     }
 

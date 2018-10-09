@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
 import {
   rebillsListQuery, rebillQuery, deleteRebillMutation,
-  updateRebillMutation, deleteRebillsMutation, pendingRebillsByCustomer
+  updateRebillMutation, deleteRebillsMutation, pendingRebillsByCustomer, rebillWithFullSessionQuery
 } from '../../shared/utils/queries/entities/rebill.queries';
 import {MatSnackBar} from '@angular/material';
 import {Customer} from '../../shared/models/customer.model';
@@ -36,4 +36,7 @@ export class RebillsService extends AbstractEntityService<Rebill>{
     return this.planeCustomEntitiesQuery(pendingRebillsByCustomer(customerId, params));
   }
 
+  getRebillWithFullSessionDetails(rebillId: string): void {
+    return this.customEntityQuery(rebillWithFullSessionQuery(rebillId));
+  }
 }

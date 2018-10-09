@@ -1,99 +1,99 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
-import {Modes} from '../../abstract-entity-view.component';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 
 @Component({
   selector: 'c-email-templates',
   templateUrl: './email-templates.component.html',
   styleUrls: ['./email-templates.component.scss']
 })
-export class EmailTemplatesComponent implements OnInit, OnDestroy {
+export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailTemplate> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'EMAILTEMPLATE_INDEX_TITLE'}];
-
-  modes = Modes;
-  selectedIndex: number = 0;
-  addMode: boolean;
-  entity: EmailTemplate = new EmailTemplate();
-
-  tabHeaders: TabHeaderElement[] = [
-    {name: 'custom', label: 'EMAILTEMPLATE_TAB_CUSTOM'},
-    {name: 'shared', label: 'EMAILTEMPLATE_TAB_SHARED'}
+  sortBy: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number}[] = [
+    {label: 'Name', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
+      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
+      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Type', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
+      if ((f.type || '').toLowerCase() < (s.type || '').toLowerCase()) return -1;
+      if ((f.type || '').toLowerCase() > (s.type || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'SMTP Provider', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
+      if ((f.smtpProvider.name || '').toLowerCase() < (s.smtpProvider.name || '').toLowerCase()) return -1;
+      if ((f.smtpProvider.name || '').toLowerCase() > (s.smtpProvider.name || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Subject', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
+      if ((f.subject || '').toLowerCase() < (s.subject || '').toLowerCase()) return -1;
+      if ((f.subject || '').toLowerCase() > (s.subject || '').toLowerCase()) return 1;
+      return 0;
+    }}
   ];
 
-  createSub: Subscription;
+  selectedSortBy: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number};
 
-  constructor(
-    private emailTemplateService: EmailTemplatesService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {}
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Email Templates'}];
 
-  ngOnInit() { }
+  filterString: string;
+  filterFunction = (template: EmailTemplate) => template.name;
+
+  constructor(emailsService: EmailTemplatesService,
+              auth: AuthenticationService,
+              dialog: MatDialog,
+              paginationService: PaginationService,
+              router: Router,
+              activatedRoute: ActivatedRoute) {
+    super(emailsService, auth, dialog, paginationService, router, activatedRoute);
+
+    this.entityFactory = () => new EmailTemplate({enabled: true});
+  }
+
+  openAddMode() {
+    super.openAddMode();
+  }
+
+  ngOnInit() {
+    this.shareLimit = false;
+    this.limit = 100;
+
+    this.init();
+  }
 
   ngOnDestroy() {
-    if (this.createSub) {
-      this.createSub.unsubscribe();
-    }
+    this.destroy();
   }
 
-  setIndex(index: number) {
-    this.selectedIndex = index;
+  applySortBy(sort: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number}) {
+    this.selectedSortBy = sort;
+    this.entities = this.entities.sort(sort.sortFunction);
   }
 
-  copyShared(emailTemplate: EmailTemplate) {
-    this.entity = emailTemplate.copy();
-    this.entity.name += ' Copy';
-    this.entity.smtpProvider = new SmtpProvider();
+  previewTemplate(template: EmailTemplate) {
+    let ref = this.deleteDialog.open(EmailTemplatePreviewModalComponent);
+    ref.componentInstance.body = template.preview;
 
-    this.toggleAddModal();
+    ref.afterClosed().subscribe(() => {
+      ref = null;
+    })
   }
 
-  addTemplate() {
-    this.entity = new EmailTemplate();
+  copyEmailTemplate(template: EmailTemplate) {
+    const newTemplate = template.copy();
 
-    this.toggleAddModal();
-  }
+    newTemplate.campaigns = [];
+    newTemplate.products = [];
+    newTemplate.productSchedules = [];
+    newTemplate.name += ' (Copy)';
 
-  toggleAddModal() {
-    this.addMode = !this.addMode;
-  }
-
-  overlayClicked(event: any): void {
-    if (event && event.target && event.target.className === 'full-overlay') {
-      this.toggleAddModal();
-    }
-  }
-
-  createEntity(template: EmailTemplate) {
-    this.createSub = this.emailTemplateService.entityCreated$.take(1).subscribe(entity => {
-      if (entity instanceof CustomServerError) return;
-
-      this.viewEntity(entity.id, true)
-    });
-
-    this.emailTemplateService.createEntity(template);
-  }
-
-  closeAddMode() {
-    this.addMode = false;
-    this.entity = new EmailTemplate();
-  }
-
-  viewEntity(id: string, editMode?: boolean): void {
-    let params = [id];
-    let query = {};
-    if (editMode) {
-      query['edit'] = true;
-    }
-
-    this.router.navigate(params, {relativeTo: this.activatedRoute, queryParams: query});
+    this.createEntity(newTemplate);
   }
 }

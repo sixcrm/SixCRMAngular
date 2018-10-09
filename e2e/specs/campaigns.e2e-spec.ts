@@ -1,9 +1,9 @@
-import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf, clearAuth0SSO} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
-import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
+import {browser, protractor} from 'protractor';
+import {expectUrlToContain, expectDefined, expectUndefined} from '../utils/assertation.utils';
 import {CampaignPage} from '../po/campaign.po';
 
 describe('Campaigns', function() {
@@ -27,7 +27,7 @@ describe('Campaigns', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should navigate to campaigns page', () => {
@@ -57,6 +57,20 @@ describe('Campaigns', function() {
     expectDefined(campaignPage.getNewCampaignForm());
   });
 
+
+  it('should close modal when esc button is clicked', () => {
+    browser.sleep(1200);
+    campaignPage.selectEscapeKey();
+    browser.sleep(250);
+    expectUndefined(campaignPage.getNewCampaignForm());
+  });
+
+  it('should render add modal when add button is clicked', () => {
+    page.getAddButton().click();
+
+    expectDefined(campaignPage.getNewCampaignForm());
+  });
+
   it('should show error when try to save without name', () => {
     campaignPage.getCampaignFormSaveButton().click();
 
@@ -66,43 +80,42 @@ describe('Campaigns', function() {
   it('should remove error when proper name is entered', () => {
     browser.sleep(1200);
     campaignPage.getNewCampaignFormNameInput().sendKeys('e2e test campaign');
-    browser.sleep(200);
+    browser.sleep(250);
     expect(campaignPage.getNewCampaignFormInvalidInputs().count()).toBe(0);
   });
 
   it('should save campaign', () => {
-    browser.sleep(1200);
+    browser.sleep(200);
     campaignPage.getCampaignFormSaveButton().click();
-    waitForUrlContains('campaigns');
-    expectUrlToContain('campaigns');
   });
 
   it('should go to an individual campaign and open it', () => {
-    browser.sleep(1200);
+    browser.sleep(3000);
     waitForUrlContains('campaigns/');
     expectUrlToContain('campaigns/');
   });
 
   it('should render campaign name correctly', () => {
-    browser.sleep(1200);
+    browser.sleep(2000);
     expect(campaignPage.getCampaignNameInHeader().getText()).toContain('e2e test campaign');
   });
 
   it('should update campaign name', () => {
-    browser.sleep(1200);
+    browser.sleep(2500);
     campaignPage.getMenuButton().click();
-    browser.sleep(200);
+    browser.sleep(500);
     campaignPage.getEditButton().click();
-    browser.sleep(200);
+    browser.sleep(500);
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
+    browser.sleep(2500);
     campaignPage.getCampaignFormSaveButton().click();
-    browser.sleep(2200);
+    browser.sleep(4500);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
   });
 
   it( 'should go back to campaign index', () =>  {
     campaignPage.getCampaignIndexButton().click();
-    browser.sleep(1000);
+    browser.sleep(2000);
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
@@ -110,10 +123,11 @@ describe('Campaigns', function() {
   it( 'should delete the campaign', () => {
     browser.sleep(2000);
     campaignPage.getCampaignDeleteButton().click();
-    browser.sleep(200);
+    browser.sleep(2000);
     campaignPage.getCampaignDeleteModalButton().click();
+    browser.sleep(2000);
     waitForPresenceOf(page.getSuccessSnackbar());
-    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
+    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!');
   });
 
 });

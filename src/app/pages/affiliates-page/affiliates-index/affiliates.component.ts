@@ -33,7 +33,7 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('AFFILIATE_INDEX_HEADER_ID', (e: Affiliate) => e.id).setSelected(false),
-      new ColumnParams('AFFILIATE_INDEX_HEADER_NAME', (e: Affiliate) => e.name),
+      new ColumnParams('AFFILIATE_INDEX_HEADER_NAME', (e: Affiliate) => e.name || 'Unnamed Affiliate'),
       new ColumnParams('AFFILIATE_INDEX_HEADER_AFFILIATEID', (e: Affiliate) => e.affiliateId),
       new ColumnParams('AFFILIATE_INDEX_HEADER_CREATED', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('AFFILIATE_INDEX_HEADER_UPDATED', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)

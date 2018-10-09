@@ -118,7 +118,7 @@ export class Session implements Entity<Session> {
       customer: this.customer.inverse(),
       product_schedules: this.productSchedules.map(p => p.inverse()),
       rebills: this.rebills.map(r => r.inverse()),
-      campaign: this.campaign.inverse(),
+      campaign: this.campaign && this.campaign.inverse ? this.campaign.inverse() : new Campaign(),
       affiliate: this.affiliate.inverse(),
       completed: this.completed,
       cid: this.cid.inverse(),

@@ -18,6 +18,6 @@ export class AccountsAclGuard extends AbstractAclGuard implements CanActivate, C
   }
 
   canActivate(): boolean {
-    return super.hasPermission('account');
+    return this.authService.isActiveOrActingAclMasterAccount();
   }
 }

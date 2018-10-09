@@ -2,7 +2,10 @@ import {AuthPage} from '../po/auth.po';
 import {RegisterPage} from '../po/register.po';
 import {AcceptInvitePage} from '../po/accept-invite.po';
 import {browser} from 'protractor';
-import {waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {
+  waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage,
+  clearAuth0SSO
+} from '../utils/navigation.utils';
 import {doSignUp} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
@@ -31,7 +34,7 @@ describe('Register', function() {
     browser.waitForAngularEnabled(true);
 
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   beforeAll(() => {
@@ -75,8 +78,8 @@ describe('Register', function() {
   it ('should enter CC info', () => {
     browser.sleep(2000);
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
-    registerPage.getInputs().get(1).sendKeys('Card Name');
-    registerPage.getInputs().get(2).sendKeys(123);
+    registerPage.getInputs().get(1).sendKeys(123);
+    registerPage.getInputs().get(2).sendKeys('Card Name');
     registerPage.getPaymentEntryCardDate().first().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(6).click();
@@ -87,8 +90,8 @@ describe('Register', function() {
     registerPage.getInputs().get(3).sendKeys('1 test');
     registerPage.getInputs().get(4).sendKeys('test line');
     registerPage.getInputs().get(5).sendKeys('New York');
-    registerPage.getInputs().get(6).sendKeys('21000');
-    registerPage.getInputs().get(7).sendKeys('Oregon');
+    registerPage.getInputs().get(6).sendKeys('Oregon');
+    registerPage.getInputs().get(7).sendKeys('21000');
     registerPage.getInputs().get(8).sendKeys('United States');
   });
 

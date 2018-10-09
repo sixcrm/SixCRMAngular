@@ -1,4 +1,4 @@
-import {element, by} from 'protractor';
+import {element, by, browser, Key} from 'protractor';
 import any = jasmine.any;
 
 export class CampaignPage {
@@ -39,12 +39,16 @@ export class CampaignPage {
     return element(by.css('tbody')).all(by.css('tr'));
   }
 
+  selectEscapeKey() {
+    browser.actions().sendKeys(Key.ESCAPE).perform();
+  }
+
   getCampaignNameInCard() {
     return element(by.css('.entity-view__card__content')).element(by.css('input'));
   }
 
   getCampaignDeleteButton() {
-    return element(by.css('tbody')).all(by.css('tr')).first().element(by.buttonText('delete'));
+    return element(by.css('tbody')).all(by.css('tr')).first().all(by.css('td')).last().all(by.css('button')).first();
   }
 
   getCampaignDeleteModalButton() {

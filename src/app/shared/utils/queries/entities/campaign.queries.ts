@@ -127,6 +127,5 @@ function campaignInputQuery(campaign: Campaign, includeId?: boolean): string {
     (campaign.affiliateDeny.length === 1 && campaign.affiliateDeny[0].id === '*') ? `"*"` :
       campaign.affiliateDeny.reduce((a, b) => `${a} "${b.id}",`, '');
 
-
-  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${!!campaign.allowPrepaid}, show_prepaid: ${!!campaign.showPrepaid}, allow_on_order_form: ${!!campaign.allowOnOrder}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}], ${addUpdatedAtApi(campaign, includeId)}`;
+  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${!!campaign.allowPrepaid}, show_prepaid: ${!!campaign.showPrepaid}, allow_on_order_form: ${!!campaign.allowOnOrder}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], ${addUpdatedAtApi(campaign, includeId)}`;
 }

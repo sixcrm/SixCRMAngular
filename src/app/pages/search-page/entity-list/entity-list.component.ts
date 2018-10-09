@@ -22,6 +22,10 @@ export class EntityListComponent implements OnInit {
   }
 
   getName(entity): string {
+    if (entity.fields.entity_type === 'affiliate') {
+      return entity.fields.name || 'Unnamed Affiliate';
+    }
+
     return entity.fields.name || entity.fields.alias || `${entity.fields.firstname}  ${entity.fields.lastname}`;
   }
 

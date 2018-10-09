@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {Customer} from '../../../shared/models/customer.model';
 import {MatDialog} from '@angular/material';
@@ -9,13 +9,16 @@ import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-ca
 import {CreditCardsService} from '../../../entity-services/services/credit-cards.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'customer-info',
   templateUrl: './customer-info.component.html',
   styleUrls: ['./customer-info.component.scss']
 })
-export class CustomerInfoComponent implements OnInit {
+export class CustomerInfoComponent implements OnInit, OnDestroy {
+
+  customerUpdateSub: Subscription;
 
   _customer: Customer;
   _defaultCreditCard: CreditCard;
@@ -33,7 +36,19 @@ export class CustomerInfoComponent implements OnInit {
     private creditCardService: CreditCardsService
   ) { }
 
+  ngOnDestroy() {
+    if (this.customerUpdateSub) {
+      this.customerUpdateSub.unsubscribe();
+    }
+  }
+
   ngOnInit() {
+    this.customerUpdateSub = this.customerService.entityUpdated$.subscribe(customer => {
+      if (customer instanceof CustomServerError || !this._customer || customer.id !== this._customer.id) return;
+
+      this._customer = customer;
+      this._defaultCreditCard = this.getDefaultCard();
+    });
   }
 
   getDefaultCard(customer?: Customer): CreditCard {
@@ -70,9 +85,10 @@ export class CustomerInfoComponent implements OnInit {
     let dialogRef = this.dialog.open(CardSwitcherDialogComponent, {backdropClass: 'backdrop-blue'});
 
     const updateInstance = (customer: Customer) => {
-      dialogRef.componentInstance.cards = customer.creditCards;
+      dialogRef.componentInstance.cards = customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
       dialogRef.componentInstance.selectedDefaultCard = this.getDefaultCard(customer) || new CreditCard();
       dialogRef.componentInstance.updateEmbedded = true;
+      dialogRef.componentInstance.addEmbedded = true;
     };
 
     const customerUpdateSub = this.customerService.entityUpdated$.subscribe((updatedCustomer) => {
@@ -93,8 +109,8 @@ export class CustomerInfoComponent implements OnInit {
       this.customerService.entityUpdated$.next(this._customer.copy());
     });
 
-    const addSub = dialogRef.componentInstance.addCard.subscribe(() => this.openCardModal());
-    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
+    const addSub = dialogRef.componentInstance.addCard.subscribe(() => this.openCardModal(dialogRef));
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(dialogRef, card));
 
     updateInstance(this._customer.copy());
 
@@ -102,11 +118,8 @@ export class CustomerInfoComponent implements OnInit {
       dialogRef = null;
 
       if (customerUpdateSub) customerUpdateSub.unsubscribe();
-
       if (cardUpdateSub) cardUpdateSub.unsubscribe();
-
       if (addSub) addSub.unsubscribe();
-
       if (editSub) editSub.unsubscribe();
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
@@ -115,7 +128,7 @@ export class CustomerInfoComponent implements OnInit {
     });
   }
 
-  openCardModal(creditCard?: CreditCard) {
+  openCardModal(editDialogRef, creditCard?: CreditCard) {
     let dialogRef = this.dialog.open(AddCreditCardDialogComponent, {backdropClass: 'backdrop-none'});
 
     dialogRef.componentInstance.creditCard = creditCard ? creditCard.copy() : new CreditCard();
@@ -131,6 +144,10 @@ export class CustomerInfoComponent implements OnInit {
           this.creditCardService.updateEntity(result.creditCard);
         } else {
           this.handleAddNewCard(result.creditCard, result.isDefaultCard);
+
+          if (result.isDefaultCard) {
+            editDialogRef.close({});
+          }
         }
 
       }

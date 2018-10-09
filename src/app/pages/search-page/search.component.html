@@ -12,18 +12,6 @@
           <input matInput placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue">
         </mat-form-field>
 
-        <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
-          <ng-container *ngFor="let option of queryOptions">
-            <div [class.option--disabled]="!option.enabled" class="search__sidenav__option">
-              <div class="search__sidenav__option__content">
-                <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
-                <span class="search__sidenav__option__value">{{option.value}}</span>
-              </div>
-              <mat-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</mat-icon>
-            </div>
-          </ng-container>
-        </div>
-
         <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">{{'SEARCH_CATEGORY' | translate}}</div>
 
         <ng-container *ngFor="let facet of facets">
@@ -53,13 +41,13 @@
               <mat-icon class="filters" [class.filters--active]="showFilters" (click)="showFilters = !showFilters">details</mat-icon>
 
               <span>{{'SEARCH_RESULTS' | translate}}
-                <span>({{numberOfSearchResults | numberlocale}})</span>
-                <span *ngIf="queryString">for "{{queryString}}"</span>
+                <span> ({{numberOfSearchResults | numberlocale}})</span>
+                <span *ngIf="queryString"> for "{{queryString}}"</span>
               </span>
 
               <div class="options">
                 <span>{{'SEARCH_SORT_TITLE' | translate}}:</span>
-                <span>{{sortBy}}</span>
+                <span class="sort-value">{{sortBy || 'default'}}</span>
                 <button mat-icon-button [matMenuTriggerFor]="sortByMenu">
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
@@ -67,9 +55,9 @@
                 <mat-menu #sortByMenu="matMenu">
                   <button mat-menu-item (click)="setSortBy('created_at asc')">{{'SEARCH_SORT_CREATEASC' | translate}}</button>
                   <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_CREATEDESC' | translate}}</button>
-                  <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
-                  <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
-                  <button mat-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('updated_at asc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('updated_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('default')">{{'SEARCH_SORT_DEF' | translate}}</button>
                 </mat-menu>
 
                 <share-link [shareUrl]="getShareUrl()"></share-link>

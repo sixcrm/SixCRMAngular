@@ -33,6 +33,7 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
 import { ShipmentStatusComponent } from './shipment-status/shipment-status.component';
 import {AdvancedEntitiesTableComponent} from './advanced-entities-table/advanced-entities-table.component';
 import {EntitiesTableWrapperComponent} from './entities-table-wrapper/entities-table-wrapper.component';
+import { ShipmentDetailsComponent } from './shipment-details/shipment-details.component';
 
 @NgModule({
   imports : [
@@ -71,7 +72,8 @@ import {EntitiesTableWrapperComponent} from './entities-table-wrapper/entities-t
     TransactionStatusIconComponent,
     ShipmentStatusComponent,
     AdvancedEntitiesTableComponent,
-    EntitiesTableWrapperComponent
+    EntitiesTableWrapperComponent,
+    ShipmentDetailsComponent
   ],
   exports : [
     TableActionsComponent,
@@ -88,7 +90,8 @@ import {EntitiesTableWrapperComponent} from './entities-table-wrapper/entities-t
     TransactionStatusIconComponent,
     ShipmentStatusComponent,
     AdvancedEntitiesTableComponent,
-    EntitiesTableWrapperComponent
+    EntitiesTableWrapperComponent,
+    ShipmentDetailsComponent
   ],
   providers: [
 

@@ -13,6 +13,7 @@ import { RoleAclsComponent } from './role-view/role-acls/role-acls.component';
 import { RoleAddNewComponent } from './roles-index/role-add-new/role-add-new.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
+import {RolesAclGuard} from '../guards/roles-acl-guard.service';
 
 @NgModule({
   imports: [
@@ -33,6 +34,8 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     RoleAclsComponent,
     RoleAddNewComponent
   ],
-  providers: [ ]
+  providers: [
+    RolesAclGuard
+  ]
 })
 export class RolesModule { }

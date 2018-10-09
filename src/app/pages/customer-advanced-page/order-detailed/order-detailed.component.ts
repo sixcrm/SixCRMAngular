@@ -1,14 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Order} from '../../../shared/models/order.model';
-import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
-import {Products} from '../../../shared/models/products.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-
-interface Shipment {
-  shippingReceipt: ShippingReceipt,
-  products: Products[],
-  showDetails?: boolean
-}
+import {Shipment} from '../../components/shipment-details/shipment-details.component';
 
 @Component({
   selector: 'order-detailed',

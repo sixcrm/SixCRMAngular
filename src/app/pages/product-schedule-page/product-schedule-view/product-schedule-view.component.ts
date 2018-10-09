@@ -9,7 +9,6 @@ import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductsService} from '../../../entity-services/services/products.service';
@@ -19,6 +18,8 @@ import {utc, Moment} from 'moment'
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
+import {EmailTemplate} from '../../../shared/models/email-template.model';
+import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 
 @Component({
   selector: 'product-schedule-view',
@@ -28,7 +29,6 @@ import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.compon
 export class ProductScheduleViewComponent extends AbstractEntityViewComponent<ProductSchedule> implements OnInit, OnDestroy {
 
   @ViewChild('endField') endField;
-  @ViewChild('addScheduleComponent') addScheduleComponent: AddScheduleComponent;
 
   startDate: Moment = utc().millisecond(0).second(0).minute(0).hour(0);
 
@@ -100,6 +100,25 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     return schedule;
   };
 
+  emailTemplateMapper = (el: EmailTemplate) => el.name;
+  emailTemplateColumnParams = [
+    new ColumnParams('Name', (e: EmailTemplate) => e.name),
+    new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
+    new ColumnParams('Type', (e: EmailTemplate) => e.type),
+    new ColumnParams('SMTP Provider', (e: EmailTemplate) => e.smtpProvider.name)
+  ];
+
+  emailText: TableMemoryTextOptions = {
+    title: 'Associated Email Templates',
+    viewOptionText: 'View Email Template',
+    associateOptionText: 'Associate Email Template',
+    disassociateOptionText: 'Disassociate Email Template',
+    associateModalTitle: 'Select Email Template',
+    disassociateModalTitle: 'Are you sure you want to delete?',
+    associateModalButtonText: 'ADD',
+    noDataText: 'No Email Templates Found.'
+  };
+
   tableTexts: TableMemoryTextOptions = {
     title: 'PRODUCTSCHEDULE_CYCLE_TITLE',
     editOptionText: 'PRODUCTSCHEDULE_CYCLE_EDIT',
@@ -113,7 +132,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
     {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
     {name: 'list', label: 'PRODUCTSCHEDULE_TAB_LIST'},
-    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
+    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'},
+    {name: 'emailtemplates', label: 'EMAIL TEMPLATES'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
@@ -134,7 +154,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public authService: AuthenticationService,
     private router: Router,
     private productService: ProductsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public emailTemplateService: EmailTemplatesService
   ) {
     super(service, route);
   }
@@ -172,6 +193,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
         this.scheduleColumnParams[1].setAutocompleteOptions(products);
       });
       this.productService.getEntities();
+      this.emailTemplateService.getEntities();
     }
   }
 
@@ -237,7 +259,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   canBeDeactivated() {
-    return super.canBeDeactivated() && (!this.addScheduleComponent || !this.addScheduleComponent.isTouched());
+    return super.canBeDeactivated();
   }
 
   openDeleteDialog(callback: () => void) {
@@ -260,5 +282,25 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.productScheduleWaitingForUpdate = productSchedules[0];
       this.saveDebouncer.next(productSchedules[0]);
     }
+  }
+
+  viewEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.router.navigate(['/emailtemplates', emailTemplate.id]);
+  }
+
+  disassociateEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.emailTemplateService.removeEmailTemplateAssociation(emailTemplate.id, 'product_schedule', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
+
+      this.entity.emailTemplates = this.entity.emailTemplates.filter(e => e.id !== template.id);
+    });
+  }
+
+  associateEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.emailTemplateService.addEmailTemplateAssociation(emailTemplate.id, 'product_schedule', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
+
+      this.entity.emailTemplates = [...this.entity.emailTemplates, template];
+    });
   }
 }

@@ -6,7 +6,6 @@ export class TransactionAnalytics {
   id: string;
   date: Moment;
   transactionType: string;
-  chargeback: boolean;
   response: string;
   amount: Currency;
   refund: Currency;
@@ -20,6 +19,8 @@ export class TransactionAnalytics {
   creditCard: string;
   customer: string;
   customerId: string;
+  merchantCode: string;
+  merchantMessage: string;
 
   obj: any;
 
@@ -33,7 +34,6 @@ export class TransactionAnalytics {
     this.id = this.getValueOf('id');
     this.date = utc(this.getValueOf('datetime'));
     this.transactionType = this.getValueOf('transaction_type');
-    this.chargeback = this.getValueOf('chargeback') === 'yes';
     this.response = this.getValueOf('response') || '';
     this.amount = new Currency(this.getValueOf('amount') || 0);
     this.refund = new Currency(this.getValueOf('refund') || 0);
@@ -46,7 +46,9 @@ export class TransactionAnalytics {
     this.sessionId= this.getValueOf('session') || '';
     this.creditCard = this.getValueOf('creditcard') || '';
     this.customer = this.getValueOf('customer_name') || '';
-    this.customerId = this.getValueOf('customer')
+    this.customerId = this.getValueOf('customer');
+    this.merchantCode = this.getValueOf('merchant_code');
+    this.merchantMessage = this.getValueOf('merchant_message');
   }
 
   private getValueOf(key): any {

@@ -24,12 +24,10 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_FULFILLMENT_STATUS', (e: ShippingReceipt) => e.status),
-      new ColumnParams('CUSTOMER_FULFILLMENT_ORDER', (e: ShippingReceipt) => '-')
-        .setSeparator(true),
-      new ColumnParams('CUSTOMER_FULFILLMENT_ISSUEDATE', (e: ShippingReceipt) => e.createdAt.tz(f).format('MM/DD/YY')),
-      new ColumnParams('CUSTOMER_FULFILLMENT_SHIPDATE', (e: ShippingReceipt) => '-'),
-      new ColumnParams('CUSTOMER_FULFILLMENT_DELIVERDATE', (e: ShippingReceipt) => '-')
+      new ColumnParams('CUSTOMER_FULFILLMENT_ISSUEDATE', (e: ShippingReceipt) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('CUSTOMER_FULFILLMENT_ORDER', (e: ShippingReceipt) => e.rebill.alias)
+        .setClickable(true)
+        .setColor('#2C98F0')
         .setSeparator(true),
       new ColumnParams('CUSTOMER_FULFILLMENT_PROVIDER', (e: ShippingReceipt) => e.fulfillmentProvider.name)
         .setClickable(true)
@@ -46,6 +44,10 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
     switch (option.param.label) {
       case ('CUSTOMER_FULFILLMENT_PROVIDER'): {
         this.router.navigate(['/fulfillmentproviders', option.item.fulfillmentProvider.id]);
+        break
+      }
+      case ('CUSTOMER_FULFILLMENT_ORDER'): {
+        this.router.navigate(['/customers', 'advanced'], {queryParams: {order: option.item.rebill.id}});
         break
       }
       default: {}

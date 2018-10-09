@@ -10,14 +10,4 @@
       </div>
     </div>
   </div>
-
-  <div class="dashboard-campaigns">
-    <dashboard-header-dropdown
-      [items]="campaigns"
-      [selectedItem]="selectedCampaign"
-      [mapper]="campaignMapper"
-      [selectedMapper]="campaignSelectedMapper"
-      (selected)="campaignSelected.emit($event)">
-    </dashboard-header-dropdown>
-  </div>
 </div>

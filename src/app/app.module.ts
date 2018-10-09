@@ -52,6 +52,9 @@ import { CustomerFiltersDialogComponent } from './dialog-modals/customer-filters
 import { SubscriptionFiltersDialogComponent } from './dialog-modals/subscription-filters-dialog/subscription-filters-dialog.component';
 import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialog/order-filters-dialog.component';
+import { CustomTokenBlockDialogComponent } from './dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
+import { EmailTemplatePreviewModalComponent } from './dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
+import { PaymentDialogComponent } from './dialog-modals/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations : [
@@ -88,7 +91,10 @@ import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialo
     CustomerFiltersDialogComponent,
     SubscriptionFiltersDialogComponent,
     ShippingreceiptFiltersDialogComponent,
-    OrderFiltersDialogComponent
+    OrderFiltersDialogComponent,
+    CustomTokenBlockDialogComponent,
+    EmailTemplatePreviewModalComponent,
+    PaymentDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -141,7 +147,10 @@ import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialo
     CustomerFiltersDialogComponent,
     SubscriptionFiltersDialogComponent,
     ShippingreceiptFiltersDialogComponent,
-    OrderFiltersDialogComponent
+    OrderFiltersDialogComponent,
+    CustomTokenBlockDialogComponent,
+    EmailTemplatePreviewModalComponent,
+    PaymentDialogComponent
   ],
   bootstrap : [AppComponent]
 })

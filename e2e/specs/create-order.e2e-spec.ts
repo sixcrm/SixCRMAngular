@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf, clearAuth0SSO} from '../utils/navigation.utils';
 import {tosCheck, customLogin} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectPresent, expectNotPresent} from '../utils/assertation.utils';
@@ -27,7 +27,7 @@ describe('New Order', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it('should open create order modal', () => {
@@ -97,11 +97,16 @@ describe('New Order', function() {
   });
 
   it('should add billing', () => {
-    createOrderPage.getBillingInputs().get(0).sendKeys('Test Customer');
-    createOrderPage.getBillingInputs().get(1).sendKeys('4242424242424242');
-    createOrderPage.getBillingInputs().get(2).sendKeys('123');
-    createOrderPage.getBillingInputs().get(3).sendKeys('10');
-    createOrderPage.getBillingInputs().get(4).sendKeys('2022');
+    createOrderPage.getBillingInputs().get(0).sendKeys('4242424242424242');
+    createOrderPage.getBillingInputs().get(1).sendKeys('123');
+    createOrderPage.getBillingInputs().get(2).sendKeys('Test Customer');
+    createOrderPage.getBillingDateDropdowns().first().click();
+    browser.sleep(200);
+    createOrderPage.getDropdownOptions().get(6).click();
+    createOrderPage.getBillingDateDropdowns().last().click();
+    browser.sleep(200);
+    createOrderPage.getDropdownOptions().get(4).click();
+    createOrderPage.getAddressCheckbox().click();
   });
 
   it('should select billing', () => {

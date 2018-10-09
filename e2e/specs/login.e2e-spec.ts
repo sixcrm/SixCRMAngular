@@ -4,7 +4,7 @@ import {browser} from 'protractor';
 import {DashboardPage} from '../po/dashboard.po';
 import {
   waitForPresenceOfLoginFields, waitForPresenceOf, waitForUrlContains,
-  navigateSuperuserToHomepage, clearLocalStorage
+  navigateSuperuserToHomepage, clearLocalStorage, clearAuth0SSO
 } from '../utils/navigation.utils';
 import {doLogin, tosCheck} from '../utils/action.utils';
 import {expectPresent, expectUrlToContain} from '../utils/assertation.utils';
@@ -27,7 +27,7 @@ describe('Login', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+    clearAuth0SSO();
   });
 
   it ('should fail login when wrong email and password are used', () => {

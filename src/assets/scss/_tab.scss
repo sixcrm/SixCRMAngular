@@ -58,6 +58,14 @@ mat-tab-body {
   }
 }
 
+.tab--body-fit {
+
+  mat-tab-body {
+    max-width: 100%;
+  }
+
+}
+
 .tab--no-header {
   mat-tab-header {
     display: none;
@@ -112,5 +120,28 @@ mat-tab-body {
       margin-left: 0;
       margin-right: 20px;
     }
+  }
+}
+
+.tab-header--email-template {
+  position: absolute;
+  z-index: 10;
+
+  .entity-view__navigation {
+    border: none;
+  }
+
+}
+
+.spe-loader--email-template {
+  .entity-view__navigation__label {
+    height: 34px;
+    line-height: 40px;
+    border: none;
+  }
+
+  .entity-view__navigation {
+    height: 40px;
+    border: none;
   }
 }

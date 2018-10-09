@@ -14,51 +14,60 @@
 
     <div class="body">
       <div class="section" [class.section--full]="!infoVisible || selectedIndex === 5">
-        <tab-header [elements]="tabHeaders"
-                    [selectedIndex]="selectedIndex"
-                    (select)="setIndex($event)">
-          <mat-icon *ngIf="selectedIndex !== 5" class="info-icon" [class.info-icon--active]="infoVisible" (click)="infoVisible = !infoVisible">info</mat-icon>
-        </tab-header>
 
-        <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
+        <ng-container *ngIf="!transactionId; else transactiondetails">
 
-          <mat-tab>
-            <customer-advanced-subscriptions [rebills]="rebills" [sessionMode]="sessionId"></customer-advanced-subscriptions>
-          </mat-tab>
-          <mat-tab>
-            <customer-advanced-orders [orders]="orders" [selectedOrder]="selectedOrder" (transactionRefunded)="refreshTransactions()" (orderSelected)="setSelectedOrder($event)"></customer-advanced-orders>
-          </mat-tab>
-          <mat-tab>
-            <customer-advanced-transactions [transactions]="transactions" (orderSelected)="navigateToOrder($event)" (transactionRefunded)="refreshTransactions()"></customer-advanced-transactions>
-          </mat-tab>
-          <mat-tab>
-            <customer-advanced-fulfillments [receipts]="shippingReceipts"></customer-advanced-fulfillments>
-          </mat-tab>
-          <mat-tab>
-            <customer-advanced-events [customerId]="customer ? customer.id : null"></customer-advanced-events>
-          </mat-tab>
-          <mat-tab *ngIf="sessionId && session">
-            <schedules-detailed
-                    [productSchedules]="session.watermark.extractedProductSchedules"
-                    [products]="session.watermark.extractedProducts"
-                    [startDate]="session.startedAt"
-                    [editable]="!session.cancelled.cancelled"
-                    [canceled]="session.cancelled.cancelled"
-                    (productSchedulesChanged)="updateItems($event)"
-                    [statusMessage]="productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
-                    (detailsComponent)="setDetails($event)">
-            </schedules-detailed>
-          </mat-tab>
+          <tab-header [elements]="tabHeaders"
+                      [selectedIndex]="selectedIndex"
+                      (select)="setIndex($event)">
+            <mat-icon *ngIf="selectedIndex !== 5" class="info-icon" [class.info-icon--active]="infoVisible" (click)="infoVisible = !infoVisible">info</mat-icon>
+          </tab-header>
 
-        </mat-tab-group>
+          <mat-tab-group class="tab--no-header tab--body-fit" [(selectedIndex)]="selectedIndex">
+
+            <mat-tab>
+              <customer-advanced-subscriptions [rebills]="rebills" [sessionMode]="sessionId"></customer-advanced-subscriptions>
+            </mat-tab>
+            <mat-tab>
+              <customer-advanced-orders [orders]="orders" [selectedOrder]="selectedOrder" (transactionRefunded)="refreshTransactions()" (orderSelected)="setSelectedOrder($event)"></customer-advanced-orders>
+            </mat-tab>
+            <mat-tab>
+              <customer-advanced-transactions [transactions]="transactions" (orderSelected)="navigateToOrder($event)" (transactionRefunded)="refreshTransactions()"></customer-advanced-transactions>
+            </mat-tab>
+            <mat-tab>
+              <customer-advanced-fulfillments [receipts]="shippingReceipts"></customer-advanced-fulfillments>
+            </mat-tab>
+            <mat-tab>
+              <customer-advanced-events [customerId]="customer ? customer.id : null"></customer-advanced-events>
+            </mat-tab>
+            <mat-tab *ngIf="sessionId && session">
+              <schedules-detailed
+                      [productSchedules]="session.watermark.extractedProductSchedules"
+                      [products]="session.watermark.extractedProducts"
+                      [startDate]="session.startedAt"
+                      [editable]="!session.cancelled.cancelled"
+                      [canceled]="session.cancelled.cancelled"
+                      (productSchedulesChanged)="updateItems($event)"
+                      [statusMessage]="productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
+                      (detailsComponent)="setDetails($event)">
+              </schedules-detailed>
+            </mat-tab>
+
+          </mat-tab-group>
+
+        </ng-container>
+
+        <ng-template #transactiondetails>
+          <transaction-single-view [transaction]="selectedTransaction"></transaction-single-view>
+        </ng-template>
       </div>
 
-      <div class="section" [class.section--invisible]="!infoVisible || selectedIndex === 5">
+      <div class="section section--white" [class.section--invisible]="!infoVisible || selectedIndex === 5">
         <tab-header [elements]="secondaryTabHeaders"
                     [selectedIndex]="selectedSecondaryIndex"
                     [ignoreUrl]="true"
                     (select)="setSecondaryIndex($event)">
-          <mat-icon class="info-icon" (click)="infoVisible = false">close</mat-icon>
+          <mat-icon *ngIf="!selectedTransaction" class="info-icon" (click)="infoVisible = false">close</mat-icon>
         </tab-header>
 
         <mat-tab-group class="tab--no-header tab--full-height" [(selectedIndex)]="selectedSecondaryIndex">

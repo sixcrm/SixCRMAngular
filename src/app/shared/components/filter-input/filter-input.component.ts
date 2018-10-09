@@ -26,7 +26,7 @@ export class FilterInputComponent implements OnInit {
     }
   }
 
-  onKeyUp() {
-    this.valueChanged.emit(this.filterValue);
+  onInput() {
+    this.valueChanged.emit(this.filterValue)
   }
 }

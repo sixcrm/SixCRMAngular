@@ -30,7 +30,7 @@ describe('Rebill', function() {
 
   afterAll(() => {
     clearLocalStorage();
-    browser.restart();
+   clearAuth0SSO();
   });
 
   it('should navigate to rebills page', () => {

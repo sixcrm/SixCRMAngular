@@ -1,7 +1,7 @@
 import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
-import {isAllowedNumeric} from '../../../../shared/utils/form.utils';
+import {isAllowedNumeric, isValidEmail} from '../../../../shared/utils/form.utils';
 
 @Component({
   selector: 'smtp-provider-add-new',
@@ -22,6 +22,8 @@ export class SmtpProviderAddNewComponent implements OnInit {
   formInvalid: boolean;
   isNumeric = isAllowedNumeric;
 
+  validEmail = isValidEmail;
+
   constructor() { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class SmtpProviderAddNewComponent implements OnInit {
   }
 
   saveProvider(value: boolean): void {
-    this.formInvalid = !value;
+    this.formInvalid = !value || this.entity.password.length < 3 || !this.validEmail(this.entity.fromEmail);
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);

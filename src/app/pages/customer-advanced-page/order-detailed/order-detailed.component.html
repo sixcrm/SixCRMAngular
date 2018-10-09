@@ -19,7 +19,7 @@
           <div *ngIf="!transaction.isError()" class="transactions-details-item">
             <div>{{transaction.chargeback ? 'Chargeback' : transaction.isRefund() ? 'Refund' : transaction.processorResponse.message}}</div>
             <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
-            <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+            <div>{{transaction.creditCard.type}} {{transaction.creditCard.lastFour}}</div>
             <div>{{transaction.amount.usd()}}</div>
           </div>
         </ng-container>
@@ -62,30 +62,7 @@
       <div class="products--container">
         <div class="heading">
 
-          <ng-container *ngIf="!shipment.shippingReceipt; else shipdetails">
-
-            <mat-icon>done</mat-icon>
-            <div>No Shipment Required</div>
-
-          </ng-container>
-
-          <ng-template #shipdetails>
-
-            <mat-icon *ngIf="shipment.shippingReceipt.status === 'delivered'; else pendingicon">done</mat-icon>
-            <ng-template #pendingicon>
-              <mat-icon class="pending-shipment" #pending>local_shipping</mat-icon>
-            </ng-template>
-            <div><span class="status">{{shipment.shippingReceipt.status}}</span> <span class="date">{{shipment.shippingReceipt.createdAt | formatDateTime: 'MMMM DD,YYYY h:mm a'}}</span></div>
-            <div class="shipment-details">
-              <div class="link" (click)="shipment.showDetails = true">Details</div>
-
-              <shipment-status *ngIf="shipment.showDetails"
-                               [shippingReceipt]="shipment.shippingReceipt"
-                               (close)="shipment.showDetails = false">
-              </shipment-status>
-            </div>
-
-          </ng-template>
+          <shipment-details [shipment]="shipment"></shipment-details>
 
         </div>
 

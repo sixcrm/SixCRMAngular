@@ -1,0 +1,9 @@
+<div class="container">
+  <mat-icon>filter_list</mat-icon>
+
+  <div class="mrw-bi-input">
+    <mat-form-field [floatLabel]="'never'">
+      <input matInput type="text" placeholder="Filter" [(ngModel)]="filterValue" (input)="onInput()">
+    </mat-form-field>
+  </div>
+</div>

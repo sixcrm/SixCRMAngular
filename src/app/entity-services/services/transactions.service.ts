@@ -5,7 +5,8 @@ import {Transaction} from '../../shared/models/transaction.model';
 import { HttpWrapperService, extractData, FailStrategy } from '../../shared/services/http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
-  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionsByCustomer
+  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionsByCustomer,
+  transactionWithSessionQuery
 } from '../../shared/utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
@@ -35,27 +36,6 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
   public getTransactionsByCustomer(customerId: string): Observable<Transaction[]> {
     return this.planeCustomEntitiesQuery(transactionsByCustomer(customerId, {}))
-  }
-
-  public refundTransaction(transactionId: string, refundAmount: string): void {
-    if (!this.hasWritePermission()) {
-      return;
-    }
-
-    this.queryRequest(refundTransactionMutation(transactionId, refundAmount)).subscribe(
-      (data) => {
-        if (data instanceof CustomServerError) {
-          this.entityUpdated$.next(data);
-          return;
-        }
-
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
-
-        this.entityUpdated$.next(new Transaction(entityData.transaction));
-      }
-    );
   }
 
   public performTransactionRefund(transaction: Transaction, amount: string): Observable<Transaction> {
@@ -106,5 +86,9 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
       return transactions && transactions.length > 0;
     })
+  }
+
+  getTransactionWithSessionDetails(transactionId: string): void {
+    return this.customEntityQuery(transactionWithSessionQuery(transactionId));
   }
 }

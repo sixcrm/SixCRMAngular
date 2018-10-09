@@ -1,8 +1,6 @@
 .persistent-notification {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  background: #DC2547;
   font-family: Roboto, sans-serif;
 
   div {
@@ -32,12 +30,23 @@
     border: 1px solid rgba(255, 255, 255, 0.87);
     font-size: 13px;
     width: 125px;
-    padding: 0px 25px;
+    padding: 0 25px;
   }
+}
+
+.billing-notification {
+  background: #DC2547;
+  padding: 12px 24px;
 }
 
 .notification {
   background: #FAFAAA;
+  padding: 6px 24px;
+  border-top: 1px solid rgba(0,0,0,0.2);
+
+  div {
+    font-size: 14px;
+  }
 
   div, mat-icon, button {
     color: grey;
@@ -45,5 +54,12 @@
 
   button {
     border-color: grey;
+  }
+
+  .close-icon {
+    margin-left: auto;
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
   }
 }

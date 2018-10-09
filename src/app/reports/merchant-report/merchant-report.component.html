@@ -1,37 +1,17 @@
-<div class="report__title">{{'MERCHANTREPORT_TITLE' | translate}}</div>
+<blue-header [items]="crumbItems" [titleValue]="'Merchants Report'"></blue-header>
 
-<merchant-report-chart [reports]="reportsToDisplay"></merchant-report-chart>
+<merchant-report-chart [reports]="entities"></merchant-report-chart>
 
-<div class="filter-container">
-  <advanced-filter
-    [date]="dateMap"
-    [filterTerms]="filterTerms"
-    [refreshText]="'ADVANCEDFILTER_REFRESHREPORTTEXT'"
-    [shareUrl]="shareUrl"
-    [groupByEnabled]="true"
-    [hasMenu]="false"
-    (dateChanged)="dateChanged($event)"
-    (groupByChanged)="groupByChanged($event)"
-    (filterTermAdded)="addFilter($event)"
-    (filterTermRemoved)="removeFilter($event)"
-    (resetFilters)="reset()"
-    (applyFilters)="fetchFunction()"
-    (refreshFilters)="refresh()">
-  </advanced-filter>
-</div>
-
-<report-table
-  [title]="'MERCHANTREPORT_TABLETITLE' | translate"
-  [data]="reportsToDisplay"
-  [loading]="loading"
-  [columnParams]="columnParams"
-  [limit]="limit"
-  [page]="page"
-  [paginationString]="getPaginationString()"
-  [showFilter]="false"
-  (cellClicked)="clicked($event)"
-  (next)="fetchNext()"
-  (previous)="fetchPrevious()"
-  (updateLimit)="updateLimit($event)"
-  (download)="download($event)">
-</report-table>
+<filter-table [date]="date"
+              [columnParams]="columnParams"
+              [items]="entities"
+              [tabs]="tabs"
+              [loading]="loadingData"
+              [singleOptions]="options"
+              [ignoreFilters]="true"
+              (download)="download($event)"
+              (updatedColumns)="updateColumns($event)"
+              (onSort)="updateSort($event)"
+              (dateChanged)="changeDate($event)"
+              (loadMore)="loadMore()">
+</filter-table>

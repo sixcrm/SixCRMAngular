@@ -2,6 +2,7 @@ import {Product} from './product.model';
 import {ShippingReceipt} from './shipping-receipt.model';
 import {Currency} from '../utils/currency/currency';
 import {Return} from './return.model';
+import {Rebill} from './rebill.model';
 
 export class Products {
   amount: Currency;
@@ -9,6 +10,7 @@ export class Products {
   quantity: number;
   shippingReceipt: ShippingReceipt;
   returns: {quantity: number, 'return': Return}[] = [];
+  rebill: Rebill;
 
   constructor(obj?: any) {
     if (!obj) {

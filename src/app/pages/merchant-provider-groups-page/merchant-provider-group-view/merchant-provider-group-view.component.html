@@ -34,7 +34,7 @@
             <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADDTITLE' | translate}}</div>
           </div>
           <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
-            <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
+            <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && invalidDistribution(providerToAdd.distribution)">
               <input matInput placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
             </mat-form-field>
 
@@ -42,7 +42,7 @@
                                 [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
                                 [mapFunction]="merchantProviderMapper"
                                 [initialValue]="providerToAdd.merchantProvider"
-                                [options]="merchantProviderService.entities$ | async"
+                                [options]="merchantProviderService.entities$ | async | removeItems : (entity.merchantProviderConfigurations || []) : merchantProviderIdMapper : configurationIdMapper"
                                 [placeholder]="'MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT' | translate"
                                 (selected)="providerToAdd.merchantProvider = $event">
             </autocomplete-input>

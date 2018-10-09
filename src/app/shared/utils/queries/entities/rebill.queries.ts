@@ -4,6 +4,7 @@ import {
 } from './entities-helper.queries';
 import {Rebill} from '../../../models/rebill.model';
 import {IndexQueryParameters} from '../index-query-parameters.model';
+import {sessionResponseQuery} from './session.queries';
 
 export function rebillsListQuery(params: IndexQueryParameters): string {
   return `{
@@ -16,21 +17,18 @@ export function rebillsListQuery(params: IndexQueryParameters): string {
   }`
 }
 
-export function rebillsPendingListQuery(params: IndexQueryParameters): string {
-  return `{
-		rebillpendinglist ${listQueryParams(params)} {
-			rebills {
-			  ${rebillInfoResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}
-  }`
-}
-
 export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {
 			${rebillResponseQuery()}
+    }
+  }`
+}
+
+export function rebillWithFullSessionQuery(id: string): string {
+  return `{
+		rebill (id: "${id}") {
+			${rebillWithSessionResponse()}
     }
   }`
 }
@@ -65,11 +63,11 @@ export function updateRebillMutation(rebill: Rebill): string {
 
 export function rebillResponseQuery(): string {
   return `
-    id bill_at amount created_at updated_at,
+    id bill_at amount cycle created_at updated_at,
     parentsession { id,
       customer { id firstname lastname,
         address { line1 line2 city state zip },
-        creditcards {	id expiration last_four first_six name,
+        creditcards {	id expiration last_four first_six name created_at,
           address { line1 line2 city state zip country }
         }
       }
@@ -86,6 +84,15 @@ export function rebillResponseQuery(): string {
     state, previous_state,
     history { state entered_at exited_at error_message }
     paid {detail updated_at}
+  `
+}
+
+export function rebillWithSessionResponse(): string {
+  return `
+    id bill_at created_at updated_at,
+    parentsession { 
+      ${sessionResponseQuery()}
+    }
   `
 }
 

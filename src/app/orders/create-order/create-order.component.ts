@@ -12,7 +12,6 @@ import {Address} from '../../shared/models/address.model';
 import {Currency} from '../../shared/utils/currency/currency';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {Subscription, Subject} from 'rxjs';
-import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
   isValidZip, isAllowedCurrency, isAllowedEmail
@@ -32,6 +31,7 @@ import {CampaignsService} from '../../entity-services/services/campaigns.service
 import {AccessKey} from '../../shared/models/access-key.model';
 import {AccessKeysService} from '../../entity-services/services/access-keys.service';
 import {Router} from '@angular/router';
+import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 
 @Component({
   selector: 'create-order',
@@ -39,7 +39,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./create-order.component.scss']
 })
 export class CreateOrderComponent implements OnInit {
-  @ViewChild('paymentForm') paymentForm: PaymentFormComponent;
+  @ViewChild(PaymentFormComponent) paymentForm: PaymentFormComponent;
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   selectedCustomer: Customer;
@@ -248,9 +248,9 @@ export class CreateOrderComponent implements OnInit {
     this.selectedCampaign = new Campaign();
   }
 
-  productSelected(option) {
-    this.selectedProducts.push(option.option.value);
-    this.productFilterValue = '';
+  productSelected(option, input) {
+    this.selectedProducts.push(option.option.value.copy());
+    input.blur();
   }
 
   productFilterFunction = (product: Product) => {
@@ -262,7 +262,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
   productInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
+    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
       return;
@@ -305,9 +305,9 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  shippingSelected(option) {
+  shippingSelected(option, input) {
     this.selectedShippings.push(option.option.value);
-    this.shippingFilterValue = '';
+    input.blur();
   }
 
   shippingFilterFunction = (shipping: Product) => {
@@ -319,7 +319,7 @@ export class CreateOrderComponent implements OnInit {
   };
 
   shippingInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
+    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
       return;
@@ -376,8 +376,9 @@ export class CreateOrderComponent implements OnInit {
 
   billingNextStep() {
     if (this.paymentForm) {
-      if (this.paymentForm.isValid()) {
-        this.selectedCreditCard = this.newCreditCard.copy();
+      const card = this.paymentForm.getValidCreditCard();
+      if (card) {
+        this.selectedCreditCard = card.copy();
       } else {
         return;
       }
@@ -444,7 +445,7 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(this.selectedProducts.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.firstSchedulePrice.amount || 0) * p.quantity;
+        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;

@@ -19,7 +19,7 @@
       <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_FROMNAME' | translate}}" [(ngModel)]="entity.fromName" name="fromName" type="text">
     </mat-form-field>
 
-    <mat-form-field [class.error]="formInvalid && !entity.fromEmail" class="entity-view__card__content__item">
+    <mat-form-field [class.error]="formInvalid && (!entity.fromEmail || !validEmail(entity.fromEmail))" class="entity-view__card__content__item">
       <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_FROMEMAIL' | translate}}" [(ngModel)]="entity.fromEmail" name="fromEmail" type="text">
     </mat-form-field>
 
@@ -31,7 +31,7 @@
       <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_USERNAME' | translate}}" [(ngModel)]="entity.username" name="username" type="text">
     </mat-form-field>
 
-    <mat-form-field [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
+    <mat-form-field [class.error]="formInvalid && (!entity.password || (entity.password.length < 3) )" class="entity-view__card__content__item">
       <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_PASSWORD' | translate}}" [(ngModel)]="entity.password" name="password" type="text">
     </mat-form-field>
 

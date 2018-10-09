@@ -3,11 +3,10 @@
   <div class="column">
     <div class="alias">
       <div>Order Confirmation</div>
-      <div>#{{checkoutResponse.session.alias}}</div>
+      <div>#{{checkoutResponse.orders[0].id}}</div>
     </div>
 
-    <button mat-button>COPY ORDER INFORMATION</button>
-    <button mat-button (click)="navigateToCustomer()">VIEW CUSTOMER RECORD</button>
+    <button mat-button ngxClipboard [cbContent]="checkoutResponse.orders[0].id">COPY ORDER INFORMATION</button>
     <button mat-button (click)="navigateToSession()">VIEW SESSION RECORD</button>
   </div>
 
@@ -18,7 +17,7 @@
 
     <div class="title title--separated">Order Summary</div>
     <div *ngFor="let product of products">
-      - {{product.name}} {{product.firstSchedule ? ', subscription' : ''}}
+      - {{product.name}} {{product.schedules ? ', subscription' : ''}}
     </div>
 
     <div class="summary">

@@ -35,8 +35,14 @@
         <th *ngIf="bulkOptions"><mat-checkbox (change)="globalCheckboxClicked($event)" class="checkbox-blue"></mat-checkbox></th>
 
         <ng-container *ngFor="let param of columnParams">
-          <th [class.cell--separator]="param.separator">
-            {{param.label | translate}}
+          <th [class.cell--separator]="param.separator" (click)="setSortParams(param)">
+            <div class="head-data-wrapper">
+              {{param.label | translate}}
+              <div class="arrows" *ngIf="param.sortApplied">
+                <mat-icon *ngIf="param.sortOrder === 'asc'">arrow_upward</mat-icon>
+                <mat-icon *ngIf="param.sortOrder === 'desc'">arrow_downward</mat-icon>
+              </div>
+            </div>
           </th>
         </ng-container>
 
@@ -45,7 +51,7 @@
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let item of items; let i = index">
+      <ng-container *ngFor="let item of items | sortEntities: sortParams.mappingFunction: sortParams.sortOrder; let i = index">
         <tr *ngIf="lineBreakFunction && lineBreakFunction(items[i - 1], item)">
           <td class="line-breaker" colspan="100">
             {{lineBreakFunction(items[i - 1], item)}}
