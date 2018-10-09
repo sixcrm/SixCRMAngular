@@ -49,6 +49,8 @@ export class ColumnParams<T> {
   link: (any) => string;
   queryParams: (any) => any = (el) => {};
 
+  maskLongData: boolean;
+
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
     this.mappingFunction = mappingFunction;
@@ -239,6 +241,12 @@ export class ColumnParams<T> {
 
   setSortName(value: string) {
     this.sortName = value;
+
+    return this;
+  }
+
+  setMaskLongData(value: boolean) {
+    this.maskLongData = value;
 
     return this;
   }
