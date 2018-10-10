@@ -65,6 +65,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setSortName('session_alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: TransactionAnalytics) => { return { session: e.sessionId } }),
+      new ColumnParams('Processor Message', (e: TransactionAnalytics) => e.merchantMessage)
+        .setSortName('merchant_message')
+        .setMaskLongData(true)
     ];
 
     this.date = {start: utc().subtract(7,'d'), end: utc()};
