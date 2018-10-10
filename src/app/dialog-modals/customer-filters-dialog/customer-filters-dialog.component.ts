@@ -20,7 +20,17 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
 
     this.filterColumns = [
       { name: 'first_name', label: 'First Name' },
-      { name: 'last_name', label: 'Last Name' }
+      { name: 'last_name', label: 'Last Name' },
+      { name: 'email', label: 'Email' },
+      { name: 'phone', label: 'Phone' },
+      { name: 'city', label: 'City' },
+      { name: 'zip', label: 'Postal Code' },
+      { name: 'created_at', label: 'Created at' },
+      { name: 'updated_at', label: 'Updated at' },
+      { name: 'sale_amount', label: 'Sale Amount' },
+      { name: 'returns', label: 'Returns' },
+      { name: 'refunds', label: 'Refunds' },
+      { name: 'refund_amount', label: 'Refund Amount' }
     ];
   }
 

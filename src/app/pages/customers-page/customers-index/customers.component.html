@@ -2,8 +2,8 @@
 
   <blue-header [items]="crumbItems" [titleValue]="'CUSTOMER_INDEX_TITLE'"></blue-header>
 
-  <filter-table [dateFilterEnabled]="false"
-                [columnParams]="columnParams"
+  <filter-table [columnParams]="columnParams"
+                [date]="date"
                 [items]="entities"
                 [tabs]="tabs"
                 [loading]="loadingData"

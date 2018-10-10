@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
 import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
+import {utc} from 'moment';
 
 @Component({
   selector: 'customers',
@@ -37,13 +38,15 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
       new ColumnParams('Country', (e: Customer) => e.address.country),
       new ColumnParams('Postal Code',(e: Customer) => e.address.zip),
       new ColumnParams('Created', (e: Customer) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Last Updated', (e: Customer) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Last Updated', (e: Customer) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('Orders', (e: Customer) => '–'),
       new ColumnParams('Sale Amount', (e: Customer) => '–'),
       new ColumnParams('Returns', (e: Customer) => '–'),
       new ColumnParams('Refunds', (e: Customer) => '–'),
       new ColumnParams('Refund Amount', (e: Customer) => '–'),
     ];
+
+    this.date = {start: utc().subtract(1,'M'), end: utc()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
