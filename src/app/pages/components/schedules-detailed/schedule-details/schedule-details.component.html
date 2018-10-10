@@ -26,11 +26,11 @@
           <div class="body">
             <div class="body__row">
               <mat-form-field>
-                <input type="text" [disabled]="!editable" auto-focus matInput placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start">
+                <input type="text" [disabled]="!editable" auto-focus matInput placeholder="Start" (keydown)="isNumeric($event)" maxlength="4" [(ngModel)]="_scheduleBackup.start">
               </mat-form-field>
 
               <mat-form-field>
-                <input type="text" [disabled]="!editable" matInput placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end">
+                <input type="text" [disabled]="!editable" matInput placeholder="End" (keydown)="isNumeric($event)" maxlength="4" [(ngModel)]="_scheduleBackup.end">
               </mat-form-field>
             </div>
 
