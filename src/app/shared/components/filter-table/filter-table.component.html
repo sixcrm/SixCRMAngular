@@ -99,7 +99,7 @@
           <ng-container *ngFor="let param of columnParams">
             <td *ngIf="param.selected" [class.capitalized]="param.capitalize">
 
-              <div class="table-content" [class.mask-data]="param.maskLongData">
+              <div class="table-content" [class.mask-data]="param.maskLongData" [style.color]="param.colorMapper(item)">
                 <ng-container *ngIf="param.materialIconMapper">
                   <mat-icon class="table-icon" [style.background-color]="param.materialIconBackgroundColorMapper(item)" [style.color]="param.materialIconColorMapper(item)">{{param.materialIconMapper(item)}}</mat-icon>
                 </ng-container>
