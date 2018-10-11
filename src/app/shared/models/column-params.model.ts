@@ -22,6 +22,7 @@ export class ColumnParams<T> {
   sortEnabled: boolean = true;
   code: boolean;
   color: string;
+  colorMapper: (any) => string = (el) => 'black';
   copy: boolean;
   number: boolean;
   translate: boolean;
@@ -163,6 +164,12 @@ export class ColumnParams<T> {
 
   setColor(value: string) {
     this.color = value;
+
+    return this;
+  }
+
+  setColorMapper(value: (any) => string) {
+    this.colorMapper = value;
 
     return this;
   }
