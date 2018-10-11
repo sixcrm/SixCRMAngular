@@ -41,30 +41,28 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setSortName('response')
         .setCapitalize(true)
         .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
-        .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#FF9743' : '#1EBEA5' : '#ffffff')
+        .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#ED6922' : '#1EBEA5' : '#ffffff')
         .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
       new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType : '–').setSortName('type').setCapitalize(true),
-      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '–').setSortName('amount'),
-      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–').setSortName('refund'),
-      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
-        .setSortName('merchant_provider_name')
-        .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
-      new ColumnParams('Transaction Alias', (e: TransactionAnalytics) => e.alias)
-        .setSortName('alias')
-        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
-      new ColumnParams('Order Alias', (e: TransactionAnalytics) => e.rebillAlias)
-        .setSortName('rebill_alias')
-        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: TransactionAnalytics) => { return { order: e.rebillId } }),
       new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer)
         .setSortName('customer_name')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: TransactionAnalytics) => { return { customer: e.customerId } }),
-      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias)
-        .setSortName('session_alias')
+      new ColumnParams('Order Alias', (e: TransactionAnalytics) => e.rebillAlias)
+        .setSortName('rebill_alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: TransactionAnalytics) => { return { session: e.sessionId } }),
+        .setQueryParams((e: TransactionAnalytics) => { return { order: e.rebillId } }),
+      new ColumnParams('Transaction Alias', (e: TransactionAnalytics) => e.alias)
+        .setSortName('alias')
+        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
+      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
+        .setSortName('merchant_provider_name')
+        .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
+      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '').setSortName('amount'),
+      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–')
+        .setColorMapper((e: TransactionAnalytics) => e.refund.amount ? '#E35871' : 'black')
+        .setSortName('refund'),
       new ColumnParams('Processor Message', (e: TransactionAnalytics) => e.merchantMessage)
         .setSortName('merchant_message')
         .setMaskLongData(true)
