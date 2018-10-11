@@ -10,7 +10,7 @@ export class SearchPage {
   }
 
   getFilterValues() {
-    return element.all(by.css('.search__sidenav__option__value'));
+    return element.all(by.css('.search__sidenav__item__name'));
   }
 
   getFilterValueButtons() {

@@ -99,18 +99,22 @@
           <ng-container *ngFor="let param of columnParams">
             <td *ngIf="param.selected" [class.capitalized]="param.capitalize">
 
-              <ng-container *ngIf="param.materialIconMapper">
-                <mat-icon class="table-icon" [style.background-color]="param.materialIconBackgroundColorMapper(item)" [style.color]="param.materialIconColorMapper(item)">{{param.materialIconMapper(item)}}</mat-icon>
-              </ng-container>
+              <div class="table-content" [class.mask-data]="param.maskLongData">
+                <ng-container *ngIf="param.materialIconMapper">
+                  <mat-icon class="table-icon" [style.background-color]="param.materialIconBackgroundColorMapper(item)" [style.color]="param.materialIconColorMapper(item)">{{param.materialIconMapper(item)}}</mat-icon>
+                </ng-container>
 
-              <span class="table-content">
                 <a *ngIf="param.link; else plaintext" [routerLink]="[param.link(item)]" [queryParams]="param.queryParams(item)">
                   {{param.mappingFunction(item)}}
                 </a>
                 <ng-template #plaintext>
                   {{param.mappingFunction(item)}}
                 </ng-template>
-              </span>
+
+                <div class="tooltip" *ngIf="param.mappingFunction(item) && param.mappingFunction(item).length > 30">
+                  {{param.mappingFunction(item)}}
+                </div>
+              </div>
 
             </td>
           </ng-container>
