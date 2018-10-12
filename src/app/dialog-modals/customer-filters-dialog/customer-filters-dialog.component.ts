@@ -3,6 +3,7 @@ import {AbstractFilterDialog, FilterDialogResponse} from '../abstract-filter-dia
 import {MatDialogRef} from '@angular/material';
 import {ValueFilterOperator} from '../../shared/components/value-filter/value-filter.component';
 import {Moment} from 'moment';
+import {stateName, stateCode, countryCode, countryName} from '../../shared/utils/address.utils';
 
 @Component({
   selector: 'customer-filters-dialog',
@@ -19,15 +20,13 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
     super(dialogRef);
 
     this.filterColumns = [
-      { name: 'first_name', label: 'First Name' },
-      { name: 'last_name', label: 'Last Name' },
+      { name: 'firstname', label: 'First Name' },
+      { name: 'lastname', label: 'Last Name' },
       { name: 'email', label: 'Email' },
       { name: 'phone', label: 'Phone' },
       { name: 'city', label: 'City' },
       { name: 'zip', label: 'Postal Code' },
-      { name: 'created_at', label: 'Created at' },
-      { name: 'updated_at', label: 'Updated at' },
-      { name: 'sale_amount', label: 'Sale Amount' },
+      { name: 'total_sale_amount', label: 'Sale Amount' },
       { name: 'returns', label: 'Returns' },
       { name: 'refunds', label: 'Refunds' },
       { name: 'refund_amount', label: 'Refund Amount' }
@@ -68,11 +67,11 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
       const value = filter.values[i];
 
       if (filter.facet === 'country') {
-        this.locations[i].country = value;
+        this.locations[i].country = countryName(value);
       }
 
       if (filter.facet === 'state') {
-        this.locations[i].state = value;
+        this.locations[i].state = stateName(value);
       }
     }
 
@@ -119,8 +118,8 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
     const stateFilter = { facet: 'state', values: []};
 
     this.locations.filter(c => c.country && c.state).forEach(location => {
-      countryFilter.values.push(location.country);
-      stateFilter.values.push(location.state);
+      countryFilter.values.push(countryCode(location.country));
+      stateFilter.values.push(stateCode(location.state));
     });
 
     if (countryFilter.values.length === 0 || stateFilter.values.length === 0) return [];

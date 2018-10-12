@@ -1,65 +1,80 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Customer} from '../../../shared/models/customer.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {Router} from '@angular/router';
+import {Router, Params, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
 import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
 import {utc} from 'moment';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Subscription, Observable} from 'rxjs';
+import {CustomerAnalytics} from '../../../shared/models/analytics/customer-analytics.model';
 
 @Component({
   selector: 'customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
-export class CustomersComponent extends AbstractEntityReportIndexComponent<Customer> implements OnInit, OnDestroy {
+export class CustomersComponent extends AbstractEntityReportIndexComponent<CustomerAnalytics> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'CUSTOMER_INDEX_TITLE'}];
+
+  sub: Subscription;
 
   constructor(
     auth: AuthenticationService,
     dialog: MatDialog,
-    router: Router
+    router: Router,
+    private route: ActivatedRoute,
+    private analyticsService: AnalyticsService
   ) {
     super(auth, dialog, router);
 
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('Status', (e: Customer) => ''),
-      new ColumnParams('First Name', (e: Customer) => e.firstName),
-      new ColumnParams('Last Name',(e: Customer) => e.lastName),
-      new ColumnParams('Email',(e: Customer) => e.email),
-      new ColumnParams('Phone',(e: Customer) => e.phone),
-      new ColumnParams('City',(e: Customer) => e.address.city),
-      new ColumnParams('State', (e: Customer) => e.address.state),
-      new ColumnParams('Country', (e: Customer) => e.address.country),
-      new ColumnParams('Postal Code',(e: Customer) => e.address.zip),
-      new ColumnParams('Created', (e: Customer) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Last Updated', (e: Customer) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
-      new ColumnParams('Orders', (e: Customer) => '–'),
-      new ColumnParams('Sale Amount', (e: Customer) => '–'),
-      new ColumnParams('Returns', (e: Customer) => '–'),
-      new ColumnParams('Refunds', (e: Customer) => '–'),
-      new ColumnParams('Refund Amount', (e: Customer) => '–'),
+      new ColumnParams('Status', (e: CustomerAnalytics) => e.status).setCapitalize(true).setSortName('status'),
+      new ColumnParams('First Name', (e: CustomerAnalytics) => e.firstName).setSortName('firstname'),
+      new ColumnParams('Last Name',(e: CustomerAnalytics) => e.lastName).setSortName('lastname'),
+      new ColumnParams('Email',(e: CustomerAnalytics) => e.email).setSortName('email'),
+      new ColumnParams('Phone',(e: CustomerAnalytics) => e.phone || '–').setSortName('phone'),
+      new ColumnParams('City',(e: CustomerAnalytics) => e.city || '–').setSortName('city').setSelected(false),
+      new ColumnParams('State', (e: CustomerAnalytics) => e.state || '–').setSortName('state').setSelected(false),
+      new ColumnParams('Postal Code',(e: CustomerAnalytics) => e.zip || '–').setSortName('zip').setSelected(false),
+      new ColumnParams('Created', (e: CustomerAnalytics) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSortName('created_at').setSortApplied(true),
+      new ColumnParams('Last Updated', (e: CustomerAnalytics) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSortName('updated_at').setSelected(false),
+      new ColumnParams('Orders', (e: CustomerAnalytics) => e.orders || '–').setSortName('orders'),
+      new ColumnParams('Total Sale amt', (e: CustomerAnalytics) => e.totalSaleAmount.usd()).setSortName('total_sale_amount'),
+      new ColumnParams('Returns', (e: CustomerAnalytics) => e.returns || '–').setSortName('returns'),
+      new ColumnParams('Refunds', (e: CustomerAnalytics) => e.refunds || '–').setSortName('refunds'),
+      new ColumnParams('Refund Amt', (e: CustomerAnalytics) => e.refundAmount.usd()).setSortName('refund_amount')
     ];
 
     this.date = {start: utc().subtract(1,'M'), end: utc()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
-      {label: 'Active', selected: false, visible: true},
-      {label: 'Partial', selected: false, visible: true}
+      {label: 'Active', selected: false, visible: true, filters: [{facet: 'status', values: ['active']}]},
+      {label: 'Partial', selected: false, visible: true, filters: [{facet: 'status', values: ['partial']}]}
     ];
+
 
     this.options = ['View'];
   }
 
 
   ngOnInit() {
-    this.fetch();
+    this.route.queryParams.take(1).takeUntil(this.unsubscribe$).subscribe(params => {
+      this.parseFiltersFromParams(params);
+    })
+  }
+
+  parseFiltersFromParams(params: Params): void {
+    this.parseParams(params);
+
+    this.fetchData();
   }
 
   ngOnDestroy() {
@@ -80,7 +95,82 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
   }
 
   fetch() {
+    this.router.navigate(
+      ['/customers'],
+      {
+        queryParams: {
+          start: this.date.start.clone().format(),
+          end: this.date.end.clone().format(),
+          sort: this.getSortColumn().sortName,
+          sortOrder: this.getSortColumn().sortOrder,
+          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
+          filters: JSON.stringify(this.filters)
+        },
+        replaceUrl: true
+      });
 
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.loadingData = true;
+
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+
+    this.sub = this.analyticsService.getCustomers({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      limit: 25,
+      offset: this.entities.length,
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    }).subscribe(customers => {
+      this.loadingData = false;
+
+      if (!customers || customers instanceof CustomServerError) {
+        this.entities = [];
+        return;
+      }
+
+      this.entities = [...this.entities, ...customers];
+      this.hasMore = customers.length === this.limit;
+    });
+
+    this.fetchCounts();
+  }
+
+
+  fetchCounts() {
+    if (this.lastCountsDate
+      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
+      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
+    ) {
+      return;
+    }
+
+    this.lastCountsDate = {
+      start: this.date.start.clone(),
+      end: this.date.end.clone()
+    };
+
+    this.tabs.forEach(t => t.count = Observable.of(null));
+
+    this.analyticsService.getCustomers({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      orderBy: 'created_at'
+    }).subscribe(customers => {
+      if (customers instanceof CustomServerError) {
+        return;
+      }
+
+      this.tabs[0].count = Observable.of(customers.length);
+      this.tabs[1].count = Observable.of(customers.filter(c=>c.status === 'active').length);
+      this.tabs[2].count = Observable.of(customers.filter(c=>c.status === 'partial').length);
+    });
   }
 
 }
