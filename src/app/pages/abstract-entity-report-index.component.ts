@@ -9,6 +9,7 @@ import {utc} from 'moment';
 
 export abstract class AbstractEntityReportIndexComponent<T> {
 
+  defaultDate: {start: Moment, end: Moment} = {start: utc().subtract(7,'d'), end: utc()};
   date: {start: Moment, end: Moment};
   lastCountsDate: {start: Moment, end: Moment};
 
@@ -37,8 +38,8 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   parseParams(params: Params): void {
     this.date = {
-      start: params['start'] ? utc(params['start']) : utc().subtract(7,'d'),
-      end: params['end'] ? utc(params['end']) : utc()
+      start: params['start'] ? utc(params['start']) : this.defaultDate.start.clone(),
+      end: params['end'] ? utc(params['end']) : this.defaultDate.end.clone()
     };
 
     if (params['sort'] && params['sortOrder']) {

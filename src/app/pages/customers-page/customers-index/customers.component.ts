@@ -52,7 +52,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
       new ColumnParams('Refund Amt', (e: CustomerAnalytics) => e.refundAmount.usd()).setSortName('refund_amount')
     ];
 
-    this.date = {start: utc().subtract(1,'M'), end: utc()};
+    this.defaultDate = {start: utc().subtract(1,'M'), end: utc()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
