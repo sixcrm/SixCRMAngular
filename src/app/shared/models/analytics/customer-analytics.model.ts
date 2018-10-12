@@ -40,10 +40,10 @@ export class CustomerAnalytics {
     this.zip = this.getValueOf('zip');
     this.createdAt = utc(this.getValueOf('created_at'));
     this.updatedAt = utc(this.getValueOf('updated_at'));
-    this.orders = this.getValueOf('orders') || 0;
+    this.orders = +this.getValueOf('orders') || 0;
     this.totalSaleAmount = new Currency(this.getValueOf('total_sale_amount') || 0);
-    this.returns = this.getValueOf('returns') || 0;
-    this.refunds = this.getValueOf('refunds') || 0;
+    this.returns = +this.getValueOf('returns') || 0;
+    this.refunds = +this.getValueOf('refunds') || 0;
     this.refundAmount = new Currency(this.getValueOf('refund_amount') || 0);
   }
 

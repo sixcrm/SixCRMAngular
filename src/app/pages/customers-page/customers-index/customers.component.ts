@@ -35,7 +35,12 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('Status', (e: CustomerAnalytics) => e.status).setCapitalize(true).setSortName('status'),
+      new ColumnParams('Status', (e: CustomerAnalytics) => e.status)
+        .setSortName('status')
+        .setCapitalize(true)
+        .setMaterialIconMapper((e: CustomerAnalytics) => 'done')
+        .setMaterialIconBackgroundColorMapper((e: CustomerAnalytics) => e.status === 'active' ? '#1EBEA5' : '#ED6922')
+        .setMaterialIconColorMapper((e: CustomerAnalytics) => '#ffffff'),
       new ColumnParams('First Name', (e: CustomerAnalytics) => e.firstName).setSortName('firstname'),
       new ColumnParams('Last Name',(e: CustomerAnalytics) => e.lastName).setSortName('lastname'),
       new ColumnParams('Email',(e: CustomerAnalytics) => e.email).setSortName('email'),
@@ -46,10 +51,12 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
       new ColumnParams('Created', (e: CustomerAnalytics) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSortName('created_at').setSortApplied(true),
       new ColumnParams('Last Updated', (e: CustomerAnalytics) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSortName('updated_at').setSelected(false),
       new ColumnParams('Orders', (e: CustomerAnalytics) => e.orders || '–').setSortName('orders'),
-      new ColumnParams('Total Sale amt', (e: CustomerAnalytics) => e.totalSaleAmount.usd()).setSortName('total_sale_amount'),
+      new ColumnParams('Total Sale amt', (e: CustomerAnalytics) => e.totalSaleAmount.amount ? e.totalSaleAmount.usd() : '–').setSortName('total_sale_amount'),
       new ColumnParams('Returns', (e: CustomerAnalytics) => e.returns || '–').setSortName('returns'),
       new ColumnParams('Refunds', (e: CustomerAnalytics) => e.refunds || '–').setSortName('refunds'),
-      new ColumnParams('Refund Amt', (e: CustomerAnalytics) => e.refundAmount.usd()).setSortName('refund_amount')
+      new ColumnParams('Refund Amt', (e: CustomerAnalytics) => e.refundAmount.amount ? e.refundAmount.usd() : '–')
+        .setSortName('refund_amount')
+        .setColorMapper((e: CustomerAnalytics) => e.refundAmount.amount ? '#E35871' : 'black')
     ];
 
     this.defaultDate = {start: utc().subtract(1,'M'), end: utc()};
@@ -59,7 +66,6 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
       {label: 'Active', selected: false, visible: true, filters: [{facet: 'status', values: ['active']}]},
       {label: 'Partial', selected: false, visible: true, filters: [{facet: 'status', values: ['partial']}]}
     ];
-
 
     this.options = ['View'];
   }
