@@ -11,6 +11,7 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Subscription, Observable} from 'rxjs';
 import {CustomerAnalytics} from '../../../shared/models/analytics/customer-analytics.model';
+import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 
 @Component({
   selector: 'customers',
@@ -98,6 +99,55 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
 
   openFiltersDialog() {
     super.openFiltersDialog(CustomerFiltersDialogComponent);
+  }
+
+  private parseCustomersForDownload(customers: CustomerAnalytics[]): any {
+    return customers.map(c => {
+      return {
+        'Status': c.status,
+        'First Name': c.firstName,
+        'Last Name': c.lastName,
+        'Email': c.email,
+        'Phone': c.phone,
+        'State': c.status,
+        'Postal Code': c.zip,
+        'City': c.city,
+        'Created': c.createdAt.format('MM/DD/YYYY h:mm A'),
+        'Last Update': c.updatedAt.format('MM/DD/YYYY h:mm A'),
+        'Orders': c.orders,
+        'Total Sale Amt': c.totalSaleAmount.usd(),
+        'Returns': c.returns,
+        'Refunds': c.refunds,
+        'Refund Amt': c.refundAmount.usd()
+      };
+    });
+  }
+
+  download(format: 'csv' | 'json') {
+    if (format !== 'csv' && format !== 'json') return;
+
+    this.analyticsService.getCustomers({
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    }).subscribe(customers => {
+      if (!customers || customers instanceof CustomServerError) {
+        return;
+      }
+
+      const parsedCustomers = this.parseCustomersForDownload(customers);
+
+      const fileName = `${this.authService.getActiveAccount().name} Customers ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+
+      if (format === 'json') {
+        downloadJSON(parsedCustomers, fileName);
+      } else {
+        downloadCSV(parsedCustomers, fileName);
+      }
+    });
+
   }
 
   fetch() {
