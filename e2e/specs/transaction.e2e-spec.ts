@@ -45,7 +45,7 @@ describe('Transactions', function() {
 
   it('should render transactions index table headers', () => {
     expect(page.getTableHeaders().get(1).getText()).toContain('Date');
-    expect(page.getTableHeaders().get(2).getText()).toContain('Response');
+    expect(page.getTableHeaders().get(2).getText()).toContain('Status');
     expect(page.getTableHeaders().get(3).getText()).toContain('Type');
     expect(page.getTableHeaders().get(4).getText()).toContain('Customer');
     expect(page.getTableHeaders().get(5).getText()).toContain('Order Alias');

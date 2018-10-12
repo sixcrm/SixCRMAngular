@@ -42,7 +42,9 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
       new ColumnParams('Sale Amount', (e: OrderAnalytics) => e.amount.usd()).setSortName('amount'),
       new ColumnParams('Items', (e: OrderAnalytics) => e.items).setSortName('items'),
       new ColumnParams('Returns', (e: OrderAnalytics) => e.returns || '–').setSortName('returns'),
-      new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–').setSortName('refunds'),
+      new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–')
+        .setSortName('refunds')
+        .setColorMapper((e: OrderAnalytics) => e.refunds.amount ? '#E35871' : 'black'),
       new ColumnParams('Total', (e: OrderAnalytics) => e.total.usd()).setSortName('total'),
       new ColumnParams('Order Alias', (e: OrderAnalytics) => e.alias || '–')
         .setSortName('alias')

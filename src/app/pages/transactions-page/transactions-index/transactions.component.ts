@@ -37,7 +37,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Response', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
+      new ColumnParams('Status', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
         .setSortName('response')
         .setCapitalize(true)
         .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
