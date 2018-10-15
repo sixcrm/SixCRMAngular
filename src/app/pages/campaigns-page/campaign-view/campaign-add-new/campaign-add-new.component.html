@@ -23,7 +23,7 @@
 
   <ng-template #inputsForm>
     <div class="entity-view__card__content">
-      <mat-form-field [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <mat-form-field [class.error]="formInvalid && (!entity.name || entity.name.length < 3)" class="entity-view__card__content__item">
         <input auto-focus required matInput [disabled]="mode === modes.View" placeholder=" {{'CAMPAIGN_INFO_NAME' | translate}} " [(ngModel)]="entity.name" type="text">
       </mat-form-field>
       <div class="flex-custom flex-custom--center">

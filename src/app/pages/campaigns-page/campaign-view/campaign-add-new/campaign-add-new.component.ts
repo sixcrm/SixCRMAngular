@@ -41,7 +41,7 @@ export class CampaignAddNewComponent implements OnInit {
   }
 
   saveCampaign() {
-    this.formInvalid = !this.entity.name;
+    this.formInvalid = !this.entity.name || this.entity.name.length < 3;
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
