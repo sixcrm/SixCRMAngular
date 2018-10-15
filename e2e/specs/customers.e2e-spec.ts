@@ -52,7 +52,7 @@ describe('Customers', function() {
   });
 
   it('should render customers index title', () => {
-    expect(page.getTitle().getText()).toContain('Customers')
+    expect(page.getTitle().getText()).toContain('Customers');
   });
 
   it('should render customers index button', () => {
@@ -102,7 +102,7 @@ describe('Customers', function() {
     waitForPresenceOf(customerPage.getCustomerName());
     waitForNotPresenceOf(appPage.getProgressBar());
     browser.sleep(200);
-    expect(customerPage.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`)
+    expect(customerPage.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`);
   });
 
   it('should open customer view customer', () => {

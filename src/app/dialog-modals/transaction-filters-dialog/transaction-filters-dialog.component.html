@@ -19,7 +19,7 @@
       <div class="box-container">
         <div class="box-row">
           <div class="box">
-            <div class="label">Status</div>
+            <div class="label">Type</div>
             <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
             <mat-checkbox [(ngModel)]="refundStatus" (change)="singleStatusSelected($event)">Refund</mat-checkbox>
             <mat-checkbox [(ngModel)]="saleStatus" (change)="singleStatusSelected($event)">Sale</mat-checkbox>
@@ -27,7 +27,7 @@
           </div>
 
           <div class="box">
-            <div class="label">MID Responses</div>
+            <div class="label">Status</div>
             <mat-checkbox [(ngModel)]="allResponse" (change)="allResponseSelected($event)">All</mat-checkbox>
             <mat-checkbox [(ngModel)]="declineResponse" (change)="singleResponseSelected($event)">Decline</mat-checkbox>
             <mat-checkbox [(ngModel)]="errorResponse" (change)="singleResponseSelected($event)">Error</mat-checkbox>

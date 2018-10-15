@@ -40,7 +40,7 @@ describe('Orders', function() {
   });
 
   it('should render orders index title', () => {
-    expect(page.getTitle().getText()).toContain('Orders')
+    expect(page.getTitle().getText()).toContain('Orders');
   });
 
   it('should render orders index table headers', () => {
@@ -75,7 +75,7 @@ describe('Orders', function() {
 
   it('should render filters component', () => {
     page.getOpenFilterButton().click();
-    expect(page.getFiltersDialog()).toBeDefined()
+    expect(page.getFiltersDialog()).toBeDefined();
   });
 
   it('should refetch on filter', () => {
@@ -96,7 +96,7 @@ describe('Orders', function() {
   });
 
   it('should open order and navigate back to orders', () => {
-    page.getLink(0,9).click();
+    page.getLink(0, 9).click();
     waitForUrlContains('/customers/advanced?order=');
     expectUrlToContain('/customers/advanced?order=');
 
@@ -108,7 +108,7 @@ describe('Orders', function() {
 
   it('should open campaign and navigate back to orders', () => {
     browser.sleep(1000);
-    page.getLink(0,10).click();
+    page.getLink(0, 10).click();
     waitForUrlContains('/campaigns/');
     expectUrlToContain('/campaigns/');
 
@@ -120,7 +120,7 @@ describe('Orders', function() {
 
   it('should open customer and navigate back to orders', () => {
     browser.sleep(1000);
-    page.getLink(0,11).click();
+    page.getLink(0, 11).click();
     waitForUrlContains('/customers/advanced?customer=');
     expectUrlToContain('/customers/advanced?customer=');
 
@@ -135,7 +135,7 @@ describe('Orders', function() {
     browser.sleep(200);
     page.getFirstValueInputOfFilterValuesSection(1).sendKeys('12345');
     page.getFilterButton().click();
-    browser.sleep(2000);
+    browser.sleep(3500);
     expect(page.getTableRows().count()).toEqual(0);
   });
 

@@ -52,7 +52,6 @@ import { MultiselectComponent } from './components/multiselect/multiselect.compo
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
-import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import {ClipboardModule} from 'ngx-clipboard';
 import {FeatureFlagService} from './services/feature-flag.service';
 import {NotificationsQuickService} from './services/notifications-quick.service';
@@ -70,6 +69,7 @@ import { GrapesFilterComponentComponent } from './components/grapes-filter-compo
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { RemoveItemsPipe } from './pipes/remove-items.pipe';
+import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import { FilterSimplePipe } from './pipes/filter-simple.pipe';
 
 @NgModule({
@@ -114,7 +114,6 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
     CurrencyInputDirective,
     VisibleYDirective,
     DragScrollXDirective,
-    PaymentFormComponent,
     FilterTableComponent,
     ValueFilterComponent,
     ValueFilterDropdownComponent,
@@ -126,6 +125,7 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
     GrapesFilterComponentComponent,
     ImageUploaderComponent,
     RemoveItemsPipe,
+    PaymentFormComponent,
     FilterSimplePipe
   ],
   exports : [
@@ -165,7 +165,6 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
     CurrencyInputDirective,
     VisibleYDirective,
     DragScrollXDirective,
-    PaymentFormComponent,
     FilterTableComponent,
     ValueFilterComponent,
     LocationFilterComponent,
@@ -175,6 +174,7 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
     FilterChipsPipePipe,
     ImageUploaderComponent,
     RemoveItemsPipe,
+    PaymentFormComponent,
     FilterSimplePipe
   ],
   imports : [

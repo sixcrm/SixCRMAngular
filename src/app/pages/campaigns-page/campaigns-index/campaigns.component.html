@@ -34,6 +34,12 @@
     </entities-table-wrapper>
 </div>
 
-<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <campaign-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="createCampaign($event)" (cancel)="closeAddMode()"></campaign-add-new>
+<div *ngIf="addMode && hasWritePermission() && initialLoaded" (click)="overlayClicked($event)" class="full-overlay">
+  <campaign-add-new class="modal-center"
+                    [mode]="modes.Add"
+                    [entity]="entity"
+                    [planLimitReached]="isBasicAccount && entities.length > 0"
+                    (save)="createCampaign($event)"
+                    (cancel)="closeAddMode()">
+  </campaign-add-new>
 </div>

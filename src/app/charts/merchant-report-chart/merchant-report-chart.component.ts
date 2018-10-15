@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MerchantAnalytics} from '../../shared/models/analytics/merchant-analytics.model';
 import {TranslationService} from '../../translation/translation.service';
+import {Currency} from '../../shared/utils/currency/currency';
 
 @Component({
   selector: 'merchant-report-chart',
@@ -42,6 +43,11 @@ export class MerchantReportChartComponent implements OnInit {
       chart: { type: 'column' },
       title: {text: null},
       credits: {enabled: false},
+      tooltip: {
+        formatter: function () {
+          return `${this.x} <br> Sales Gross Revenue: <b>${new Currency(this.y).usd()}</b>`;
+        }
+      },
       xAxis: {
         categories: [ ]
       },

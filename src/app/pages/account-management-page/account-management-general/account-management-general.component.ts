@@ -88,6 +88,7 @@ export class AccountManagementGeneralComponent implements OnInit {
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {
         this.session = session;
+        this.session.customer.creditCards = this.session.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
         this.customer = this.session.customer;
         this.customerBackup = this.customer.copy();
 
@@ -146,10 +147,10 @@ export class AccountManagementGeneralComponent implements OnInit {
   openCardSwitcher(): void {
     let dialogRef = this.dialog.open(CardSwitcherDialogComponent, {backdropClass: 'backdrop-blue'});
 
-    dialogRef.componentInstance.cards = this.customer.creditCards;
+    dialogRef.componentInstance.cards = this.customer.creditCards.sort((a,b) => a.createdAt.isBefore(b.createdAt) ? 1 : a.createdAt.isAfter(b.createdAt) ? -1 : 0);
     dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
 
-    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card));
+    const editSub = dialogRef.componentInstance.editCard.subscribe((card) => this.openCardModal(card, false));
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
@@ -174,11 +175,12 @@ export class AccountManagementGeneralComponent implements OnInit {
     });
   }
 
-  openCardModal(creditCard?: CreditCard) {
+  openCardModal(creditCard: CreditCard, showDefaultSelector: boolean) {
     let dialogRef = this.dialog.open(AddCreditCardDialogComponent, {backdropClass: 'backdrop-blue'});
 
     dialogRef.componentInstance.creditCard = creditCard ? creditCard.copy() : new CreditCard();
-    dialogRef.componentInstance.isDefaultCreditCard = creditCard ? this.customer.defaultCreditCard === creditCard.id : false;
+    dialogRef.componentInstance.isDefaultCreditCard = creditCard ? this.customer.defaultCreditCard === creditCard.id : showDefaultSelector;
+    dialogRef.componentInstance.hideDefaultCardSelection = !showDefaultSelector;
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
@@ -186,16 +188,17 @@ export class AccountManagementGeneralComponent implements OnInit {
       if (result && result.creditCard) {
         if (creditCard) {
           this.customerGraphAPI.updateCreditCard(result.creditCard).subscribe(card => {
-            const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === card.id);
+            const index = firstIndexOf(this.customer.creditCards, (el) => el.id === card.id);
             if (index !== -1) {
-              card.type = this.session.customer.creditCards[index].type;
-              this.session.customer.creditCards[index] = card;
-              this.session.customer.creditCards = this.session.customer.creditCards.slice();
+              card.type = this.customer.creditCards[index].type;
+              this.customer.creditCards[index] = card;
+              this.customer.creditCards = this.customer.creditCards.slice();
+              this.session.customer = this.customer.copy();
             }
 
             const newDefaultCardId = result.isDefaultCard ? card.id : '';
 
-            if (newDefaultCardId !== this.session.customer.defaultCreditCard) {
+            if (newDefaultCardId !== this.customer.defaultCreditCard) {
               this.updateDefaultCreditCard(newDefaultCardId);
             } else {
               this.setDefaultCreditCard();
@@ -264,10 +267,10 @@ export class AccountManagementGeneralComponent implements OnInit {
   }
 
   private setDefaultCreditCard() {
-    const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === this.session.customer.defaultCreditCard);
+    const index = firstIndexOf(this.customer.creditCards, (el) => el.id === this.customer.defaultCreditCard);
 
     if (index !== -1) {
-      this.defaultCreditCard = this.session.customer.creditCards[index];
+      this.defaultCreditCard = this.customer.creditCards[index];
     }
   }
 
