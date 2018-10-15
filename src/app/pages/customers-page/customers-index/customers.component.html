@@ -1,37 +1,21 @@
 <div class="entity-index">
+
   <blue-header [items]="crumbItems" [titleValue]="'CUSTOMER_INDEX_TITLE'"></blue-header>
 
-  <button mat-icon-button color="primary" *ngIf="hasWritePermission()" (click)="openAddMode()" class="entity-index__add"><mat-icon>add</mat-icon></button>
-
-  <entities-table-wrapper
-    [data]="entities"
-    [loaded]="initialLoaded"
-    [columnParams]="columnParams"
-    [filterString]="filterValue"
-    [serverError]="serverError"
-    (selected)="viewEntity($event.id)"
-
-    [service]="service"
-    (viewClicked)="viewEntity($event.id)"
-    (copyClicked)="copyEntity($event.id)"
-    (exportClicked)="exportEntity($event.id)"
-    (editClicked)="editEntity($event.id)"
-    (deleteClicked)="deleteEntity($event.id)"
-    (deleteManyClicked)="deleteMany($event)"
-    (refreshData)="refreshData()"
-
-    [limit]="limit"
-    [paginationValues]="paginationValues"
-    [previousDisabled]="page <= 0"
-    [nextDisabled]="!hasMorePages()"
-    (previous)="previous()"
-    (next)="next()"
-    (updateLimit)="updateLimit($event)"
-    (filterChanged)="filterValue = $event"
-    (searchChanged)="setSearchString($event)">
-  </entities-table-wrapper>
-</div>
-
-<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <customer-add-new class="modal-center" [customer]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></customer-add-new>
+  <filter-table [columnParams]="columnParams"
+                [date]="date"
+                [items]="entities"
+                [tabs]="tabs"
+                [loading]="loadingData"
+                [singleOptions]="options"
+                (download)="download($event)"
+                (updatedColumns)="updateColumns($event)"
+                (updatedTabs)="updateTabs($event)"
+                (onSort)="updateSort($event)"
+                (filtersSelected)="openFiltersDialog()"
+                (tabSelected)="selectTab($event)"
+                (dateChanged)="changeDate($event)"
+                (singleOptionSelected)="optionSelected($event)"
+                (loadMore)="loadMore()">
+  </filter-table>
 </div>
