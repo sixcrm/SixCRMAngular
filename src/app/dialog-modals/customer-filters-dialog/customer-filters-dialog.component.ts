@@ -25,11 +25,7 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
       { name: 'email', label: 'Email' },
       { name: 'phone', label: 'Phone' },
       { name: 'city', label: 'City' },
-      { name: 'zip', label: 'Postal Code' },
-      { name: 'total_sale_amount', label: 'Sale Amount' },
-      { name: 'returns', label: 'Returns' },
-      { name: 'refunds', label: 'Refunds' },
-      { name: 'refund_amount', label: 'Refund Amount' }
+      { name: 'zip', label: 'Postal Code' }
     ];
   }
 
@@ -78,7 +74,7 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
   }
 
   private initStatuses(filter: {facet: string; values: string[]}) {
-    if (filter.facet === 'status') {
+    if (filter.facet === 'customerStatus') {
       this.allStatus = false;
 
       filter.values.forEach(v => {
@@ -130,7 +126,7 @@ export class CustomerFiltersDialogComponent extends AbstractFilterDialog<Custome
   private parseStatusFilters(): {facet: string, values: string[]}[] {
     if (!this.allStatus) {
 
-      const statusFacet = {facet: 'status', values: []};
+      const statusFacet = {facet: 'customerStatus', values: []};
 
       if (this.activeStatus) {
         statusFacet.values.push('active');

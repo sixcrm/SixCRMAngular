@@ -64,8 +64,8 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
-      {label: 'Active', selected: false, visible: true, filters: [{facet: 'status', values: ['active']}]},
-      {label: 'Partial', selected: false, visible: true, filters: [{facet: 'status', values: ['partial']}]}
+      {label: 'Active', selected: false, visible: true, filters: [{facet: 'customerStatus', values: ['active']}]},
+      {label: 'Partial', selected: false, visible: true, filters: [{facet: 'customerStatus', values: ['partial']}]}
     ];
 
     this.options = ['View'];
