@@ -8,11 +8,6 @@ import {Moment} from 'moment';
 import {YesNoDialogComponent} from '../../../dialog-modals/yes-no-dialog.component';
 import {MatDialog} from '@angular/material';
 
-export enum DisplayModes {
-  grid,
-  list
-}
-
 @Component({
   selector: 'schedules-detailed',
   templateUrl: './schedules-detailed.component.html',
@@ -49,8 +44,6 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   allProducts: Product[] = [];
   selectedSchedule: ProductSchedule | Schedule | Product;
-  displayMode: DisplayModes = DisplayModes.grid;
-  modes = DisplayModes;
   zoomLevel: number = 5;
   sideVisible: boolean = true;
   consecutiveUndo: boolean;
@@ -112,12 +105,6 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < this.products.length; i++) {
       this.products[i]['detailedListSelected'] = false;
     }
-  }
-
-  changeDisplayMode(mode: DisplayModes) {
-    this.displayMode = mode;
-
-    this.selectedIndex = this.displayMode === DisplayModes.grid ? 0 : 1;
   }
 
   addNewProductSchedule(productSchedule: ProductSchedule) {
