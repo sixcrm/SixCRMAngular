@@ -4,7 +4,7 @@
 
       <div class="mrw-bi-input">
         <mat-form-field [floatLabel]="'never'">
-          <input matInput type="text" placeholder="Filter Subscriptions">
+          <input matInput type="text" placeholder="Filter Subscriptions" [(ngModel)]="filterString">
         </mat-form-field>
       </div>
 
@@ -13,7 +13,7 @@
     </div>
 
     <div class="card-body" *ngIf="rebills">
-      <ng-container *ngFor="let rebill of rebills">
+      <ng-container *ngFor="let rebill of rebills | filterSimple : filterMapper : filterString">
         <rebill-item [rebill]="rebill" [sessionMode]="sessionMode"></rebill-item>
       </ng-container>
     </div>
