@@ -191,7 +191,7 @@ export class FilterTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getNumberOfSelected(): boolean {
+  getNumberOfSelected(): number {
     return this._items.filter(i => i['bulkSelected']).length;
   }
 
