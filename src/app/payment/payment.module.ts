@@ -10,7 +10,6 @@ import {FormsModule} from '@angular/forms';
 import {TranslationModule} from '../translation/translation.module';
 import {SharedModule} from '../shared/shared.module';
 import {EntityServicesModule} from '../entity-services/entity-services.module';
-import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
 
 @NgModule({
   imports: [
@@ -25,8 +24,7 @@ import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
   declarations: [
     PaymentComponent,
     PlansComponent,
-    PlanBillingComponent,
-    PlanPaymentComponent,
+    PlanBillingComponent
   ],
   providers: [PaymentGuard]
 })

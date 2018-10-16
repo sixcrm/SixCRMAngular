@@ -3,7 +3,6 @@ import {Plan} from '../plans/plan.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Acl} from '../../shared/models/acl.model';
 import {environment} from '../../../environments/environment';
-import {CreditCard} from '../../shared/models/credit-card.model';
 
 @Component({
   selector: 'payment',
@@ -14,14 +13,11 @@ export class PaymentComponent implements OnInit {
 
   planInProgress: boolean = true;
   paymentInProgress: boolean;
-  confirmationInProgress: boolean;
 
   plan: Plan;
   mapAcl = (acl: Acl) => acl.account.name;
 
   sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
-
-  creditCard: CreditCard = new CreditCard();
 
   constructor(
     public authService: AuthenticationService
@@ -37,21 +33,11 @@ export class PaymentComponent implements OnInit {
   setPaymentInProgress() {
     this.planInProgress = false;
     this.paymentInProgress = true;
-    this.confirmationInProgress = false;
   }
 
   setPlanInProgress() {
     this.planInProgress = true;
     this.paymentInProgress = false;
-    this.confirmationInProgress = false;
-  }
-
-  setCreditCard(creditCard: CreditCard) {
-    this.creditCard = creditCard.copy();
-
-    this.planInProgress = false;
-    this.paymentInProgress = false;
-    this.confirmationInProgress = true;
   }
 
   changeAcl(acl: Acl) {

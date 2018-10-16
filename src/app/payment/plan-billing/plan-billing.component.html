@@ -1,11 +1,14 @@
 <div class="container">
 
-  <div class="title">Billing Information</div>
+  <div *ngIf="errorMessage" class="error-message">
+    <div>{{errorMessage}}</div>
+    <mat-icon>error_outline</mat-icon>
+  </div>
 
   <payment-form [creditCard]="creditCard"></payment-form>
 
   <div class="buttons">
     <button mat-button (click)="changePlan.emit(true)">BACK</button>
-    <button mat-button (click)="submitCreditCard()">NEXT</button>
+    <button mat-button (click)="submitCreditCard()">{{errorMessage ? 'RETRY PAYMENT' : 'PAY'}}</button>
   </div>
 </div>
