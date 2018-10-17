@@ -22,6 +22,8 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'CAMPAIGN_INDEX_TITLE'}];
 
+  isBasicAccount: boolean;
+
   constructor(
     campaignService: CampaignsService,
     auth: AuthenticationService,
@@ -54,6 +56,9 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
       new ColumnParams('CAMPAIGN_INDEX_HEADER_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
+
+    const plan = this.authService.getActiveAccount().billing.plan;
+    this.isBasicAccount = plan === 'basic';
   }
 
   ngOnInit() {
@@ -65,6 +70,8 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   }
 
   createCampaign(campaign: Campaign) {
+    if (this.isBasicAccount && this.entities.length !== 0) return;
+
     if (campaign.merchantProviderGroupAssociations && campaign.merchantProviderGroupAssociations.length === 1) {
 
       this.merchantProviderGroupAssociationService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(lba => {

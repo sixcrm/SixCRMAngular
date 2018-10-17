@@ -31,7 +31,8 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
       { name: 'rebillAlias', label: 'Order Alias' },
       { name: 'sessionAlias', label: 'Session Alias' },
       { name: 'merchantProviderName', label: 'MID Name' },
-      { name: 'alias', label: 'Transaction Alias' }
+      { name: 'alias', label: 'Transaction Alias' },
+      { name: 'merchantMessage', label: 'Processor Message' }
     ];
   }
 

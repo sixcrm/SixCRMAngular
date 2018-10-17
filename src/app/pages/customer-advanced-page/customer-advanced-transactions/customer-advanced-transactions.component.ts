@@ -4,7 +4,6 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {OptionItem} from '../../components/table-memory-advanced/table-memory-advanced.component';
-import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
 import {MatDialog} from '@angular/material';
 import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
 

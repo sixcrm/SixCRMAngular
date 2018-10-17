@@ -55,7 +55,7 @@ export class RegisterPage {
   }
 
   getInputs() {
-    return element(by.css('.content')).all(by.css('input'));
+    return element(by.css('.advanced-payment-body')).all(by.css('input'));
   }
 
   getBillingNextButton() {
