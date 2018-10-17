@@ -25,7 +25,7 @@
     position: relative;
     box-sizing: border-box;
     border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.6);
     height: 20px;
     width: 20px;
 
@@ -36,7 +36,7 @@
       transform: translateX(-50%);
       position: absolute;
       font-family: 'Roboto', serif;
-      color: #FFFFFF;
+      color: rgba(255, 255, 255, 0.5);
       font-weight: 500;
     }
   }
@@ -44,12 +44,12 @@
   .line {
     width: 48px;
     height: 4px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
   }
 
   .active {
-    background: #FFFFFF;
-    border-color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
   }
 
   .finished {

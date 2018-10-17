@@ -102,7 +102,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   init() {
-    if (this.inited || !this.user || !this.acl) return;
+    if (this.inited || (!this.user && !this.acl)) return;
 
     this.inited = true;
 

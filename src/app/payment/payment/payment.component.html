@@ -17,12 +17,12 @@
   <div class="progress">
     <div class="circle finished"></div>
     <div class="line finished"></div>
-    <div class="circle" [class.active]="planInProgress" [class.finished]="paymentInProgress">
-      <div *ngIf="planInProgress">Plan</div>
+    <div class="circle" [class.active]="planInProgress" [class.finished]="paymentInProgress || confirmationInProgress">
+      <div *ngIf="planInProgress">PLAN</div>
     </div>
-    <div class="line" [class.finished]="paymentInProgress"></div>
-    <div class="circle" [class.active]="paymentInProgress">
-      <div *ngIf="paymentInProgress">Payment</div>
+    <div class="line" [class.finished]="paymentInProgress || confirmationInProgress"></div>
+    <div class="circle"  [class.active]="paymentInProgress" [class.finished]="confirmationInProgress">
+      <div *ngIf="paymentInProgress || confirmationInProgress">PAYMENT</div>
     </div>
   </div>
 
@@ -32,9 +32,23 @@
 
   <div *ngIf="paymentInProgress" class="container">
     <plan-billing
+      [creditCard]="creditCard"
+      [plan]="plan"
+      [errorMessage]="errorMessage"
       (changePlan)="setPlanInProgress()"
-      [plan]="plan">
+      (submitCard)="submitCard($event)">
     </plan-billing>
+  </div>
+
+  <div *ngIf="confirmationInProgress" class="container">
+    <plan-confirmation
+      [card]="creditCard"
+      [plan]="plan"
+      (issuePayment)="pay()"
+      (viewTerms)="openTermsModal()"
+      (changePlan)="setPlanInProgress()"
+      (changeCard)="setPaymentInProgress()">
+    </plan-confirmation>
   </div>
 
 </div>
