@@ -22,13 +22,6 @@
     <div class="saving"> {{ statusMessage }} </div>
   </div>
 
-  <mat-icon class="grid-icon"
-            [class.icon-selected]="displayMode === modes.grid"
-            [class.icon-solo]="!editable"
-            (click)="displayModeChanged.emit(modes.grid)">
-    grid_on
-  </mat-icon>
-
   <div class="divider"></div>
 
   <div class="zoom-label">Zoom</div>

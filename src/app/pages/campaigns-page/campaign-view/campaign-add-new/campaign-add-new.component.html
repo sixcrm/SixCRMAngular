@@ -9,40 +9,55 @@
     </ng-container>
   </div>
 
-  <div class="entity-view__card__content">
-    <mat-form-field [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required matInput [disabled]="mode === modes.View" placeholder=" {{'CAMPAIGN_INFO_NAME' | translate}} " [(ngModel)]="entity.name" type="text">
-    </mat-form-field>
-    <div class="flex-custom flex-custom--center">
-      <autocomplete-input class="campaign-autocomplete-input"
-                          [disabled]="mode === modes.View"
-                          [mapFunction]="merchantProviderGroupMapper"
-                          [initialValue]="entity.merchantProviderGroupAssociations[entity.merchantProviderGroupAssociations.length - 1] ? entity.merchantProviderGroupAssociations[entity.merchantProviderGroupAssociations.length - 1].merchantProviderGroup : null"
-                          [options]="merchantProviderGroups || []"
-                          [placeholder]="'CAMPAIGN_INFO_DEFAULTGROUP' | translate"
-                          (selected)="setAssociatedMerchantProviderGroup($event)">
-      </autocomplete-input>
-      <mat-icon [class.icon-disabled]="mode === modes.View" (click)="removeAssociations()">close</mat-icon>
+  <ng-container *ngIf="planLimitReached; else inputsForm">
+    <div class="limit-info">
+      You can't create more than one campaign on Basic Plan.
+      <br>
+      Please upgrade your Plan.
     </div>
 
-    <div class="flex-custom flex-custom--center prepaid-checkbox">
-      <span> {{'CAMPAIGN_INFO_ALLOWPREPAID' | translate}} </span>
-      <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
+    <div class="button-container">
+      <button mat-button (click)="cancel.emit(true)">Close</button>
     </div>
-    <div class="flex-custom flex-custom--center prepaid-checkbox">
-      <span> {{'CAMPAIGN_INFO_SHOWPREPAID' | translate}} </span>
-      <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.showPrepaid"></mat-checkbox>
+  </ng-container>
+
+  <ng-template #inputsForm>
+    <div class="entity-view__card__content">
+      <mat-form-field [class.error]="formInvalid && (!entity.name || entity.name.length < 3)" class="entity-view__card__content__item">
+        <input auto-focus required matInput [disabled]="mode === modes.View" placeholder=" {{'CAMPAIGN_INFO_NAME' | translate}} " [(ngModel)]="entity.name" type="text">
+      </mat-form-field>
+      <div class="flex-custom flex-custom--center">
+        <autocomplete-input class="campaign-autocomplete-input"
+                            [disabled]="mode === modes.View"
+                            [mapFunction]="merchantProviderGroupMapper"
+                            [initialValue]="entity.merchantProviderGroupAssociations[entity.merchantProviderGroupAssociations.length - 1] ? entity.merchantProviderGroupAssociations[entity.merchantProviderGroupAssociations.length - 1].merchantProviderGroup : null"
+                            [options]="merchantProviderGroups || []"
+                            [placeholder]="'CAMPAIGN_INFO_DEFAULTGROUP' | translate"
+                            (selected)="setAssociatedMerchantProviderGroup($event)">
+        </autocomplete-input>
+        <mat-icon [class.icon-disabled]="mode === modes.View" (click)="removeAssociations()">close</mat-icon>
+      </div>
+
+      <div class="flex-custom flex-custom--center prepaid-checkbox">
+        <span> {{'CAMPAIGN_INFO_ALLOWPREPAID' | translate}} </span>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
+      </div>
+      <div class="flex-custom flex-custom--center prepaid-checkbox">
+        <span> {{'CAMPAIGN_INFO_SHOWPREPAID' | translate}} </span>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.showPrepaid"></mat-checkbox>
+      </div>
+
+      <div class="flex-custom flex-custom--center prepaid-checkbox">
+        <span> {{'CAMPAIGN_INFO_ALLOWORDER' | translate}} </span>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowOnOrder"></mat-checkbox>
+      </div>
     </div>
 
-    <div class="flex-custom flex-custom--center prepaid-checkbox">
-      <span> {{'CAMPAIGN_INFO_ALLOWORDER' | translate}} </span>
-      <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowOnOrder"></mat-checkbox>
+    <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
+      <div (click)="cancel.emit(true)"> {{'CAMPAIGN_INFO_CANCEL' | translate}} </div>
+      <div (click)="saveCampaign()"> {{'CAMPAIGN_INFO_SAVE' | translate}} </div>
     </div>
-  </div>
+  </ng-template>
 
-  <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
-    <div (click)="cancel.emit(true)"> {{'CAMPAIGN_INFO_CANCEL' | translate}} </div>
-    <div (click)="saveCampaign()"> {{'CAMPAIGN_INFO_SAVE' | translate}} </div>
-  </div>
 </div>
 

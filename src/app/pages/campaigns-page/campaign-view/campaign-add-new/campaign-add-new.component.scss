@@ -24,3 +24,23 @@ autocomplete-input {
 .entity-view__card__header {
   padding: 18px 15px;
 }
+
+.limit-info {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 22px;
+  padding: 55px 25px 0;
+  text-align: center;
+  line-height: 32px;
+}
+
+.button-container {
+  display: flex;
+  margin: 65px 0 25px;
+
+  button {
+    margin: auto;
+    font-size: 16px;
+    background: #4DA6FF;
+    color: #ffffff;
+  }
+}
