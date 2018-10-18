@@ -35,7 +35,9 @@ export class TransactionAnalytics {
     this.date = utc(this.getValueOf('datetime'));
     this.transactionType = this.getValueOf('transaction_type');
     this.response = this.getValueOf('response') || '';
-    this.amount = new Currency(this.getValueOf('amount') || 0);
+    this.amount = this.transactionType === 'refund'
+      ? new Currency(this.getValueOf('associated_transaction_amount') || 0)
+      : new Currency(this.getValueOf('amount') || 0);
     this.refund = new Currency(this.getValueOf('refund') || 0);
     this.merchantProvider = this.getValueOf('merchant_provider_name') || '';
     this.merchantProviderId = this.getValueOf('merchant_provider') || '';

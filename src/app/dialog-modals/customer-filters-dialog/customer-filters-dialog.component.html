@@ -9,21 +9,13 @@
 
     <div class="content">
 
-      <div class="mrw-bi-input search-input-container">
-        <mat-form-field [floatLabel]="'never'">
-          <input type="text" matInput placeholder="Search Customers">
-        </mat-form-field>
-        <mat-icon class="topnav__search__icon">search</mat-icon>
-      </div>
-
       <div class="box-container">
         <div class="box-row">
           <div class="box box--single">
             <div class="label">Status</div>
-            <mat-checkbox [checked]="true">All</mat-checkbox>
-            <mat-checkbox>Active</mat-checkbox>
-            <mat-checkbox>Partial</mat-checkbox>
-            <mat-checkbox>Blacklisted</mat-checkbox>
+            <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
+            <mat-checkbox [(ngModel)]="activeStatus" (change)="singleStatusSelected($event)">Active</mat-checkbox>
+            <mat-checkbox [(ngModel)]="partialStatus" (change)="singleStatusSelected($event)">Partial</mat-checkbox>
           </div>
         </div>
       </div>
