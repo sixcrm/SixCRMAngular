@@ -12,10 +12,11 @@ export class PlanBillingComponent implements OnInit {
   @ViewChild(PaymentFormComponent) paymentForm: PaymentFormComponent;
 
   @Input() plan: Plan;
-  @Input() creditCard: CreditCard = new CreditCard();
+  @Input() creditCard: CreditCard;
+  @Input() errorMessage: string;
 
-  @Output() creditCardSelected: EventEmitter<CreditCard> = new EventEmitter();
   @Output() changePlan: EventEmitter<boolean> = new EventEmitter();
+  @Output() submitCard: EventEmitter<CreditCard> = new EventEmitter();
 
   constructor() { }
 
@@ -26,7 +27,6 @@ export class PlanBillingComponent implements OnInit {
 
     if (!card) return;
 
-    this.creditCardSelected.emit(card.copy());
+    this.submitCard.emit(card);
   }
-
 }
