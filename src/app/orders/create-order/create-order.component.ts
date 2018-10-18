@@ -469,7 +469,7 @@ export class CreateOrderComponent implements OnInit {
     if (!event) return;
 
     if (event.key === 'Enter') {
-      this.setProductInEditPrice();
+      this.productInEdit = new Product();
     }
 
     this.isCurrencyValid(event);
@@ -481,26 +481,16 @@ export class CreateOrderComponent implements OnInit {
       return;
     }
 
-    this.productInEdit = product.copy();
+    this.productInEdit = product;
   }
 
-  setProductInEditPrice() {
-    for (let i = 0; i < this.selectedProducts.length; i++) {
-      if (this.selectedProducts[i].id === this.productInEdit.id) {
-        let selected = this.selectedProducts[i];
+  setProductInEditPrice(amount: Currency) {
+    this.productInEdit['error'] = !this.productInEdit.dynamicPrice
+      || !this.productInEdit.dynamicPrice.enabled
+      || amount.amount < this.productInEdit.dynamicPrice.min.amount || amount.amount > this.productInEdit.dynamicPrice.max.amount;
 
-        if (selected instanceof Product) {
-          this.productInEdit['error'] = !selected.dynamicPrice || !selected.dynamicPrice.enabled || this.productInEdit.defaultPrice.amount < selected.dynamicPrice.min.amount || this.productInEdit.defaultPrice.amount > selected.dynamicPrice.max.amount;
-
-          selected.defaultPrice = this.productInEdit.defaultPrice;
-        }
-
-        if (!this.productInEdit['error']) {
-          this.productInEdit = new Product();
-        }
-
-        return;
-      }
+    if (!this.productInEdit['error']) {
+      this.productInEdit.defaultPrice = amount;
     }
   }
 
