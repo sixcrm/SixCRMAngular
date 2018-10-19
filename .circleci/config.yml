@@ -122,7 +122,7 @@ jobs:
           name: Run local smoke e2e
           command: npm run e2e.local -- --suite smoke
           no_output_timeout: 20m
-  e2e_all_deploy_s3:
+  e2e_smoke_deploy_report:
     <<: *job-defaults
     steps:
       - checkout
@@ -141,12 +141,12 @@ jobs:
           name: Update webdriver
           command: npm run pree2e
       - run:
-          name: Run e2e all
+          name: Run e2e smoke
           command: |
             if [ "${CIRCLE_BRANCH}" == "development" ]; then
-              npm run e2e.dev
+              npm run e2e.dev -- --suite smoke
             elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              npm run e2e.stage
+              npm run e2e.stage -- --suite smoke
             fi
           no_output_timeout: 20m
       - run:
@@ -200,7 +200,7 @@ workflows:
                 - staging
                 - production
                 - priority
-      - e2e_all_deploy_s3:
+      - e2e_smoke_deploy_report:
           requires:
             - deploy_cloudfront
           filters:

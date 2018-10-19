@@ -63,7 +63,7 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
   }
 
   private initStatuses(filter: {facet: string; values: string[]}) {
-    if (filter.facet === 'status') {
+    if (filter.facet === 'orderStatus') {
       this.allStatus = false;
 
       filter.values.forEach(v => {
@@ -117,7 +117,7 @@ export class OrderFiltersDialogComponent extends AbstractFilterDialog<OrderFilte
   private parseStatusFilters(): {facet: string, values: string[]}[] {
     if (!this.allStatus) {
 
-      const statusFacet = {facet: 'status', values: []};
+      const statusFacet = {facet: 'orderStatus', values: []};
 
       if (this.shippedStatus) {
         statusFacet.values.push('shipped');

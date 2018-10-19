@@ -3,6 +3,7 @@ import {Moment, utc} from 'moment';
 import {Products} from './products.model';
 import {Rebill} from './rebill.model';
 import {Session} from './session.model';
+import {Transaction} from './transaction.model';
 
 export class Order {
 
@@ -12,6 +13,7 @@ export class Order {
   products: Products[] = [];
   rebill: Rebill;
   session: Session;
+  transactions: Transaction;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -24,6 +26,7 @@ export class Order {
     this.products = (obj.products || []).map(p => new Products(p));
     this.rebill = new Rebill(obj.rebill);
     this.session = new Session(obj.session);
+    this.transactions = (obj.transactions || []).map(t => new Transaction(t));
   }
 
   hasChargeback() {
