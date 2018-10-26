@@ -40,9 +40,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       new ColumnParams('Status', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
         .setSortName('response')
         .setCapitalize(true)
-        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
+        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' || e.response === 'soft decline' || e.response === 'hard decline' ? 'block' : 'error')
         .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#ED6922' : '#1EBEA5' : '#ffffff')
-        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
+        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : e.response === 'soft decline' ? '#ED6922' : '#DC2547'),
       new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType : '–').setSortName('type').setCapitalize(true),
       new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer)
         .setSortName('customer_name')
@@ -74,7 +74,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       {label: 'All', selected: true, visible: true},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
-      {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
+      {label: 'Soft Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['soft decline']}]},
+      {label: 'Hard Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline']}]}
     ];
 
     this.options = ['View'];
@@ -230,7 +231,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.tabs[0].count = Observable.of(transactions.length);
       this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
       this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'soft decline').length);
+      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'hard decline').length);
     });
   }
 
