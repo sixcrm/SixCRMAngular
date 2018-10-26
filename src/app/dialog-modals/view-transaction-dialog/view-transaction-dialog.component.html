@@ -1,6 +1,6 @@
 <div *ngIf="transaction" class="container">
 
-  <div class="title" [class.chargeback]="transaction.chargeback || transaction.isError()" [class.decline]="transaction.isDecline()">
+  <div class="title" [class.chargeback]="transaction.chargeback || transaction.isError()" [class.decline]="transaction.isDecline()" [class.decline]="transaction.isSoftDecline()">
     Transaction {{transaction.alias}}
   </div>
 
@@ -9,7 +9,7 @@
     <div class="item">
       <div class="key">Status</div>
       <div class="value">
-        <mat-icon class="icon" [class.icon--chargeback]="transaction.chargeback || transaction.isError() || transaction.isDecline()">{{transaction.chargeback || transaction.isError() ? 'error' : transaction.isDecline() ? 'block' : 'done'}}</mat-icon>
+        <mat-icon class="icon" [class.icon--chargeback]="transaction.chargeback || transaction.isError() || transaction.isDecline() || transaction.isSoftDecline()">{{transaction.chargeback || transaction.isError() ? 'error' : transaction.isDecline() || transaction.isSoftDecline() ? 'block' : 'done'}}</mat-icon>
         {{transaction.processorResponse.message}}
       </div>
     </div>

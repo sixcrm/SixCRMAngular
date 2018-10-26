@@ -54,7 +54,11 @@ export class Transaction implements Entity<Transaction>{
   }
 
   isDecline() {
-    return this.result === 'decline'
+    return this.result === 'decline';
+  }
+
+  isSoftDecline() {
+    return this.result === 'softdecline';
   }
 
   isSuccess() {
@@ -71,6 +75,8 @@ export class Transaction implements Entity<Transaction>{
     if (this.isError()) return 'Error';
 
     if (this.isDecline()) return 'Decline';
+
+    if (this.isSoftDecline()) return 'Soft Decline';
 
     if (this.type === 'refund') return 'Refund';
 
