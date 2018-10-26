@@ -60,7 +60,8 @@ describe('Transactions', function() {
     expect(page.getQuickFilters().get(0).getText()).toContain('All');
     expect(page.getQuickFilters().get(1).getText()).toContain('Refunds');
     expect(page.getQuickFilters().get(2).getText()).toContain('Errors');
-    expect(page.getQuickFilters().get(3).getText()).toContain('Declines');
+    expect(page.getQuickFilters().get(3).getText()).toContain('Soft Declines');
+    expect(page.getQuickFilters().get(4).getText()).toContain('Hard Declines');
   });
 
   it('should have transactions in table', () => {
