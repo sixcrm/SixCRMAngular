@@ -25,6 +25,8 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
         this.response = obj.vendorresponse;
       }
 
+      if (this.body) return;
+
       if (this.code === 'success') {
         this.body = this.message;
       } else if (obj.body) {
