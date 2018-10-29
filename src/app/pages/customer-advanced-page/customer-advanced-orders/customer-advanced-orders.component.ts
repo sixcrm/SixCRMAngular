@@ -40,7 +40,8 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
   originIndex: number;
 
   filterString: string;
-  filterMapper = (order: Order) => !this.filterString || order.rebill.alias.toLowerCase().includes(this.filterString.toLowerCase());
+  filterMapper = (order: Order) => !this.filterString
+    || `${order.rebill.alias} ${order.session.campaign.name} ${order.products.map(p => p.product.name).reduce((a,b)=>`${a} ${b}`, '')}`.toLowerCase().includes(this.filterString.toLowerCase());
 
   constructor(
     private authService: AuthenticationService,

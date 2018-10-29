@@ -1,0 +1,65 @@
+<div class="container">
+
+  <div class="column">
+
+    <div class="title title--left">Summary</div>
+
+    <div class="header">Contact Information</div>
+
+    <div class="contact-info">
+      <div>Email</div>
+      <div *ngIf="user">{{user.email}}</div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="header">
+      <div>Payment</div>
+      <div class="link" (click)="changeCard.emit(true)">Edit</div>
+    </div>
+
+    <div class="card-info">
+      <img *ngIf="card.getTypeShort() !== 'other'" src="{{'/assets/cards/' + (card.getTypeShort() || '').toLowerCase() + '.svg'}}" alt="">
+
+      <div class="card-info__details">
+        <div>{{card.name}}</div>
+
+        <div>
+          <div>**** **** **** {{card.parseLastFour()}}</div>
+          <div class="expiration">Expires {{card.expiration}}</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="billing-info">
+      <div>Billing Address</div>
+      <div>{{card.address.line1}} {{card.address.line2}}</div>
+      <div>{{card.address.city}}, {{card.address.state}} {{card.address.zip}}</div>
+      <div>{{card.address.country}}</div>
+    </div>
+
+  </div>
+
+  <div class="column">
+
+    <div class="title">
+      <div>You have chosen the SIX {{plan.name}} Tier</div>
+      <div class="link" (click)="changePlan.emit(true)">Change Plan</div>
+    </div>
+
+    <div class="amount">
+      <div>Total billed today:</div>
+      <div class="divider"></div>
+      <div>${{plan.price.toFixed(2)}}</div>
+    </div>
+
+    <div class="terms" (click)="viewTerms.emit(true)">
+      Subscription fee will be charged monthly. By subscribing to SIX, you agree to our <span>Privacy Policy</span> and <span>Terms and Conditions</span>.
+    </div>
+
+    <button mat-button (click)="issuePayment.emit(true)">Complete Order: ${{plan.price.toFixed(2)}}</button>
+
+  </div>
+
+</div>
