@@ -141,10 +141,6 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     this.deleteProductSchedule.emit(this._productSchedule);
   }
 
-  removeProduct() {
-
-  }
-
   closeModal() {
     this.close.emit(true)
   }
@@ -181,13 +177,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
     if (key.key !== 'Delete') return;
 
-    if (this._schedule) {
-      this.removeSchedule();
-    } else if (this._productSchedule && !this.singleScheduleMode) {
-      this.removeProductSchedule();
-    }else if (this._product && !this.singleScheduleMode) {
-      this.removeProduct();
-    }
+    this.closeModal();
   }
 
   setCycleNoRepeat() {
