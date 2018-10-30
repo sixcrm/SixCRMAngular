@@ -57,8 +57,8 @@ export class Transaction implements Entity<Transaction>{
 
   parseResult(result: string) {
     switch (result) {
-      case 'decline': return 'Hard Decline';
-      case 'softdecline': return 'Soft Decline';
+      case 'harddecline': return 'Hard Decline';
+      case 'decline': return 'Soft Decline';
       case 'success': return 'Success';
       case 'error': return 'Error';
       default: return result;
@@ -66,11 +66,11 @@ export class Transaction implements Entity<Transaction>{
   }
 
   isDecline() {
-    return this.result === 'decline';
+    return this.result === 'harddecline';
   }
 
   isSoftDecline() {
-    return this.result === 'softdecline';
+    return this.result === 'decline';
   }
 
   isSuccess() {
