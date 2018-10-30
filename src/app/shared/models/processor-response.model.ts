@@ -3,7 +3,7 @@ import {Entity} from './entity.interface';
 export class ProcessorResponse implements Entity<ProcessorResponse> {
   id: string;
   message: string;
-  body: any;
+  body: string;
   code: string;
   response: any = {};
 
@@ -17,12 +17,15 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
 
       this.message = obj.message || '';
       this.code = obj.code || '';
+      this.body = obj.merchant_message || '';
 
       if (obj.result) {
         this.response = obj.result.response || {};
       } else if (obj.vendorresponse) {
         this.response = obj.vendorresponse;
       }
+
+      if (this.body) return;
 
       if (this.code === 'success') {
         this.body = this.message;

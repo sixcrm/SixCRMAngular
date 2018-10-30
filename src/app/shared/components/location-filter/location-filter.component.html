@@ -2,7 +2,7 @@
 
   <div class="row" *ngFor="let location of locations; let i = index">
     <value-filter-dropdown class="item" [selectedOption]="location.country" [options]="countries" (optionSelected)="location.country = $event"></value-filter-dropdown>
-    <value-filter-dropdown class="item" [selectedOption]="location.state" [options]="states" (optionSelected)="location.state = $event"></value-filter-dropdown>
+    <value-filter-dropdown class="item" [selectedOption]="location.state" [placeholder]="'All States'" [options]="states" (optionSelected)="location.state = $event"></value-filter-dropdown>
 
     <mat-icon (click)="locationRemovedAtIndex.emit(i)">close</mat-icon>
   </div>

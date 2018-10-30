@@ -98,18 +98,14 @@ describe('Register', function() {
   it('should continue to confirmation screen', () => {
     registerPage.getBillingNextButton().click();
 
-    expect(registerPage.getCompleteButton().getText()).toContain('$150');
-    expect(registerPage.getConfirmCardDetails().get(0).getText()).toContain('4242');
-    expect(registerPage.getConfirmCardDetails().get(1).getText()).toContain('Card Name');
-    expect(registerPage.getConfirmCardDetails().get(2).getText()).toContain('07/2022');
-
-    expect(registerPage.getConfirmAddressDetails().get(0).getText()).toContain('1 test');
-    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('test line');
-    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('Oregon');
-    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('21000');
-    expect(registerPage.getConfirmAddressDetails().get(3).getText()).toContain('United States');
-
     expectPresent(registerPage.getConfirmationScreen());
+
+    expect(registerPage.getCompleteButton().getText()).toContain('$150');
+    expect(registerPage.getCardConfirmName().getText()).toContain('Card Name');
+
+    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('1 test');
+    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('New York, Oregon 21000');
+    expect(registerPage.getConfirmAddressDetails().get(3).getText()).toContain('United States');
   });
 
   it('should successfully finish registration', () => {
