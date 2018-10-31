@@ -748,8 +748,13 @@ export function initGrapesJS(
     editor.Panels.getButton('options', 'export-template').set({label: 'code', className: 'material-icons'});
     editor.Panels.getButton('options', 'preview').set({label: 'visibility', className: 'material-icons'});
     editor.Panels.getButton('options', 'sw-visibility').set({label: 'border_clear', className: 'material-icons'});
-    editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', className: 'material-icons material-icons--24'});
     editor.Panels.removeButton('options', 'fullscreen');
+
+    editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', togglable: false, className: 'material-icons material-icons--24'});
+    editor.Panels.getButton('views', 'open-sm').set({togglable: false});
+    editor.Panels.getButton('views', 'open-tm').set({togglable: false});
+    editor.Panels.getButton('views', 'open-layers').set({togglable: false});
+
   };
   const tokensPlugin = (editor) => {
     if (!params.parent.allTokens || params.parent.allTokens.length === 0) return;
