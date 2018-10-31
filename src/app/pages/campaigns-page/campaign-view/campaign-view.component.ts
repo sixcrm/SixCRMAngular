@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Campaign} from '../../../shared/models/campaign.model';
@@ -18,6 +18,7 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {MerchantProviderGroupAssociationsService} from '../../../entity-services/services/merchant-provider-group-associations.service';
 import {MerchantProviderGroupAssociation} from '../../../shared/models/merchant-provider-group-association.model';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {PixelTrackerComponent} from './pixel-tracker/pixel-tracker.component';
 
 @Component({
   selector: 'campaign-view',
@@ -25,6 +26,8 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
   styleUrls: ['./campaign-view.component.scss']
 })
 export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign> implements OnInit, OnDestroy {
+
+  @ViewChild(PixelTrackerComponent) trackerComponent: PixelTrackerComponent;
 
   selectedIndex: number = 0;
 
@@ -155,6 +158,12 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
   setIndex(value: number): void {
     this.selectedIndex = value;
+
+    if (this.selectedIndex === 3) {
+
+      setTimeout(() => this.trackerComponent.displayCodemirror(), 1);
+
+    }
   }
 
   viewEmailTemplate(emailTemplate: EmailTemplate): void {
