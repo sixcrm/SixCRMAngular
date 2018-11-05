@@ -271,7 +271,7 @@ function htmlEditorBlock(editor) {
   const codeViewer = editor.CodeManager.getViewer('CodeMirror').clone();
   const pnm = editor.Panels;
   const container = document.createElement('div');
-  const btnEdit = document.createElement('button');
+  const btnFinish = document.createElement('button');
   const previewPane = document.createElement('div');
   const htmlContent = document.createElement('div');
 
@@ -291,9 +291,9 @@ function htmlEditorBlock(editor) {
     indentWithTabs: true
   });
 
-  btnEdit.innerHTML = 'EDIT';
-  btnEdit.className = 'gjs-view-code-button mat-button';
-  btnEdit.onclick = () => {
+  btnFinish.innerHTML = 'FINISH';
+  btnFinish.className = 'gjs-view-code-button mat-button';
+  btnFinish.onclick = () => {
     const code = codeViewer.editor.getValue();
     editor.DomComponents.getWrapper().set('content', '');
     editor.setComponents(code.trim());
@@ -312,7 +312,7 @@ function htmlEditorBlock(editor) {
         htmlContent.appendChild(previewPane);
 
         container.appendChild(htmlContent);
-        container.appendChild(btnEdit);
+        container.appendChild(btnFinish);
 
         codeViewer.init(txtarea);
         viewer = codeViewer.editor;

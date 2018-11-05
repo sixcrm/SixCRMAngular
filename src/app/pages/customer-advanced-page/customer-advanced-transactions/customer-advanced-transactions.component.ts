@@ -39,9 +39,9 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
     this.columnParams = [
       new ColumnParams('Date', (e: Transaction) => e.createdAt.tz(f).format('MM/DD/YY h:mm A')),
       new ColumnParams('Status', (e: Transaction) => e.getStatus())
-        .setMaterialIconMapper((e: Transaction) => e.chargeback || e.isError() ? 'error' : e.isDecline() ? 'block' : 'done')
-        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#ffffff' : '#1EBEA5')
-        .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : '#ffffff'),
+        .setMaterialIconMapper((e: Transaction) => e.chargeback || e.isError() ? 'error' : e.isDecline() || e.isSoftDecline() ? 'block' : 'done')
+        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() || e.isSoftDecline() ? '#ffffff' : '#1EBEA5')
+        .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : e.isSoftDecline() ? '#ED6922' : '#ffffff'),
       new ColumnParams('Order Alias', (e: Transaction) => e.rebill.alias || e.rebill.id).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('Session Alias', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
       new ColumnParams('Amount', (e: Transaction) => e.isRefund() ? '-' : e.amount.usd()),

@@ -136,10 +136,6 @@
 
     <div class="entity-view__card__content merchant-provider-view__details">
 
-      <mat-form-field class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.name">
-        <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_NAME' | translate}}" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
-      </mat-form-field>
-
       <dropdown-component
         [class.error]="formInvalid && !entity.gateway.isTypeSelected()"
         [disabled]="mode !== modes.Add"

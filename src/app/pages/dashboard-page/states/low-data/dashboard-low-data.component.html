@@ -48,8 +48,8 @@
                 <div *ngIf="transaction.response === 'success'" class="icon-holder icon-holder__success" [class.refund-icon]="transaction.transactionType === 'refund'">
                   <mat-icon class="success-icon" role="img" aria-hidden="true">done</mat-icon>
                 </div>
-                <div *ngIf="transaction.response === 'decline'" class="icon-holder icon-holder__decline">
-                  <mat-icon class="decline-icon" role="img" aria-hidden="true">block</mat-icon>
+                <div *ngIf="transaction.response === 'hard decline' || transaction.response === 'soft decline'" class="icon-holder icon-holder__decline">
+                  <mat-icon class="decline-icon" [class.decline-icon--soft]="transaction.response === 'soft decline'" role="img" aria-hidden="true">block</mat-icon>
                 </div>
                 <div *ngIf="transaction.response === 'error'" class="icon-holder icon-holder__error">
                   <mat-icon class="error-icon" role="img" aria-hidden="true">error</mat-icon>

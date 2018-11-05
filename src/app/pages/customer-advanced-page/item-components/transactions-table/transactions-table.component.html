@@ -10,8 +10,8 @@
   <div class="body">
     <div class="row" *ngFor="let transaction of transactions">
       <div>
-        <mat-icon class="error" *ngIf="transaction.chargeback || transaction.isError() || transaction.isDecline(); else successicon">
-          <mat-icon>{{transaction.isDecline() ? 'block' : 'error'}}</mat-icon>
+        <mat-icon class="error" [class.soft-decline]="transaction.isSoftDecline()" *ngIf="transaction.chargeback || transaction.isError() || transaction.isDecline() || transaction.isSoftDecline(); else successicon">
+          <mat-icon>{{transaction.isDecline() || transaction.isSoftDecline() ? 'block' : 'error'}}</mat-icon>
         </mat-icon>
         <ng-template #successicon>
           <mat-icon class="success">done</mat-icon>
