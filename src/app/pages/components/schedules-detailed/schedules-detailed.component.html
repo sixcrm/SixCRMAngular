@@ -1,5 +1,4 @@
 <schedule-detailed-header
-  [displayMode]="displayMode"
   [zoomLevel]="zoomLevel"
   [sideVisible]="sideVisible"
   [singleScheduleMode]="singleScheduleMode"
@@ -14,7 +13,6 @@
   (revert)="revert()"
   (sideVisibleChanged)="sideVisible = $event"
   (zoomChanged)="zoomLevel = $event"
-  (displayModeChanged)="changeDisplayMode($event)"
   (filterChanged)="filterProductSchedulesValue = $event">
 </schedule-detailed-header>
 

@@ -93,7 +93,7 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       }
     },
     processor:{
-      name:"NMA"
+      name:"${provider.gateway.getType()}"
     },
     gateway:{
       name:"${provider.gateway.getType()}",

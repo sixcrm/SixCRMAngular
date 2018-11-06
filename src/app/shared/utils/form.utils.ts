@@ -53,7 +53,7 @@ export function isValidEmail(email): boolean {
 export function isValidLink(link): boolean {
   if (!link) return false;
 
-  let regex = /^((https|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
+  let regex = /^((https|http):\/\/)?([a-z0-9]+\.)*[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
   return regex.test(link);
 }
 

@@ -42,7 +42,9 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
       new ColumnParams('Sale Amount', (e: OrderAnalytics) => e.amount.usd()).setSortName('amount'),
       new ColumnParams('Items', (e: OrderAnalytics) => e.items).setSortName('items'),
       new ColumnParams('Returns', (e: OrderAnalytics) => e.returns || '–').setSortName('returns'),
-      new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–').setSortName('refunds'),
+      new ColumnParams('Refunds', (e: OrderAnalytics) => e.refunds.amount ? e.refunds.usd() : '–')
+        .setSortName('refunds')
+        .setColorMapper((e: OrderAnalytics) => e.refunds.amount ? '#E35871' : 'black'),
       new ColumnParams('Total', (e: OrderAnalytics) => e.total.usd()).setSortName('total'),
       new ColumnParams('Order Alias', (e: OrderAnalytics) => e.alias || '–')
         .setSortName('alias')
@@ -61,9 +63,9 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
 
     this.tabs = [
       {label: 'All', selected: true, visible: true, count: Observable.of(0)},
-      {label: 'Shipped', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['shipped']}]},
-      {label: 'Closed', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['processed', 'delivered']}]},
-      {label: 'Error', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'status', values: ['error']}]}
+      {label: 'Shipped', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'orderStatus', values: ['shipped']}]},
+      {label: 'Closed', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'orderStatus', values: ['processed', 'delivered']}]},
+      {label: 'Error', selected: false, visible: true, count: Observable.of(0), filters: [{facet: 'orderStatus', values: ['error']}]}
     ];
 
     this.options = ['View'];
@@ -145,7 +147,8 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
           sortOrder: this.getSortColumn().sortOrder,
           tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
           filters: JSON.stringify(this.filters)
-        }
+        },
+        replaceUrl: true
       });
 
     this.fetchData();

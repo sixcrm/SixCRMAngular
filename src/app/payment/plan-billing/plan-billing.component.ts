@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
-import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-payment-form/advanced-payment-form.component';
+import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 
 @Component({
   selector: 'plan-billing',
@@ -9,13 +9,14 @@ import {AdvancedPaymentFormComponent} from '../../shared/components/advanced-pay
   styleUrls: ['plan-billing.component.scss']
 })
 export class PlanBillingComponent implements OnInit {
-  @ViewChild(AdvancedPaymentFormComponent) paymentForm: AdvancedPaymentFormComponent;
+  @ViewChild(PaymentFormComponent) paymentForm: PaymentFormComponent;
 
   @Input() plan: Plan;
-  @Input() creditCard: CreditCard = new CreditCard();
+  @Input() creditCard: CreditCard;
+  @Input() errorMessage: string;
 
-  @Output() creditCardSelected: EventEmitter<CreditCard> = new EventEmitter();
   @Output() changePlan: EventEmitter<boolean> = new EventEmitter();
+  @Output() submitCard: EventEmitter<CreditCard> = new EventEmitter();
 
   constructor() { }
 
@@ -26,7 +27,6 @@ export class PlanBillingComponent implements OnInit {
 
     if (!card) return;
 
-    this.creditCardSelected.emit(card.copy());
+    this.submitCard.emit(card);
   }
-
 }

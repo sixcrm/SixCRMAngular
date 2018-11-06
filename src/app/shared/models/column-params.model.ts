@@ -22,6 +22,7 @@ export class ColumnParams<T> {
   sortEnabled: boolean = true;
   code: boolean;
   color: string;
+  colorMapper: (any) => string = (el) => 'black';
   copy: boolean;
   number: boolean;
   translate: boolean;
@@ -48,6 +49,8 @@ export class ColumnParams<T> {
 
   link: (any) => string;
   queryParams: (any) => any = (el) => {};
+
+  maskLongData: boolean;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -165,6 +168,12 @@ export class ColumnParams<T> {
     return this;
   }
 
+  setColorMapper(value: (any) => string) {
+    this.colorMapper = value;
+
+    return this;
+  }
+
   setCopyOption(value: boolean) {
     this.copy = value;
 
@@ -239,6 +248,12 @@ export class ColumnParams<T> {
 
   setSortName(value: string) {
     this.sortName = value;
+
+    return this;
+  }
+
+  setMaskLongData(value: boolean) {
+    this.maskLongData = value;
 
     return this;
   }

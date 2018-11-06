@@ -45,22 +45,24 @@ describe('Transactions', function() {
 
   it('should render transactions index table headers', () => {
     expect(page.getTableHeaders().get(1).getText()).toContain('Date');
-    expect(page.getTableHeaders().get(2).getText()).toContain('Response');
+    expect(page.getTableHeaders().get(2).getText()).toContain('Status');
     expect(page.getTableHeaders().get(3).getText()).toContain('Type');
-    expect(page.getTableHeaders().get(4).getText()).toContain('Amount');
-    expect(page.getTableHeaders().get(5).getText()).toContain('Refund');
-    expect(page.getTableHeaders().get(6).getText()).toContain('MID');
-    expect(page.getTableHeaders().get(7).getText()).toContain('Transaction Alias');
-    expect(page.getTableHeaders().get(8).getText()).toContain('Order Alias');
-    expect(page.getTableHeaders().get(9).getText()).toContain('Customer');
-    expect(page.getTableHeaders().get(10).getText()).toContain('Session');
+    expect(page.getTableHeaders().get(4).getText()).toContain('Customer');
+    expect(page.getTableHeaders().get(5).getText()).toContain('Order Alias');
+    expect(page.getTableHeaders().get(6).getText()).toContain('Transaction Alias');
+    expect(page.getTableHeaders().get(7).getText()).toContain('MID');
+    expect(page.getTableHeaders().get(8).getText()).toContain('Amount');
+    expect(page.getTableHeaders().get(9).getText()).toContain('Refund');
+    expect(page.getTableHeaders().get(10).getText()).toContain('Processor Message');
   });
 
   it('should render transactions quick filters', () => {
     expect(page.getQuickFilters().get(0).getText()).toContain('All');
     expect(page.getQuickFilters().get(1).getText()).toContain('Refunds');
     expect(page.getQuickFilters().get(2).getText()).toContain('Errors');
-    expect(page.getQuickFilters().get(3).getText()).toContain('Declines');
+    expect(page.getQuickFilters().get(3).getText()).toContain('All Declines');
+    expect(page.getQuickFilters().get(4).getText()).toContain('Hard Declines');
+    expect(page.getQuickFilters().get(5).getText()).toContain('Soft Declines');
   });
 
   it('should have transactions in table', () => {
@@ -94,44 +96,9 @@ describe('Transactions', function() {
     expect(page.getQuickFilterCounter(0).getText()).toBeGreaterThan(0);
   });
 
-  it('should open MID and navigate back to transactions', () => {
-    page.getLink(0,6).click();
-    waitForUrlContains('/merchantproviders');
-    expectUrlToContain('/merchantproviders');
-
-    browser.sleep(1000);
-    page.getBackButton().click();
-    waitForUrlContains('/transactions');
-    expectUrlToContain('/transactions');
-  });
-
-  it('should open transaction and navigate back to transactions', () => {
-    browser.sleep(1000);
-    page.getLink(0,7).click();
-    waitForUrlContains('/customers/advanced?transaction=');
-    expectUrlToContain('/customers/advanced?transaction=');
-
-    browser.sleep(1000);
-    page.getBackButton().click();
-    waitForUrlContains('/transactions');
-    expectUrlToContain('/transactions');
-  });
-
-  it('should open orders and navigate back to transactions', () => {
-    browser.sleep(1000);
-    page.getLink(0,8).click();
-    waitForUrlContains('/customers/advanced?order=');
-    expectUrlToContain('/customers/advanced?order=');
-
-    browser.sleep(1000);
-    page.getBackButton().click();
-    waitForUrlContains('/transactions');
-    expectUrlToContain('/transactions');
-  });
-
   it('should open customer and navigate back to transactions', () => {
     browser.sleep(1000);
-    page.getLink(0,9).click();
+    page.getLink(0,4).click();
     waitForUrlContains('/customers/advanced?customer=');
     expectUrlToContain('/customers/advanced?customer=');
 
@@ -141,11 +108,35 @@ describe('Transactions', function() {
     expectUrlToContain('/transactions');
   });
 
-  it('should open session and navigate back to transactions', () => {
+  it('should open orders and navigate back to transactions', () => {
     browser.sleep(1000);
-    page.getLink(0,10).click();
-    waitForUrlContains('/customers/advanced?session=');
-    expectUrlToContain('/customers/advanced?session=');
+    page.getLink(0,5).click();
+    waitForUrlContains('/customers/advanced?order=');
+    expectUrlToContain('/customers/advanced?order=');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
+  it('should open transaction and navigate back to transactions', () => {
+    browser.sleep(1000);
+    page.getLink(0,6).click();
+    waitForUrlContains('/customers/advanced?transaction=');
+    expectUrlToContain('/customers/advanced?transaction=');
+
+    browser.sleep(1000);
+    page.getBackButton().click();
+    waitForUrlContains('/transactions');
+    expectUrlToContain('/transactions');
+  });
+
+  it('should open MID and navigate back to transactions', () => {
+    browser.sleep(1000);
+    page.getLink(0,7).click();
+    waitForUrlContains('/merchantproviders');
+    expectUrlToContain('/merchantproviders');
 
     browser.sleep(1000);
     page.getBackButton().click();

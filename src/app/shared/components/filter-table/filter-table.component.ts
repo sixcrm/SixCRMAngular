@@ -33,12 +33,22 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   @ViewChild('tabcontent') tabContent;
 
   _date: {start: Moment, end: Moment};
+  _items: any[] = [];
 
   @Input() set date(value: {start: Moment, end: Moment}) {
     this._date = value;
     this.updateDatepicker();
   }
-  @Input() items: any[] = [];
+  @Input() set items(items: any[]) {
+    this._items = items || [];
+    this.numberOfSelected = this.getNumberOfSelected();
+    this.bulkSelected = this.bulkSelected && this.numberOfSelected > 0;
+
+    if (this.bulkSelected) {
+      this._items = this._items.map(i => {i['bulkSelected'] = true; return i;});
+      this.numberOfSelected = this._items.length;
+    }
+  };
   @Input() columnParams: ColumnParams<any>[];
   @Input() tabs: FilterTableTab[] = [];
   @Input() loading: boolean;
@@ -170,15 +180,19 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   }
 
   toggleBulkSelection(event) {
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i]['bulkSelected'] = event && event.checked
+    for (let i = 0; i < this._items.length; i++) {
+      this._items[i]['bulkSelected'] = event && event.checked
     }
 
     if (event && event.checked) {
-      this.numberOfSelected = this.items.length;
+      this.numberOfSelected = this._items.length;
     } else {
       this.numberOfSelected = 0;
     }
+  }
+
+  getNumberOfSelected(): number {
+    return this._items.filter(i => i['bulkSelected']).length;
   }
 
   moveTabsRight() {

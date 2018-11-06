@@ -19,6 +19,8 @@ export class TransactionAnalytics {
   creditCard: string;
   customer: string;
   customerId: string;
+  merchantCode: string;
+  merchantMessage: string;
 
   obj: any;
 
@@ -33,7 +35,9 @@ export class TransactionAnalytics {
     this.date = utc(this.getValueOf('datetime'));
     this.transactionType = this.getValueOf('transaction_type');
     this.response = this.getValueOf('response') || '';
-    this.amount = new Currency(this.getValueOf('amount') || 0);
+    this.amount = this.transactionType === 'refund'
+      ? new Currency(this.getValueOf('associated_transaction_amount') || 0)
+      : new Currency(this.getValueOf('amount') || 0);
     this.refund = new Currency(this.getValueOf('refund') || 0);
     this.merchantProvider = this.getValueOf('merchant_provider_name') || '';
     this.merchantProviderId = this.getValueOf('merchant_provider') || '';
@@ -44,7 +48,9 @@ export class TransactionAnalytics {
     this.sessionId= this.getValueOf('session') || '';
     this.creditCard = this.getValueOf('creditcard') || '';
     this.customer = this.getValueOf('customer_name') || '';
-    this.customerId = this.getValueOf('customer')
+    this.customerId = this.getValueOf('customer');
+    this.merchantCode = this.getValueOf('merchant_code');
+    this.merchantMessage = this.getValueOf('merchant_message');
   }
 
   private getValueOf(key): any {

@@ -19,7 +19,14 @@
       </mat-menu>
     </div>
 
-    <advanced-payment-form [creditCard]="creditCard" [showSensitiveData]="true"></advanced-payment-form>
+    <div class="images">
+      <img src="/assets/cards/visa.svg">
+      <img src="/assets/cards/mastercard.svg">
+      <img src="/assets/cards/amex.svg">
+      <img src="/assets/cards/discover.svg">
+    </div>
+
+    <payment-form [creditCard]="creditCard" [showSensitiveData]="true"></payment-form>
   </div>
 
   <div class="rebill-details" *ngIf="rebill">

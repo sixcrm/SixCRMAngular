@@ -37,34 +37,35 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Response', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
+      new ColumnParams('Status', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
         .setSortName('response')
         .setCapitalize(true)
-        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
-        .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#FF9743' : '#1EBEA5' : '#ffffff')
-        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
+        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' || e.response === 'soft decline' || e.response === 'hard decline' ? 'block' : 'error')
+        .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#ED6922' : '#1EBEA5' : '#ffffff')
+        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : e.response === 'soft decline' ? '#ED6922' : '#DC2547'),
       new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType : '–').setSortName('type').setCapitalize(true),
-      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '–').setSortName('amount'),
-      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–').setSortName('refund'),
-      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
-        .setSortName('merchant_provider_name')
-        .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
-      new ColumnParams('Transaction Alias', (e: TransactionAnalytics) => e.alias)
-        .setSortName('alias')
-        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
-      new ColumnParams('Order Alias', (e: TransactionAnalytics) => e.rebillAlias)
-        .setSortName('rebill_alias')
-        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: TransactionAnalytics) => { return { order: e.rebillId } }),
       new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer)
         .setSortName('customer_name')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: TransactionAnalytics) => { return { customer: e.customerId } }),
-      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias)
-        .setSortName('session_alias')
+      new ColumnParams('Order Alias', (e: TransactionAnalytics) => e.rebillAlias)
+        .setSortName('rebill_alias')
         .setLink((e: TransactionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: TransactionAnalytics) => { return { session: e.sessionId } }),
+        .setQueryParams((e: TransactionAnalytics) => { return { order: e.rebillId } }),
+      new ColumnParams('Transaction Alias', (e: TransactionAnalytics) => e.alias)
+        .setSortName('alias')
+        .setLink((e: TransactionAnalytics) => `/customers/advanced`)
+        .setQueryParams((e: TransactionAnalytics) => { return { transaction: e.id } }),
+      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider)
+        .setSortName('merchant_provider_name')
+        .setLink((e: TransactionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
+      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.amount ? e.amount.usd() : '').setSortName('amount'),
+      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '–')
+        .setColorMapper((e: TransactionAnalytics) => e.refund.amount ? '#E35871' : 'black')
+        .setSortName('refund'),
+      new ColumnParams('Processor Message', (e: TransactionAnalytics) => e.merchantMessage)
+        .setSortName('merchant_message')
+        .setMaskLongData(true)
     ];
 
     this.date = {start: utc().subtract(7,'d'), end: utc()};
@@ -73,7 +74,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       {label: 'All', selected: true, visible: true},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
-      {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
+      {label: 'All Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline', 'soft decline']}]},
+      {label: 'Hard Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline']}]},
+      {label: 'Soft Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['soft decline']}]}
     ];
 
     this.options = ['View'];
@@ -166,7 +169,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
           sortOrder: this.getSortColumn().sortOrder,
           tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
           filters: JSON.stringify(this.filters)
-        }
+        },
+        replaceUrl: true
       });
 
     this.fetchData();
@@ -228,7 +232,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.tabs[0].count = Observable.of(transactions.length);
       this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
       this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'soft decline' || t.response === 'hard decline').length);
+      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'hard decline').length);
+      this.tabs[5].count = Observable.of(transactions.filter(t=>t.response === 'soft decline').length);
     });
   }
 
