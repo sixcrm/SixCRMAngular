@@ -37,24 +37,23 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
     this.columnParams = [
       new ColumnParams('Date', (e: SubscriptionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Alias', (e: SubscriptionAnalytics) => e.alias).setSortName('alias')
-        .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: SubscriptionAnalytics) => { return { order: e.id } }),
       new ColumnParams('Status', (e: SubscriptionAnalytics) => e.status).setCapitalize(true).setSortName('status'),
-      new ColumnParams('Cycle', (e: SubscriptionAnalytics) => e.cycle + '').setSortName('cycle'),
-      new ColumnParams('Sale Amount', (e: SubscriptionAnalytics) => e.amount.usd()).setSortName('amount'),
       new ColumnParams('Customer', (e: SubscriptionAnalytics) => e.customerName).setSortName('customer_name')
         .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: SubscriptionAnalytics) => { return { customer: e.customerId } }),
-      new ColumnParams('Product Schedule', (e: SubscriptionAnalytics) => e.productScheduleName || '–').setSortName('product_schedule_name')
-        .setLink((e: SubscriptionAnalytics) => `/productschedules/${e.productScheduleId}`),
+      new ColumnParams('Cycle', (e: SubscriptionAnalytics) => e.cycle + '').setSortName('cycle'),
+      new ColumnParams('Interval', (e: SubscriptionAnalytics) => e.interval + '').setSortName('interval').setSelected(false),
+      new ColumnParams('Items', (e: SubscriptionAnalytics) => e.items + '').setSortName('items').setSelected(false),
       new ColumnParams('Campaign', (e: SubscriptionAnalytics) => e.campaignName).setSortName('campaign_name')
         .setLink((e: SubscriptionAnalytics) => `/campaigns/${e.campaignId}`),
-      new ColumnParams('Session', (e: SubscriptionAnalytics) => e.sessionAlias || '–').setSortName('session_alias')
+      new ColumnParams('Product Schedule', (e: SubscriptionAnalytics) => e.productScheduleName || '–').setSortName('product_schedule_name')
+        .setLink((e: SubscriptionAnalytics) => `/productschedules/${e.productScheduleId}`),
+      new ColumnParams('Merchant Provider', (e: SubscriptionAnalytics) => e.merchantProviderName || '–').setSortName('merchant_provider_name')
+        .setLink((e: SubscriptionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
+      new ColumnParams('Sale Amount', (e: SubscriptionAnalytics) => e.amount.usd()).setSortName('amount'),
+      new ColumnParams('Session Alias', (e: SubscriptionAnalytics) => e.sessionAlias || '–').setSortName('session_alias')
         .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: SubscriptionAnalytics) => { return { session: e.sessionId } }),
-      new ColumnParams('Merchant Provider', (e: SubscriptionAnalytics) => e.merchantProviderName || '–').setSortName('merchant_provider_name')
-        .setLink((e: SubscriptionAnalytics) => `/merchantproviders/${e.merchantProviderId}`)
     ];
 
     this.defaultDate = {start: utc(), end: utc().add(1,'M')};
@@ -62,7 +61,6 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Active', selected: false, visible: true, filters: [{facet: 'status', values: ['active']}]},
-      {label: 'Inactive', selected: false, visible: true, filters: [{facet: 'status', values: ['inactive']}]},
       {label: 'Canceled', selected: false, visible: true, filters: [{facet: 'status', values: ['canceled']}]}
     ];
 
@@ -171,8 +169,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
       this.tabs[0].count = Observable.of(subscriptions.length);
       this.tabs[1].count = Observable.of(subscriptions.filter(t=>t.status === 'active').length);
-      this.tabs[2].count = Observable.of(subscriptions.filter(t=>t.status === 'inactive').length);
-      this.tabs[3].count = Observable.of(subscriptions.filter(t=>t.status === 'canceled').length);
+      this.tabs[2].count = Observable.of(subscriptions.filter(t=>t.status === 'canceled').length);
     });
   }
 

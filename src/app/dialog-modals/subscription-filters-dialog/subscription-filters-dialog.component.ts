@@ -17,7 +17,6 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
   allStatus: boolean = true;
   activeStatus: boolean;
   cancelledStatus: boolean;
-  inactiveStatus: boolean;
 
   selectedCampaigns: Campaign[] = [new Campaign()];
 
@@ -27,12 +26,13 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
     super(dialogRef);
 
     this.filterColumns = [
-      { name: 'cycle', label: 'Cycle' },
-      { name: 'saleAmount', label: 'Sale Amount' },
       { name: 'customerName', label: 'Customer' },
+      { name: 'cycle', label: 'Cycle' },
+      { name: 'interval', label: 'Interval' },
       { name: 'productScheduleName', label: 'Product Schedule' },
-      { name: 'sessionAlias', label: 'Session Alias' },
-      { name: 'merchantProviderName', label: 'Merchant Provider' }
+      { name: 'merchantProviderName', label: 'Merchant Provider' },
+      { name: 'saleAmount', label: 'Sale Amount' },
+      { name: 'sessionAlias', label: 'Session Alias' }
     ];
   }
 
@@ -78,10 +78,6 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
             this.cancelledStatus = true;
             break;
           }
-          case 'inactive': {
-            this.inactiveStatus = true;
-            break;
-          }
         }
 
       })
@@ -123,9 +119,6 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
       if (this.activeStatus) {
         statusFacet.values.push('active');
       }
-      if (this.inactiveStatus) {
-        statusFacet.values.push('inactive');
-      }
 
       if (this.cancelledStatus) {
         statusFacet.values.push('canceled');
@@ -143,7 +136,6 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
   allStatusSelected(event) {
     if (event.checked) {
       this.activeStatus = false;
-      this.inactiveStatus = false;
       this.cancelledStatus = false;
     }
   }
