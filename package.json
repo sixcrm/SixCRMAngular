@@ -6,7 +6,7 @@
     "lint": "tslint \"src/**/*.ts\"",
     "test": "karma start ./karma.conf.js",
     "start": "node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng serve",
-    "build.local": "node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng build",
+    "start.local": "node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng serve --configuration=local",
     "build.dev": "node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng build --configuration=development",
     "build.stage": "node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng build --configuration=staging",
     "build.prod": "node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng build --configuration=production",

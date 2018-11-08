@@ -7,8 +7,8 @@
     <mat-icon matTooltip="{{'CAMPAIGN_TRACKING_COPY' | translate}}" ngxClipboard [cbContent]="scriptContent">content_copy</mat-icon>
   </div>
 
-  <div class="entity-view__card__content">
-    <codemirror #codemirror class="pixel-codemirror" *ngIf="showScript" [(ngModel)]="scriptContent" [config]="config"></codemirror>
+  <div *ngIf="showScript" class="entity-view__card__content">
+    <codemirror #codemirror class="pixel-codemirror" [(ngModel)]="scriptContent" [config]="config"></codemirror>
   </div>
 
 </div>

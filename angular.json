@@ -33,6 +33,14 @@
             "scripts": []
           },
           "configurations": {
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
             "development": {
               "fileReplacements": [
                 {
@@ -92,8 +100,8 @@
             "browserTarget": "SixCRMAngular:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "SixCRMAngular:build:production"
+            "local": {
+              "browserTarget": "SixCRMAngular:build:local"
             }
           }
         },
