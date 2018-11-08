@@ -1,7 +1,8 @@
 <blue-header [items]="breadcrumbs" [titleValue]="account ? account.name : null"></blue-header>
 
 <div>
-  <account-management-billing-transactions-chart [lastBill]="lastBill"></account-management-billing-transactions-chart>
+  <account-management-billing-transactions-chart [lastBill]="lastBill" [nextBill]="nextBill" >
+  </account-management-billing-transactions-chart>
 </div>
 
 <div *ngIf="session" class="options">
@@ -37,30 +38,34 @@
         <th>Status</th>
         <th>Date</th>
         <th>Card</th>
-        <th>Card Brand</th>
         <th>Plan</th>
-        <th>Plan Minimum</th>
-        <th>Amount Billed</th>
+        <th class="number-cell">Plan Minimum</th>
+        <th class="number-cell">Amount Billed</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let rebill of session.rebills">
-        <td class="status">
-          <mat-icon class="status-icon success-icon" *ngIf="isStatusSuccess(rebill); else erroricon">done</mat-icon>
-          <ng-template #erroricon>
-            <mat-icon class="status-icon erorr-icon">error_outline</mat-icon>
-          </ng-template>
-
-          <span>{{getStatus(rebill)}}</span>
-        </td>
-        <td>{{rebill.billAt | formatDateTime: 'MMMM Do, YYYY'}}</td>
-        <td>**** {{getCard(rebill).lastFour}}</td>
-        <td>{{getCard(rebill).type}}</td>
-        <td>{{rebill.productSchedules[0].name}}</td>
-        <td>{{getPlanPrice(rebill).usd()}}</td>
-        <td>{{rebill.amount.usd()}}</td>
-      </tr>
+      <ng-container *ngFor="let rebill of session.rebills">
+        <tr [class.unpaid-rebill]="!isPaid(rebill)">
+          <td class="status">
+            <mat-icon class="status-icon success-icon" *ngIf="isPaid(rebill); else erroricon">done</mat-icon>
+            <ng-template #erroricon>
+              <mat-icon class="status-icon error-icon">error_outline</mat-icon>
+            </ng-template>
+          </td>
+          <td>{{rebill.billAt | formatDateTime: 'MMMM Do, YYYY'}}</td>
+          <td>{{getCardNumber(rebill)}}</td>
+          <td>{{rebill.productSchedules[0].name}}</td>
+          <td class="number-cell">{{getPlanPrice(rebill).usd()}}</td>
+          <td class="number-cell">{{rebill.amount.usd()}}</td>
+          <!--<td class="number-cell button-cell">-->
+            <!--<ng-container *ngIf="isPaid(rebill); else paybutton">{{rebill.amount.usd()}}</ng-container>-->
+            <!--<ng-template #paybutton>-->
+              <!--<button class="paybutton" mat-button (click)="payRebill(rebill)">PAY {{rebill.amount.usd()}}</button>-->
+            <!--</ng-template>-->
+          <!--</td>-->
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>

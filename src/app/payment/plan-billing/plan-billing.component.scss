@@ -7,97 +7,31 @@
   background: #fafafa;
   border-radius: 4px;
 
+  .error-message {
+    display: flex;
+    align-items: center;
+    border-radius: 4px 4px 0 0;
+    padding: 20px;
+    color: #ffffff;
+    background-color: $danger-color;
+
+    mat-icon {
+      margin-left: auto;
+      background: #C2213E;
+      padding: 8px;
+      border-radius: 50%;
+      opacity: 0.7;
+      height: 36px;
+      width: 36px;
+      font-size: 36px;
+    }
+  }
+
   .title {
     padding: 22px;
     color: #333333;
     font-size: 20px;
     font-weight: 500;
-  }
-
-  .content {
-    display: flex;
-    padding: 6px;
-    font-size: 16px;
-
-    .column {
-      padding: 16px;
-      width: 50%;
-
-      .subtitle {
-        color: rgba(0,0,0,0.87);
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 12px;
-      }
-
-      .row {
-        display: flex;
-
-        mat-form-field:first-of-type {
-          margin-right: 15px;
-        }
-      }
-
-      mat-form-field {
-        width: 100%;
-      }
-
-      .card-form-field {
-        width: 75%;
-      }
-
-      .input-with-codes {
-        display: flex;
-        align-items: center;
-
-        mat-form-field {
-          width: 50%;
-        }
-
-        img {
-          margin-left: auto;
-        }
-      }
-
-      .dates {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 14.5px;
-        margin-bottom: 30px;
-
-        .error {
-          mat-icon {
-            margin-left: auto;
-            color: $danger-color;
-          }
-
-          div {
-            color: $danger-color;
-          }
-        }
-
-        .element {
-          width: calc(50% - 10px);
-          display: flex;
-          align-items: center;
-          color: rgba(0, 0, 0, 0.54);
-          border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-          cursor: pointer;
-
-          mat-icon {
-            margin-left: auto;
-          }
-        }
-
-        .error {
-          border-color: $danger-color !important;
-        }
-
-        .selected {
-          color: rgba(0, 0, 0, 0.87);
-        }
-      }
-    }
   }
 
   .buttons {

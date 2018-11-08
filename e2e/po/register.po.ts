@@ -55,7 +55,7 @@ export class RegisterPage {
   }
 
   getInputs() {
-    return element(by.css('.content')).all(by.css('input'));
+    return element(by.css('.advanced-payment-body')).all(by.css('input'));
   }
 
   getBillingNextButton() {
@@ -63,15 +63,15 @@ export class RegisterPage {
   }
 
   getConfirmationScreen() {
-    return element(by.css('plan-payment'));
+    return element(by.css('plan-confirmation'));
   }
 
-  getConfirmCardDetails() {
-    return element(by.css('.card')).all(by.css('.column')).first().all(by.css('div'));
+  getCardConfirmName() {
+    return element(by.css('.card-info__details')).all(by.css('div')).first();
   }
 
   getConfirmAddressDetails() {
-    return element(by.css('.card')).all(by.css('.column')).last().all(by.css('div'));
+    return element(by.css('.billing-info')).all(by.css('div'));
   }
 
   getCompleteButton() {
@@ -79,7 +79,7 @@ export class RegisterPage {
   }
 
   getErrorMessage() {
-    return this.getConfirmationScreen().element(by.css('.error-message'));
+    return element(by.css('.error-message'));
   }
 
   getLogoutButton() {

@@ -43,9 +43,6 @@ describe('Search', function() {
   it ('should navigate to search page when search via topnav', () => {
     browser.get('/dashboard');
 
-    // topnav.getSearchButton().click();
-    // browser.sleep(300);
-
     waitForPresenceOf(topnav.getSearchInput());
     topnav.getSearchInput().sendKeys('test');
     topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
@@ -54,21 +51,33 @@ describe('Search', function() {
     expectUrlToContain('/search?query=test');
   });
 
-  it('should show progress bar and filter values when performing advanced search', () => {
-    browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
+  it ('should not throw error when entering \u005C backslash in search', () => {
+    browser.get('/dashboard');
 
-    waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
+    waitForPresenceOf(topnav.getSearchInput());
+    topnav.getSearchInput().sendKeys('\u005C');
+    topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
 
-    browser.sleep(600);
-
-    expect(searchPage.getFilterValues().count()).toEqual(4);
-    expect(searchPage.getFilterValues().get(0).getText()).toEqual('first');
-    expect(searchPage.getFilterValues().get(1).getText()).toEqual('last');
-    expect(searchPage.getFilterValues().get(2).getText()).toEqual('portland');
-    expect(searchPage.getFilterValues().get(3).getText()).toEqual('1234');
+    waitForUrlContains('/search?query=%5C');
+    expectUrlToContain('/search?query=%5C');
   });
 
-  it('should hide progress bar when advanced search is performed', () => {
+  it('should show filter values when performing search', () => {
+    browser.get('/dashboard');
+
+    waitForPresenceOf(topnav.getSearchInput());
+    topnav.getSearchInput().sendKeys('e2e');
+    topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
+
+    browser.sleep(2500);
+
+    expect(searchPage.getFilterValues().count()).toEqual(3);
+    expect(searchPage.getFilterValues().get(0).getText()).toEqual('Campaign');
+    expect(searchPage.getFilterValues().get(1).getText()).toEqual('Product');
+    expect(searchPage.getFilterValues().get(2).getText()).toEqual('Product Schedule');
+  });
+
+  xit('should hide progress bar when advanced search is performed', () => {
     browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
@@ -88,7 +97,7 @@ describe('Search', function() {
     expectPresent(searchPage.getPerfectMatch());
   });
 
-  it('should perform search and display progress bar when filter value is toggled', () => {
+  xit('should perform search and display progress bar when filter value is toggled', () => {
     browser.get('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
@@ -100,7 +109,7 @@ describe('Search', function() {
     expectNotPresent(searchPage.getPerfectMatch());
   });
 
-  it('should perform search and display progress bar when category is toggled', () => {
+  xit('should perform search and display progress bar when category is toggled', () => {
     browser.get('/search?advanced=true&firstname=r');
 
     waitForUrlContains('/search?advanced=true&firstname=r');
@@ -112,7 +121,7 @@ describe('Search', function() {
     expectPresent(searchPage.getSpinner());
   });
 
-  it('should perform search and show search results when search by query "test"', () => {
+  xit('should perform search and show search results when search by query "test"', () => {
     browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=test');
@@ -123,7 +132,7 @@ describe('Search', function() {
     expect(searchPage.getCheckboxes().count()).toBeGreaterThan(0);
   });
 
-  it('should toggle between table and grid', () => {
+  xit('should toggle between table and grid', () => {
     browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=test');
@@ -142,7 +151,7 @@ describe('Search', function() {
     expect(searchPage.getResults().count()).toBeGreaterThan(0);
   });
 
-  it('should clear results list when search is empty string', () => {
+  xit('should clear results list when search is empty string', () => {
     browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=test');
@@ -155,7 +164,7 @@ describe('Search', function() {
     expect(searchPage.getResults().count()).toBe(0);
   });
 
-  it('should show suggestions when search', () => {
+  xit('should show suggestions when search', () => {
     browser.get('/search');
     waitForUrlContains('/search');
 

@@ -17,10 +17,10 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
   reverseStatus: boolean;
 
   allResponse: boolean = true;
-  declineResponse: boolean;
+  hardDeclineResponse: boolean;
+  softDeclineResponse: boolean;
   errorResponse: boolean;
   successResponse: boolean;
-  failResponse: boolean;
 
   constructor(dialogRef: MatDialogRef<TransactionFiltersDialogComponent>) {
     super(dialogRef);
@@ -31,7 +31,8 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
       { name: 'rebillAlias', label: 'Order Alias' },
       { name: 'sessionAlias', label: 'Session Alias' },
       { name: 'merchantProviderName', label: 'MID Name' },
-      { name: 'alias', label: 'Transaction Alias' }
+      { name: 'alias', label: 'Transaction Alias' },
+      { name: 'merchantMessage', label: 'Processor Message' }
     ];
   }
 
@@ -83,16 +84,16 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
       filter.values.forEach(v => {
         switch (v) {
-          case 'decline': {
-            this.declineResponse = true;
+          case 'hard decline': {
+            this.hardDeclineResponse = true;
+            break;
+          }
+          case 'soft decline': {
+            this.softDeclineResponse = true;
             break;
           }
           case 'error': {
             this.errorResponse = true;
-            break;
-          }
-          case 'fail': {
-            this.failResponse = true;
             break;
           }
           case 'success': {
@@ -124,17 +125,17 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
       const responseFacet = {facet: 'response', values: []};
 
-      if (this.declineResponse) {
-        responseFacet.values.push('decline');
+      if (this.hardDeclineResponse) {
+        responseFacet.values.push('hard decline');
+      }
+      if (this.softDeclineResponse) {
+        responseFacet.values.push('soft decline');
       }
       if (this.errorResponse) {
         responseFacet.values.push('error');
       }
       if (this.successResponse) {
         responseFacet.values.push('success');
-      }
-      if (this.failResponse) {
-        responseFacet.values.push('fail');
       }
 
       if (responseFacet.values.length > 0) {
@@ -185,9 +186,9 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
   allResponseSelected(event) {
     if (event.checked) {
-      this.declineResponse = false;
+      this.hardDeclineResponse = false;
+      this.softDeclineResponse = false;
       this.errorResponse = false;
-      this.failResponse = false;
       this.successResponse = false;
     }
   }

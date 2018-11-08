@@ -45,18 +45,18 @@
             <tbody>
             <tr [routerLink]="['/customers', 'advanced']" [queryParams]="{transaction: transaction.id}" *ngFor="let transaction of transactions">
               <td>
-                <div *ngIf="transaction.response === 'success'" class="icon-holder icon-holder__success">
+                <div *ngIf="transaction.response === 'success'" class="icon-holder icon-holder__success" [class.refund-icon]="transaction.transactionType === 'refund'">
                   <mat-icon class="success-icon" role="img" aria-hidden="true">done</mat-icon>
                 </div>
-                <div *ngIf="transaction.response === 'decline'" class="icon-holder icon-holder__decline">
-                  <mat-icon class="decline-icon" role="img" aria-hidden="true">block</mat-icon>
+                <div *ngIf="transaction.response === 'hard decline' || transaction.response === 'soft decline'" class="icon-holder icon-holder__decline">
+                  <mat-icon class="decline-icon" [class.decline-icon--soft]="transaction.response === 'soft decline'" role="img" aria-hidden="true">block</mat-icon>
                 </div>
                 <div *ngIf="transaction.response === 'error'" class="icon-holder icon-holder__error">
                   <mat-icon class="error-icon" role="img" aria-hidden="true">error</mat-icon>
                 </div>
-                <div class="success response">{{transaction.response}}</div>
+                <div class="success response">{{transaction.response === 'success' ? (transaction.transactionType === 'refund' ? 'Refunded' : transaction.transactionType) : transaction.transactionType}}</div>
               </td>
-              <td>{{transaction.amount.usd()}}</td>
+              <td>{{transaction.transactionType === 'refund' ? transaction.refund.usd() : transaction.amount.usd()}}</td>
               <td>{{transaction.date | formatDateTime: 'date-time'}}</td>
               <td>{{transaction.merchantProvider}}</td>
             </tr>

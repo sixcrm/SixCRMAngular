@@ -78,8 +78,8 @@ describe('Register', function() {
   it ('should enter CC info', () => {
     browser.sleep(2000);
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
-    registerPage.getInputs().get(1).sendKeys('Card Name');
-    registerPage.getInputs().get(2).sendKeys(123);
+    registerPage.getInputs().get(1).sendKeys(123);
+    registerPage.getInputs().get(2).sendKeys('Card Name');
     registerPage.getPaymentEntryCardDate().first().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(6).click();
@@ -90,26 +90,22 @@ describe('Register', function() {
     registerPage.getInputs().get(3).sendKeys('1 test');
     registerPage.getInputs().get(4).sendKeys('test line');
     registerPage.getInputs().get(5).sendKeys('New York');
-    registerPage.getInputs().get(6).sendKeys('21000');
-    registerPage.getInputs().get(7).sendKeys('Oregon');
+    registerPage.getInputs().get(6).sendKeys('Oregon');
+    registerPage.getInputs().get(7).sendKeys('21000');
     registerPage.getInputs().get(8).sendKeys('United States');
   });
 
   it('should continue to confirmation screen', () => {
     registerPage.getBillingNextButton().click();
 
+    expectPresent(registerPage.getConfirmationScreen());
+
     expect(registerPage.getCompleteButton().getText()).toContain('$150');
-    expect(registerPage.getConfirmCardDetails().get(0).getText()).toContain('4242');
-    expect(registerPage.getConfirmCardDetails().get(1).getText()).toContain('Card Name');
-    expect(registerPage.getConfirmCardDetails().get(2).getText()).toContain('07/2022');
+    expect(registerPage.getCardConfirmName().getText()).toContain('Card Name');
 
-    expect(registerPage.getConfirmAddressDetails().get(0).getText()).toContain('1 test');
-    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('test line');
-    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('Oregon');
-    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('21000');
+    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('1 test');
+    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('New York, Oregon 21000');
     expect(registerPage.getConfirmAddressDetails().get(3).getText()).toContain('United States');
-
-    expectPresent(registerPage.getConfirmationScreen())
   });
 
   it('should successfully finish registration', () => {
@@ -118,6 +114,6 @@ describe('Register', function() {
     registerPage.getCompleteButton().click();
     waitForUrlContains('/dashboard?w=true', 20000);
     expectUrlToContain('/dashboard?w=true');
-  })
+  });
 
 });

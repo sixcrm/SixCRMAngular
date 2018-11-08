@@ -21,6 +21,7 @@ export class Transaction implements Entity<Transaction>{
   chargeback: boolean;
   type: string;
   result: string;
+  resultParsed: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -47,14 +48,29 @@ export class Transaction implements Entity<Transaction>{
     this.products = [];
     this.type = obj.type || 'sale';
     this.result = obj.result || 'result';
+    this.resultParsed = this.parseResult(this.result);
 
     if (obj.products) {
       this.products = obj.products.map(p => new Products(p));
     }
   }
 
+  parseResult(result: string) {
+    switch (result) {
+      case 'harddecline': return 'Hard Decline';
+      case 'decline': return 'Soft Decline';
+      case 'success': return 'Success';
+      case 'error': return 'Error';
+      default: return result;
+    }
+  }
+
   isDecline() {
-    return this.result === 'decline'
+    return this.result === 'harddecline';
+  }
+
+  isSoftDecline() {
+    return this.result === 'decline';
   }
 
   isSuccess() {
@@ -70,7 +86,9 @@ export class Transaction implements Entity<Transaction>{
 
     if (this.isError()) return 'Error';
 
-    if (this.isDecline()) return 'Decline';
+    if (this.isDecline()) return 'Hard Decline';
+
+    if (this.isSoftDecline()) return 'Soft Decline';
 
     if (this.type === 'refund') return 'Refund';
 

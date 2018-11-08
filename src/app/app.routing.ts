@@ -52,6 +52,4 @@ const appRoutes: Routes = [
 
 ];
 
-
-
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

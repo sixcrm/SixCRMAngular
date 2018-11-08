@@ -4,7 +4,6 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {OptionItem} from '../../components/table-memory-advanced/table-memory-advanced.component';
-import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
 import {MatDialog} from '@angular/material';
 import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
 
@@ -40,16 +39,16 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
     this.columnParams = [
       new ColumnParams('Date', (e: Transaction) => e.createdAt.tz(f).format('MM/DD/YY h:mm A')),
       new ColumnParams('Status', (e: Transaction) => e.getStatus())
-        .setMaterialIconMapper((e: Transaction) => e.chargeback || e.isError() ? 'error' : e.isDecline() ? 'block' : 'done')
-        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#ffffff' : '#1EBEA5')
-        .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : '#ffffff'),
-      new ColumnParams('Order', (e: Transaction) => e.rebill.alias || e.rebill.id).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Session', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
+        .setMaterialIconMapper((e: Transaction) => e.chargeback || e.isError() ? 'error' : e.isDecline() || e.isSoftDecline() ? 'block' : 'done')
+        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() || e.isSoftDecline() ? '#ffffff' : '#1EBEA5')
+        .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : e.isSoftDecline() ? '#ED6922' : '#ffffff'),
+      new ColumnParams('Order Alias', (e: Transaction) => e.rebill.alias || e.rebill.id).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Session Alias', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
       new ColumnParams('Amount', (e: Transaction) => e.isRefund() ? '-' : e.amount.usd()),
       new ColumnParams('Refund', (e: Transaction) => e.isRefund() ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('Chargeback', (e: Transaction) => e.chargeback ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('MID', (e: Transaction) => e.merchantProvider.name).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Alias', (e: Transaction) => e.alias).setSeparator(true).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Transaction Alias', (e: Transaction) => e.alias).setSeparator(true).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('Message', (e: Transaction) => e.processorResponse.message)
     ]
   }
@@ -63,15 +62,15 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         this.router.navigate(['/merchantproviders', option.item.merchantProvider.id]);
         break
       }
-      case ('Alias'): {
+      case ('Transaction Alias'): {
         this.router.navigate(['/customers', 'advanced'], { queryParams: { transaction: option.item.id } });
         break
       }
-      case ('Session'): {
+      case ('Session Alias'): {
         this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.rebill.parentSession.id }, fragment: 'watermark' });
         break
       }
-      case ('Order'): {
+      case ('Order Alias'): {
         this.orderSelected.emit(option.item.rebill.id);
         break
       }

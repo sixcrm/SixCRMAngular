@@ -1,5 +1,4 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {DisplayModes} from '../schedules-detailed.component';
 
 @Component({
   selector: 'schedule-detailed-header',
@@ -8,7 +7,6 @@ import {DisplayModes} from '../schedules-detailed.component';
 })
 export class ScheduleDetailedHeaderComponent implements OnInit {
 
-  @Input() displayMode: DisplayModes;
   @Input() zoomLevel: number;
   @Input() sideVisible: boolean;
   @Input() singleScheduleMode: boolean;
@@ -20,14 +18,11 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
 
   @Output() zoomChanged: EventEmitter<number> = new EventEmitter();
   @Output() filterChanged: EventEmitter<string> = new EventEmitter();
-  @Output() displayModeChanged: EventEmitter<DisplayModes> = new EventEmitter();
   @Output() sideVisibleChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() infoEnabledChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() undo: EventEmitter<boolean> = new EventEmitter();
   @Output() redo: EventEmitter<boolean> = new EventEmitter();
   @Output() revert: EventEmitter<boolean> = new EventEmitter();
-
-  modes = DisplayModes;
 
   constructor() { }
 

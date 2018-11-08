@@ -12,7 +12,7 @@
     </div>
     <button *ngIf="authService.getActiveAcl().role.isOwnerOrAdministrator()"
             mat-button
-            [routerLink]="['/payment']">
+            [routerLink]="['/accountmanagement/billing']">
       MAKE PAYMENT
     </button>
 

@@ -33,7 +33,11 @@
       box-sizing:  border-box;
 
       &--error {
-        background: $danger-color;
+        background: #DC2547;
+
+        .minimum, .date, .amount {
+          color: #ffffff;
+        }
       }
 
       .date {

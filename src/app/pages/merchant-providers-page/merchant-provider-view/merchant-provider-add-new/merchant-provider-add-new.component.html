@@ -19,19 +19,19 @@
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <mat-icon>power_settings_new</mat-icon>
         <span>{{'MERCHANTPROVIDER_INFO_SETTINGS_ENABLED' | translate}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" name="enabled" [(ngModel)]="entity.enabled"></mat-checkbox>
+        <mat-checkbox class="flex-align--right checkbox-blue" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" name="enabled" [(ngModel)]="entity.enabled"></mat-checkbox>
       </div>
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <mat-icon>credit_card</mat-icon>
         <span>{{'MERCHANTPROVIDER_INFO_SETTINGS_ALLOWPREPAID' | translate}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
+        <mat-checkbox class="flex-align--right checkbox-blue" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
       </div>
 
-      <div class="merchant-provider-view__details__subtitle" [class.error]="!entity.acceptedPaymentMethods.length">{{'MERCHANTPROVIDER_INFO_SETTINGS_ACCEPTED' | translate}}</div>
+      <div class="merchant-provider-view__details__subtitle" [class.error-subtitle]="formInvalid && !entity.acceptedPaymentMethods.length">{{'MERCHANTPROVIDER_INFO_SETTINGS_ACCEPTED' | translate}}</div>
 
       <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <span>{{card}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" [checked]="entity.containsPaymentMethod(card) || (mode === modes.Add)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
+        <mat-checkbox class="flex-align--right checkbox-blue" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" [checked]="entity.containsPaymentMethod(card) || (mode === modes.Add)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
       </div>
 
     </div>
@@ -135,10 +135,6 @@
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
-
-      <mat-form-field class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.name">
-        <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_NAME' | translate}}" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
-      </mat-form-field>
 
       <dropdown-component
         [class.error]="formInvalid && !entity.gateway.isTypeSelected()"

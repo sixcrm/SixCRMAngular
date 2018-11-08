@@ -25,6 +25,7 @@ import {OrderAnalytics} from '../models/analytics/order-analytics.model';
 import {SubscriptionAnalytics} from '../models/analytics/subscription-analytics.model';
 import {AffiliateAnalytics} from '../models/analytics/affiliate-analytics.model';
 import {MerchantAnalytics} from '../models/analytics/merchant-analytics.model';
+import {CustomerAnalytics} from '../models/analytics/customer-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -352,6 +353,30 @@ export class AnalyticsService {
         if (!entities) return null;
 
         return entities.map(entity => new SubscriptionAnalytics(entity));
+      })
+  }
+
+  getCustomers(params: {
+    reportName?: string,
+    start: string,
+    end: string,
+    limit?: number,
+    offset?: number,
+    orderBy?: string,
+    sort?: string,
+    facets?: {facet: string, values: string[]}[]
+  }): Observable<CustomerAnalytics[] | CustomServerError> {
+    params.reportName = 'customerDetail';
+
+    return this.queryRequest(analyticsDetailQuery(params))
+      .map(data => {
+        if (data instanceof CustomServerError) return data;
+
+        const entities = extractData(data).analytics.records;
+
+        if (!entities) return null;
+
+        return entities.map(entity => new CustomerAnalytics(entity));
       })
   }
 

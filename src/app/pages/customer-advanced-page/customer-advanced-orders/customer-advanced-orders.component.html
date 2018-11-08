@@ -10,7 +10,7 @@
             <div class="heading">
               <div class="mrw-bi-input">
                 <mat-form-field [floatLabel]="'never'">
-                  <input matInput type="text" placeholder="Filter Orders">
+                  <input matInput type="text" placeholder="Filter Orders" [(ngModel)]="filterString">
                 </mat-form-field>
               </div>
 
@@ -23,7 +23,7 @@
             </div>
 
             <div class="card-body">
-              <ng-container *ngFor="let order of orders">
+              <ng-container *ngFor="let order of orders | filterSimple : filterMapper : filterString">
                 <order-item [order]="order"
                             (refund)="openRefundDialog($event)"
                             (ret)="openReturnDialog($event)"

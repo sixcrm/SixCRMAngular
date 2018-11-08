@@ -1,4 +1,4 @@
-import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage, clearAuth0SSO} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';

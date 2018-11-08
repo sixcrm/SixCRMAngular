@@ -1,93 +1,11 @@
 <div class="container">
 
-  <div class="title">Billing Information</div>
-
-  <div class="content">
-    <div class="column">
-      <div class="subtitle">Card Information</div>
-
-      <mat-form-field class="card-form-field" [class.error]="formInvalid && isCcNumberInvalid()">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
-      </mat-form-field>
-
-      <mat-form-field [class.error]="formInvalid && (!creditCard.name || creditCard.name.length < 2)">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NAME' | translate}}" [(ngModel)]="creditCard.name" >
-      </mat-form-field>
-
-      <div class="input-with-codes">
-        <mat-form-field class="code" [class.error]="formInvalid && isCvvInvalid()">
-          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.cvv" (keydown)="isAllowedNumericKey($event) && isShorterThan(5, creditCard.cvv, $event)">
-        </mat-form-field>
-        <img class="code__image" src="/assets/images/security_code.png">
-      </div>
-
-      <div class="dates">
-        <div class="element"
-             [matMenuTriggerFor]="monthMenu"
-             [class.error]="formInvalid && !creditCard.expirationMonth"
-             [class.selected]="creditCard.expirationMonth">
-          <div>{{(creditCard.expirationMonth || 'PAYMENT_FORM_MONTH') | translate}}</div>
-          <mat-icon>keyboard_arrow_down</mat-icon>
-          <mat-menu #monthMenu="matMenu">
-            <button mat-menu-item *ngFor="let month of months" (click)="setMonth(month)">{{month}}</button>
-          </mat-menu>
-        </div>
-
-        <div class="element"
-             [matMenuTriggerFor]="yearMenu"
-             [class.error]="formInvalid && !creditCard.expirationYear"
-             [class.selected]="creditCard.expirationYear">
-          <div>{{(creditCard.expirationYear || 'PAYMENT_FORM_YEAR') | translate}}</div>
-          <mat-icon>keyboard_arrow_down</mat-icon>
-          <mat-menu #yearMenu="matMenu">
-            <button mat-menu-item *ngFor="let year of years" (click)="setYear(year)">{{year}}</button>
-          </mat-menu>
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="subtitle">Billing Address</div>
-
-      <mat-form-field [class.error]="formInvalid && (!creditCard.address.line1 || !isAddressValid(creditCard.address.line1))">
-        <input type="text" matInput placeholder="Address" [(ngModel)]="creditCard.address.line1">
-      </mat-form-field>
-
-      <mat-form-field>
-        <input type="text" matInput placeholder="Address 2" [(ngModel)]="creditCard.address.line2">
-      </mat-form-field>
-
-      <mat-form-field [class.error]="formInvalid && !isCityValid(creditCard.address.city)">
-        <input type="text" matInput placeholder="City" [(ngModel)]="creditCard.address.city">
-      </mat-form-field>
-
-      <div class="row">
-
-        <mat-form-field [class.error]="formInvalid && !isZipValid(creditCard.address.zip)">
-          <input type="text" (keydown)="isAllowedZipKey($event)" matInput [(ngModel)]="creditCard.address.zip" placeholder="Zip" name="zip">
-        </mat-form-field>
-
-        <mat-form-field [class.error]="formInvalid && !isStateValid(creditCard.address.state)">
-          <input type="text" matInput [(ngModel)]="creditCard.address.state" placeholder="State" name="state" [matAutocomplete]="statesAutocomplete">
-          <mat-autocomplete #statesAutocomplete="matAutocomplete">
-            <mat-option *ngFor="let state of states | filterStrings: creditCard.address.state: plainMapper" [value]="state">
-              <div>{{state}}</div>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-
-      </div>
-
-      <mat-form-field [class.error]="formInvalid && !isCountryValid(creditCard.address.country)">
-        <input type="text" matInput [(ngModel)]="creditCard.address.country" placeholder="Country" name="country" [matAutocomplete]="countriesAutocomplete">
-        <mat-autocomplete #countriesAutocomplete="matAutocomplete">
-          <mat-option *ngFor="let country of countries | filterStrings: creditCard.address.country: plainMapper" [value]="country">
-            <div>{{country}}</div>
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
+  <div *ngIf="errorMessage" class="error-message">
+    <div>{{errorMessage}}</div>
+    <mat-icon>error_outline</mat-icon>
   </div>
+
+  <payment-form [creditCard]="creditCard"></payment-form>
 
   <div class="buttons">
     <button mat-button (click)="changePlan.emit(true)">BACK</button>

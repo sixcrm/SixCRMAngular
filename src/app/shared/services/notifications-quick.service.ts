@@ -23,6 +23,8 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   countSub: Subscription;
   alertSub: Subscription;
 
+  private hiddenNotifications: string = 'hidden_notifications';
+
   constructor(
     http: HttpWrapperService,
     authService: AuthenticationService,
@@ -148,4 +150,21 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
     })
   }
 
+  getHiddenNotificationIDs(): string[] {
+    const hidden = localStorage.getItem(this.hiddenNotifications);
+    let parsed = [];
+    if (hidden) {
+      parsed = JSON.parse(hidden).notifications;
+    }
+
+    return parsed;
+  }
+
+  setHiddenNotificationsIDs(ids: string[]): void {
+    localStorage.setItem(this.hiddenNotifications, JSON.stringify({notifications: ids}));
+  }
+
+  removeHiddenNotificationsIDs(): void {
+    localStorage.removeItem(this.hiddenNotifications);
+  }
 }

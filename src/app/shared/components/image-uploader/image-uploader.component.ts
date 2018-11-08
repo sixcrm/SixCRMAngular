@@ -36,7 +36,7 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
       const fileReader = new FileReader();
 
       fileReader.onloadend = () => {
-        const imageData = fileReader.result;
+        const imageData = fileReader.result + '';
         const rawData = imageData.split("base64,")[1];
 
         if (rawData.length > 1) {
