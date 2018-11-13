@@ -37,7 +37,12 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
     this.columnParams = [
       new ColumnParams('Date', (e: SubscriptionAnalytics) => e.date.tz(f).format('MM/DD/YY h:mma')).setSortName('datetime').setSortApplied(true).setSortOrder('desc'),
-      new ColumnParams('Status', (e: SubscriptionAnalytics) => e.status).setCapitalize(true).setSortName('status'),
+      new ColumnParams('Status', (e: SubscriptionAnalytics) => e.status)
+        .setSortName('status')
+        .setCapitalize(true)
+        .setMaterialIconMapper((e: SubscriptionAnalytics) => e.status === 'active' ? 'done' : 'close')
+        .setMaterialIconBackgroundColorMapper((e: SubscriptionAnalytics) => e.status === 'active' ? '#1EBEA5' : '#DC2547')
+        .setMaterialIconColorMapper((e: SubscriptionAnalytics) => '#ffffff'),
       new ColumnParams('Customer', (e: SubscriptionAnalytics) => e.customerName).setSortName('customer_name')
         .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
         .setQueryParams((e: SubscriptionAnalytics) => { return { customer: e.customerId } }),
@@ -53,7 +58,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
       new ColumnParams('Sale Amount', (e: SubscriptionAnalytics) => e.amount.usd()).setSortName('amount'),
       new ColumnParams('Session Alias', (e: SubscriptionAnalytics) => e.sessionAlias || '–').setSortName('session_alias')
         .setLink((e: SubscriptionAnalytics) => `/customers/advanced`)
-        .setQueryParams((e: SubscriptionAnalytics) => { return { session: e.sessionId } }),
+        .setQueryParams((e: SubscriptionAnalytics) => { return { session: e.sessionId } })
     ];
 
     this.defaultDate = {start: utc(), end: utc().add(1,'M')};
