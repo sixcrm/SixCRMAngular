@@ -48,11 +48,12 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         .setQueryParams((e: SubscriptionAnalytics) => { return { customer: e.customerId } }),
       new ColumnParams('Cycle', (e: SubscriptionAnalytics) => e.cycle + '').setSortName('cycle'),
       new ColumnParams('Interval', (e: SubscriptionAnalytics) => e.interval + '').setSortName('interval').setSelected(false),
-      new ColumnParams('Items', (e: SubscriptionAnalytics) => e.items + '').setSortName('items').setSelected(false),
       new ColumnParams('Campaign', (e: SubscriptionAnalytics) => e.campaignName).setSortName('campaign_name')
         .setLink((e: SubscriptionAnalytics) => `/campaigns/${e.campaignId}`),
       new ColumnParams('Product Schedule', (e: SubscriptionAnalytics) => e.productScheduleName || '–').setSortName('product_schedule_name')
         .setLink((e: SubscriptionAnalytics) => `/productschedules/${e.productScheduleId}`),
+      new ColumnParams('Product', (e: SubscriptionAnalytics) => e.productName || '–').setSortName('product_name')
+        .setLink((e: SubscriptionAnalytics) => `/products/${e.productId}`),
       new ColumnParams('Merchant Provider', (e: SubscriptionAnalytics) => e.merchantProviderName || '–').setSortName('merchant_provider_name')
         .setLink((e: SubscriptionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
       new ColumnParams('Sale Amount', (e: SubscriptionAnalytics) => e.amount.usd()).setSortName('amount'),

@@ -30,6 +30,7 @@ export class SubscriptionFiltersDialogComponent extends AbstractFilterDialog<Sub
       { name: 'cycle', label: 'Cycle' },
       { name: 'interval', label: 'Interval' },
       { name: 'productScheduleName', label: 'Product Schedule' },
+      { name: 'productName', label: 'Product' },
       { name: 'merchantProviderName', label: 'Merchant Provider' },
       { name: 'saleAmount', label: 'Sale Amount' },
       { name: 'sessionAlias', label: 'Session Alias' }

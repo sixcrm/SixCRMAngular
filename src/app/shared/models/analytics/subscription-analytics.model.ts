@@ -19,6 +19,8 @@ export class SubscriptionAnalytics {
   sessionAlias: string;
   productScheduleId: string;
   productScheduleName: string;
+  productId: string;
+  productName: string;
   merchantProviderId: string;
   merchantProviderName: string;
 
@@ -44,9 +46,11 @@ export class SubscriptionAnalytics {
     this.customerId = getValueOf(obj, 'customer');
     this.customerName = getValueOf(obj, 'customer_name');
     this.sessionAlias = getValueOf(obj, 'session_alias');
-    this.sessionId = getValueOf(obj, 'session');
-    this.productScheduleId = getValueOf(obj, 'product_schedule');
+    this.sessionId = getValueOf(obj, 'session_id');
+    this.productScheduleId = getValueOf(obj, 'product_schedule_id');
     this.productScheduleName = getValueOf(obj, 'product_schedule_name');
+    this.productId = getValueOf(obj, 'product_id');
+    this.productName = getValueOf(obj, 'product_name');
     this.merchantProviderId = getValueOf(obj, 'merchant_provider');
     this.merchantProviderName = getValueOf(obj, 'merchant_provider_name');
   }
