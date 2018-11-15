@@ -45,16 +45,12 @@
     margin-bottom: 24px;
     margin-right: 12px;
     margin-left: 12px;
-    width: calc(25% - 24px);
+    width: calc(33% - 24px);
     box-sizing: border-box;
     background: white;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.24);
     color: #202124;
-
-    @media only screen and (max-width: 1200px) {
-      width: calc(33% - 24px);
-    }
 
     @media only screen and (max-width: 900px) {
       width: calc(50% - 24px);
