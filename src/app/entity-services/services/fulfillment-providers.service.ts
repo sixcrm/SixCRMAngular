@@ -51,16 +51,18 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
 
 
   createEntity(entity: FulfillmentProvider, options?: { ignoreSnack?: boolean }): void {
-    if (entity.provider.name === 'iShip Solutions') {
-      entity.provider.name = 'Hashtag';
+    const modified = entity.copy();
+    if (modified.provider.name === 'iShip Solutions') {
+      modified.provider.name = 'Hashtag';
     }
-    super.createEntity(entity, options);
+    super.createEntity(modified, options);
   }
 
   updateEntity(entity: FulfillmentProvider, options?: { ignoreSnack?: boolean; ignoreProgress?: boolean; ignorePermissions?: boolean }): void {
-    if (entity.provider.name === 'iShip Solutions') {
-      entity.provider.name = 'Hashtag';
+    const modified = entity.copy();
+    if (modified.provider.name === 'iShip Solutions') {
+      modified.provider.name = 'Hashtag';
     }
-    super.updateEntity(entity, options);
+    super.updateEntity(modified, options);
   }
 }
