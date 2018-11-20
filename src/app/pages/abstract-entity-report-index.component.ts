@@ -3,7 +3,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 import {Router, Params} from '@angular/router';
 import {Moment} from 'moment';
 import {FilterTableTab} from '../shared/components/filter-table/filter-table.component';
-import {AsyncSubject} from 'rxjs';
+import {AsyncSubject, Observable} from 'rxjs';
 import {ColumnParams} from '../shared/models/column-params.model';
 import {utc} from 'moment';
 
@@ -34,6 +34,49 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   init() {
 
+  }
+
+  getFetchParams(fetchAll?: boolean): any {
+    const params = {
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      orderBy: this.getSortColumn().sortName,
+      sort: this.getSortColumn().sortOrder,
+      facets: this.getFacets()
+    };
+
+    if (!fetchAll) {
+      params['limit'] = 25;
+      params['offset'] = this.entities.length;
+    }
+
+    return params;
+  }
+
+  shouldFetchCounts(): boolean {
+    return !this.lastCountsDate
+      || !this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
+      || !this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
+  }
+
+  prepareFetchCounts() {
+    this.lastCountsDate = {
+      start: this.date.start.clone(),
+      end: this.date.end.clone()
+    };
+
+    this.tabs.forEach(t => t.count = Observable.of(null));
+  }
+
+  getQueryParams(): any {
+    return {
+      start: this.date.start.clone().format(),
+      end: this.date.end.clone().format(),
+      sort: this.getSortColumn().sortName,
+      sortOrder: this.getSortColumn().sortOrder,
+      tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
+      filters: JSON.stringify(this.filters)
+    }
   }
 
   parseParams(params: Params): void {

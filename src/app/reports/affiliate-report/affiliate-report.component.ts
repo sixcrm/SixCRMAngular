@@ -62,7 +62,7 @@ export class AffiliateReportComponent extends AbstractEntityReportIndexComponent
   private parseAffiliatesForDownload(affiliates: AffiliateAnalytics[]): any {
     return affiliates.map(a => {
       return {
-        'Affiliate': a.affiliate,
+        'Affiliate': a.affiliate || '-',
         'Clicks': a.clicks,
         'Partials': a.partials,
         'Partials Percentage': a.partialsPercent,
@@ -86,13 +86,7 @@ export class AffiliateReportComponent extends AbstractEntityReportIndexComponent
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
-    this.analyticsService.getAffiliates({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(affiliates => {
+    this.analyticsService.getAffiliates(this.getFetchParams(true)).subscribe(affiliates => {
       if (!affiliates || affiliates instanceof CustomServerError) {
         return;
       }
@@ -117,15 +111,7 @@ export class AffiliateReportComponent extends AbstractEntityReportIndexComponent
       this.sub.unsubscribe();
     }
 
-    this.sub = this.analyticsService.getAffiliates({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      limit: 25,
-      offset: this.entities.length,
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(affiliates => {
+    this.sub = this.analyticsService.getAffiliates(this.getFetchParams()).subscribe(affiliates => {
       this.loadingData = false;
 
       if (!affiliates || affiliates instanceof CustomServerError) {

@@ -33,7 +33,7 @@ describe('Campaigns', function() {
   it('should navigate to campaigns page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(8).click();
+    nav.getLink(9).click();
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
