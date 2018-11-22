@@ -15,7 +15,6 @@ import {EmailTemplatesService} from '../../../entity-services/services/email-tem
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({

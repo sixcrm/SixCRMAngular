@@ -1,6 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {SixImage} from '../../../../shared/models/six-image.model';
-import {Subscription} from 'rxjs';
 import {ImageDialogComponent} from '../../../../dialog-modals/image-dialog/image-dialog.component';
 import {DeleteDialogComponent} from '../../../../dialog-modals/delete-dialog.component';
 import {MatDialog} from '@angular/material';

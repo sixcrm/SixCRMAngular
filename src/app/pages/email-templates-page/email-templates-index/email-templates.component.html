@@ -1,6 +1,6 @@
 <blue-header [items]="crumbItems" [titleValue]="'Email Templates'"></blue-header>
 
-<div class="body">
+<div class="grid-body">
   <div class="header">
     <button mat-button class="add-new-button" *ngIf="service.hasWritePermission()" (click)="openAddMode()">NEW TEMPLATE</button>
 
@@ -10,7 +10,7 @@
       </mat-form-field>
     </div>
 
-    <div class="count">{{entities.length}} Templates</div>
+    <div class="count">{{entitiesHolder.length}} Templates</div>
 
     <div class="sort" [matMenuTriggerFor]="sortoptions">
       <div>Sort by <span>{{selectedSortBy ? ' ' + selectedSortBy.label : ''}}</span></div>
@@ -22,10 +22,10 @@
     </mat-menu>
   </div>
 
-  <div class="content-wrapper" *ngIf="entities">
+  <div class="content-wrapper">
 
-    <ng-container *ngFor="let template of entities | filterStrings: filterString: filterFunction">
-      <div class="template-card">
+    <ng-container *ngFor="let template of entitiesHolder | filterStrings: filterString: filterFunction">
+      <div class="entity-card">
         <div class="title">
           {{template.name}}
           <mat-icon *ngIf="service.hasWritePermission() && !template.builtIn" class="delete-icon" (click)="deleteEntity(template.id)" matTooltip="Delete Template">delete</mat-icon>

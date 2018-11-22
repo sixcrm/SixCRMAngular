@@ -71,6 +71,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import { RemoveItemsPipe } from './pipes/remove-items.pipe';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import { FilterSimplePipe } from './pipes/filter-simple.pipe';
+import { BulkSelectorComponent } from './components/bulk-selector/bulk-selector.component';
 
 @NgModule({
   declarations : [
@@ -126,7 +127,8 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
     ImageUploaderComponent,
     RemoveItemsPipe,
     PaymentFormComponent,
-    FilterSimplePipe
+    FilterSimplePipe,
+    BulkSelectorComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -175,7 +177,8 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
     ImageUploaderComponent,
     RemoveItemsPipe,
     PaymentFormComponent,
-    FilterSimplePipe
+    FilterSimplePipe,
+    BulkSelectorComponent
   ],
   imports : [
     FormsModule,

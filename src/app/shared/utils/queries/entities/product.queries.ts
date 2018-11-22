@@ -9,7 +9,7 @@ export function productsListQuery(params: IndexQueryParameters): string {
   return `{
     productlist ${listQueryParams(params)} {
 			products {
-			  ${productResponseQuery()}
+			  ${productInfoResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}
@@ -48,6 +48,10 @@ export function updateProductMutation(product: Product): string {
         ${productResponseQuery()}
       }
     }`;
+}
+
+export function productInfoResponseQuery(): string {
+  return `id, name, sku, default_price, dynamic_pricing {min, max}, attributes { images { path, default_image } }, created_at, updated_at`;
 }
 
 export function productResponseQuery(): string {
