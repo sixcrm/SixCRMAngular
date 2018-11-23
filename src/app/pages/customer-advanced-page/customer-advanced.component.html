@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="split-wrapper">
   <div class="container" [class.container--with-side]="detailsElement && selectedIndex === 5">
     <blue-header [items]="breadcrumbs" [titleValue]="getTitle()">
       <ng-container *ngIf="sessionId && session && sessionService.hasWritePermission()">
@@ -12,8 +12,8 @@
       </ng-container>
     </blue-header>
 
-    <div class="body">
-      <div class="section" [class.section--full]="!infoVisible || selectedIndex === 5">
+    <div class="content">
+      <div class="section section--main" [class.section--full]="!infoVisible || selectedIndex === 5">
 
         <ng-container *ngIf="!transactionId; else transactiondetails">
 
@@ -62,7 +62,7 @@
         </ng-template>
       </div>
 
-      <div class="section section--white" [class.section--invisible]="!infoVisible || selectedIndex === 5">
+      <div class="section section--side" [class.section--invisible]="!infoVisible || selectedIndex === 5">
         <tab-header [elements]="secondaryTabHeaders"
                     [selectedIndex]="selectedSecondaryIndex"
                     [ignoreUrl]="true"
@@ -70,17 +70,19 @@
           <mat-icon *ngIf="!selectedTransaction" class="info-icon" (click)="infoVisible = false">close</mat-icon>
         </tab-header>
 
-        <mat-tab-group class="tab--no-header tab--full-height" [(selectedIndex)]="selectedSecondaryIndex">
+        <div class="section__content">
+          <mat-tab-group class="tab--no-header tab--full-height" [(selectedIndex)]="selectedSecondaryIndex">
 
-          <mat-tab>
-            <customer-info [customer]="customer"></customer-info>
-          </mat-tab>
+            <mat-tab>
+              <customer-info [customer]="customer"></customer-info>
+            </mat-tab>
 
-          <mat-tab>
-            <customer-info-notes #customernotes [customer]="customer"></customer-info-notes>
-          </mat-tab>
+            <mat-tab>
+              <customer-info-notes #customernotes [customer]="customer"></customer-info-notes>
+            </mat-tab>
 
-        </mat-tab-group>
+          </mat-tab-group>
+        </div>
       </div>
     </div>
   </div>

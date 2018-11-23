@@ -55,7 +55,7 @@ export function productInfoResponseQuery(): string {
 }
 
 export function productResponseQuery(): string {
-  return `id, name, description, sku, ship, shipping_delay, default_price, dynamic_pricing {min, max}, fulfillment_provider { id, name, provider { name } }, attributes { weight { units, unitofmeasurement }, dimensions { width { units, unitofmeasurement }, height { units, unitofmeasurement }, length { units, unitofmeasurement } }, images { path, default_image, dimensions { width, height}, name, description, format } }, emailtemplates { id, name, subject, type, smtp_provider { id name }} created_at, updated_at`
+  return `id, name, description, sku, ship, shipping_delay, default_price, dynamic_pricing {min, max}, fulfillment_provider { id, name, provider { name } }, attributes { weight { units, unitofmeasurement }, dimensions { width { units, unitofmeasurement }, height { units, unitofmeasurement }, length { units, unitofmeasurement } }, images { path, default_image, dimensions { width, height}, name, description, format } }, emailtemplates { id, name, subject, type, preview, smtp_provider { id name }} created_at, updated_at`
 }
 
 export function productInputQuery(p: Product, includeId?: boolean): string {

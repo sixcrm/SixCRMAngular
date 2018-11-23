@@ -72,6 +72,8 @@ import { RemoveItemsPipe } from './pipes/remove-items.pipe';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import { FilterSimplePipe } from './pipes/filter-simple.pipe';
 import { BulkSelectorComponent } from './components/bulk-selector/bulk-selector.component';
+import { SliderGalleryComponent } from './components/slider-gallery/slider-gallery.component';
+import { SliderGalleryItemDirective } from './components/slider-gallery/slider-gallery-item.directive';
 
 @NgModule({
   declarations : [
@@ -128,7 +130,9 @@ import { BulkSelectorComponent } from './components/bulk-selector/bulk-selector.
     RemoveItemsPipe,
     PaymentFormComponent,
     FilterSimplePipe,
-    BulkSelectorComponent
+    BulkSelectorComponent,
+    SliderGalleryComponent,
+    SliderGalleryItemDirective
   ],
   exports : [
     AutocompleteComponent,
@@ -178,7 +182,9 @@ import { BulkSelectorComponent } from './components/bulk-selector/bulk-selector.
     RemoveItemsPipe,
     PaymentFormComponent,
     FilterSimplePipe,
-    BulkSelectorComponent
+    BulkSelectorComponent,
+    SliderGalleryComponent,
+    SliderGalleryItemDirective
   ],
   imports : [
     FormsModule,
