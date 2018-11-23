@@ -11,7 +11,7 @@ export class BulkSelectorComponent implements OnInit {
   @Input() options: string[] = [];
 
   @Output() applyOption: EventEmitter<string> = new EventEmitter();
-  @Output() cancel: EventEmitter<string> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
   selectedOption: string;
 
