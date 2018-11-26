@@ -46,7 +46,7 @@ export abstract class AbstractEntityReportIndexComponent<T> {
     };
 
     if (!fetchAll) {
-      params['limit'] = 25;
+      params['limit'] = this.limit;
       params['offset'] = this.entities.length;
     }
 

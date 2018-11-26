@@ -24,6 +24,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
   sub: Subscription;
 
+  entitiesHolder: TransactionAnalytics[] = [];
+  pageSize = 100;
+
   constructor(
     auth: AuthenticationService,
     dialog: MatDialog,
@@ -78,6 +81,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     ];
 
     this.options = ['View'];
+
+    this.limit = 9999;
   }
 
   ngOnInit() {
@@ -150,6 +155,12 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
   }
 
+  loadMore() {
+    if (this.loadingData) return;
+
+    this.entities = [...this.entities, ...this.entitiesHolder.slice(this.entities.length, this.entities.length + this.pageSize)]
+  }
+
   fetch() {
     this.router.navigate(
       ['/transactions'],
@@ -170,36 +181,21 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.loadingData = false;
 
       if (!transactions || transactions instanceof CustomServerError) {
+        this.entitiesHolder = [];
         this.entities = [];
         return;
       }
 
-      this.entities = [...this.entities, ...transactions];
-      this.hasMore = transactions.length === this.limit;
-    });
+      this.entitiesHolder = transactions;
+      this.entities = this.entitiesHolder.slice(0, this.pageSize);
+      this.hasMore = this.entitiesHolder.length === this.limit;
 
-    this.fetchCounts();
-  }
-
-  fetchCounts() {
-    if (!this.shouldFetchCounts()) return;
-
-    this.prepareFetchCounts();
-
-    this.analyticsService.getTransactions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format()
-    }).subscribe(transactions => {
-      if (transactions instanceof CustomServerError) {
-        return;
-      }
-
-      this.tabs[0].count = Observable.of(transactions.length);
-      this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
-      this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'soft decline' || t.response === 'hard decline').length);
-      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'hard decline').length);
-      this.tabs[5].count = Observable.of(transactions.filter(t=>t.response === 'soft decline').length);
+      this.tabs[0].count = Observable.of(this.entitiesHolder.length);
+      this.tabs[1].count = Observable.of(this.entitiesHolder.filter(t=>t.transactionType === 'refund').length);
+      this.tabs[2].count = Observable.of(this.entitiesHolder.filter(t=>t.response === 'error').length);
+      this.tabs[3].count = Observable.of(this.entitiesHolder.filter(t=>t.response === 'soft decline' || t.response === 'hard decline').length);
+      this.tabs[4].count = Observable.of(this.entitiesHolder.filter(t=>t.response === 'hard decline').length);
+      this.tabs[5].count = Observable.of(this.entitiesHolder.filter(t=>t.response === 'soft decline').length);
     });
   }
 
