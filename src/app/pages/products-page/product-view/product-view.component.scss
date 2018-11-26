@@ -1,0 +1,103 @@
+@import "../../../../assets/scss/colors";
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  button {
+    margin-right: 18px;
+    padding: 0 45px;
+    border-radius: 0;
+    height: 30px;
+    line-height: 30px;
+    background: $danger-color;
+    color: #ffffff;
+    font-size: 13px;
+  }
+}
+
+.title {
+  margin-bottom: 24px;
+  line-height: 24px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.description-container {
+  margin: 20px;
+  padding: 25px;
+  background: #ffffff;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+
+
+
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 6px;
+    background: #FFFCEA;
+  }
+
+  .button-container {
+    display: flex;
+    margin-top: 15px;
+
+    button {
+      margin-left: auto;
+      background: $main-color-400;
+      color: #ffffff;
+    }
+  }
+}
+
+.details-box {
+  padding: 20px;
+  font-size: 14px;
+
+  &--blue {
+    background: rgba(44, 152, 240, 0.1);
+  }
+
+  .box-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  mat-form-field {
+    margin-bottom: 6px;
+    width: 100%;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+
+    mat-form-field {
+      width: 90px;
+
+      &:first-of-type {
+        margin-right: 30px;
+      }
+    }
+  }
+
+  mat-checkbox {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin-top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 500;
+    color: #ffffff;
+    background: $main-color-400;
+  }
+}

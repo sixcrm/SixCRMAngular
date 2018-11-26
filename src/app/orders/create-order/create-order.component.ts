@@ -14,7 +14,7 @@ import {CreditCard} from '../../shared/models/credit-card.model';
 import {Subscription, Subject} from 'rxjs';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
-  isValidZip, isAllowedCurrency, isAllowedEmail
+  isValidZip, isAllowedEmail
 } from '../../shared/utils/form.utils';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
@@ -87,7 +87,6 @@ export class CreateOrderComponent implements OnInit {
   isAddressValid = isValidAddress;
   isCountryValid = isValidCountry;
   isStateValid = isValidState;
-  isCurrencyValid = isAllowedCurrency;
   isAllowedEmailKey = isAllowedEmail;
 
   orderComplete: boolean;
@@ -465,14 +464,12 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(p.amount + s.amount);
   }
 
-  isCurrencyInput(event) {
+  isEnter(event) {
     if (!event) return;
 
     if (event.key === 'Enter') {
       this.productInEdit = new Product();
     }
-
-    this.isCurrencyValid(event);
   }
 
   setProductInEdit(product: Product | ProductSchedule) {
