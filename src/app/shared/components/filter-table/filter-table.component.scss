@@ -207,6 +207,7 @@
 
       &:last-of-type {
         mat-icon {
+          vertical-align: middle;
           color: $dark-color;
           cursor: pointer;
         }
@@ -223,6 +224,7 @@
       &:first-of-type {
         padding-left: 20px;
         width: 1px;
+        line-height: 16px;
       }
 
       &:last-of-type {

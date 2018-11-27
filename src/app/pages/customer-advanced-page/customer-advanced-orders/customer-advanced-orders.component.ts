@@ -55,7 +55,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
         .setMaterialIconMapper((e: Order) => e.hasChargeback() ? 'error' : 'done')
         .setMaterialIconBackgroundColorMapper((e: Order) => e.hasChargeback() ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Order) => e.hasChargeback() ? '#DC2547' : '#ffffff'),
-      new ColumnParams('Bill at',(e: Order) => e.date.tz(f).format('MM/DD/YY')),
+      new ColumnParams('Bill at',(e: Order) => e.rebill.billAt.tz(f).format('MM/DD/YY')),
       new ColumnParams('Amount', (e: Order) => e.amount.usd()),
       new ColumnParams('Items', (e: Order) => e.products.length + ''),
       new ColumnParams('Returns', (e: Order) => e.getReturned().length > 0 ? e.getReturned().length + '' : '-'),

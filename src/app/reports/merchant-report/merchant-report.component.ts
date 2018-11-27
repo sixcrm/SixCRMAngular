@@ -87,13 +87,7 @@ export class MerchantReportComponent extends AbstractEntityReportIndexComponent<
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
-    this.analyticsService.getMerchants({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(merchants => {
+    this.analyticsService.getMerchants(this.getFetchParams(true)).subscribe(merchants => {
       if (!merchants || merchants instanceof CustomServerError) {
         return;
       }
@@ -118,15 +112,7 @@ export class MerchantReportComponent extends AbstractEntityReportIndexComponent<
       this.sub.unsubscribe();
     }
 
-    this.sub = this.analyticsService.getMerchants({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      limit: 25,
-      offset: this.entities.length,
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(merchants => {
+    this.sub = this.analyticsService.getMerchants(this.getFetchParams()).subscribe(merchants => {
       this.loadingData = false;
 
       if (!merchants || merchants instanceof CustomServerError) {
