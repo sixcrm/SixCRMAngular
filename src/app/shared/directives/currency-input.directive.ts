@@ -1,14 +1,12 @@
 import {Directive, ElementRef, Input, Output, EventEmitter} from '@angular/core';
 import {Currency} from '../utils/currency/currency';
-import {isAllowedCurrency} from '../utils/form.utils';
 
 const numeral = require('numeral');
 
 @Directive({
   selector: '[currencyInput]',
   host: {
-    '(input)': 'onInput($event)',
-    '(keydown)': 'onKeydown($event)'
+    '(input)': 'onInput($event)'
   }
 })
 export class CurrencyInputDirective {
@@ -75,9 +73,4 @@ export class CurrencyInputDirective {
 
     this.priceChanged.emit(new Currency(+value.replace(/\$|,/g, '')));
   }
-
-  onKeydown(event) {
-    isAllowedCurrency(event)
-  }
-
 }

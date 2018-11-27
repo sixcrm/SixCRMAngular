@@ -4,7 +4,7 @@ import {Modes} from '../../../abstract-entity-view.component';
 import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provider.model';
 import {FulfillmentProvidersService} from '../../../../entity-services/services/fulfillment-providers.service';
 import {Currency} from '../../../../shared/utils/currency/currency';
-import {isAllowedNumeric} from '../../../../shared/utils/form.utils';
+import {isAllowedCurrency, isAllowedNumeric} from '../../../../shared/utils/form.utils';
 import {AsyncSubject} from 'rxjs';
 
 @Component({
@@ -25,6 +25,7 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   add = Modes.Add;
   update = Modes.Update;
   view = Modes.View;
+  isCurrency = isAllowedCurrency;
   isNumeric = isAllowedNumeric;
 
   fulfillmentProviderMapper = (el: FulfillmentProvider) => el.name;

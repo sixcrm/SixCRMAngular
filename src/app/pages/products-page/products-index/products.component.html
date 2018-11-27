@@ -1,51 +1,37 @@
-<blue-header [items]="crumbItems" [titleValue]="'Products'"></blue-header>
+<div class="entity-index">
 
-<div class="grid-body">
-  <div class="header">
-    <button mat-button class="add-new-button" *ngIf="service.hasWritePermission()" (click)="openAddMode()">NEW</button>
+  <blue-header [items]="crumbItems" [titleValue]="'PRODUCT_INDEX_TITLE'"></blue-header>
 
-    <div class="mrw-bi-input">
-      <mat-form-field [floatLabel]="'never'">
-        <input matInput type="text" placeholder="Find Product..." [(ngModel)]="filterString">
-      </mat-form-field>
-    </div>
+  <button mat-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
 
-    <div class="count">{{entitiesHolder.length}} Products</div>
+  <entities-table-wrapper
+    [data]="entities"
+    [loaded]="initialLoaded"
+    [columnParams]="columnParams"
+    [filterString]="filterValue"
+    [serverError]="serverError"
+    (selected)="viewEntity($event.id)"
 
-    <div class="sort" [matMenuTriggerFor]="sortoptions">
-      <div>Sort by <span>{{selectedSortBy ? ' ' + selectedSortBy.label : ''}}</span></div>
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </div>
+    [service]="service"
+    (viewClicked)="viewEntity($event.id)"
+    (copyClicked)="copyEntity($event.id)"
+    (exportClicked)="exportEntity($event.id)"
+    (editClicked)="editEntity($event.id)"
+    (deleteClicked)="deleteEntity($event.id)"
+    (deleteManyClicked)="deleteMany($event)"
+    (refreshData)="refreshData()"
 
-    <mat-menu #sortoptions="matMenu" x-position="before">
-      <button mat-menu-item *ngFor="let sort of sortBy" (click)="applySortBy(sort)">{{sort.label}}</button>
-    </mat-menu>
-
-  </div>
-
-  <div class="content-wrapper" *ngIf="entitiesHolder">
-
-    <ng-container *ngFor="let product of entitiesHolder | filterStrings: filterString: filterFunction">
-      <div class="entity-card" [class.entity-card--selected]="product.bulkSelected" (click)="selectEntity(product, $event)">
-        <div class="title">{{product.name}}</div>
-
-        <div class="product-image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
-
-        <div class="product-details">
-          <div>
-            <div>SKU {{product.sku}}</div>
-            <div>{{product.defaultPrice.usd()}}</div>
-          </div>
-          <button mat-button (click)="viewEntity(product.id)">EDIT</button>
-        </div>
-      </div>
-    </ng-container>
-
-  </div>
-
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)"
+    (filterChanged)="filterValue = $event"
+    (searchChanged)="setSearchString($event)">
+  </entities-table-wrapper>
 </div>
-
-<bulk-selector [items]="entitiesHolder" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
   <product-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-add-new>

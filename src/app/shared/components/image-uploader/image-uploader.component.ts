@@ -22,7 +22,6 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
 
   public filePreviewPath: SafeUrl;
   private rawImage: string;
-  private imageName: string;
 
   onDropzone: boolean;
 
@@ -39,12 +38,10 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
       fileReader.onloadend = () => {
         const imageData = fileReader.result + '';
         const rawData = imageData.split("base64,")[1];
-        const imageName = file._file.name;
 
         if (rawData.length > 1) {
           this.filePreviewPath  = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file._file)));
           this.rawImage = rawData;
-          this.imageName = imageName;
         }
       };
 
@@ -79,8 +76,6 @@ export class ImageUploaderComponent implements OnInit, OnDestroy {
         this.uploadInProgress = false;
         return;
       }
-
-      img.name = this.imageName;
 
       this.imageUploaded.next(img);
       this.uploadInProgress = false;

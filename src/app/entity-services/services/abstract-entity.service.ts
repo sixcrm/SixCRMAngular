@@ -60,24 +60,6 @@ export abstract class AbstractEntityService<T> {
     this.customEntityQuery(this.viewQuery(id), {});
   }
 
-  fetchEntity(id: string): Observable<CustomServerError | T> {
-    if (!this.hasViewPermission()) {
-      return;
-    }
-
-    return this.queryRequest(this.viewQuery(id), {}).map(data => {
-      if (data instanceof CustomServerError) {
-        return data;
-      }
-
-      const json = extractData(data);
-      const entityKey = Object.keys(json)[0];
-      const entityData =json[entityKey];
-
-      return this.toEntity(entityData);
-    })
-  }
-
   deleteEntity(id: string): void {
     if (!this.hasWritePermission()) {
       return;
@@ -143,24 +125,6 @@ export abstract class AbstractEntityService<T> {
         this.openSnackBar('SNACK_CREATED');
       }
       this.entityCreated$.next(this.toEntity(entityData));
-    });
-  }
-
-  fetchCreateEntity(entity: T): Observable<CustomServerError | T> {
-    if (!this.hasWritePermission()) {
-      return;
-    }
-
-    return this.queryRequest(this.createQuery(entity)).map(data => {
-      if (data instanceof CustomServerError) {
-        return data;
-      }
-
-      const json = extractData(data);
-      const entityKey = Object.keys(json)[0];
-      const entityData =json[entityKey];
-
-      return this.toEntity(entityData);
     });
   }
 

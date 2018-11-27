@@ -55,7 +55,6 @@ import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialo
 import { CustomTokenBlockDialogComponent } from './dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 import { EmailTemplatePreviewModalComponent } from './dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 import { PaymentDialogComponent } from './dialog-modals/payment-dialog/payment-dialog.component';
-import { ImageUploaderDialogComponent } from './dialog-modals/image-uploader-dialog/image-uploader-dialog.component';
 
 @NgModule({
   declarations : [
@@ -95,8 +94,7 @@ import { ImageUploaderDialogComponent } from './dialog-modals/image-uploader-dia
     OrderFiltersDialogComponent,
     CustomTokenBlockDialogComponent,
     EmailTemplatePreviewModalComponent,
-    PaymentDialogComponent,
-    ImageUploaderDialogComponent
+    PaymentDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -152,8 +150,7 @@ import { ImageUploaderDialogComponent } from './dialog-modals/image-uploader-dia
     OrderFiltersDialogComponent,
     CustomTokenBlockDialogComponent,
     EmailTemplatePreviewModalComponent,
-    PaymentDialogComponent,
-    ImageUploaderDialogComponent
+    PaymentDialogComponent
   ],
   bootstrap : [AppComponent]
 })

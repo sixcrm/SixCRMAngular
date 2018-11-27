@@ -56,8 +56,7 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
 
   dissociate(tracker: Tracker): void {
     this.deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent, { disableClose : true });
-    this.deleteDialogRef.componentInstance.text = 'Disassociate Confirmation';
-    this.deleteDialogRef.componentInstance.secondaryText = 'Disassociating is permanent and irreversible. Are you sure you want to proceed?';
+    this.deleteDialogRef.componentInstance.text = 'AFFILIATE_TRACKING_DISASSOCIATETEXT';
 
     this.deleteDialogRef.afterClosed().take(1).subscribe(result => {
       this.deleteDialogRef = null;

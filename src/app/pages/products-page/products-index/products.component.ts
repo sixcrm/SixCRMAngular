@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
@@ -16,30 +17,7 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
 
-  sortBy = [
-    {label: 'Name', sortFunction: (f: Product, s: Product) => {
-      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
-      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
-      return 0;
-    }},
-    {label: 'Price', sortFunction: (f: Product, s: Product) => {
-      if (f.defaultPrice.amount < s.defaultPrice.amount) return -1;
-      if (f.defaultPrice.amount > s.defaultPrice.amount) return 1;
-      return 0;
-    }},
-    {label: 'Created At', sortFunction: (f: Product, s: Product) => {
-      if (f.createdAt.isBefore(s.createdAt)) return -1;
-      if (f.createdAt.isAfter(s.createdAt)) return 1;
-      return 0;
-    }}
-  ];
-
-  crumbItems: BreadcrumbItem[] = [{label: () => 'Products'}];
-
-  filterString: string;
-  filterFunction = (product: Product) => product.name;
-
-  bulkOptions = ['Copy', 'Select All', 'Deselect All', 'Delete'];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'PRODUCT_INDEX_TITLE'}];
 
   constructor(
     productsService: ProductsService,
@@ -53,7 +31,19 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
     super(productsService, auth, dialog, paginationService, router, activatedRoute, location);
 
     this.entityFactory = () => new Product();
-    this.entityNameFunction = (p: Product) => p.name;
+
+    let f = this.authService.getTimezone();
+    this.columnParams = [
+      new ColumnParams('PRODUCT_INDEX_HEADER_ID', (e: Product) => e.id).setSelected(false),
+      new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name).setImageMapper((e: Product) => e.getDefaultImagePath() || '/assets/images/product-image-placeholder.svg'),
+      new ColumnParams('PRODUCT_INDEX_HEADER_PRICE', (e: Product) => e.defaultPrice.usd(), 'right'),
+      new ColumnParams('PRODUCT_INDEX_HEADER_SKU',(e: Product) => e.sku),
+      new ColumnParams('PRODUCT_INDEX_HEADER_SHIP', (e: Product) => e.ship + ''),
+      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right').setNumberOption(true),
+      new ColumnParams('PRODUCT_INDEX_HEADER_PROVIDER', (e: Product) => e.fulfillmentProvider.name).setSelected(false),
+      new ColumnParams('PRODUCT_INDEX_HEADER_CREATED', (e: Product) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('PRODUCT_INDEX_HEADER_UPDATED', (e: Product) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
+    ];
   }
 
   openAddMode() {
@@ -61,41 +51,10 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
   }
 
   ngOnInit() {
-    this.setInfiniteScroll(true);
-    this.shareLimit = false;
-    this.limit = 100;
     this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
-  }
-
-  applyBulkOption(option: string) {
-    if (!option) return;
-
-    switch (option) {
-      case 'Copy': {
-        this.copySelectedEntities((p: Product) => {
-          p.name = p.name + ' Copy';
-
-          return p
-        });
-
-        break;
-      }
-      case 'Select All': {
-        this.selectAllEntities();
-        break;
-      }
-      case 'Deselect All': {
-        this.deselectAllEntities();
-        break;
-      }
-      case 'Delete': {
-        this.deleteSelectedEntities();
-        break;
-      }
-    }
   }
 }

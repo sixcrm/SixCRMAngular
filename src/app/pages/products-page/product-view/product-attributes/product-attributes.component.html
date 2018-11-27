@@ -1,0 +1,53 @@
+<form *ngIf="attributes" class="flex-custom">
+  <div class="entity-view__card">
+    <div class="entity-view__card__header">
+      <div class="entity-view__card__header__title">{{'PRODUCT_INFO_ATTRIBUTES_TITLE' | translate}}</div>
+    </div>
+
+    <div class="entity-view__card__content">
+
+      <div style="margin-top: 15px;" class="flex-custom">
+        <div class="attribute-title">{{'PRODUCT_INFO_ATTRIBUTES_DIMENSION' | translate}}</div>
+        <dropdown-component
+          [selected]="attributes.dimensions.height.unitofmeasurement"
+          [disabled]="mode === modes.View"
+          [showFloatingPlaceholder]="false"
+          [placeholder]="'PRODUCT_INFO_ATTRIBUTES_UNIT' | translate"
+          [options]="dimensionUnits"
+          (onSelect)="selectDimensionUnit($event)">
+        </dropdown-component>
+      </div>
+
+      <mat-form-field class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_HEIGHT' | translate}}" name="height" [(ngModel)]="attributes.dimensions.height.units" type="text">
+      </mat-form-field>
+
+      <mat-form-field class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_LENGTH' | translate}}" name="length" [(ngModel)]="attributes.dimensions.length.units" type="text">
+      </mat-form-field>
+
+      <mat-form-field class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WIDTH' | translate}}" name="width" [(ngModel)]="attributes.dimensions.width.units" type="text">
+      </mat-form-field>
+
+      <div style="margin-top: 35px;" class="flex-custom">
+        <div class="attribute-title">{{'PRODUCT_INFO_ATTRIBUTES_WEIGHT' | translate}}</div>
+        <dropdown-component
+          [selected]="attributes.weight.unitofmeasurement"
+          [disabled]="mode === modes.View"
+          [showFloatingPlaceholder]="false"
+          [placeholder]="'PRODUCT_INFO_ATTRIBUTES_UNIT' | translate"
+          [options]="weightUnits"
+          (onSelect)="attributes.weight.unitofmeasurement = $event">
+        </dropdown-component>
+      </div>
+
+      <mat-form-field class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WEIGHT' | translate}}" name="weight" [(ngModel)]="attributes.weight.units" type="text">
+      </mat-form-field>
+
+    </div>
+
+  </div>
+</form>
+

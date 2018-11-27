@@ -1,0 +1,46 @@
+<div class="container">
+
+  <div class="entity-view__card gallery-container">
+    <div class="entity-view__card__header">
+      <div class="entity-view__card__header__title"> {{'PRODUCT_IMAGE_GALLERY_TITLE' | translate}} </div>
+    </div>
+    <div class="image-container">
+      <div class="no-data" *ngIf="!images || images.length === 0">{{ 'PRODUCT_IMAGE_VIEW_NODATA' | translate }}</div>
+      <div class="image-item" *ngFor="let image of images | sortByDefault">
+        <div class="image-wrapper">
+          <img src="{{image.path}}">
+          <div class="image-overlay">
+            <mat-icon (click)="viewImage(image)">zoom_in</mat-icon>
+            <mat-icon (click)="editImage(image)">mode_edit</mat-icon>
+            <mat-icon (click)="deleteImage(image)">delete</mat-icon>
+          </div>
+        </div>
+        <div class="image-details">
+          <mat-form-field>
+            <input matInput placeholder="{{ 'PRODUCT_IMAGE_VIEW_NAME' | translate }}" [(ngModel)]="image.name" type="text" [disabled]="!image.editMode">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="{{ 'PRODUCT_IMAGE_VIEW_DESCRIPTION' | translate }}" [(ngModel)]="image.description" type="text" [disabled]="!image.editMode">
+          </mat-form-field>
+
+          <ng-container *ngIf="image.editMode">
+            <mat-checkbox class="image-checkbox checkbox-blue" [(ngModel)]="image.defaultImage">{{ 'PRODUCT_IMAGE_VIEW_DEFAULT' | translate }}</mat-checkbox>
+            <div class="image-actions">
+              <div (click)="cancelEdit(image)">{{ 'PRODUCT_IMAGE_VIEW_CANCEL' | translate }}</div>
+              <div (click)="updateImage(image)">{{ 'PRODUCT_IMAGE_VIEW_SAVE' | translate }}</div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entity-view__card upload-container">
+    <div class="entity-view__card__header">
+      <div class="entity-view__card__header__title">{{'PRODUCT_IMAGE_UPLOAD_TITLE' | translate}}</div>
+    </div>
+
+    <image-uploader (imageUploaded)="uploadImage($event)"></image-uploader>
+  </div>
+
+</div>
