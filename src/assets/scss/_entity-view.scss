@@ -742,3 +742,9 @@ $info-width: 290px;
 
   }
 }
+
+.details-box--disabled {
+  .mat-form-field-underline {
+    display: none;
+  }
+}

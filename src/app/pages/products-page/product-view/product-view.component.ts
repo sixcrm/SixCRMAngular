@@ -6,10 +6,21 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
-import {ProductAttributes} from '../../../shared/models/product-attributes.model';
 import {SixImage} from '../../../shared/models/six-image.model';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {MatDialog} from '@angular/material';
+import {Currency} from '../../../shared/utils/currency/currency';
+import {FulfillmentProvidersService} from '../../../entity-services/services/fulfillment-providers.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
+import {MerchantProviderGroupAssociation} from '../../../shared/models/merchant-provider-group-association.model';
+import {MerchantProviderGroupAssociationsService} from '../../../entity-services/services/merchant-provider-group-associations.service';
+import {merchantProviderGroupAssociationsByEntityListQuery} from '../../../shared/utils/queries/entities/merchant-provider-group-associations.queries';
+import {MerchantProviderGroupsService} from '../../../entity-services/services/merchant-provider-groups.service';
+import {Campaign} from '../../../shared/models/campaign.model';
+import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
+import {CampaignsService} from '../../../entity-services/services/campaigns.service';
+import {MerchantProviderGroupAssociationDialogComponent} from '../../../dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 
 @Component({
   selector: 'product-view',
@@ -19,7 +30,8 @@ import {MatDialog} from '@angular/material';
 export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
-  entityAttributes: ProductAttributes;
+
+  fulfillmentProviders: FulfillmentProvider[] = [];
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'GENERAL'},
@@ -32,16 +44,29 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'Products', url: '/products'},
-    {label: () => this.entity ? this.entity.name : ''}
+    {label: () => this.entityBackup ? this.entityBackup.name : ''}
   ];
 
   infoVisible: boolean = true;
+
+  editMain: boolean;
+  editSecondary: boolean;
+
+  merchantAssociation: MerchantProviderGroupAssociation = new MerchantProviderGroupAssociation();
+  merchantAssociationBackup: MerchantProviderGroupAssociation = new MerchantProviderGroupAssociation();
+
+  merchantProviderGroups: MerchantProviderGroup[] = [];
+  campaigns: Campaign[] = [];
 
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
     public navigation: NavigationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public fulfillmentProviderService: FulfillmentProvidersService,
+    private merchantAssociationsService: MerchantProviderGroupAssociationsService,
+    private merchantProviderGroupsService: MerchantProviderGroupsService,
+    private campaignService: CampaignsService
   ) {
     super(service, route);
   }
@@ -49,15 +74,42 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   ngOnInit() {
     this.init(() => this.navigation.goToNotFoundPage());
 
-    this.service.entity$.merge(this.service.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(entity => {
-      this.entityAttributes = this.entity.attributes.copy();
-    });
-
     if (this.addMode) {
       this.entity = new Product();
       this.entity.ship = true;
       this.entityBackup = this.entity.copy();
     }
+
+    this.fulfillmentProviderService.entities$.take(1).subscribe(providers => {
+      if (providers instanceof CustomServerError) return;
+
+      this.fulfillmentProviders = providers;
+    });
+
+    this.merchantProviderGroupsService.entities$.take(1).subscribe(entities => {
+      if (entities instanceof CustomServerError) return;
+
+      this.merchantProviderGroups = entities;
+    });
+
+    this.campaignService.entities$.take(1).subscribe(entities => {
+      if (entities instanceof CustomServerError) return;
+
+      this.campaigns = entities;
+    });
+
+    this.fulfillmentProviderService.getEntities();
+    this.merchantProviderGroupsService.getEntities();
+    this.campaignService.getEntities();
+
+    this.merchantAssociationsService
+      .planeCustomEntitiesQuery(merchantProviderGroupAssociationsByEntityListQuery(this.entityId, {}))
+      .subscribe(associations => {
+        if (associations && associations.length > 0) {
+          this.merchantAssociation = associations[0];
+          this.merchantAssociationBackup = this.merchantAssociation.copy();
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -111,4 +163,103 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
     this.updateEntity(this.entityBackup);
   }
+
+  updateDescription() {
+    const product = this.entityBackup.copy();
+    product.description = this.entity.description;
+
+    this.updateEntity(product);
+  }
+
+  saveMain() {
+    const product = this.entityBackup.copy();
+    product.name = this.entity.name;
+
+    this.service.entityUpdated$.take(1).subscribe(() => {
+      this.editMain = false;
+    });
+
+    this.service.updateEntity(product);
+
+    this.merchantAssociationsService.entityCreated$
+      .merge(this.merchantAssociationsService.entityUpdated$)
+      .take(1)
+      .subscribe(association => {
+        if (association instanceof CustomServerError) return;
+
+        this.merchantAssociation = association;
+        this.merchantAssociationBackup = this.merchantAssociation.copy();
+      });
+
+    if (this.merchantAssociation.id) {
+      this.merchantAssociationsService.updateEntity(this.merchantAssociation);
+    } else {
+      this.merchantAssociationsService.createEntity(this.merchantAssociation);
+    }
+
+  }
+
+  cancelEditMain() {
+    this.entity.name = this.entityBackup.name;
+    this.merchantAssociation = this.merchantAssociationBackup.copy();
+
+    this.editMain = false;
+  }
+
+  saveSecondary() {
+    const product = this.entityBackup.copy();
+
+    product.sku = this.entity.sku;
+    product.ship = this.entity.ship;
+    product.shippingDelay = this.entity.shippingDelay;
+    product.defaultPrice = new Currency(this.entity.defaultPrice.amount);
+    product.fulfillmentProvider = this.entity.fulfillmentProvider.copy();
+
+    this.service.entityUpdated$.take(1).subscribe(() => {
+      this.editSecondary = false;
+    });
+
+    this.service.updateEntity(product);
+  }
+
+  cancelEditSecondary() {
+    this.entity.sku = this.entityBackup.sku;
+    this.entity.ship = this.entityBackup.ship;
+    this.entity.shippingDelay = this.entityBackup.shippingDelay;
+    this.entity.defaultPrice = new Currency(this.entityBackup.defaultPrice.amount);
+    this.entity.fulfillmentProvider = this.entityBackup.fulfillmentProvider.copy();
+    this.editSecondary = false;
+  }
+
+  selectProvider(provider: FulfillmentProvider) {
+    if (this.editSecondary) {
+      this.entity.fulfillmentProvider = provider;
+    }
+  }
+
+  openMerchantAssociationModal() {
+    if (!this.editMain) return;
+
+    let ref = this.dialog.open(MerchantProviderGroupAssociationDialogComponent);
+    ref.componentInstance.campaigns = this.campaigns;
+    ref.componentInstance.merchantGroups = this.merchantProviderGroups;
+
+    ref.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
+      ref = null;
+
+      if (result && result.campaign && result.group) {
+        if (this.merchantAssociation) {
+          this.merchantAssociation.campaign = result.campaign.copy();
+          this.merchantAssociation.merchantProviderGroup = result.group.copy();
+        } else {
+          this.merchantAssociation = new MerchantProviderGroupAssociation();
+          this.merchantAssociation.entityType = 'product';
+          this.merchantAssociation.entity = this.entityId;
+          this.merchantAssociation.campaign = result.campaign.copy();
+          this.merchantAssociation.merchantProviderGroup = result.group.copy();
+        }
+      }
+    });
+  }
+
 }

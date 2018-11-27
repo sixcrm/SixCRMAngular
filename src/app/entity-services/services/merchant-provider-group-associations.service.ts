@@ -5,8 +5,9 @@ import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
 import {MerchantProviderGroupAssociation} from '../../shared/models/merchant-provider-group-association.model';
 import {
   merchantProviderGroupAssociationsListQuery,
-  merchantProviderGroupAssociationQuery, createMerchantProviderGroupAssociationMutation, deleteMerchantProviderGroupAssociationMutation,
-  deleteMerchantProviderGroupAssociationssMutation
+  merchantProviderGroupAssociationQuery, createMerchantProviderGroupAssociationMutation,
+  deleteMerchantProviderGroupAssociationMutation,
+  deleteMerchantProviderGroupAssociationssMutation, updateMerchantProviderGroupAssociationMutation
 } from '../../shared/utils/queries/entities/merchant-provider-group-associations.queries';
 import {MatSnackBar} from '@angular/material';
 
@@ -23,7 +24,7 @@ export class MerchantProviderGroupAssociationsService extends AbstractEntityServ
       deleteMerchantProviderGroupAssociationMutation,
       deleteMerchantProviderGroupAssociationssMutation,
       createMerchantProviderGroupAssociationMutation,
-      null,
+      updateMerchantProviderGroupAssociationMutation,
       null,
       'merchantprovidergroupassociation',
       snackBar

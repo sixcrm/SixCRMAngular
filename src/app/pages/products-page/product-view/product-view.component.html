@@ -7,7 +7,6 @@
       <div class="section section--main" [class.section--full]="!infoVisible">
         <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)">
           <div class="buttons">
-            <button mat-button (click)="remove()">DELETE</button>
             <mat-icon *ngIf="selectedIndex !== 5" class="info-icon" [class.info-icon--active]="infoVisible" (click)="infoVisible = !infoVisible">info</mat-icon>
           </div>
         </tab-header>
@@ -28,7 +27,7 @@
               <textarea [(ngModel)]="entity.description" name="description" rows="8"></textarea>
 
               <div class="button-container">
-                <button mat-button (click)="updateEntity(entity)">Save</button>
+                <button mat-button (click)="updateDescription()">Save</button>
               </div>
             </div>
           </mat-tab>
@@ -47,51 +46,89 @@
 
         <div class="section__content">
           <ng-container *ngIf="entity">
-            <div class="details-box details-box--blue">
-              <mat-form-field>
-                <input type="text" matInput [(ngModel)]="entity.name">
-              </mat-form-field>
+            <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
+              <div class="edit-row edit-row--first">
+                <mat-form-field>
+                  <input type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain">
+                </mat-form-field>
 
-              <mat-form-field>
-                <input type="text" matInput placeholder="Merchant Processing">
-              </mat-form-field>
+                <mat-icon *ngIf="!editMain" (click)="editMain = true">edit</mat-icon>
+              </div>
 
+              <div class="dropdown-container dropdown-container--first" (click)="openMerchantAssociationModal()">
+                <div class="floating-placeholder" [class.floating-placeholder--invisible]="!merchantAssociation.merchantProviderGroup.name">
+                  Merchant Processing
+                </div>
+                <div class="content">
+                  <div [class.placeholder]="!merchantAssociation.merchantProviderGroup.name">
+                    {{merchantAssociation.merchantProviderGroup.name || 'Merchant Processing'}}
+                  </div>
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+              </div>
+
+              <div class="edit-buttons" *ngIf="editMain">
+                <button mat-button (click)="cancelEditMain()">CANCEL</button>
+                <button mat-button (click)="saveMain()">SAVE</button>
+              </div>
             </div>
-            <div class="details-box">
-              <div class="box-title">General</div>
+            <div class="details-box" [class.details-box--disabled]="!editSecondary">
+              <div class="edit-row edit-row--second">
+                <div class="box-title">General</div>
+                <mat-icon *ngIf="!editSecondary" (click)="editSecondary = true">edit</mat-icon>
+              </div>
               <mat-form-field>
-                <input type="text" matInput placeholder="SKU" [(ngModel)]="entity.sku">
+                <input type="text" matInput placeholder="SKU" [(ngModel)]="entity.sku" [readonly]="!editSecondary">
               </mat-form-field>
 
               <div class="row">
                 <mat-form-field>
-                  <input matInput currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" placeholder="Default Price" type="text">
-                </mat-form-field>
-
-                <mat-form-field>
-                  <input type="number" matInput placeholder="Quantity" [(ngModel)]="entity.quantity">
+                  <input matInput currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" placeholder="Default Price" type="text" [readonly]="!editSecondary">
                 </mat-form-field>
               </div>
 
-              <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.ship">is Shippable</mat-checkbox>
+              <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.ship" [disabled]="!editSecondary">is Shippable</mat-checkbox>
 
               <ng-container *ngIf="entity.ship">
-                <mat-form-field>
-                  <input matInput type="text" [(ngModel)]="entity.fulfillmentProvider.name" placeholder="Fulfillment Provider">
-                </mat-form-field>
+                <div [matMenuTriggerFor]="fulfillmentProviderMenu" class="dropdown-container">
+                  <div class="floating-placeholder" [class.floating-placeholder--invisible]="!entity.fulfillmentProvider.name">Fulfillment Provider</div>
+                  <div class="content">
+                    <div [class.placeholder]="!entity.fulfillmentProvider.name">
+                      {{entity.fulfillmentProvider.name || 'Fulfillment Provider'}}
+                    </div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                  </div>
+                </div>
+
+                <mat-menu #fulfillmentProviderMenu="matMenu" x-position="before">
+                  <button mat-menu-item
+                          *ngFor="let provider of fulfillmentProviders"
+                          (click)="selectProvider(provider)">
+                    {{provider.name}}
+                  </button>
+
+                  <button class="new-fulfillment" mat-menu-item [routerLink]="['/fulfillmentproviders']" [queryParams]="{action: 'new'}">
+                    Add New Fulfillment
+                  </button>
+                </mat-menu>
 
                 <div class="row">
                   <mat-form-field>
-                    <input matInput type="text" currencyInput placeholder="Shipping Price">
-                  </mat-form-field>
-                  <mat-form-field>
-                    <input matInput [(ngModel)]="entity.shippingDelay" placeholder="Shipping Delay">
+                    <input matInput [(ngModel)]="entity.shippingDelay" placeholder="Shipping Delay" [readonly]="!editSecondary">
                   </mat-form-field>
                 </div>
 
               </ng-container>
 
+              <div class="edit-buttons" *ngIf="editSecondary">
+                <button mat-button (click)="cancelEditSecondary()">CANCEL</button>
+                <button mat-button (click)="saveSecondary()">SAVE</button>
+              </div>
+            </div>
+
+            <div class="action-buttons" *ngIf="!editMain && !editSecondary">
               <button mat-button>CREATE SUBSCRIPTION</button>
+              <button mat-button (click)="remove()">DELETE</button>
             </div>
           </ng-container>
         </div>
