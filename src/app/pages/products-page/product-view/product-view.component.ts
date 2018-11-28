@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
 import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../entity-services/services/products.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
@@ -21,6 +21,9 @@ import {Campaign} from '../../../shared/models/campaign.model';
 import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
 import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {MerchantProviderGroupAssociationDialogComponent} from '../../../dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
+import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {Schedule} from '../../../shared/models/schedule.model';
 
 @Component({
   selector: 'product-view',
@@ -64,10 +67,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     route: ActivatedRoute,
     public navigation: NavigationService,
     private dialog: MatDialog,
+    private router: Router,
     public fulfillmentProviderService: FulfillmentProvidersService,
     private merchantAssociationsService: MerchantProviderGroupAssociationsService,
     private merchantProviderGroupsService: MerchantProviderGroupsService,
-    private campaignService: CampaignsService
+    private campaignService: CampaignsService,
+    private productScheduleService: ProductScheduleService
   ) {
     super(service, route);
   }
@@ -326,4 +331,16 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     });
   }
 
+  createSubscription() {
+    const productSchedule = new ProductSchedule({name: `${this.entity.name} Subscription`});
+    const schedule = new Schedule({start: 0, period: 30, end: 0, product: this.entity.copy()});
+
+    productSchedule.schedules = [schedule];
+
+    this.productScheduleService.fetchCreateEntity(productSchedule).subscribe(ps => {
+      if (ps instanceof CustomServerError) return;
+
+      this.router.navigate(['/productschedules', ps.id], {fragment: 'cycles'});
+    })
+  }
 }
