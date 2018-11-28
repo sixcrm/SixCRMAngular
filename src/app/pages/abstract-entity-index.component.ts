@@ -96,7 +96,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
       this.loadingData = false;
       this.serverError = null;
-      this.entitiesHolder = [...this.entitiesHolder, ...entities];
+      this.entitiesHolder = this.selectedSortBy
+        ? [...this.entitiesHolder, ...entities].sort(this.selectedSortBy.sortFunction)
+        : [...this.entitiesHolder, ...entities];
       this.allEntities.emit(this.entitiesHolder);
       this.reshuffleEntities();
     });

@@ -17,24 +17,6 @@ import {utc} from 'moment';
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
 
-  sortBy = [
-    {label: 'Name', sortFunction: (f: Product, s: Product) => {
-      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
-      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
-      return 0;
-    }},
-    {label: 'Price', sortFunction: (f: Product, s: Product) => {
-      if (f.defaultPrice.amount < s.defaultPrice.amount) return -1;
-      if (f.defaultPrice.amount > s.defaultPrice.amount) return 1;
-      return 0;
-    }},
-    {label: 'Created At', sortFunction: (f: Product, s: Product) => {
-      if (f.createdAt.isBefore(s.createdAt)) return -1;
-      if (f.createdAt.isAfter(s.createdAt)) return 1;
-      return 0;
-    }}
-  ];
-
   crumbItems: BreadcrumbItem[] = [{label: () => 'Products'}];
 
   filterString: string;
@@ -56,6 +38,31 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
     this.entityFactory = () => new Product();
     this.entityNameFunction = (p: Product) => p.name;
     this.openInEditModeAfterCreation = true;
+
+    this.initSort();
+  }
+
+  initSort() {
+    const sortName = (order: string) => (f: Product, s: Product) => {
+      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return order === 'asc' ? -1 : 1;
+      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return order === 'asc' ? 1 : -1;
+      return 0;
+    };
+
+    const sortPrice = (order: string) => (f: Product, s: Product) => {
+      if (f.defaultPrice.amount < s.defaultPrice.amount) return order === 'asc' ? -1 : 1;
+      if (f.defaultPrice.amount > s.defaultPrice.amount) return order === 'asc' ? 1 : -1;
+      return 0;
+    };
+
+    this.sortBy = [
+      {label: 'Name a-z', sortFunction: sortName('asc')},
+      {label: 'Name z-a', sortFunction: sortName('desc')},
+      {label: 'Price $$$-$', sortFunction: sortPrice('desc')},
+      {label: 'Price $-$$$', sortFunction: sortPrice('asc')}
+    ];
+
+    this.selectedSortBy = this.sortBy[0];
   }
 
   openAddMode() {
