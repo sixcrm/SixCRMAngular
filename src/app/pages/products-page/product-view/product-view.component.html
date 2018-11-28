@@ -22,12 +22,16 @@
             </product-images-gallery>
 
             <div class="description-container">
-              <div class="title">Description</div>
+              <div class="title">
+                <div>Description</div>
+                <mat-icon (click)="setEditDescription()" *ngIf="!editDescription">edit</mat-icon>
+              </div>
 
-              <textarea [(ngModel)]="entity.description" name="description" rows="8"></textarea>
+              <textarea [(ngModel)]="entity.description" name="description" rows="8" [readonly]="!editDescription"></textarea>
 
-              <div class="button-container">
-                <button mat-button (click)="updateDescription()">Save</button>
+              <div class="edit-buttons" *ngIf="editDescription">
+                <button mat-button (click)="cancelEditDescription()">CANCEL</button>
+                <button mat-button (click)="updateDescription()">SAVE</button>
               </div>
             </div>
           </mat-tab>

@@ -36,7 +36,7 @@
             <div>SKU {{product.sku}}</div>
             <div>{{product.defaultPrice.usd()}}</div>
           </div>
-          <button mat-button (click)="viewEntity(product.id)">EDIT</button>
+          <button mat-button [routerLink]="['/products', product.id]">EDIT</button>
         </div>
       </div>
     </ng-container>

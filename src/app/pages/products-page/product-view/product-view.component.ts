@@ -51,6 +51,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   editMain: boolean;
   editSecondary: boolean;
+  editDescription: boolean;
 
   merchantAssociation: MerchantProviderGroupAssociation = new MerchantProviderGroupAssociation();
   merchantAssociationBackup: MerchantProviderGroupAssociation = new MerchantProviderGroupAssociation();
@@ -120,7 +121,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   setViewMain() {
     this.editMain = false;
 
-    if (!this.editSecondary) {
+    if (!this.editSecondary && !this.editDescription) {
       super.setMode(Modes.View);
     }
   }
@@ -133,11 +134,23 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   setViewSecondary() {
     this.editSecondary = false;
 
-    if (!this.editMain) {
+    if (!this.editMain  && !this.editDescription) {
       super.setMode(Modes.View);
     }
   }
 
+  setEditDescription() {
+    super.setMode(Modes.Update);
+    this.editDescription = true;
+  }
+
+  setViewDescription() {
+    this.editDescription = false;
+
+    if (!this.editMain  && !this.editSecondary) {
+      super.setMode(Modes.View);
+    }
+  }
 
   setMode(mode: Modes): void {
     super.setMode(mode);
@@ -203,6 +216,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     const product = this.entityBackup.copy();
     product.description = this.entity.description;
 
+    this.service.entityUpdated$.take(1).subscribe(() => {
+      this.setViewDescription();
+    });
+
     this.updateEntity(product);
   }
 
@@ -244,6 +261,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.merchantAssociation = this.merchantAssociationBackup.copy();
 
     this.setViewMain();
+  }
+
+  cancelEditDescription() {
+    this.entity.description = this.entityBackup.description;
+
+    this.setViewDescription();
   }
 
   saveSecondary() {
