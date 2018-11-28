@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
 import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../entity-services/services/products.service';
 import {ActivatedRoute} from '@angular/router';
@@ -112,6 +112,41 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
       });
   }
 
+  setEditMain() {
+    super.setMode(Modes.Update);
+    this.editMain = true;
+  }
+
+  setViewMain() {
+    this.editMain = false;
+
+    if (!this.editSecondary) {
+      super.setMode(Modes.View);
+    }
+  }
+
+  setEditSecondary() {
+    super.setMode(Modes.Update);
+    this.editSecondary = true;
+  }
+
+  setViewSecondary() {
+    this.editSecondary = false;
+
+    if (!this.editMain) {
+      super.setMode(Modes.View);
+    }
+  }
+
+
+  setMode(mode: Modes): void {
+    super.setMode(mode);
+
+    if (mode === Modes.Update) {
+      this.editMain = true;
+    }
+  }
+
   ngOnDestroy() {
     this.destroy();
   }
@@ -176,10 +211,16 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     product.name = this.entity.name;
 
     this.service.entityUpdated$.take(1).subscribe(() => {
-      this.editMain = false;
+      this.setViewMain();
     });
 
     this.service.updateEntity(product);
+
+    this.saveMerchantAssociation();
+  }
+
+  saveMerchantAssociation(): void {
+    if (!this.merchantAssociation.merchantProviderGroup.id) return;
 
     this.merchantAssociationsService.entityCreated$
       .merge(this.merchantAssociationsService.entityUpdated$)
@@ -196,14 +237,13 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     } else {
       this.merchantAssociationsService.createEntity(this.merchantAssociation);
     }
-
   }
 
   cancelEditMain() {
     this.entity.name = this.entityBackup.name;
     this.merchantAssociation = this.merchantAssociationBackup.copy();
 
-    this.editMain = false;
+    this.setViewMain();
   }
 
   saveSecondary() {
@@ -216,7 +256,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     product.fulfillmentProvider = this.entity.fulfillmentProvider.copy();
 
     this.service.entityUpdated$.take(1).subscribe(() => {
-      this.editSecondary = false;
+      this.setViewSecondary();
     });
 
     this.service.updateEntity(product);
@@ -228,7 +268,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.entity.shippingDelay = this.entityBackup.shippingDelay;
     this.entity.defaultPrice = new Currency(this.entityBackup.defaultPrice.amount);
     this.entity.fulfillmentProvider = this.entityBackup.fulfillmentProvider.copy();
-    this.editSecondary = false;
+
+    this.setViewSecondary();
   }
 
   selectProvider(provider: FulfillmentProvider) {

@@ -49,10 +49,10 @@
             <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
               <div class="edit-row edit-row--first">
                 <mat-form-field>
-                  <input type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain">
+                  <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" >
                 </mat-form-field>
 
-                <mat-icon *ngIf="!editMain" (click)="editMain = true">edit</mat-icon>
+                <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
               </div>
 
               <div class="dropdown-container dropdown-container--first" (click)="openMerchantAssociationModal()">
@@ -75,7 +75,7 @@
             <div class="details-box" [class.details-box--disabled]="!editSecondary">
               <div class="edit-row edit-row--second">
                 <div class="box-title">General</div>
-                <mat-icon *ngIf="!editSecondary" (click)="editSecondary = true">edit</mat-icon>
+                <mat-icon *ngIf="!editSecondary" (click)="setEditSecondary()">edit</mat-icon>
               </div>
               <mat-form-field>
                 <input type="text" matInput placeholder="SKU" [(ngModel)]="entity.sku" [readonly]="!editSecondary">

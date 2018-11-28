@@ -8,6 +8,7 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {utc} from 'moment';
 
 @Component({
   selector: 'products',
@@ -54,10 +55,13 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
 
     this.entityFactory = () => new Product();
     this.entityNameFunction = (p: Product) => p.name;
+    this.openInEditModeAfterCreation = true;
   }
 
   openAddMode() {
-    super.openAddMode();
+    const newProduct = new Product({name: `New Product ${utc().format('MMM-DD')}`});
+
+    this.createEntity(newProduct);
   }
 
   ngOnInit() {

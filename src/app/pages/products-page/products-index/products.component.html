@@ -46,7 +46,3 @@
 </div>
 
 <bulk-selector [items]="entitiesHolder" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>
-
-<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <product-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-add-new>
-</div>

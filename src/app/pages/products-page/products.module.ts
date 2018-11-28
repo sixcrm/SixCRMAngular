@@ -8,7 +8,6 @@ import {ProductsAclGuard} from '../guards/products-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TextMaskModule} from 'angular2-text-mask';
-import { ProductAddNewComponent } from './product-view/product-add-new/product-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
@@ -30,7 +29,6 @@ import { ProductEmailsComponent } from './product-view/product-emails/product-em
   declarations : [
     ProductsComponent,
     ProductViewComponent,
-    ProductAddNewComponent,
     ProductImagesGalleryComponent,
     ProductEmailsComponent
   ],
