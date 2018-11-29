@@ -55,7 +55,6 @@ exports.config = {
     './e2e/**/create-order.e2e-spec.ts',
     './e2e/**/navigation.e2e-spec.ts',
     './e2e/**/product.e2e-spec.ts',
-    './e2e/**/product-schedule.e2e-spec.ts',
     './e2e/**/campaigns.e2e-spec.ts',
     './e2e/**/merchant-provider.e2e-spec.ts',
     './e2e/**/merchant-provider-group.e2e-spec.ts',
