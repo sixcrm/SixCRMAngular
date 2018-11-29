@@ -23,8 +23,8 @@ import {EmailTemplatesService} from '../../../entity-services/services/email-tem
 
 @Component({
   selector: 'product-schedule-view',
-  templateUrl: './product-schedule-view.component.html',
-  styleUrls: ['./product-schedule-view.component.scss']
+  templateUrl: 'product-schedule-view.component.html',
+  styleUrls: ['product-schedule-view.component.scss']
 })
 export class ProductScheduleViewComponent extends AbstractEntityViewComponent<ProductSchedule> implements OnInit, OnDestroy {
 
@@ -137,7 +137,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
-    {label: () => 'PRODUCTSCHEDULE_INDEX_TITLE', url: '/productschedules'},
+    {label: () => 'Products and Subscriptions', url: '/products'},
     {label: () => `${this.entity.name}`}
   ];
 
@@ -255,7 +255,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   navigateToProduct(schedule: Schedule) {
-    this.router.navigate(['products', schedule.product.id])
+    this.router.navigate(['products', 'product', schedule.product.id])
   }
 
   canBeDeactivated() {

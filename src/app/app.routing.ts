@@ -30,7 +30,6 @@ const appRoutes: Routes = [
     { path : 'fulfillmentproviders', loadChildren : './pages/fulfillment-providers/fulfillment-providers.module#FulfillmentProvidersModule', canActivate: [AuthGuard] },
     { path : 'merchantprovidergroups', loadChildren : './pages/merchant-provider-groups-page/merchant-provider-groups.module#MerchantProviderGroupsModule', canActivate: [AuthGuard] },
     { path : 'merchantproviders', loadChildren : './pages/merchant-providers-page/merchant-providers.module#MerchantProvidersModule', canActivate: [AuthGuard] },
-    { path : 'productschedules', loadChildren : './pages/product-schedule-page/product-schedules.module#ProductSchedulesModule', canActivate: [AuthGuard] },
     { path : 'products', loadChildren : './pages/products-page/products.module#ProductsModule', canActivate: [AuthGuard] },
     { path : 'orders', loadChildren : './pages/orders-page/orders.module#OrdersModule', canActivate: [AuthGuard] },
     { path : 'subscriptions', loadChildren : './pages/subscriptions-page/subscriptions.module#SubscriptionsModule', canActivate: [AuthGuard] },

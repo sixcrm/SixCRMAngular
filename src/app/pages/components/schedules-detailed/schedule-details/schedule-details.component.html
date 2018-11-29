@@ -151,7 +151,7 @@
             <div class="text">{{s.product.name}}</div>
             <mat-icon [matMenuTriggerFor]="scheduleoptions">more_vert</mat-icon>
             <mat-menu #scheduleoptions="matMenu" x-position="before">
-              <button mat-menu-item [routerLink]="['/products', s.product.id]">View Product</button>
+              <button mat-menu-item [routerLink]="['/products', 'product', s.product.id]">View Product</button>
               <button *ngIf="editable" mat-menu-item (click)="deleteSchedule.emit(s)">Delete Schedule</button>
               <button mat-menu-item (click)="focusSchedule.emit(s)">Focus Schedule</button>
             </mat-menu>

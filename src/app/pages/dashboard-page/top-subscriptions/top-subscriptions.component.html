@@ -17,7 +17,7 @@
         </div>
 
         <div class="row">
-          <div class="name" [routerLink]="['/productschedules', subscription.subscription]">{{subscription.subscription}}</div>
+          <div class="name" [routerLink]="['/products', 'subscription', subscription.subscription]">{{subscription.subscription}}</div>
           <div class="amount">{{subscription.amount.usd()}}</div>
         </div>
       </div>

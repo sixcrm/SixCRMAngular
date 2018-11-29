@@ -1,16 +1,16 @@
-<blue-header [items]="crumbItems" [titleValue]="'Products'"></blue-header>
+<blue-header [items]="crumbItems" [titleValue]="'Products and Subscriptions'"></blue-header>
 
 <div class="grid-body">
   <div class="header">
-    <button mat-button class="add-new-button" *ngIf="service.hasWritePermission()" (click)="openAddMode()">NEW</button>
+    <button mat-button class="add-new-button" *ngIf="productsService.hasWritePermission()" (click)="createNewProduct()">NEW PRODUCT</button>
 
     <div class="mrw-bi-input">
       <mat-form-field [floatLabel]="'never'">
-        <input matInput type="text" placeholder="Find Product..." [(ngModel)]="filterString">
+        <input matInput type="text" placeholder="Find ..." [(ngModel)]="filterString">
       </mat-form-field>
     </div>
 
-    <div class="count">{{entitiesHolder.length}} Products</div>
+    <div class="count">{{(entities | filterStrings: filterString: filterFunction)?.length}} Items</div>
 
     <div class="sort" [matMenuTriggerFor]="sortoptions">
       <div>Sort by <span>{{selectedSortBy ? ' ' + selectedSortBy.label : ''}}</span></div>
@@ -21,23 +21,45 @@
       <button mat-menu-item *ngFor="let sort of sortBy" (click)="applySortBy(sort)">{{sort.label}}</button>
     </mat-menu>
 
+    <div class="sort" [matMenuTriggerFor]="filterptions">
+      <div>Show <span>{{selectedFilter ? ' ' + selectedFilter.label : ''}}</span></div>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+
+    <mat-menu #filterptions="matMenu" x-position="before">
+      <button mat-menu-item *ngFor="let filter of filters" (click)="applyFilter(filter)">{{filter.label}}</button>
+    </mat-menu>
+
   </div>
 
-  <div class="content-wrapper" *ngIf="entitiesHolder">
+  <div class="content-wrapper" *ngIf="entities">
 
-    <ng-container *ngFor="let product of entitiesHolder | filterStrings: filterString: filterFunction">
-      <div class="entity-card" [class.entity-card--selected]="product.bulkSelected" (click)="selectEntity(product, $event)">
-        <div class="title">{{product.name}}</div>
+    <ng-container *ngFor="let entity of entities | filterStrings: filterString: filterFunction">
+      <div class="entity-card" [class.entity-card--selected]="entity.bulkSelected" (click)="selectEntity(entity, $event)">
+        <div class="title">{{entity.name}}</div>
 
-        <div class="product-image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
+        <div class="product-image" [style.background-image]="'url(' + getDefaultImagePath(entity) + ')'"></div>
 
-        <div class="product-details">
-          <div>
-            <div>SKU {{product.sku}}</div>
-            <div>{{product.defaultPrice.usd()}}</div>
+        <ng-container *ngIf="isSubscription(entity); else product">
+          <div class="subscription-mark">Subscription</div>
+          <div class="product-details">
+            <div>
+              <div>Schedules {{entity.schedules.length}}</div>
+              <div>{{entity.getInitialPrice().usd()}}</div>
+            </div>
+            <button mat-button [routerLink]="['/products', 'subscription', entity.id]" fragment="cycles">EDIT</button>
           </div>
-          <button mat-button [routerLink]="['/products', product.id]">EDIT</button>
-        </div>
+        </ng-container>
+
+        <ng-template #product>
+          <div class="product-details">
+            <div>
+              <div>SKU {{entity.sku}}</div>
+              <div>{{entity.defaultPrice.usd()}}</div>
+            </div>
+            <button mat-button [routerLink]="['/products', 'product', entity.id]">EDIT</button>
+          </div>
+        </ng-template>
       </div>
     </ng-container>
 
@@ -45,4 +67,4 @@
 
 </div>
 
-<bulk-selector [items]="entitiesHolder" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>
+<bulk-selector [items]="entities" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>

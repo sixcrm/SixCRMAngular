@@ -6,8 +6,8 @@ import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider
 
 @Component({
   selector: 'product-schedule-add-new',
-  templateUrl: './product-schedule-add-new.component.html',
-  styleUrls: ['./product-schedule-add-new.component.scss'],
+  templateUrl: 'product-schedule-add-new.component.html',
+  styleUrls: ['product-schedule-add-new.component.scss'],
   host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class ProductScheduleAddNewComponent implements OnInit {

@@ -16,8 +16,8 @@ import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'product-schedule-campaigns',
-  templateUrl: './product-schedule-campaigns.component.html',
-  styleUrls: ['./product-schedule-campaigns.component.scss']
+  templateUrl: 'product-schedule-campaigns.component.html',
+  styleUrls: ['product-schedule-campaigns.component.scss']
 })
 export class ProductScheduleCampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit, OnDestroy {
 

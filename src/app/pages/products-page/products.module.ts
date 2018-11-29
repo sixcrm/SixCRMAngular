@@ -13,6 +13,9 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
 import { ProductImagesGalleryComponent } from './product-view/product-images-gallery/product-images-gallery.component';
 import { ProductEmailsComponent } from './product-view/product-emails/product-emails.component';
+import {ProductScheduleViewComponent} from './product-schedule-view/product-schedule-view.component';
+import {ProductScheduleCampaignsComponent} from './product-schedule-view/product-schedule-campaigns/product-schedule-campaigns.component';
+import {ProductScheduleAddNewComponent} from './product-schedule-view/product-schedule-add-new/product-schedule-add-new.component';
 
 @NgModule({
   imports : [
@@ -30,7 +33,10 @@ import { ProductEmailsComponent } from './product-view/product-emails/product-em
     ProductsComponent,
     ProductViewComponent,
     ProductImagesGalleryComponent,
-    ProductEmailsComponent
+    ProductEmailsComponent,
+    ProductScheduleViewComponent,
+    ProductScheduleCampaignsComponent,
+    ProductScheduleAddNewComponent
   ],
   exports : [ ],
   providers: [

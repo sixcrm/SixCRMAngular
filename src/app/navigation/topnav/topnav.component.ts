@@ -43,14 +43,13 @@ export class TopnavComponent implements OnInit {
   addOptions: TopnavDropdownOption[] = [
     {label: 'New Order', callback: () => this.navigation.setShowCreateNewOrderModal(true)},
     {label: 'New Campaign', callback: () => this.router.navigate(['campaigns'], {queryParams: {action: 'new'}})},
-    {label: 'New Product Schedule', callback: () => this.router.navigate(['productschedules'], {queryParams: {action: 'new'}})},
     {label: 'New Product', callback: () => {
       const newProduct = new Product({name: `New Product ${utc().format('MMM-DD')}`});
 
       this.productsService.fetchCreateEntity(newProduct).subscribe(p => {
         if (p instanceof CustomServerError) return;
 
-        this.router.navigate(['products', p.id], {queryParams: {edit: 'true'}})
+        this.router.navigate(['products', 'product', p.id], {queryParams: {edit: 'true'}})
       })
     }},
     {label: 'New Merchant', callback: () => this.router.navigate(['merchantproviders'], {queryParams: {action: 'new'}})},

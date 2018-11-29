@@ -109,10 +109,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     setup.children.push({label: 'Campaigns', url: 'campaigns'});
   }
   if ((authService.hasPermissions('product', 'read') || authService.isBillingDisabled())) {
-    setup.children.push({label: 'Products', url: 'products'});
-  }
-  if ((authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
-    setup.children.push({label: 'Product Schedules', url: 'productschedules'});
+    setup.children.push({label: 'Products and Subscriptions', url: 'products'});
   }
   if ((authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
     setup.children.push({label: 'Email Templates', url: 'emailtemplates'});

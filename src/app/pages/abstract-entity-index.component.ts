@@ -303,18 +303,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.getEntities(this.limit, this.searchValue)
   }
 
-  selectEntity(entity: T, event): void {
-    entity['bulkSelected'] = !entity['bulkSelected'];
-
-    if (event && event.ctrlKey) return;
-
-    for (let i = 0; i < this.entitiesHolder.length; i++) {
-      if (this.entitiesHolder[i].id !== entity.id) {
-        this.entitiesHolder[i]['bulkSelected'] = false;
-      }
-    }
-  }
-
   applySortBy(sort: {label: string, sortFunction: (f: T, s: T) => number}) {
     this.selectedSortBy = sort;
     this.entitiesHolder = this.entitiesHolder.sort(sort.sortFunction);
@@ -364,28 +352,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
       this.reshuffleEntities();
     }
-  }
-
-  selectAllEntities() {
-    for (let i = 0; i < this.entitiesHolder.length; i++) {
-      this.entitiesHolder[i]['bulkSelected'] = true;
-    }
-  }
-
-  deselectAllEntities() {
-    for (let i = 0; i < this.entitiesHolder.length; i++) {
-      this.entitiesHolder[i]['bulkSelected'] = false;
-    }
-  }
-
-  copySelectedEntities(copyModificator?: (e: T) => T) {
-    this.entitiesHolder.filter(entity => entity['bulkSelected']).forEach(entity => this.copyEntity(entity.id, copyModificator));
-  }
-
-  deleteSelectedEntities() {
-    const toDelete = this.entitiesHolder.filter(e => e['bulkSelected']);
-
-    this.deleteMany(toDelete);
   }
 
   private indexOfEntity(entity: T): number {
