@@ -23,10 +23,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   modes = Modes;
 
   isNumeric = isAllowedNumeric;
-  isEmail = isAllowedEmail;
-  isCurrency = isAllowedCurrency;
   isFloatNumeric = isAllowedFloatNumeric;
-  numberMask = getCurrencyMask();
 
   protected isInited: boolean = false;
   protected takeUpdated: boolean = true;

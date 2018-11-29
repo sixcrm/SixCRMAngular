@@ -1,0 +1,17 @@
+<div class="gallery-wrapper">
+  <div #gallerycontainer class="gallery-container">
+    <div *ngIf="showLeft()" class="mover mover--left">
+      <div (click)="moveLeft()">
+        <mat-icon>arrow_back</mat-icon>
+      </div>
+    </div>
+
+    <ng-content></ng-content>
+
+    <div *ngIf="showRight()" class="mover mover--right">
+      <div (click)="moveRight()">
+        <mat-icon>arrow_forward</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
