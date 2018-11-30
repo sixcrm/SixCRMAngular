@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, ViewChild, Input} from '@angular/core';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {AnalyticsService} from '../../../../shared/services/analytics.service';
 import {TransactionSummary} from '../../../../shared/models/transaction-summary.model';
-import {utc, Moment} from 'moment';
+import {utc} from 'moment';
 import {Subscription} from 'rxjs';
 import {flatDown, flatUp} from '../../../../shared/models/filter-term.model';
 import {Rebill} from '../../../../shared/models/rebill.model';
@@ -140,6 +140,8 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
   }
 
   getPlanPrice(rebill: Rebill) {
+    if (!rebill || !rebill.productSchedules || !rebill.productSchedules[0]) return new Currency(0);
+
     const plan = rebill.productSchedules[0].name;
 
     if (plan === 'Basic Subscription') {

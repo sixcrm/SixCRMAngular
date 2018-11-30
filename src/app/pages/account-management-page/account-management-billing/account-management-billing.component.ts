@@ -15,6 +15,9 @@ import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-ca
 import {PaymentDialogComponent} from '../../../dialog-modals/payment-dialog/payment-dialog.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {UsersService} from '../../../entity-services/services/users.service';
+import {HttpWrapperBillingService} from '../../../shared/services/http-wrapper-billing.service';
+import {NavigationService} from '../../../navigation/navigation.service';
+import {SnackbarService} from '../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'account-management-billing',
@@ -40,7 +43,10 @@ export class AccountManagementBillingComponent implements OnInit {
     private authService: AuthenticationService,
     private userService: UsersService,
     private customerGraphAPI: HttpWrapperCustomerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private billingService: HttpWrapperBillingService,
+    private navigationService: NavigationService,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -62,8 +68,11 @@ export class AccountManagementBillingComponent implements OnInit {
             return 0;
           });
 
-        this.nextBill = session.rebills[0];
-        this.lastBill = session.rebills[1];
+        session.rebills = session.rebills.sort((a,b) => a.billAt.isBefore(b.billAt) ? 1 : a.billAt.isAfter(b.billAt) ? -1 : 0);
+        const futureRebills = session.rebills.filter(r => r.billAt.isAfter(utc()) && this.isPaid(r));
+        const pastRebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()) && this.isPaid(r));
+        this.nextBill = futureRebills[0] || new Rebill({bill_at: utc().add(1,'M')});
+        this.lastBill = pastRebills[0] || new Rebill();
 
         session.rebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()));
 
@@ -81,7 +90,7 @@ export class AccountManagementBillingComponent implements OnInit {
   }
 
   isPaid(rebill: Rebill): boolean {
-    if (!rebill) return true;
+    if (!rebill) return false;
 
     return rebill.transactions
       && rebill.transactions.length > 0
@@ -89,13 +98,19 @@ export class AccountManagementBillingComponent implements OnInit {
   }
 
   getCardNumber(rebill): string {
-    if (!rebill.transactions || !rebill.transactions[0]) return '-';
+    if (!rebill.transactions || !rebill.transactions[0] || rebill.transactions[0].creditCard) return '-';
 
     return `**** ${rebill.transactions[0].creditCard.lastFour}`;
   }
 
+  getPlanName(rebill): string {
+    if (!rebill || !rebill.productSchedules || !rebill.productSchedules[0]) return '';
+
+    return rebill.productSchedules[0].name;
+  }
+
   getPlanPrice(rebill) {
-    if (!rebill) return new Currency(0);
+    if (!rebill || !rebill.productSchedules || !rebill.productSchedules[0]) return new Currency(0);
 
     const plan = rebill.productSchedules[0].name;
 
@@ -213,6 +228,46 @@ export class AccountManagementBillingComponent implements OnInit {
 
     paymentDialogRef.afterClosed().subscribe(result => {
       paymentDialogRef = null;
+
+      if (result && result.card) {
+
+        this.navigationService.setShowProcessingOrderOverlay(true);
+        if (result.card.id) {
+          const customer = this.session.customer.copy();
+          customer.defaultCreditCard = result.card.id;
+
+          this.customerGraphAPI.updateCustomerInfo(customer).subscribe(updatedCustomer => {
+            this.session.customer = updatedCustomer;
+            const index = firstIndexOf(updatedCustomer.creditCards, (el) => el.id === result.card.id);
+            if (index !== -1) {
+              this.defaultCreditCard = updatedCustomer.creditCards[index];
+            }
+
+            this.restoreAccount();
+          }, () => {
+            this.navigationService.setShowProcessingOrderOverlay(false);
+          });
+        } else {
+          this.restoreAccount(result.card);
+        }
+      }
     });
+  }
+
+  restoreAccount(card?: CreditCard) {
+    this.billingService.restoreAccount(card).subscribe(resp => {
+      this.navigationService.setShowProcessingOrderOverlay(false);
+
+      if (resp.success) {
+        this.snackbarService.showSuccessSnack('Payment Successful!', 3000);
+      } else {
+        this.snackbarService.showErrorSnack('Payment failed, please try again.', 5000);
+      }
+
+      this.fetchSession();
+    }, error => {
+      this.navigationService.setShowProcessingOrderOverlay(false);
+      this.snackbarService.showErrorSnack(error.error.message, 5000);
+    })
   }
 }

@@ -55,7 +55,7 @@
           </td>
           <td>{{rebill.billAt | formatDateTime: 'MMMM Do, YYYY'}}</td>
           <td>{{getCardNumber(rebill)}}</td>
-          <td>{{rebill.productSchedules[0].name}}</td>
+          <td>{{getPlanName(rebill)}}</td>
           <td class="number-cell">{{getPlanPrice(rebill).usd()}}</td>
           <td class="number-cell button-cell">
             <ng-container *ngIf="isPaid(rebill); else paybutton">{{rebill.amount.usd()}}</ng-container>

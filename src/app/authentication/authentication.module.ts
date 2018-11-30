@@ -15,7 +15,6 @@ import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import {AccountInfoGuard} from './account-info-guard.service';
-import {BillingDisabledGuard} from './payment-dissabled-guard.service';
 import {MarkdownModule} from 'angular2-markdown';
 import {MasterAccountGuard} from "./master-account-guard.service";
 
@@ -45,7 +44,6 @@ import {MasterAccountGuard} from "./master-account-guard.service";
     AuthGuard,
     RegisterGuard,
     AccountInfoGuard,
-    BillingDisabledGuard,
     MasterAccountGuard
   ]
 })

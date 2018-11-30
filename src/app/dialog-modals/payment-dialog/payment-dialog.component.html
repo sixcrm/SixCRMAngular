@@ -7,6 +7,8 @@
         <mat-icon class="arrow-icon">arrow_drop_down</mat-icon>
       </div>
       <mat-menu #cardsMenu="matMenu" x-position="before">
+        <button mat-menu-item (click)="selectNewCard()"><mat-icon>add</mat-icon>NEW CARD</button>
+
         <button *ngFor="let card of (otherCreditCards || [])" mat-menu-item (click)="selectCard(card)">
           <div class="button-content">
             <img src="{{'/assets/cards/' + card.typeShort + '.svg'}}">
@@ -29,7 +31,7 @@
 
     <div class="summary">
       <div class="row">
-        <div>{{rebill.productSchedules[0].name}}</div>
+        <div>{{rebill.productSchedules && rebill.productSchedules[0] ? rebill.productSchedules[0].name : ''}}</div>
         <div>{{rebill.amount.usd()}}</div>
       </div>
 

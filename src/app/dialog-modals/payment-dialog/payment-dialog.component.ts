@@ -48,6 +48,10 @@ export class PaymentDialogComponent implements OnInit {
     this.creditCard = temp;
   }
 
+  selectNewCard() {
+    this.creditCard = new CreditCard();
+  }
+
   pay() {
     if (this.creditCard && this.creditCard.id) {
       this.dialogRef.close({card: this.creditCard.copy()})

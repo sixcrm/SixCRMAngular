@@ -5,7 +5,6 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {DefaultLayoutComponent} from './navigation/layouts/default/default.layout.component';
 import {ComingSoonComponent} from './shared/components/coming-soon/coming-soon.component';
 import {ErrorPageStandaloneComponent} from './error-page-standalone/error-page-standalone.component';
-import {BillingDisabledGuard} from './authentication/payment-dissabled-guard.service';
 import {BillingInfoComponent} from './billing-info/billing-info.component';
 import {MasterAccountGuard} from "./authentication/master-account-guard.service";
 
@@ -45,7 +44,7 @@ const appRoutes: Routes = [
     { path : 'coming-soon', component: ComingSoonComponent, canActivate: [AuthGuard] },
     { path : 'roles', loadChildren : './pages/roles-page/roles.module#RolesModule', canActivate: [AuthGuard] },
     { path : 'features', loadChildren : './pages/features-page/features.module#FeaturesModule', canActivate: [MasterAccountGuard] },
-    { path : 'billing-disabled', component : BillingInfoComponent, canActivate: [BillingDisabledGuard] },
+    { path : 'billing-disabled', component : BillingInfoComponent },
     { path : '**', component : ErrorPageComponent, canActivate: [AuthGuard] }
   ]},
 

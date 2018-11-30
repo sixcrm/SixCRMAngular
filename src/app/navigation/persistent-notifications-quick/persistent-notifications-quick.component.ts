@@ -47,36 +47,20 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   }
 
   private updateBillingNotification() {
-    if (this.authService.isBillingDisabledOrSoonToBeDisabled()) {
-      const account = this.authService.getActiveAcl().account;
-
-      if (!account.billing || !account.billing.disable) {
-        this.billingNotification = undefined;
-      } else {
-        const daysTillBilling = (account.billing.disable).diff(utc(), 'd');
-
-        this.billingNotification = this.createBillingDisableNotification(daysTillBilling);
-      }
+    if (this.authService.isAccountBillingDeactivated()) {
+      this.billingNotification = this.createBillingDeactivatedNotification();
+    } else {
+      this.billingNotification = undefined
     }
   }
 
-  private createBillingDisableNotification(numberOfDays): Notification {
-    let key = 'billing_disable_soon';
-
-    if (numberOfDays === 0) {
-      key = 'billing_disable_today'
-    }
-    if (numberOfDays > 0) {
-      key = 'billing_disable_soon'
-    }
-    if (numberOfDays < 0) {
-      key = 'billing_disabled'
-    }
+  private createBillingDeactivatedNotification(): Notification {
+    let key = 'Your account has been deactivated due to unpaid bills.';
 
     return this.notificationsService.buildNotificationWithBody({
       name: key,
       category: 'billing',
-      context: {days: numberOfDays}
+      context: {}
     });
   }
 

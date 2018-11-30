@@ -289,20 +289,12 @@ export class AuthenticationService {
     this.redirectAfterAclChange(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard');
   }
 
-  public isBillingDisabled(): boolean {
-    const account = this.getActiveAcl().account;
-
-    if (!account.billing || !account.billing.disable) return false;
-
-    return utc().isAfter(utc(account.billing.disable))
-  }
-
-  public isBillingDisabledOrSoonToBeDisabled(): boolean {
-    if (!this.getActiveAcl().account.billing) return false;
+  public isAccountBillingDeactivated(): boolean {
+    if (!this.getActiveAcl().account.billing || !this.getActiveAcl().account.billing.deactivatedAt) return false;
 
     const account = this.getActiveAcl().account;
 
-    return utc(account.billing.disable).diff(utc(), 'd') <= 7;
+    return utc().isAfter(utc(account.billing.deactivatedAt));
   }
 
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
@@ -481,11 +473,6 @@ export class AuthenticationService {
       return;
     }
 
-    if (this.shouldRedirectToBillingDisabled()) {
-      this.router.navigate(['/billing-disabled'], {replaceUrl: !!replaceUrlState});
-      return;
-    }
-
     if (redirectUrl) {
       this.router.navigateByUrl(redirectUrl, {replaceUrl: !!replaceUrlState});
       return;
@@ -502,10 +489,6 @@ export class AuthenticationService {
       || !this.getActiveAcl().account.active
       || this.getActiveAcl().role.isDisabled()
       || this.getActiveAcl().role.isNoPermissions();
-  }
-
-  private shouldRedirectToBillingDisabled() {
-    return this.isBillingDisabled();
   }
 
   private shouldRedirectToRegister() {
