@@ -71,8 +71,8 @@ export class AccountManagementBillingComponent implements OnInit {
         session.rebills = session.rebills.sort((a,b) => a.billAt.isBefore(b.billAt) ? 1 : a.billAt.isAfter(b.billAt) ? -1 : 0);
         const futureRebills = session.rebills.filter(r => r.billAt.isAfter(utc()) && this.isPaid(r));
         const pastRebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()) && this.isPaid(r));
-        this.nextBill = futureRebills[0] || new Rebill({bill_at: utc().add(1,'M')});
         this.lastBill = pastRebills[0] || new Rebill();
+        this.nextBill = futureRebills[0] || new Rebill({bill_at: this.lastBill.billAt.add(1,'M')});
 
         session.rebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()));
 
@@ -243,19 +243,19 @@ export class AccountManagementBillingComponent implements OnInit {
               this.defaultCreditCard = updatedCustomer.creditCards[index];
             }
 
-            this.restoreAccount();
+            this.rebillReattempt(rebill);
           }, () => {
             this.navigationService.setShowProcessingOrderOverlay(false);
           });
         } else {
-          this.restoreAccount(result.card);
+          this.rebillReattempt(rebill, result.card);
         }
       }
     });
   }
 
-  restoreAccount(card?: CreditCard) {
-    this.billingService.restoreAccount(card).subscribe(resp => {
+  rebillReattempt(rebill: Rebill, card?: CreditCard) {
+    this.billingService.rebillReattempt(rebill, card).subscribe(resp => {
       this.navigationService.setShowProcessingOrderOverlay(false);
 
       if (resp.success) {

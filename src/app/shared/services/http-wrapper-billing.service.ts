@@ -5,29 +5,30 @@ import {Observable} from 'rxjs';
 import {CreditCard} from '../models/credit-card.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {stateCode, countryCode} from '../utils/address.utils';
+import {Rebill} from '../models/rebill.model';
 
 @Injectable()
 export class HttpWrapperBillingService {
 
   constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
-  public restoreAccount(creditCard?: CreditCard): Observable<any> {
-    let body = null;
+  public rebillReattempt(rebill: Rebill, creditCard?: CreditCard): Observable<any> {
+    let body: {rebill: any, creditcard?: any} = {
+      rebill: rebill.id,
+    };
 
     if (creditCard) {
-      body = {
-        'creditcard': {
-          'number': creditCard.ccnumber,
-          'expiration': creditCard.expiration,
-          'cvv': creditCard.cvv,
-          'name': creditCard.name,
-          'address': {
-            'line1': creditCard.address.line1,
-            'city': creditCard.address.city,
-            'state': stateCode(creditCard.address.state),
-            'zip': creditCard.address.zip,
-            'country': countryCode(creditCard.address.country),
-          }
+      body.creditcard = {
+        number: creditCard.ccnumber,
+        expiration: creditCard.expiration,
+        cvv: creditCard.cvv,
+        name: creditCard.name,
+        address: {
+          line1: creditCard.address.line1,
+          city: creditCard.address.city,
+          state: stateCode(creditCard.address.state),
+          zip: creditCard.address.zip,
+          country: countryCode(creditCard.address.country),
         }
       };
 
@@ -40,7 +41,7 @@ export class HttpWrapperBillingService {
       .append('Content-Type', 'application/json')
       .append('Authorization', this.auth.getToken());
 
-    const endpoint = environment.bareEndpoint + `account/restore/` + this.auth.getActiveAcl().account.id;
+    const endpoint = environment.bareEndpoint + `rebill/reattempt/` + this.auth.getActiveAccount().id;
 
     return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
       .map(response => response.body.response);
