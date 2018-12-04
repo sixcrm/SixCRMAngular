@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
   crumbItems: BreadcrumbItem[] = [{label: () => 'Products and Subscriptions'}];
 
   filterString: string;
-  filterFunction = (product: Product) => product.name;
+  filterFunction = (item: any) => item.name + (item.sku || '');
 
   bulkOptions = ['Copy', 'Select All', 'Deselect All', 'Delete'];
 
@@ -160,12 +160,18 @@ export class ProductsComponent implements OnInit {
   }
 
   copySelectedEntities() {
-    this.entities.filter(entity => entity['bulkSelected']).forEach(entity => {
-      this.copyEntity(entity);
-    });
+    const toBeCopied = this.entities.filter(entity => entity['bulkSelected']);
+
+    if (toBeCopied.length === 1) {
+      this.copyEntity(toBeCopied[0], true);
+    } else {
+      toBeCopied.forEach(entity => {
+        this.copyEntity(entity);
+      });
+    }
   }
 
-  copyEntity(entity: (Product | ProductSchedule)): void {
+  copyEntity(entity: (Product | ProductSchedule), viewAfterCopy?: boolean): void {
     const service: AbstractEntityService<any> = entity instanceof Product ? this.productsService : this.schedulesService;
 
     service.fetchEntity(entity.id).subscribe(full => {
@@ -177,6 +183,17 @@ export class ProductsComponent implements OnInit {
 
       service.fetchCreateEntity(full).subscribe(copied => {
         if (copied instanceof CustomServerError) {
+          return;
+        }
+
+        if (viewAfterCopy) {
+
+          if (entity instanceof Product) {
+            this.router.navigate(['/products', 'product', copied.id], {queryParams: {edit: true}});
+          } else {
+            this.router.navigate(['/products', 'subscription', copied.id], {queryParams: {edit: true}});
+          }
+
           return;
         }
 

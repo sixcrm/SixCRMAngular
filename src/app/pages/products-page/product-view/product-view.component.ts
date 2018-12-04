@@ -118,6 +118,29 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
       });
   }
 
+  onEntityUpdated(updated: Product) {
+    const updatedBackup = updated.copy();
+
+    if (this.editMain) {
+      updated.name = this.entity.name;
+    }
+
+    if (this.editSecondary) {
+      updated.sku = this.entity.sku;
+      updated.defaultPrice = this.entity.defaultPrice;
+      updated.ship = this.entity.ship;
+      updated.shippingDelay = this.entity.shippingDelay;
+      updated.fulfillmentProvider = this.entity.fulfillmentProvider;
+    }
+
+    if (this.editDescription) {
+      updated.description = this.entity.description;
+    }
+
+    this.entity = updated;
+    this.entityBackup = updatedBackup;
+  }
+
   setEditMain() {
     super.setMode(Modes.Update);
     this.editMain = true;
@@ -221,10 +244,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     const product = this.entityBackup.copy();
     product.description = this.entity.description;
 
-    this.service.entityUpdated$.take(1).subscribe(() => {
-      this.setViewDescription();
-    });
-
+    this.setViewDescription();
     this.updateEntity(product);
   }
 
@@ -232,10 +252,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     const product = this.entityBackup.copy();
     product.name = this.entity.name;
 
-    this.service.entityUpdated$.take(1).subscribe(() => {
-      this.setViewMain();
-    });
-
+    this.setViewMain();
     this.service.updateEntity(product);
 
     this.saveMerchantAssociation();
@@ -283,11 +300,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     product.defaultPrice = new Currency(this.entity.defaultPrice.amount);
     product.fulfillmentProvider = this.entity.fulfillmentProvider.copy();
 
-    this.service.entityUpdated$.take(1).subscribe(() => {
-      this.setViewSecondary();
-    });
-
     this.service.updateEntity(product);
+    this.setViewSecondary();
   }
 
   cancelEditSecondary() {
@@ -342,5 +356,9 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
       this.router.navigate(['/products', 'subscription', ps.id], {fragment: 'cycles'});
     })
+  }
+
+  priceUpdated(price: Currency) {
+    this.entity.defaultPrice = price;
   }
 }
