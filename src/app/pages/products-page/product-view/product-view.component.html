@@ -53,7 +53,7 @@
             <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
               <div class="edit-row edit-row--first">
                 <mat-form-field>
-                  <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" >
+                  <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" maxlength="100">
                 </mat-form-field>
 
                 <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
