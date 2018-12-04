@@ -343,4 +343,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
       this.router.navigate(['/products', 'subscription', ps.id], {fragment: 'cycles'});
     })
   }
+
+  priceUpdated(price: Currency) {
+    this.entity.defaultPrice = price;
+  }
 }
