@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
   crumbItems: BreadcrumbItem[] = [{label: () => 'Products and Subscriptions'}];
 
   filterString: string;
-  filterFunction = (product: Product) => product.name;
+  filterFunction = (item: any) => item.name + (item.sku || '');
 
   bulkOptions = ['Copy', 'Select All', 'Deselect All', 'Delete'];
 
