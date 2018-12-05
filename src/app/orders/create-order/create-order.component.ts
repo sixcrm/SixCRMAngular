@@ -66,6 +66,8 @@ export class CreateOrderComponent implements OnInit {
 
   shippings: Product[] = [];
   selectedShippings: Product[] = [];
+  shippingDisabled: boolean;
+
   shippingFilterValue: string;
   filteredShippings: Product[] = [];
 
@@ -248,11 +250,23 @@ export class CreateOrderComponent implements OnInit {
   }
 
   productSelected(option, input) {
-    this.selectedProducts.push(option.option.value.copy());
+    const product = option.option.value.copy();
+
+    if (product instanceof ProductSchedule) {
+      this.selectedShippings = [];
+      this.shippingDisabled = true;
+    }
+
+    this.selectedProducts.push(product);
     input.blur();
   }
 
-  productFilterFunction = (product: Product) => {
+  productFilterFunction = (product: Product | ProductSchedule) => {
+    if (product instanceof ProductSchedule
+        && this.selectedProducts.filter(p => p instanceof ProductSchedule).length > 0) {
+      return false;
+    }
+
     if (!this.productFilterValue || !this.productFilterValue.toLowerCase) return true;
 
     const filter = this.productFilterValue.toLowerCase();
@@ -275,6 +289,7 @@ export class CreateOrderComponent implements OnInit {
 
     if (index !== -1) {
       this.selectedProducts.splice(index, 1);
+      this.shippingDisabled = this.selectedProducts.filter(p => p instanceof ProductSchedule).length > 0;
     }
 
     this.productFilterValue = '';

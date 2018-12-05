@@ -284,7 +284,7 @@
               </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
+            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="shippingDisabled">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
                   <span class="title">
