@@ -29,6 +29,7 @@
 
       <mat-tab>
         <table-advanced [data]="entity.schedules"
+                        [addEnabled]="entity && entity.schedules.length === 0"
                         [columnParams]="scheduleColumnParams"
                         [entityFactory]="scheduleFactory"
                         [textOptions]="tableTexts"
