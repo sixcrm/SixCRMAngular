@@ -1,4 +1,4 @@
-<blue-header [items]="crumbItems" [titleValue]="'Products and Subscriptions'"></blue-header>
+<blue-header [items]="crumbItems" [titleValue]="'Products and Schedules'"></blue-header>
 
 <div class="grid-body">
   <div class="header">
@@ -41,13 +41,13 @@
         <div class="product-image" [style.background-image]="'url(' + getDefaultImagePath(entity) + ')'"></div>
 
         <ng-container *ngIf="isSubscription(entity); else product">
-          <div class="subscription-mark">Subscription</div>
+          <div class="subscription-mark">Schedule</div>
           <div class="product-details">
             <div>
               <div>Schedules {{entity.schedules.length}}</div>
               <div>{{entity.getInitialPrice().usd()}}</div>
             </div>
-            <button mat-button [routerLink]="['/products', 'subscription', entity.id]" fragment="cycles">EDIT</button>
+            <button mat-button [routerLink]="['/products', 'schedule', entity.id]" fragment="cycles">EDIT</button>
           </div>
         </ng-container>
 

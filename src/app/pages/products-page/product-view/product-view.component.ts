@@ -46,7 +46,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
-    {label: () => 'Products and Subscriptions', url: '/products'},
+    {label: () => 'Products and Schedules', url: '/products'},
     {label: () => this.entityBackup ? this.entityBackup.name : ''}
   ];
 
@@ -354,7 +354,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.productScheduleService.fetchCreateEntity(productSchedule).subscribe(ps => {
       if (ps instanceof CustomServerError) return;
 
-      this.router.navigate(['/products', 'subscription', ps.id], {fragment: 'cycles'});
+      this.router.navigate(['/products', 'schedule', ps.id], {fragment: 'cycles'});
     })
   }
 

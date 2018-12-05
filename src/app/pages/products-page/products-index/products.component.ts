@@ -19,7 +19,7 @@ import {AbstractEntityService} from '../../../entity-services/services/abstract-
 })
 export class ProductsComponent implements OnInit {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'Products and Subscriptions'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Products and Schedules'}];
 
   filterString: string;
   filterFunction = (item: any) => item.name + (item.sku || '');
@@ -73,7 +73,7 @@ export class ProductsComponent implements OnInit {
   filters = [
     {label: 'All', filterFunction: (el) => el},
     {label: 'Products', filterFunction: (el) => el instanceof Product},
-    {label: 'Subscriptions', filterFunction: (el) => el instanceof ProductSchedule}
+    {label: 'Schedules', filterFunction: (el) => el instanceof ProductSchedule}
   ];
 
   selectedFilter = this.filters[0];
@@ -191,7 +191,7 @@ export class ProductsComponent implements OnInit {
           if (entity instanceof Product) {
             this.router.navigate(['/products', 'product', copied.id], {queryParams: {edit: true}});
           } else {
-            this.router.navigate(['/products', 'subscription', copied.id], {queryParams: {edit: true}});
+            this.router.navigate(['/products', 'schedule', copied.id], {queryParams: {edit: true}});
           }
 
           return;
