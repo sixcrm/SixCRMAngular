@@ -15,6 +15,7 @@ export class ScheduleDetailsHeaderComponent implements OnInit {
   @Input() schedule: Schedule;
   @Input() productSchedule: ProductSchedule;
   @Input() editable: boolean = true;
+  @Input() singleScheduleMode: boolean;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() removeProduct: EventEmitter<boolean> = new EventEmitter();

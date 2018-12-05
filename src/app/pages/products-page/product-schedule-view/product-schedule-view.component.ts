@@ -93,9 +93,9 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
     const lastExistingSchedule: Schedule = this.entity.schedules[this.entity.schedules.length - 1];
 
-    schedule.start = lastExistingSchedule.end;
+    schedule.start = lastExistingSchedule.end || 0;
+    schedule.period = lastExistingSchedule.period || 30;
     schedule.end = schedule.start + schedule.period;
-    schedule.period = lastExistingSchedule.period;
 
     return schedule;
   };
@@ -161,8 +161,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   ngOnInit() {
-    this.takeUpdated = false;
-
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
       if (ps instanceof CustomServerError) {
         this.updateError = true;
@@ -178,6 +176,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
       productSchedule.updatedAtAPI = this.entity.updatedAtAPI;
       productSchedule.updatedAt = this.entity.updatedAt.clone();
+
+      this.takeUpdated = false;
       this.updateEntity(productSchedule, {ignoreSnack: true});
     });
 
@@ -214,6 +214,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   addSchedule(schedule: Schedule) {
     this.entity.schedules.push(schedule);
 
+    this.takeUpdated = true;
     this.updateEntity(this.entity);
   }
 
@@ -225,6 +226,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       }
     }
 
+    this.takeUpdated = true;
     this.updateEntity(this.entity);
   }
 
@@ -234,6 +236,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
       if (index > -1) {
         this.entity.schedules.splice(index, 1);
+        this.takeUpdated = true;
         this.updateEntity(this.entity);
       }
     });
@@ -250,6 +253,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
         }
       });
 
+      this.takeUpdated = true;
       this.updateEntity(this.entity);
     })
   }
