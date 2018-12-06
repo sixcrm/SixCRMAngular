@@ -4,6 +4,7 @@ import {
 } from './entities-helper.queries';
 import {Product} from '../../../models/product.model';
 import {IndexQueryParameters} from '../index-query-parameters.model';
+import {Currency} from '../../currency/currency';
 
 export function productsListQuery(params: IndexQueryParameters): string {
   return `{
@@ -60,6 +61,10 @@ export function productResponseQuery(): string {
 
 export function productInputQuery(p: Product, includeId?: boolean): string {
   const product = p.copy();
+
+  product.dynamicPrice.enabled = true;
+  product.dynamicPrice.min = new Currency(0);
+  product.dynamicPrice.max = new Currency(9999999);
 
   let height = '';
   if (product.attributes.dimensions.height.units) {
