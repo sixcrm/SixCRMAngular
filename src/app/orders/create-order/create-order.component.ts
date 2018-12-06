@@ -345,7 +345,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   shippingSelected(option, input) {
-    this.selectedShippings.push(option.option.value);
+    const shipping = option.option.value.copy();
+    this.selectedShippings.push(shipping);
     input.blur();
   }
 
