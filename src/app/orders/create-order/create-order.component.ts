@@ -150,10 +150,22 @@ export class CreateOrderComponent implements OnInit {
       }
     });
 
-    this.productService.entities$.take(1).merge(this.productScheduleService.entities$.take(1)).subscribe(products => {
+    this.productService.entities$.take(1).subscribe(products => {
       if (products instanceof CustomServerError) return;
 
       this.products = [...this.products, ...products].sort((a,b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+    });
+
+    this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
+      if (productSchedules instanceof CustomServerError) return;
+
+      productSchedules = productSchedules.filter(p => p.schedules.length === 2);
+
+      this.products = [...this.products, ...productSchedules].sort((a,b) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
         return 0;
