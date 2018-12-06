@@ -84,7 +84,6 @@
             <div class="body__row">
               <mat-form-field>
                 <input type="text" matInput [disabled]="!editable || !_scheduleBackup.product.dynamicPrice.enabled" placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
-                <mat-hint align="end" *ngIf="_scheduleBackup.product.dynamicPrice.enabled">{{_scheduleBackup.product.dynamicPrice.min.usd()}} - {{_scheduleBackup.product.dynamicPrice.max.usd()}}</mat-hint>
               </mat-form-field>
             </div>
           </div>
