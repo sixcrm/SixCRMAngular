@@ -295,6 +295,14 @@ export class CreateOrderComponent implements OnInit {
     this.productFilterValue = '';
   }
 
+  billingPrevious() {
+    if (this.shippingDisabled) {
+      this.setStep(3);
+    } else {
+      this.setStep(4);
+    }
+  }
+
   confirmShippingAddress() {
     this.shippingAddressInvalid =
     !this.shippingAddress.line1 || !this.isAddressValid(this.shippingAddress.line1)
@@ -306,7 +314,12 @@ export class CreateOrderComponent implements OnInit {
     if (this.shippingAddressInvalid) return;
 
     this.selectedShippingAddress = this.shippingAddress.copy();
-    this.setStep(4);
+
+    if (this.shippingDisabled) {
+      this.setStep(5);
+    } else {
+      this.setStep(4);
+    }
   }
 
   removeShippingAddress() {
