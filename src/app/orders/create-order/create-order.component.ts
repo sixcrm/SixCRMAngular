@@ -150,10 +150,22 @@ export class CreateOrderComponent implements OnInit {
       }
     });
 
-    this.productService.entities$.take(1).merge(this.productScheduleService.entities$.take(1)).subscribe(products => {
+    this.productService.entities$.take(1).subscribe(products => {
       if (products instanceof CustomServerError) return;
 
       this.products = [...this.products, ...products].sort((a,b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+    });
+
+    this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
+      if (productSchedules instanceof CustomServerError) return;
+
+      productSchedules = productSchedules.filter(p => p.schedules.length === 2);
+
+      this.products = [...this.products, ...productSchedules].sort((a,b) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
         return 0;
@@ -295,6 +307,14 @@ export class CreateOrderComponent implements OnInit {
     this.productFilterValue = '';
   }
 
+  billingPrevious() {
+    if (this.shippingDisabled) {
+      this.setStep(3);
+    } else {
+      this.setStep(4);
+    }
+  }
+
   confirmShippingAddress() {
     this.shippingAddressInvalid =
     !this.shippingAddress.line1 || !this.isAddressValid(this.shippingAddress.line1)
@@ -306,7 +326,12 @@ export class CreateOrderComponent implements OnInit {
     if (this.shippingAddressInvalid) return;
 
     this.selectedShippingAddress = this.shippingAddress.copy();
-    this.setStep(4);
+
+    if (this.shippingDisabled) {
+      this.setStep(5);
+    } else {
+      this.setStep(4);
+    }
   }
 
   removeShippingAddress() {
@@ -320,7 +345,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   shippingSelected(option, input) {
-    this.selectedShippings.push(option.option.value);
+    const shipping = option.option.value.copy();
+    this.selectedShippings.push(shipping);
     input.blur();
   }
 
