@@ -198,8 +198,7 @@
                     <td class="mid">
                       <div class="flex-custom flex-custom--center price-edit-container">
                         <mat-form-field class="input-align-right" [class.error]="productInEdit.id === product.id && productInEdit['error']" [class.solo]="productInEdit.id === product.id || !product.dynamicPrice || !product.dynamicPrice.enabled">
-                          <input matInput currencyInput (keydown)="isCurrencyInput($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.initialCycleSchedulesPrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="setProductInEditPrice($event)" name="defaultPrice" type="text">
-                          <mat-hint align="end" *ngIf="productInEdit.id === product.id">{{product.dynamicPrice.min.usd()}} - {{product.dynamicPrice.max.usd()}}</mat-hint>
+                          <input matInput currencyInput (keydown)="isEnter($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.initialCycleSchedulesPrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="setProductInEditPrice($event)" name="defaultPrice" type="text">
                         </mat-form-field>
                         <mat-icon *ngIf="productInEdit.id !== product.id && product.dynamicPrice && product.dynamicPrice.enabled" (click)="setProductInEdit(product)">edit</mat-icon>
                       </div>
@@ -284,7 +283,7 @@
               </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
+            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="shippingDisabled">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
                   <span class="title">
@@ -375,7 +374,7 @@
               </div>
 
               <div class="buttons">
-                <button mat-button (click)="setStep(4)">PREVIOUS</button>
+                <button mat-button (click)="billingPrevious()">PREVIOUS</button>
                 <button mat-button (click)="billingNextStep()">DONE</button>
               </div>
             </mat-expansion-panel>

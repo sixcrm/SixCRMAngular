@@ -187,7 +187,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   }
 
   viewProductSchedule(productSchedule: ProductSchedule): void {
-    this.router.navigate(['/productschedules', productSchedule.id]);
+    this.router.navigate(['/products', 'schedule', productSchedule.id]);
   }
 
   disassociateProductSchedule(productSchedule: ProductSchedule): void {

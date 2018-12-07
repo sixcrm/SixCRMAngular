@@ -23,10 +23,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   modes = Modes;
 
   isNumeric = isAllowedNumeric;
-  isEmail = isAllowedEmail;
-  isCurrency = isAllowedCurrency;
   isFloatNumeric = isAllowedFloatNumeric;
-  numberMask = getCurrencyMask();
 
   protected isInited: boolean = false;
   protected takeUpdated: boolean = true;
@@ -67,11 +64,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updated: T) => {
-      if (this.takeUpdated) {
-        this.entity = updated;
-        this.entityBackup = this.entity.copy();
-      }
-      this.setMode(Modes.View);
+      this.onEntityUpdated(updated);
     });
 
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((created: T) => {
@@ -81,6 +74,14 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     });
 
     this.fetchData();
+  }
+
+  protected onEntityUpdated(updated: T) {
+    if (this.takeUpdated) {
+      this.entity = updated;
+      this.entityBackup = this.entity.copy();
+    }
+    this.setMode(Modes.View);
   }
 
   private fetchData() {

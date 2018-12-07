@@ -20,7 +20,7 @@ import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 })
 export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE', url: '/transactions'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Transactions', url: '/transactions'}];
 
   sub: Subscription;
 
@@ -67,8 +67,6 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setSortName('merchant_message')
         .setMaskLongData(true)
     ];
-
-    this.date = {start: utc().subtract(7,'d'), end: utc()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
@@ -134,13 +132,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
-    this.analyticsService.getTransactions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(transactions => {
+    this.analyticsService.getTransactions(this.getFetchParams(true)).subscribe(transactions => {
       if (!transactions || transactions instanceof CustomServerError) {
         return;
       }
@@ -161,17 +153,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   fetch() {
     this.router.navigate(
       ['/transactions'],
-      {
-        queryParams: {
-          start: this.date.start.clone().format(),
-          end: this.date.end.clone().format(),
-          sort: this.getSortColumn().sortName,
-          sortOrder: this.getSortColumn().sortOrder,
-          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
-          filters: JSON.stringify(this.filters)
-        },
-        replaceUrl: true
-      });
+      {queryParams: this.getQueryParams()}
+    );
 
     this.fetchData();
   }
@@ -183,15 +166,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.sub.unsubscribe();
     }
 
-    this.sub = this.analyticsService.getTransactions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      limit: 25,
-      offset: this.entities.length,
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(transactions => {
+    this.sub = this.analyticsService.getTransactions(this.getFetchParams()).subscribe(transactions => {
       this.loadingData = false;
 
       if (!transactions || transactions instanceof CustomServerError) {
@@ -207,19 +182,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   fetchCounts() {
-    if (this.lastCountsDate
-      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
-      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
-    ) {
-      return;
-    }
+    if (!this.shouldFetchCounts()) return;
 
-    this.lastCountsDate = {
-      start: this.date.start.clone(),
-      end: this.date.end.clone()
-    };
-
-    this.tabs.forEach(t => t.count = Observable.of(null));
+    this.prepareFetchCounts();
 
     this.analyticsService.getTransactions({
       start: this.date.start.clone().format(),

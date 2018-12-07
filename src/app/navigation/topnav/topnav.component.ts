@@ -9,6 +9,10 @@ import {NotificationsQuickService} from '../../shared/services/notifications-qui
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component';
 import {environment} from '../../../environments/environment';
+import {ProductsService} from '../../entity-services/services/products.service';
+import {utc} from 'moment';
+import {Product} from '../../shared/models/product.model';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 
 @Component({
   selector : 'app-topnav',
@@ -39,8 +43,15 @@ export class TopnavComponent implements OnInit {
   addOptions: TopnavDropdownOption[] = [
     {label: 'New Order', callback: () => this.navigation.setShowCreateNewOrderModal(true)},
     {label: 'New Campaign', callback: () => this.router.navigate(['campaigns'], {queryParams: {action: 'new'}})},
-    {label: 'New Product Schedule', callback: () => this.router.navigate(['productschedules'], {queryParams: {action: 'new'}})},
-    {label: 'New Product', callback: () => this.router.navigate(['products'], {queryParams: {action: 'new'}})},
+    {label: 'New Product', callback: () => {
+      const newProduct = new Product({name: `New Product ${utc().format('MMM-DD')}`});
+
+      this.productsService.fetchCreateEntity(newProduct).subscribe(p => {
+        if (p instanceof CustomServerError) return;
+
+        this.router.navigate(['products', 'product', p.id], {queryParams: {edit: 'true'}})
+      })
+    }},
     {label: 'New Merchant', callback: () => this.router.navigate(['merchantproviders'], {queryParams: {action: 'new'}})},
     {label: 'New Merchant Group', callback: () => this.router.navigate(['merchantprovidergroups'], {queryParams: {action: 'new'}})},
   ];
@@ -59,7 +70,8 @@ export class TopnavComponent implements OnInit {
     public authService: AuthenticationService,
     private router: Router,
     private searchService: SearchService,
-    private notificationsService: NotificationsQuickService
+    private notificationsService: NotificationsQuickService,
+    private productsService: ProductsService
   ) { }
 
   ngOnInit() {

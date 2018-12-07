@@ -1,5 +1,6 @@
 import { Moment, utc} from 'moment';
 import {Currency} from '../../utils/currency/currency';
+import {getValueOf} from './analytics-model.utilities';
 
 export class TransactionAnalytics {
 
@@ -31,36 +32,26 @@ export class TransactionAnalytics {
 
     this.obj = obj;
 
-    this.id = this.getValueOf('id');
-    this.date = utc(this.getValueOf('datetime'));
-    this.transactionType = this.getValueOf('transaction_type');
-    this.response = this.getValueOf('response') || '';
+    this.id = getValueOf(obj, 'id');
+    this.date = utc(getValueOf(obj, 'datetime'));
+    this.transactionType = getValueOf(obj, 'transaction_type');
+    this.response = getValueOf(obj, 'response') || '';
     this.amount = this.transactionType === 'refund'
-      ? new Currency(this.getValueOf('associated_transaction_amount') || 0)
-      : new Currency(this.getValueOf('amount') || 0);
-    this.refund = new Currency(this.getValueOf('refund') || 0);
-    this.merchantProvider = this.getValueOf('merchant_provider_name') || '';
-    this.merchantProviderId = this.getValueOf('merchant_provider') || '';
-    this.alias = this.getValueOf('alias') || '';
-    this.rebillAlias = this.getValueOf('rebill_alias') || '';
-    this.rebillId = this.getValueOf('rebill') || '';
-    this.sessionAlias = this.getValueOf('session_alias') || '';
-    this.sessionId= this.getValueOf('session') || '';
-    this.creditCard = this.getValueOf('creditcard') || '';
-    this.customer = this.getValueOf('customer_name') || '';
-    this.customerId = this.getValueOf('customer');
-    this.merchantCode = this.getValueOf('merchant_code');
-    this.merchantMessage = this.getValueOf('merchant_message');
-  }
-
-  private getValueOf(key): any {
-    for (let i = 0; i < this.obj.length; i++) {
-      if (this.obj[i].key === key) {
-        return this.obj[i].value;
-      }
-    }
-
-    return '';
+      ? new Currency(getValueOf(obj, 'associated_transaction_amount') || 0)
+      : new Currency(getValueOf(obj, 'amount') || 0);
+    this.refund = new Currency(getValueOf(obj, 'refund') || 0);
+    this.merchantProvider = getValueOf(obj, 'merchant_provider_name') || '';
+    this.merchantProviderId = getValueOf(obj, 'merchant_provider') || '';
+    this.alias = getValueOf(obj, 'alias') || '';
+    this.rebillAlias = getValueOf(obj, 'rebill_alias') || '';
+    this.rebillId = getValueOf(obj, 'rebill') || '';
+    this.sessionAlias = getValueOf(obj, 'session_alias') || '';
+    this.sessionId= getValueOf(obj, 'session') || '';
+    this.creditCard = getValueOf(obj, 'creditcard') || '';
+    this.customer = getValueOf(obj, 'customer_name') || '';
+    this.customerId = getValueOf(obj, 'customer');
+    this.merchantCode = getValueOf(obj, 'merchant_code');
+    this.merchantMessage = getValueOf(obj, 'merchant_message');
   }
 
 }

@@ -1,60 +1,272 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 import {ProductsService} from "../../../entity-services/services/products.service";
 import {Product} from "../../../shared/models/product.model";
-import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MatDialog} from '@angular/material';
-import {PaginationService} from '../../../shared/services/pagination.service';
-import {AuthenticationService} from '../../../authentication/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ColumnParams} from '../../../shared/models/column-params.model';
+import {Router} from '@angular/router';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {utc} from 'moment';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
+import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {AbstractEntityService} from '../../../entity-services/services/abstract-entity.service';
 
 @Component({
   selector: 'products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'PRODUCT_INDEX_TITLE'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Products and Schedules'}];
+
+  filterString: string;
+  filterFunction = (item: any) => item.name + (item.sku || '');
+
+  bulkOptions = ['Copy', 'Select All', 'Deselect All', 'Delete'];
+
+  entities: (Product | ProductSchedule)[] = [];
+  allEntities: (Product | ProductSchedule)[] = [];
+
+  sortName = (order: string) => (f: (Product | ProductSchedule), s: (Product | ProductSchedule)) => {
+    if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return order === 'asc' ? -1 : 1;
+    if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return order === 'asc' ? 1 : -1;
+    return 0;
+  };
+
+  sortPrice = (order: string) => (f: (Product | ProductSchedule), s: (Product | ProductSchedule)) => {
+    let fprice = 0;
+    let sprice = 0;
+
+    if (f instanceof Product) {
+      fprice = f.defaultPrice.amount;
+    }
+
+    if (s instanceof Product) {
+      sprice = s.defaultPrice.amount;
+    }
+
+    if (f instanceof ProductSchedule) {
+      fprice = f.getInitialPrice().amount;
+    }
+
+    if (s instanceof ProductSchedule) {
+      sprice = s.getInitialPrice().amount;
+    }
+
+    if (fprice < sprice) return order === 'asc' ? -1 : 1;
+    if (fprice > sprice) return order === 'asc' ? 1 : -1;
+
+    return 0;
+  };
+
+  sortBy = [
+    {label: 'Name a-z', sortFunction: this.sortName('asc')},
+    {label: 'Name z-a', sortFunction: this.sortName('desc')},
+    {label: 'Price $$$-$', sortFunction: this.sortPrice('desc')},
+    {label: 'Price $-$$$', sortFunction: this.sortPrice('asc')}
+  ];
+
+  selectedSortBy = this.sortBy[0];
+
+  filters = [
+    {label: 'All', filterFunction: (el) => el},
+    {label: 'Products', filterFunction: (el) => el instanceof Product},
+    {label: 'Schedules', filterFunction: (el) => el instanceof ProductSchedule}
+  ];
+
+  selectedFilter = this.filters[0];
 
   constructor(
-    productsService: ProductsService,
-    auth: AuthenticationService,
-    dialog: MatDialog,
-    paginationService: PaginationService,
-    router: Router,
-    activatedRoute: ActivatedRoute,
-    location: Location
+    public productsService: ProductsService,
+    private schedulesService: ProductScheduleService,
+    private router: Router,
+    private dialog: MatDialog
   ) {
-    super(productsService, auth, dialog, paginationService, router, activatedRoute, location);
+    this.productsService.entityDeleted$.merge(this.schedulesService.entityDeleted$).subscribe(entity => {
+      if (entity instanceof CustomServerError) return;
 
-    this.entityFactory = () => new Product();
+      const index = firstIndexOf(this.entities, e => e.id === entity.id);
 
-    let f = this.authService.getTimezone();
-    this.columnParams = [
-      new ColumnParams('PRODUCT_INDEX_HEADER_ID', (e: Product) => e.id).setSelected(false),
-      new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name).setImageMapper((e: Product) => e.getDefaultImagePath() || '/assets/images/product-image-placeholder.svg'),
-      new ColumnParams('PRODUCT_INDEX_HEADER_PRICE', (e: Product) => e.defaultPrice.usd(), 'right'),
-      new ColumnParams('PRODUCT_INDEX_HEADER_SKU',(e: Product) => e.sku),
-      new ColumnParams('PRODUCT_INDEX_HEADER_SHIP', (e: Product) => e.ship + ''),
-      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right').setNumberOption(true),
-      new ColumnParams('PRODUCT_INDEX_HEADER_PROVIDER', (e: Product) => e.fulfillmentProvider.name).setSelected(false),
-      new ColumnParams('PRODUCT_INDEX_HEADER_CREATED', (e: Product) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
-      new ColumnParams('PRODUCT_INDEX_HEADER_UPDATED', (e: Product) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
-    ];
+      if (index !== -1) {
+        this.entities.splice(index, 1);
+      }
+    });
+
+    this.productsService.entities$.take(1).zip(this.schedulesService.entities$.take(1)).subscribe(data => {
+      if (!data || !data[0] || data[0] instanceof CustomServerError || !data[1] || data[1] instanceof CustomServerError) {
+        return;
+      }
+
+      this.allEntities = [...data[0], ...data[1]].sort(this.selectedSortBy.sortFunction);
+      this.entities = this.allEntities.slice();
+    });
+
+    this.productsService.getEntities();
+    this.schedulesService.getEntities();
   }
 
-  openAddMode() {
-    super.openAddMode();
+  isSubscription(entity: (Product | ProductSchedule)): boolean {
+    return entity instanceof ProductSchedule;
   }
 
-  ngOnInit() {
-    this.init();
+  createNewProduct() {
+    const newProduct = new Product({name: `New Product ${utc().format('MMM-DD')}`});
+
+    this.productsService.fetchCreateEntity(newProduct).subscribe(product => {
+      if (product instanceof CustomServerError) return;
+
+      this.router.navigate(['/products', 'product', product.id], {queryParams: {edit: 'true'}})
+    });
   }
 
-  ngOnDestroy() {
-    this.destroy();
+  ngOnInit() { }
+
+  selectEntity(entity: any, event): void {
+    entity['bulkSelected'] = !entity['bulkSelected'];
+
+    if (event && event.ctrlKey) return;
+
+    for (let i = 0; i < this.entities.length; i++) {
+      if (this.entities[i].id !== entity.id) {
+        this.entities[i]['bulkSelected'] = false;
+      }
+    }
+  }
+
+  getDefaultImagePath(entity: Product | ProductSchedule) {
+    if (entity instanceof Product) {
+      return entity.getDefaultImagePath();
+    }
+
+    if (entity instanceof ProductSchedule) {
+      return entity.getInitialDefaultImagePath();
+    }
+
+    return '/assets/images/product-default-image.svg';
+  }
+
+  selectAllEntities() {
+    for (let i = 0; i < this.entities.length; i++) {
+      this.entities[i]['bulkSelected'] = true;
+    }
+  }
+
+  deselectAllEntities() {
+    for (let i = 0; i < this.entities.length; i++) {
+      this.entities[i]['bulkSelected'] = false;
+    }
+  }
+
+  copySelectedEntities() {
+    const toBeCopied = this.entities.filter(entity => entity['bulkSelected']);
+
+    if (toBeCopied.length === 1) {
+      this.copyEntity(toBeCopied[0], true);
+    } else {
+      toBeCopied.forEach(entity => {
+        this.copyEntity(entity);
+      });
+    }
+  }
+
+  copyEntity(entity: (Product | ProductSchedule), viewAfterCopy?: boolean): void {
+    const service: AbstractEntityService<any> = entity instanceof Product ? this.productsService : this.schedulesService;
+
+    service.fetchEntity(entity.id).subscribe(full => {
+      if (full instanceof CustomServerError) {
+        return;
+      }
+
+      full.name = full.name + ' (Copy)';
+
+      service.fetchCreateEntity(full).subscribe(copied => {
+        if (copied instanceof CustomServerError) {
+          return;
+        }
+
+        if (viewAfterCopy) {
+
+          if (entity instanceof Product) {
+            this.router.navigate(['/products', 'product', copied.id], {queryParams: {edit: true}});
+          } else {
+            this.router.navigate(['/products', 'schedule', copied.id], {queryParams: {edit: true}});
+          }
+
+          return;
+        }
+
+        const holder = [copied, ...this.entities];
+        this.entities = this.selectedSortBy ? holder.sort(this.selectedSortBy.sortFunction) : holder;
+      });
+    });
+
+  }
+
+  deleteMany(entities: (Product | ProductSchedule)[]) {
+    if (!entities || entities.length === 0) return;
+
+    let ref = this.dialog.open(DeleteDialogComponent);
+
+    ref.componentInstance.items = entities.map(e => e.name);
+
+    ref.afterClosed().take(1).subscribe(result => {
+      ref = null;
+
+      if (result && result.success) {
+        const products = entities.filter(e => e instanceof Product).map(e => e.id);
+        const schedules = entities.filter(e => e instanceof ProductSchedule).map(e => e.id);
+
+        if (schedules && schedules.length > 0) {
+          this.schedulesService.deleteEntities(schedules);
+        }
+
+        if (products && products.length > 0) {
+          this.productsService.deleteEntities(products);
+        }
+      }
+
+    });
+  }
+
+  applySortBy(sort: {label: string, sortFunction: (f: (Product | ProductSchedule), s: (Product | ProductSchedule)) => any}) {
+    this.selectedSortBy = sort;
+    this.allEntities = this.allEntities.sort(sort.sortFunction);
+    this.entities = this.allEntities.filter(this.selectedFilter.filterFunction)
+  }
+
+  applyFilter(filter: {label: string, filterFunction: (any) => any}) {
+    this.selectedFilter = filter;
+    this.entities = this.allEntities.filter(filter.filterFunction);
+  }
+
+  deleteSelectedEntities() {
+    const toDelete = this.entities.filter(e => e['bulkSelected']);
+
+    this.deleteMany(toDelete);
+  }
+
+  applyBulkOption(option: string) {
+    if (!option) return;
+
+    switch (option) {
+      case 'Copy': {
+        this.copySelectedEntities();
+        break;
+      }
+      case 'Select All': {
+        this.selectAllEntities();
+        break;
+      }
+      case 'Deselect All': {
+        this.deselectAllEntities();
+        break;
+      }
+      case 'Delete': {
+        this.deleteSelectedEntities();
+        break;
+      }
+    }
   }
 }

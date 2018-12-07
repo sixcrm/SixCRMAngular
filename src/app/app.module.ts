@@ -55,7 +55,7 @@ import { OrderFiltersDialogComponent } from './dialog-modals/order-filters-dialo
 import { CustomTokenBlockDialogComponent } from './dialog-modals/custom-token-block-dialog/custom-token-block-dialog.component';
 import { EmailTemplatePreviewModalComponent } from './dialog-modals/email-template-preview-modal/email-template-preview-modal.component';
 import { PaymentDialogComponent } from './dialog-modals/payment-dialog/payment-dialog.component';
-import {HttpWrapperBillingService} from './shared/services/http-wrapper-billing.service';
+import { ImageUploaderDialogComponent } from './dialog-modals/image-uploader-dialog/image-uploader-dialog.component';
 
 @NgModule({
   declarations : [
@@ -95,7 +95,8 @@ import {HttpWrapperBillingService} from './shared/services/http-wrapper-billing.
     OrderFiltersDialogComponent,
     CustomTokenBlockDialogComponent,
     EmailTemplatePreviewModalComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    ImageUploaderDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -151,7 +152,8 @@ import {HttpWrapperBillingService} from './shared/services/http-wrapper-billing.
     OrderFiltersDialogComponent,
     CustomTokenBlockDialogComponent,
     EmailTemplatePreviewModalComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    ImageUploaderDialogComponent
   ],
   bootstrap : [AppComponent]
 })

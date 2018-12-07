@@ -1,0 +1,20 @@
+<div class="images-container">
+  <div class="title">
+    <div>Images</div>
+    <button mat-button (click)="displayImageUploadDialog()">Upload New Image</button>
+  </div>
+  <slider-gallery>
+    <div class="image-wrapper" sliderGalleryItem *ngFor="let image of product.attributes.images">
+      <div class="image-box">
+        <div class="name">{{image.name || 'Unnamed Image'}}</div>
+        <div class="image" [style.background-image]="'url(' + image.path + ')'">
+          <div *ngIf="image.defaultImage" class="default">Default</div>
+        </div>
+        <div class="buttons">
+          <button *ngIf="!image.defaultImage" mat-button class="default-button" (click)="setDefaultImage.emit(image)">Make Default</button>
+          <button mat-button (click)="deleteImage(image)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </slider-gallery>
+</div>

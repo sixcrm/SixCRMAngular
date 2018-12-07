@@ -30,7 +30,7 @@ describe('Orders', function() {
   it('should navigate to orders page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(2).click();
+    nav.getLink(3).click();
     waitForUrlContains('orders');
     expectUrlToContain('orders');
   });
