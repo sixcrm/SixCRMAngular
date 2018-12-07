@@ -3,7 +3,7 @@ import {Acl} from '../shared/models/acl.model';
 import {FeatureFlagService} from "../shared/services/feature-flag.service";
 import {NavigationMenuSection, NavigationMenuItem} from './navigation-menu/navigation-menu.component';
 
-export function menuItems(authService: AuthenticationService, acl: Acl, featureFlagService: FeatureFlagService): NavigationMenuSection[] {
+export function menuItems(authService: AuthenticationService, acl: Acl): NavigationMenuSection[] {
 
   const result: NavigationMenuSection[] = [];
 
@@ -59,10 +59,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const cycleReports: NavigationMenuItem = { label: 'Reports', icon: 'insert_chart', children: [ ] };
 
-  if ((authService.hasPermissions('analytics', 'getCycleReport'))) {
+  if (authService.hasPermissions('analytics', 'getCycleReport')) {
     cycleReports.children.push({label: 'Cycle Report', url: 'coming-soon'});
   }
-  if ((authService.hasPermissions('analytics', 'getDayToDay'))) {
+  if (authService.hasPermissions('analytics', 'getDayToDay')) {
     cycleReports.children.push({label: 'Day-to-Day Report', url: 'coming-soon'});
   }
 
@@ -72,10 +72,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const trafficReport: NavigationMenuItem = { label: 'Reports', icon: 'insert_chart', children: [ ] };
 
-  if ((authService.hasPermissions('analytics', 'getAffiliates'))) {
+  if (authService.hasPermissions('analytics', 'getAffiliates')) {
     trafficReport.children.push({label: 'Affiliates Report', url: 'reports/affiliate'});
   }
-  if ((authService.hasPermissions('analytics', 'getMerchants'))) {
+  if (authService.hasPermissions('analytics', 'getMerchants')) {
     trafficReport.children.push({label: 'Merchants Report', url: 'reports/merchant'});
   }
 
@@ -105,13 +105,13 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const setup: NavigationMenuItem = { label: 'CRM Setup', icon: 'apps', children: [] };
 
-  if ((authService.hasPermissions('campaign', 'read'))) {
+  if (authService.hasPermissions('campaign', 'read')) {
     setup.children.push({label: 'Campaigns', url: 'campaigns'});
   }
-  if ((authService.hasPermissions('product', 'read') || authService.isBillingDisabled())) {
+  if (authService.hasPermissions('product', 'read')) {
     setup.children.push({label: 'Products and Schedules', url: 'products'});
   }
-  if ((authService.hasPermissions('emailtemplate', 'read'))) {
+  if (authService.hasPermissions('emailtemplate', 'read')) {
     setup.children.push({label: 'Email Templates', url: 'emailtemplates'});
   }
   if (setup.children.length > 0) {
@@ -122,10 +122,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const traffic: NavigationMenuItem = { label: 'Traffic', children: [] };
 
-  if ((authService.hasPermissions('affiliate', 'read'))) {
+  if (authService.hasPermissions('affiliate', 'read')) {
     traffic.children.push({label: 'Affiliates', url: 'affiliates'});
   }
-  if ((authService.hasPermissions('tracker', 'read'))) {
+  if (authService.hasPermissions('tracker', 'read')) {
     traffic.children.push({label: 'Tracking', url: 'trackers'});
   }
   if (traffic.children.length > 0) {
@@ -134,10 +134,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const merchants: NavigationMenuItem = { label: 'Merchants', children: [] };
 
-  if ((authService.hasPermissions('merchantprovider', 'read'))) {
+  if (authService.hasPermissions('merchantprovider', 'read')) {
     merchants.children.push({label: 'Merchant Providers', url: 'merchantproviders'});
   }
-  if ((authService.hasPermissions('merchantprovidergroup', 'read'))) {
+  if (authService.hasPermissions('merchantprovidergroup', 'read')) {
     merchants.children.push({label: 'Merchant Group', url: 'merchantprovidergroups'});
   }
   if (merchants.children.length > 0) {
@@ -146,10 +146,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const integrations: NavigationMenuItem = { label: '3rd Party Integrations', children: [] };
 
-  if ((authService.hasPermissions('fulfillmentprovider', 'read'))) {
+  if (authService.hasPermissions('fulfillmentprovider', 'read')) {
     integrations.children.push({label: 'Fulfillment Providers', url: 'fulfillmentproviders'});
   }
-  if ((authService.hasPermissions('smtpprovider', 'read'))) {
+  if (authService.hasPermissions('smtpprovider', 'read')) {
     integrations.children.push({label: 'SMTP Providers', url: 'smtpproviders'});
   }
   if (integrations.children.length > 0) {
@@ -164,19 +164,19 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const settings: NavigationMenuItem = { label: 'Account', icon: 'work', children: [ ] };
 
-  if ((authService.hasPermissions('account', 'read'))) {
+  if (authService.hasPermissions('account', 'read')) {
     settings.children.push({label: 'General', url: 'accountmanagement/general'});
   }
-  if ((authService.hasPermissions('bill', 'read'))) {
+  if (authService.hasPermissions('bill', 'read')) {
     settings.children.push({label: 'Billing', url: 'accountmanagement/billing'});
   }
-  if ((authService.hasPermissions('accesskey', 'read'))) {
+  if (authService.hasPermissions('accesskey', 'read')) {
     settings.children.push({label: 'API Access Keys', url: 'accountmanagement/apikeys'});
   }
-  if ((authService.hasPermissions('role', 'read'))) {
+  if (authService.hasPermissions('role', 'read')) {
     settings.children.push({label: 'Roles', url: 'accountmanagement/roles'});
   }
-  if ((authService.hasPermissions('user', 'read'))) {
+  if (authService.hasPermissions('user', 'read')) {
     settings.children.push({label: 'Users', url: 'accountmanagement/users'});
   }
   if (settings.children.length > 0) {
