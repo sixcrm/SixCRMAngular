@@ -60,21 +60,15 @@ export class AccountManagementBillingComponent implements OnInit {
 
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {
-        session.rebills = session.rebills
-          .sort((f,s) => {
-            if (f.billAt.isAfter(s.billAt)) return -1;
-            if (f.billAt.isBefore(s.billAt)) return 1;
-
-            return 0;
-          });
-
         session.rebills = session.rebills.sort((a,b) => a.billAt.isBefore(b.billAt) ? 1 : a.billAt.isAfter(b.billAt) ? -1 : 0);
-        const futureRebills = session.rebills.filter(r => r.billAt.isAfter(utc()) && this.isPaid(r));
-        const pastRebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()) && this.isPaid(r));
+
+        const futureRebills = session.rebills.filter(r => r.billAt.isAfter(utc()));
+        const pastRebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()));
+
         this.lastBill = pastRebills[0] || new Rebill();
         this.nextBill = futureRebills[0] || new Rebill({bill_at: this.lastBill.billAt.add(1,'M')});
 
-        session.rebills = session.rebills.filter(r => r.billAt.isSameOrBefore(utc()));
+        session.rebills = pastRebills;
 
         this.session = session;
 
@@ -258,7 +252,7 @@ export class AccountManagementBillingComponent implements OnInit {
     this.billingService.rebillReattempt(rebill, card).subscribe(resp => {
       this.navigationService.setShowProcessingOrderOverlay(false);
 
-      if (resp.success) {
+      if (resp.result === 'success') {
         this.snackbarService.showSuccessSnack('Payment Successful!', 3000);
       } else {
         this.snackbarService.showErrorSnack('Payment failed, please try again.', 5000);
@@ -268,6 +262,7 @@ export class AccountManagementBillingComponent implements OnInit {
     }, error => {
       this.navigationService.setShowProcessingOrderOverlay(false);
       this.snackbarService.showErrorSnack(error.error.message, 5000);
+      this.fetchSession();
     })
   }
 }

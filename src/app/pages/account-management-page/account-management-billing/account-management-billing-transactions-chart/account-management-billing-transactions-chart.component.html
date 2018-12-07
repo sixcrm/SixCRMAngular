@@ -8,7 +8,7 @@
 
   <div class="details">
 
-    <div class="box" [class.box--error]="lastBill && !isPaid(lastBill)">
+    <div class="box" [class.box--error]="lastBill && !isPaid(lastBill)" [class.box--success]="lastBill && isPaid(lastBill)">
       <ng-container *ngIf="lastBill">
         <div class="date">
           {{!isPaid(lastBill) ? 'Past Due: ' : 'Previous Billing: '}}{{lastBill.billAt | formatDateTime: 'MMMM Do, YYYY'}}

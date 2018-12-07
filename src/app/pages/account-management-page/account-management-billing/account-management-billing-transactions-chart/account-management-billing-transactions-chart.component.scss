@@ -40,6 +40,10 @@
         }
       }
 
+      &--success {
+        background: $action-color;
+      }
+
       .date {
         color: white;
         font-size: 20px;
@@ -50,7 +54,7 @@
         display: flex;
         margin-bottom: 12px;
         font-size: 16px;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.85);
         margin-top: auto;
 
         div {
@@ -65,7 +69,7 @@
         padding-top: 12px;
         border-top: 1px solid rgba(0, 0, 0, 0.42);
         font-size: 16px;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.85);
 
         div {
           &:last-of-type {
