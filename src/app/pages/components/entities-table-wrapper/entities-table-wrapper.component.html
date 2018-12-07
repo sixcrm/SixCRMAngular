@@ -1,5 +1,4 @@
-<advanced-entities-table
-  *ngIf="featuresFlagService.isEnabled('advanced-index-tables'); else oldtable"
+<advanced-entities-table *ngIf="newTable; else oldtable"
 
   [data]="data"
   [loaded]="loaded"

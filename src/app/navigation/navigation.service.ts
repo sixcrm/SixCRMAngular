@@ -5,8 +5,7 @@ import {menuItems} from './menu-setup';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {FeatureFlagService} from "../shared/services/feature-flag.service";
-import {NavigationMenuItem, NavigationMenuSection} from './navigation-menu/navigation-menu.component';
+import {NavigationMenuSection} from './navigation-menu/navigation-menu.component';
 
 @Injectable()
 export class NavigationService {
@@ -28,21 +27,16 @@ export class NavigationService {
   constructor(public dialog: MatDialog,
               private authService: AuthenticationService,
               private location: Location,
-              private router: Router,
-              public featureFlagService: FeatureFlagService
+              private router: Router
   ) {
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl || !acl.account.id) return;
 
-      this.setMenuSections(menuItems(authService, acl, featureFlagService));
+      this.setMenuSections(menuItems(authService, acl));
     });
 
     this.authService.actingAsAccount$.subscribe(() => {
-      this.setMenuSections(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
-    });
-
-    this.featureFlagService.featureFlagsUpdated$.subscribe(() => {
-      this.setMenuSections(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
+      this.setMenuSections(menuItems(authService, this.authService.getActiveAcl()));
     });
   }
 

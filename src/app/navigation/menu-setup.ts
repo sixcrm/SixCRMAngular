@@ -1,6 +1,5 @@
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Acl} from '../shared/models/acl.model';
-import {FeatureFlagService} from "../shared/services/feature-flag.service";
 import {NavigationMenuSection, NavigationMenuItem} from './navigation-menu/navigation-menu.component';
 
 export function menuItems(authService: AuthenticationService, acl: Acl): NavigationMenuSection[] {

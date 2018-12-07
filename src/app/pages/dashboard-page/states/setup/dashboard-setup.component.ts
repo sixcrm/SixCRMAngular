@@ -3,7 +3,6 @@ import {AsyncSubject, Observable} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {TranslationService} from "../../../../translation/translation.service";
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
-import {FeatureFlagService} from "../../../../shared/services/feature-flag.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -22,7 +21,6 @@ export class DashboardSetupComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
     private translationService: TranslationService,
-    private featureFlagService: FeatureFlagService,
     private router: Router
   ) { }
 
@@ -43,26 +41,14 @@ export class DashboardSetupComponent implements OnInit {
   }
 
   navigateToAccountSettings() {
-    if (this.featureFlagService.isEnabled('account-management')) {
-      this.router.navigate(['/accountmanagement', 'general']);
-    } else {
-      this.router.navigate(['/profile']);
-    }
+    this.router.navigate(['/accountmanagement', 'general']);
   }
 
   navigateToUsers() {
-    if (this.featureFlagService.isEnabled('account-management')) {
-      this.router.navigate(['/accountmanagement', 'users']);
-    } else {
-      this.router.navigate(['/accounts', this.accountId], {fragment: 'users'})
-    }
+    this.router.navigate(['/accountmanagement', 'users']);
   }
 
   navigateToSubscription() {
-    if (this.featureFlagService.isEnabled('account-management')) {
-      this.router.navigate(['/accountmanagement', 'billing']);
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.router.navigate(['/accountmanagement', 'billing']);
   }
 }

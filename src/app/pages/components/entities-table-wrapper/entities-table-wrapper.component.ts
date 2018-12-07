@@ -2,7 +2,6 @@ import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {AbstractEntityService} from '../../../entity-services/services/abstract-entity.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'entities-table-wrapper',
@@ -49,8 +48,9 @@ export class EntitiesTableWrapperComponent implements OnInit {
   @Output() filterChanged: EventEmitter<string> = new EventEmitter<string>();
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
 
+  newTable: boolean;
 
-  constructor(public featuresFlagService: FeatureFlagService) { }
+  constructor() { }
 
   ngOnInit() {
   }

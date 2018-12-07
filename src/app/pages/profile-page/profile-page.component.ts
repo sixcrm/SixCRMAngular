@@ -18,7 +18,6 @@ import {TableMemoryTextOptions} from "../components/table-memory/table-memory.co
 import {TabHeaderElement} from "../../shared/components/tab-header/tab-header.component";
 import {TranslationService} from '../../translation/translation.service';
 import {isValidEmail} from '../../shared/utils/form.utils';
-import {FeatureFlagService} from '../../shared/services/feature-flag.service';
 import {BreadcrumbItem} from '../components/models/breadcrumb-item.model';
 
 let moment = require('moment-timezone');
@@ -54,6 +53,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<boolean> = new Subject();
 
+  useLanguages: boolean;
+
   accountColumnParams = [
     new ColumnParams('PROFILE_ACCOUNTS_ACCOUNTNAME', (e: Acl) => e.account.name),
     new ColumnParams('PROFILE_ACCOUNTS_ROLENAME', (e: Acl) => e.role.name)
@@ -85,8 +86,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     public navigation: NavigationService,
     private router: Router,
-    public translationsService: TranslationService,
-    public featureFlagsService: FeatureFlagService
+    public translationsService: TranslationService
   ) { }
 
   ngOnInit() {
@@ -241,9 +241,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   getLanguages() {
-    return this.translationsService
-      .getLanguages()
-      .filter(l => this.featureFlagsService.isEnabled(`user-settings-languages|${l.toLowerCase()}`));
+    return this.translationsService.getLanguages();
   }
 
   setLanguage(language: string) {

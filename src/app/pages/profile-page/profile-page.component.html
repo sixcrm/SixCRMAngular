@@ -40,7 +40,7 @@
                 <input matInput placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [(ngModel)]="user.email">
               </mat-form-field>
 
-              <div class="profile-page__content__general__data__dropdown" *ngIf="featureFlagsService.isEnabled('user-settings-languages')">
+              <div class="profile-page__content__general__data__dropdown" *ngIf="useLanguages">
 
                 <dropdown-component
                   [selected]="userSettingsBackup.language || 'English'"
