@@ -76,6 +76,24 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     return schedules;
   }
 
+  getInitialPrice(): Currency {
+    return new Currency(this.schedules.filter(s => s.start === 0).map(s => s.price.amount).reduce((a,b)=>a+b,0));
+  }
+
+  getInitialDefaultImagePath(): string {
+    for (let i = 0; i < this.schedules.length; i++) {
+      if (this.schedules[i].start === 0) {
+        const image = this.schedules[i].product.getDefaultImage();
+
+        if (image && image.path) {
+          return image.path;
+        }
+      }
+    }
+
+    return '/assets/images/product-default-image.svg';
+  }
+
   getStart(): number {
     if (!this.schedules || this.schedules.length === 0) return 0;
 

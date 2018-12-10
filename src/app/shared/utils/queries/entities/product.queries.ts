@@ -4,12 +4,13 @@ import {
 } from './entities-helper.queries';
 import {Product} from '../../../models/product.model';
 import {IndexQueryParameters} from '../index-query-parameters.model';
+import {Currency} from '../../currency/currency';
 
 export function productsListQuery(params: IndexQueryParameters): string {
   return `{
     productlist ${listQueryParams(params)} {
 			products {
-			  ${productResponseQuery()}
+			  ${productInfoResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}
@@ -50,12 +51,20 @@ export function updateProductMutation(product: Product): string {
     }`;
 }
 
+export function productInfoResponseQuery(): string {
+  return `id, name, sku, default_price, dynamic_pricing {min, max}, attributes { images { path, default_image } }, created_at, updated_at`;
+}
+
 export function productResponseQuery(): string {
-  return `id, name, description, sku, ship, shipping_delay, default_price, dynamic_pricing {min, max}, fulfillment_provider { id, name, provider { name } }, attributes { weight { units, unitofmeasurement }, dimensions { width { units, unitofmeasurement }, height { units, unitofmeasurement }, length { units, unitofmeasurement } }, images { path, default_image, dimensions { width, height}, name, description, format } }, emailtemplates { id, name, subject, type, smtp_provider { id name }} created_at, updated_at`
+  return `id, name, description, sku, ship, shipping_delay, default_price, dynamic_pricing {min, max}, fulfillment_provider { id, name, provider { name } }, attributes { weight { units, unitofmeasurement }, dimensions { width { units, unitofmeasurement }, height { units, unitofmeasurement }, length { units, unitofmeasurement } }, images { path, default_image, dimensions { width, height}, name, description, format } }, emailtemplates { id, name, subject, type, preview, smtp_provider { id name }} created_at, updated_at`
 }
 
 export function productInputQuery(p: Product, includeId?: boolean): string {
   const product = p.copy();
+
+  product.dynamicPrice.enabled = true;
+  product.dynamicPrice.min = new Currency(0);
+  product.dynamicPrice.max = new Currency(9999999);
 
   let height = '';
   if (product.attributes.dimensions.height.units) {

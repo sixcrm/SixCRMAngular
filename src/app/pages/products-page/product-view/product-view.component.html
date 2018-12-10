@@ -1,65 +1,142 @@
-<div *ngIf="entity; else spinner" class="entity-view">
+<div class="split-wrapper">
+  <div class="container">
+    <blue-header [items]="breadcrumbs" [titleValue]="entityBackup ? entityBackup.name : null"></blue-header>
 
-  <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name"></blue-header>
+    <div class="content">
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+      <div class="section section--main" [class.section--full]="!infoVisible">
+        <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)">
+          <div class="buttons">
+            <mat-icon *ngIf="selectedIndex !== 5" class="info-icon" [class.info-icon--active]="infoVisible" (click)="infoVisible = !infoVisible">info</mat-icon>
+          </div>
+        </tab-header>
 
-  <mat-tab-group [(selectedIndex)]="selectedIndex">
-    <mat-tab>
-      <div class="flex-custom">
-        <product-add-new (changeMode)="setMode($event)"
-                         (cancel)="cancelProductUpdate()"
-                         (deleteEntity)="deleteProduct()"
-                         (save)="save($event)"
-                         [mode]="viewMode ? modes.View : modes.Update"
-                         [entity]="entity">
-        </product-add-new>
+        <mat-tab-group *ngIf="entity" class="tab--no-header tab--body-fit" [(selectedIndex)]="selectedIndex">
 
-        <product-attributes [attributes]="entityAttributes" [mode]="viewMode ? modes.View : modes.Update"></product-attributes>
+          <mat-tab>
+            <product-images-gallery *ngIf="entity"
+                                    [product]="entity"
+                                    (uploadImage)="addNewImage($event)"
+                                    (setDefaultImage)="updateDefaultImage($event)"
+                                    (imageDeleted)="deleteImage($event)">
+            </product-images-gallery>
+
+            <div class="description-container">
+              <div class="title">
+                <div>Description</div>
+                <mat-icon (click)="setEditDescription()" *ngIf="!editDescription">edit</mat-icon>
+              </div>
+
+              <textarea [(ngModel)]="entity.description" name="description" rows="8" [readonly]="!editDescription"></textarea>
+
+              <div class="edit-buttons" *ngIf="editDescription">
+                <button mat-button (click)="cancelEditDescription()">CANCEL</button>
+                <button mat-button (click)="updateDescription()">SAVE</button>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <product-emails [product]="entity"></product-emails>
+          </mat-tab>
+
+        </mat-tab-group>
       </div>
-    </mat-tab>
 
-    <mat-tab>
-      <product-images
-        [images]="entity.attributes.images"
-        (imageUploaded)="addNewImage($event)"
-        (imageDeleted)="deleteImage($event)"
-        (imageUpdated)="updateImage($event)">
-      </product-images>
-    </mat-tab>
+      <div class="section section--side" [class.section--invisible]="!infoVisible">
+        <tab-header [elements]="secondaryTabHeaders" [selectedIndex]="0" [ignoreUrl]="true">
+          <mat-icon class="info-icon" (click)="infoVisible = false">close</mat-icon>
+        </tab-header>
 
-    <mat-tab>
-      <product-product-schedules [id]="entity.id"
-                                 [defaultPrice]="entity.defaultPrice"
-                                 (allEntities)="setCanNotBeDeleted($event)">
-      </product-product-schedules>
-    </mat-tab>
+        <div class="section__content">
+          <ng-container *ngIf="entity">
+            <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
+              <div class="edit-row edit-row--first">
+                <mat-form-field>
+                  <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" maxlength="100">
+                </mat-form-field>
 
-    <mat-tab>
-      <product-campaigns [id]="entity.id"></product-campaigns>
-    </mat-tab>
+                <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
+              </div>
 
-    <mat-tab>
-      <product-merchant-provider-group-associations [id]="entity.id"></product-merchant-provider-group-associations>
-    </mat-tab>
+              <div class="dropdown-container dropdown-container--first" (click)="openMerchantAssociationModal()">
+                <div class="floating-placeholder" [class.floating-placeholder--invisible]="!merchantAssociation.merchantProviderGroup.name">
+                  Merchant Processing
+                </div>
+                <div class="content">
+                  <div [class.placeholder]="!merchantAssociation.merchantProviderGroup.name">
+                    {{merchantAssociation.merchantProviderGroup.name || 'Merchant Processing'}}
+                  </div>
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+              </div>
 
-    <mat-tab>
+              <div class="edit-buttons" *ngIf="editMain">
+                <button mat-button (click)="cancelEditMain()">CANCEL</button>
+                <button mat-button (click)="saveMain()">SAVE</button>
+              </div>
+            </div>
+            <div class="details-box" [class.details-box--disabled]="!editSecondary">
+              <div class="edit-row edit-row--second">
+                <div class="box-title">General</div>
+                <mat-icon *ngIf="!editSecondary" (click)="setEditSecondary()">edit</mat-icon>
+              </div>
+              <mat-form-field>
+                <input type="text" matInput placeholder="SKU" [(ngModel)]="entity.sku" [readonly]="!editSecondary">
+              </mat-form-field>
 
-      <table-memory
-          [data]="entity.emailTemplates"
-          [columnParams]="emailTemplateColumnParams"
-          [associateData]="emailTemplateService.entities$ | async"
-          [textOptions]="emailText"
-          [associateDataMapper]="emailTemplateMapper"
-          (associate)="associateEmailTemplate($event)"
-          (disassociate)="disassociateEmailTemplate($event)"
-          (view)="viewEmailTemplate($event)">
-      </table-memory>
+              <div class="row">
+                <mat-form-field>
+                  <input matInput currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" placeholder="Default Price" type="text" [readonly]="!editSecondary">
+                </mat-form-field>
+              </div>
 
-    </mat-tab>
-  </mat-tab-group>
+              <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.ship" [disabled]="!editSecondary">is Shippable</mat-checkbox>
+
+              <ng-container *ngIf="entity.ship">
+                <div [matMenuTriggerFor]="fulfillmentProviderMenu" class="dropdown-container">
+                  <div class="floating-placeholder" [class.floating-placeholder--invisible]="!entity.fulfillmentProvider.name">Fulfillment Provider</div>
+                  <div class="content">
+                    <div [class.placeholder]="!entity.fulfillmentProvider.name">
+                      {{entity.fulfillmentProvider.name || 'Fulfillment Provider'}}
+                    </div>
+                    <mat-icon>arrow_drop_down</mat-icon>
+                  </div>
+                </div>
+
+                <mat-menu #fulfillmentProviderMenu="matMenu" x-position="before">
+                  <button mat-menu-item
+                          *ngFor="let provider of fulfillmentProviders"
+                          (click)="selectProvider(provider)">
+                    {{provider.name}}
+                  </button>
+
+                  <button class="new-fulfillment" mat-menu-item [routerLink]="['/fulfillmentproviders']" [queryParams]="{action: 'new'}">
+                    Add New Fulfillment
+                  </button>
+                </mat-menu>
+
+                <div class="row">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="entity.shippingDelay" placeholder="Shipping Delay" [readonly]="!editSecondary">
+                  </mat-form-field>
+                </div>
+
+              </ng-container>
+
+              <div class="edit-buttons" *ngIf="editSecondary">
+                <button mat-button (click)="cancelEditSecondary()">CANCEL</button>
+                <button mat-button (click)="saveSecondary()">SAVE</button>
+              </div>
+            </div>
+
+            <div class="action-buttons" *ngIf="!editMain && !editSecondary">
+              <button mat-button (click)="createSubscription()">CREATE SCHEDULE</button>
+              <button mat-button (click)="remove()">DELETE</button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<ng-template #spinner>
-  <spe-loader [numberOfTabs]="5" [cardsExpression]="'436px;300px'" [title]="'PRODUCT_INDEX_TITLE' | translate"></spe-loader>
-</ng-template>

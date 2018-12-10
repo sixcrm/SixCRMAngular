@@ -14,7 +14,7 @@ import {CreditCard} from '../../shared/models/credit-card.model';
 import {Subscription, Subject} from 'rxjs';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
-  isValidZip, isAllowedCurrency, isAllowedEmail
+  isValidZip, isAllowedEmail
 } from '../../shared/utils/form.utils';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
@@ -66,6 +66,8 @@ export class CreateOrderComponent implements OnInit {
 
   shippings: Product[] = [];
   selectedShippings: Product[] = [];
+  shippingDisabled: boolean;
+
   shippingFilterValue: string;
   filteredShippings: Product[] = [];
 
@@ -87,7 +89,6 @@ export class CreateOrderComponent implements OnInit {
   isAddressValid = isValidAddress;
   isCountryValid = isValidCountry;
   isStateValid = isValidState;
-  isCurrencyValid = isAllowedCurrency;
   isAllowedEmailKey = isAllowedEmail;
 
   orderComplete: boolean;
@@ -149,10 +150,22 @@ export class CreateOrderComponent implements OnInit {
       }
     });
 
-    this.productService.entities$.take(1).merge(this.productScheduleService.entities$.take(1)).subscribe(products => {
+    this.productService.entities$.take(1).subscribe(products => {
       if (products instanceof CustomServerError) return;
 
       this.products = [...this.products, ...products].sort((a,b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+    });
+
+    this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
+      if (productSchedules instanceof CustomServerError) return;
+
+      productSchedules = productSchedules.filter(p => p.schedules.length === 2);
+
+      this.products = [...this.products, ...productSchedules].sort((a,b) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
         return 0;
@@ -249,11 +262,23 @@ export class CreateOrderComponent implements OnInit {
   }
 
   productSelected(option, input) {
-    this.selectedProducts.push(option.option.value.copy());
+    const product = option.option.value.copy();
+
+    if (product instanceof ProductSchedule) {
+      this.selectedShippings = [];
+      this.shippingDisabled = true;
+    }
+
+    this.selectedProducts.push(product);
     input.blur();
   }
 
-  productFilterFunction = (product: Product) => {
+  productFilterFunction = (product: Product | ProductSchedule) => {
+    if (product instanceof ProductSchedule
+        && this.selectedProducts.filter(p => p instanceof ProductSchedule).length > 0) {
+      return false;
+    }
+
     if (!this.productFilterValue || !this.productFilterValue.toLowerCase) return true;
 
     const filter = this.productFilterValue.toLowerCase();
@@ -276,9 +301,18 @@ export class CreateOrderComponent implements OnInit {
 
     if (index !== -1) {
       this.selectedProducts.splice(index, 1);
+      this.shippingDisabled = this.selectedProducts.filter(p => p instanceof ProductSchedule).length > 0;
     }
 
     this.productFilterValue = '';
+  }
+
+  billingPrevious() {
+    if (this.shippingDisabled) {
+      this.setStep(3);
+    } else {
+      this.setStep(4);
+    }
   }
 
   confirmShippingAddress() {
@@ -292,7 +326,12 @@ export class CreateOrderComponent implements OnInit {
     if (this.shippingAddressInvalid) return;
 
     this.selectedShippingAddress = this.shippingAddress.copy();
-    this.setStep(4);
+
+    if (this.shippingDisabled) {
+      this.setStep(5);
+    } else {
+      this.setStep(4);
+    }
   }
 
   removeShippingAddress() {
@@ -306,7 +345,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   shippingSelected(option, input) {
-    this.selectedShippings.push(option.option.value);
+    const shipping = option.option.value.copy();
+    this.selectedShippings.push(shipping);
     input.blur();
   }
 
@@ -465,14 +505,12 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(p.amount + s.amount);
   }
 
-  isCurrencyInput(event) {
+  isEnter(event) {
     if (!event) return;
 
     if (event.key === 'Enter') {
       this.productInEdit = new Product();
     }
-
-    this.isCurrencyValid(event);
   }
 
   setProductInEdit(product: Product | ProductSchedule) {

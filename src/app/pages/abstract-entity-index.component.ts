@@ -39,6 +39,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   columnParams: ColumnParams<T>[] = [];
   sortedColumnParams: ColumnParams<T> = new ColumnParams<T>();
 
+  sortBy: {label: string, sortFunction: (f: T, s: T) => number}[] = [];
+  selectedSortBy: {label: string, sortFunction: (f: T, s: T) => number};
+
   loadingData: boolean = false;
   initialLoaded: boolean = false;
 
@@ -48,6 +51,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   protected takeUpdated: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
+
+  entityNameFunction: (entity: T) => string;
 
   @Output() allEntities: EventEmitter<T[]> = new EventEmitter();
 
@@ -91,7 +96,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
       this.loadingData = false;
       this.serverError = null;
-      this.entitiesHolder = [...this.entitiesHolder, ...entities];
+      this.entitiesHolder = this.selectedSortBy
+        ? [...this.entitiesHolder, ...entities].sort(this.selectedSortBy.sortFunction)
+        : [...this.entitiesHolder, ...entities];
       this.allEntities.emit(this.entitiesHolder);
       this.reshuffleEntities();
     });
@@ -187,6 +194,10 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     let deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent);
 
+    if (this.entityNameFunction) {
+      deleteDialogRef.componentInstance.items = entities.map(this.entityNameFunction);
+    }
+
     deleteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       deleteDialogRef = null;
       if (result && result.success) {
@@ -233,7 +244,25 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.addMode = false;
   }
 
-  copyEntity(id: string): void {
+  copyEntity(id: string, copyModificator?: (e: T) => T): void {
+
+    this.service.fetchEntity(id).subscribe(full => {
+      if (full instanceof CustomServerError) {
+        return;
+      }
+
+      full = copyModificator ? copyModificator(full) : full;
+
+      this.service.fetchCreateEntity(full).subscribe(copied => {
+        if (copied instanceof CustomServerError) {
+          return;
+        }
+
+        const holder = [copied, ...this.entitiesHolder];
+
+        this.entitiesHolder = this.selectedSortBy ? holder.sort(this.selectedSortBy.sortFunction) : holder;
+      });
+    });
 
   }
 
@@ -274,11 +303,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.getEntities(this.limit, this.searchValue)
   }
 
-  setFilterString(value: string) {
-    this.filterValue = value;
+  applySortBy(sort: {label: string, sortFunction: (f: T, s: T) => number}) {
+    this.selectedSortBy = sort;
+    this.entitiesHolder = this.entitiesHolder.sort(sort.sortFunction);
   }
 
-  protected reshuffleEntities(): void {
+  reshuffleEntities(): void {
     // if infinite scroll enabled, no reshuffling is needed
     if (this.infiniteScroll) return;
 
@@ -294,7 +324,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
   }
 
-  protected deleteEntityLocal(entity: T): void {
+  deleteEntityLocal(entity: T): void {
     let index: number = this.indexOfEntity(entity);
 
     if (index > -1) {
@@ -305,7 +335,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
   }
 
-  protected resetEntities(): void {
+  resetEntities(): void {
     this.service.resetPagination();
     this.entitiesHolder = [];
     this.allEntities.emit(this.entitiesHolder);
@@ -313,7 +343,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.entities = [];
   }
 
-  protected updateEntityLocal(entity: T): void {
+  updateEntityLocal(entity: T): void {
     let index: number = this.indexOfEntity(entity);
 
     if (index > -1) {
