@@ -47,7 +47,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   }
 
   private updateBillingNotification() {
-    if (this.authService.isAccountBillingDeactivated()) {
+    if (this.authService.isAccountBillingDeactivated() || this.authService.isAccountBillingLimited()) {
       this.billingNotification = this.createBillingDeactivatedNotification();
     } else {
       this.billingNotification = undefined
@@ -55,7 +55,11 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   }
 
   private createBillingDeactivatedNotification(): Notification {
-    let key = 'Your account has been deactivated due to unpaid bills.';
+    let key = 'This account is past due.';
+
+    if (this.authService.isAccountBillingLimited()) {
+      key = 'This account is past due and has been placed into limited state.'
+    }
 
     return this.notificationsService.buildNotificationWithBody({
       name: key,

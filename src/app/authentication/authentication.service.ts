@@ -297,6 +297,14 @@ export class AuthenticationService {
     return utc().isAfter(utc(account.billing.deactivatedAt));
   }
 
+  public isAccountBillingLimited(): boolean {
+    if (!this.getActiveAcl().account.billing || !this.getActiveAcl().account.billing.limitedAt) return false;
+
+    const account = this.getActiveAcl().account;
+
+    return utc().isAfter(utc(account.billing.limitedAt));
+  }
+
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
     const endpoint = `${environment.endpoint}*`;
     let user = this.getSixUser();
