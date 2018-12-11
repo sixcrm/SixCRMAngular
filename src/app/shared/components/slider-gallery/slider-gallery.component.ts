@@ -40,5 +40,4 @@ export class SliderGalleryComponent implements OnInit {
     scrollByX(this.galleryContainer, next < 60 ? 0 : next);
   }
 
-
 }
