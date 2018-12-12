@@ -87,10 +87,11 @@ export class ProductsComponent implements OnInit {
     this.productsService.entityDeleted$.merge(this.schedulesService.entityDeleted$).subscribe(entity => {
       if (entity instanceof CustomServerError) return;
 
-      const index = firstIndexOf(this.entities, e => e.id === entity.id);
+      const index = firstIndexOf(this.allEntities, e => e.id === entity.id);
 
       if (index !== -1) {
-        this.entities.splice(index, 1);
+        this.allEntities.splice(index, 1).sort(this.selectedSortBy.sortFunction);
+        this.entities = this.allEntities.filter(this.selectedFilter.filterFunction);
       }
     });
 
@@ -100,7 +101,7 @@ export class ProductsComponent implements OnInit {
       }
 
       this.allEntities = [...data[0], ...data[1]].sort(this.selectedSortBy.sortFunction);
-      this.entities = this.allEntities.slice();
+      this.entities = this.allEntities.filter(this.selectedFilter.filterFunction);
     });
 
     this.productsService.getEntities();
@@ -197,8 +198,8 @@ export class ProductsComponent implements OnInit {
           return;
         }
 
-        const holder = [copied, ...this.entities];
-        this.entities = this.selectedSortBy ? holder.sort(this.selectedSortBy.sortFunction) : holder;
+        this.allEntities = [copied, ...this.entities].sort(this.selectedSortBy.sortFunction);
+        this.entities = this.allEntities.filter(this.selectedFilter.filterFunction);
       });
     });
 
