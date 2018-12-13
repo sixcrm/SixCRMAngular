@@ -34,7 +34,7 @@ export class SubscriptionAnalytics {
     this.obj = obj;
 
     this.id = getValueOf(obj, 'id');
-    this.alias = getValueOf(obj, 'alias');
+    this.alias = getValueOf(obj, 'session_alias');
     this.status = getValueOf(obj, 'status');
     this.cycle = +(getValueOf(obj, 'cycle') || 0);
     this.interval = getValueOf(obj, 'interval');

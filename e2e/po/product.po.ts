@@ -1,9 +1,6 @@
 import {element, by} from 'protractor';
 
 export class ProductPage {
-  getNewProductForm() {
-    return element(by.css('product-add-new'));
-  }
 
   getNewProductInputs() {
     return element(by.css('product-add-new')).all(by.css('input'));
@@ -13,47 +10,20 @@ export class ProductPage {
     return element(by.css('.entity-view__card__actions')).all(by.css('div')).last();
   }
 
-  getErrorInputs() {
-    return element(by.css('product-add-new')).all(by.css('.ng-invalid'));
-  }
-
   getProductName() {
     return element(by.css('.title'));
   }
 
-  getDetailsMenuButton() {
-    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
+
+  getProductNameInput() {
+    return element(by.css('.details-box--blue')).all(by.css('input')).first();
   }
 
-  getMenuButton(index: number) {
-    return element(by.css('.mat-menu-content')).all(by.css('button')).get(index);
+  getSaveProductGeneralButton() {
+    return element(by.css('.edit-buttons')).all(by.css('button')).last();
   }
 
-  getProductFromTable(index) {
-    return element(by.css('tbody')).all(by.css('tr')).get(index);
-  }
-
-  getEditProductInputs() {
-    return element(by.css('.entity-view__card__content')).all(by.css('input'));
-  }
-
-  getProductDescriptionInput() {
-    return element(by.name('description'));
-  }
-
-  getDeletionModal() {
-    return element(by.css('mat-card'));
-  }
-
-  getDeletionModalContent() {
-    return element(by.css('.mat-card-content'));
-  }
-
-  getDeletionModalButton() {
-    return element(by.css('.mat-card-actions')).element(by.css('div'));
-  }
-
-  getConfirmDeleteButton() {
-    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+  getCreateScheduleButton() {
+    return element(by.css('.action-buttons')).all(by.css('button')).first();
   }
 }
