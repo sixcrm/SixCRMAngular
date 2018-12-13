@@ -97,7 +97,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
     return subscriptions.map(s => {
       return {
         'Date/Time': s.date.format('MM/DD/YYYY h:mm A'),
-        'Alias': s.alias,
+        'Session Alias': s.alias,
         'Status': s.status,
         'Amount': s.amount.usd(),
         'Cycle': s.cycle,
