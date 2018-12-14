@@ -14,7 +14,7 @@
       <div style="margin-bottom: 3px;">Carrier: {{shipment.shippingReceipt.tracking.carrier || 'Pending'}}</div>
       <div class="tracking-info">
         Tracking Number: {{shipment.shippingReceipt.tracking.id || 'Pending'}}
-        <mat-icon *ngIf="shipment.shippingReceipt.tracking.id" class="copy-icon" matTooltip="Copy Tracking Number" ngxClipboard [cbContent]="shipment.shippingReceipt.tracking.id">content_copy</mat-icon></div>
+        <mat-icon *ngIf="shipment.shippingReceipt.tracking.id && shipment.shippingReceipt.tracking.id !== 'Hold'" class="copy-icon" matTooltip="Copy Tracking Number" ngxClipboard [cbContent]="shipment.shippingReceipt.tracking.id">content_copy</mat-icon></div>
     </div>
 
   </ng-template>
