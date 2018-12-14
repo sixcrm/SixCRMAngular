@@ -60,16 +60,64 @@ describe('New Order', function() {
     expect(createOrderPage.getCampaignChip().getText()).toContain('Create Order Campaign');
   });
 
-  it('should add product', () => {
+  it('should have 3 items in products dropdown', () => {
     createOrderPage.getProductsInputSelector().click();
     browser.sleep(500);
-    createOrderPage.getFirstMenuOption().click();
+    expect(createOrderPage.getMenuOptions().count()).toEqual(3);
+  });
+
+  it('should add schedule', () => {
+    createOrderPage.getMenuOption(0).click();
+
+    expect(createOrderPage.getProductsChips().count()).toEqual(1);
+    expect(createOrderPage.getProductsChip(0).getText()).toContain('A Subscription');
+  });
+
+  it('should have only one product item after schedule is added', () => {
+    createOrderPage.getProductsInputSelector().click();
+
+    expect(createOrderPage.getMenuOptions().count()).toEqual(1);
+  });
+
+  it('should have shipping section disabled when schedule is added', () => {
+    expect(createOrderPage.getDisabledPanels().count()).toEqual(1);
+  });
+
+  it('should add product along with schedule', () => {
+    createOrderPage.getMenuOption(0).click();
+
+    expect(createOrderPage.getProductsChips().count()).toEqual(2);
+    expect(createOrderPage.getProductsChip(0).getText()).toContain('A Subscription');
+  });
+
+  it('should remove products and schedules', () => {
+    createOrderPage.getProductsChipRemove(1).click();
+    createOrderPage.getProductsChipRemove(0).click();
+
+    expect(createOrderPage.getProductsChips().count()).toEqual(0);
+  });
+
+  it('should have 3 items in products dropdown', () => {
+    createOrderPage.getProductsInputSelector().click();
+    browser.sleep(500);
+
+    expect(createOrderPage.getMenuOptions().count()).toEqual(3);
+  });
+
+  it('should have shipping section enabled when schedule is removed', () => {
+    expect(createOrderPage.getDisabledPanels().count()).toEqual(0);
+  });
+
+  it('should add product', () => {
+    createOrderPage.getMenuOption(2).click();
+    browser.sleep(500);
+
+    expect(createOrderPage.getProductsChips().count()).toEqual(1);
+    expect(createOrderPage.getProductsChip(0).getText()).toContain('Create Order Product');
   });
 
   it('should select product', () => {
     createOrderPage.getProductsNextButton().click();
-    browser.sleep(500);
-    expect(createOrderPage.getProductsChip().getText()).toContain('Create Order Product');
   });
 
   it('should add address', () => {
