@@ -149,10 +149,10 @@ describe('Products', function() {
 
   it('should display only schedules on show filter', () => {
     page.getShowFilter().click();
-    browser.sleep(500);
+    browser.sleep(1000);
 
     page.getShowSchedulesItem().click();
-    browser.sleep(500);
+    browser.sleep(1000);
 
     expect(page.getCards().count()).toEqual(2);
   });
@@ -168,16 +168,16 @@ describe('Products', function() {
     page.getBulkApply().click();
     page.getConfirmDeleteButton().click();
 
-    browser.sleep(2000);
+    browser.sleep(5000);
     expect(page.getCards().count()).toEqual(0);
   });
 
   it('should display only products on show filter', () => {
     page.getShowFilter().click();
-    browser.sleep(500);
+    browser.sleep(1000);
 
     page.getShowProductsItem().click();
-    browser.sleep(500);
+    browser.sleep(1000);
 
     expect(page.getCards().count()).toEqual(2);
   });
@@ -193,7 +193,7 @@ describe('Products', function() {
     page.getBulkApply().click();
     page.getConfirmDeleteButton().click();
 
-    browser.sleep(2000);
+    browser.sleep(5000);
     expect(page.getCards().count()).toEqual(0);
   });
 
