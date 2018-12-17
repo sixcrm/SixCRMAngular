@@ -34,14 +34,14 @@ export class OrderDetailedComponent implements OnInit {
 
   splitByShipment(): Shipment[] {
     let splitted: Shipment[] = [];
-    let hold: Shipment = {shippingReceipt: new ShippingReceipt({status: 'Hold', tracking: {id: 'Hold', carrier: 'Hold'}}), products: []};
+    let pending: Shipment = {shippingReceipt: new ShippingReceipt(), products: []};
     let noship: Shipment = {shippingReceipt: null, products: []};
 
     this._order.products.forEach(products => {
       if (!products.shippingReceipt || !products.shippingReceipt.id) {
 
         if (products.product.ship) {
-          hold.products = [...hold.products, products];
+          pending.products = [...pending.products, products];
         } else {
           noship.products = [...noship.products, products];
         }
@@ -61,8 +61,8 @@ export class OrderDetailedComponent implements OnInit {
       splitted = [...splitted, noship];
     }
 
-    if (hold.products.length > 0) {
-      splitted = [...splitted, hold];
+    if (pending.products.length > 0) {
+      splitted = [...splitted, pending];
     }
 
     return splitted;
