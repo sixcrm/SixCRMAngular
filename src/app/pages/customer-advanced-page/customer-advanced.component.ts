@@ -327,7 +327,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.rebills = session.rebills
           .filter(rebill => rebill.billAt.isAfter(utc()))
           .map(rebill => {
-            rebill.parentSession.campaign = this.session.campaign.inverse();
+            rebill.parentSession = this.session.copy();
 
             return rebill;
           })
