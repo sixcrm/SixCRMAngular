@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Order} from '../../../shared/models/order.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Shipment} from '../../components/shipment-details/shipment-details.component';
+import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 
 @Component({
   selector: 'order-detailed',
@@ -33,11 +34,18 @@ export class OrderDetailedComponent implements OnInit {
 
   splitByShipment(): Shipment[] {
     let splitted: Shipment[] = [];
+    let pending: Shipment = {shippingReceipt: new ShippingReceipt(), products: []};
     let noship: Shipment = {shippingReceipt: null, products: []};
 
     this._order.products.forEach(products => {
       if (!products.shippingReceipt || !products.shippingReceipt.id) {
-        noship.products = [...noship.products, products];
+
+        if (products.product.ship) {
+          pending.products = [...pending.products, products];
+        } else {
+          noship.products = [...noship.products, products];
+        }
+
       } else {
         const index = firstIndexOf(splitted, (el) => el.shippingReceipt.id === products.shippingReceipt.id);
 
@@ -50,7 +58,11 @@ export class OrderDetailedComponent implements OnInit {
     });
 
     if (noship.products.length > 0) {
-      return [...splitted, noship];
+      splitted = [...splitted, noship];
+    }
+
+    if (pending.products.length > 0) {
+      splitted = [...splitted, pending];
     }
 
     return splitted;
