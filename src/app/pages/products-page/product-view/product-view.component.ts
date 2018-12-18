@@ -331,16 +331,14 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
       ref = null;
 
       if (result && result.campaign && result.group) {
-        if (this.merchantAssociation) {
-          this.merchantAssociation.campaign = result.campaign.copy();
-          this.merchantAssociation.merchantProviderGroup = result.group.copy();
-        } else {
+        if (!this.merchantAssociation) {
           this.merchantAssociation = new MerchantProviderGroupAssociation();
-          this.merchantAssociation.entityType = 'product';
-          this.merchantAssociation.entity = this.entityId;
-          this.merchantAssociation.campaign = result.campaign.copy();
-          this.merchantAssociation.merchantProviderGroup = result.group.copy();
         }
+
+        this.merchantAssociation.entityType = 'product';
+        this.merchantAssociation.entity = this.entityId;
+        this.merchantAssociation.campaign = result.campaign.copy();
+        this.merchantAssociation.merchantProviderGroup = result.group.copy();
       }
     });
   }
