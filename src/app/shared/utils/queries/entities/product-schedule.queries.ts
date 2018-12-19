@@ -67,7 +67,7 @@ export function productScheduleResponseQuery(): string {
     schedule { price start end period samedayofmonth,
       product { id name ship sku dynamic_pricing {min, max} attributes { images { path default_image } } }
     },
-    emailtemplates { id, name, subject, smtp_provider { id name } }`
+    emailtemplates { id, name, type, subject, smtp_provider { id name } }`
 }
 
 export function productScheduleInfoResponseQuery(): string {
