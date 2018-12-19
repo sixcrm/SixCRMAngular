@@ -37,7 +37,7 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
     title: 'MERCHANTPROVIDERGROUP_MERCHANT_TITLE',
     viewOptionText: 'MERCHANTPROVIDERGROUP_MERCHANT_VIEW',
     disassociateOptionText: 'MERCHANTPROVIDERGROUP_MERCHANT_DISASSOCIATE',
-    disassociateModalTitle: 'MERCHANTPROVIDERGROUP_MERCHANT_DISASSOCIATETEXT',
+    disassociateModalTitle: 'Are you sure you want to disassociate?',
     noDataText: 'MERCHANTPROVIDERGROUP_MERCHANT_NODATA'
   };
 

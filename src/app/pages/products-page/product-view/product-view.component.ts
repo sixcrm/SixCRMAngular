@@ -24,6 +24,10 @@ import {MerchantProviderGroupAssociationDialogComponent} from '../../../dialog-m
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Schedule} from '../../../shared/models/schedule.model';
+import {EmailTemplate} from '../../../shared/models/email-template.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 
 @Component({
   selector: 'product-view',
@@ -62,6 +66,26 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   merchantProviderGroups: MerchantProviderGroup[] = [];
   campaigns: Campaign[] = [];
 
+
+  emailTemplateMapper = (el: EmailTemplate) => el.name;
+  emailTemplateColumnParams = [
+    new ColumnParams('Name', (e: EmailTemplate) => e.name),
+    new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
+    new ColumnParams('Type', (e: EmailTemplate) => e.type),
+    new ColumnParams('SMTP Provider', (e: EmailTemplate) => e.smtpProvider.name)
+  ];
+
+  emailText: TableMemoryTextOptions = {
+    title: 'Associated Email Templates',
+    viewOptionText: 'View Email Template',
+    associateOptionText: 'Associate Email Template',
+    disassociateOptionText: 'Disassociate Email Template',
+    associateModalTitle: 'Select Email Template',
+    disassociateModalTitle: 'Are you sure you want to delete?',
+    associateModalButtonText: 'ADD',
+    noDataText: 'No Email Templates Found.'
+  };
+
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
@@ -72,7 +96,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     private merchantAssociationsService: MerchantProviderGroupAssociationsService,
     private merchantProviderGroupsService: MerchantProviderGroupsService,
     private campaignService: CampaignsService,
-    private productScheduleService: ProductScheduleService
+    private productScheduleService: ProductScheduleService,
+    private emailTemplateService: EmailTemplatesService
   ) {
     super(service, route);
   }
@@ -107,6 +132,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.fulfillmentProviderService.getEntities();
     this.merchantProviderGroupsService.getEntities();
     this.campaignService.getEntities();
+    this.emailTemplateService.getEntities();
 
     this.merchantAssociationsService
       .planeCustomEntitiesQuery(merchantProviderGroupAssociationsByEntityListQuery(this.entityId, {}))
@@ -358,5 +384,26 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   priceUpdated(price: Currency) {
     this.entity.defaultPrice = price;
+  }
+
+
+  viewEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.router.navigate(['/emailtemplates', emailTemplate.id]);
+  }
+
+  disassociateEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.emailTemplateService.removeEmailTemplateAssociation(emailTemplate.id, 'product', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
+
+      this.entity.emailTemplates = this.entity.emailTemplates.filter(e => e.id !== template.id);
+    });
+  }
+
+  associateEmailTemplate(emailTemplate: EmailTemplate): void {
+    this.emailTemplateService.addEmailTemplateAssociation(emailTemplate.id, 'product', this.entityId).subscribe((template) => {
+      if (template instanceof CustomServerError || !template) return;
+
+      this.entity.emailTemplates = [...this.entity.emailTemplates, template];
+    });
   }
 }
