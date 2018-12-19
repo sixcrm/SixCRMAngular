@@ -37,7 +37,18 @@
           </mat-tab>
 
           <mat-tab>
-            <product-emails [product]="entity"></product-emails>
+
+            <table-memory
+              class="campaign-view__email-templates"
+              [data]="entity.emailTemplates"
+              [columnParams]="emailTemplateColumnParams"
+              [associateData]="emailTemplateService.entities$ | async"
+              [textOptions]="emailText"
+              [associateDataMapper]="emailTemplateMapper"
+              (associate)="associateEmailTemplate($event)"
+              (disassociate)="disassociateEmailTemplate($event)"
+              (view)="viewEmailTemplate($event)">
+            </table-memory>
           </mat-tab>
 
         </mat-tab-group>
