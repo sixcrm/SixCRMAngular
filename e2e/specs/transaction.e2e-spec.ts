@@ -30,7 +30,7 @@ describe('Transactions', function() {
   it('should navigate to transactions page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(5).click();
+    nav.getLink(6).click();
     waitForUrlContains('transaction');
     expectUrlToContain('transaction');
   });
@@ -60,7 +60,9 @@ describe('Transactions', function() {
     expect(page.getQuickFilters().get(0).getText()).toContain('All');
     expect(page.getQuickFilters().get(1).getText()).toContain('Refunds');
     expect(page.getQuickFilters().get(2).getText()).toContain('Errors');
-    expect(page.getQuickFilters().get(3).getText()).toContain('Declines');
+    expect(page.getQuickFilters().get(3).getText()).toContain('All Declines');
+    expect(page.getQuickFilters().get(4).getText()).toContain('Hard Declines');
+    expect(page.getQuickFilters().get(5).getText()).toContain('Soft Declines');
   });
 
   it('should have transactions in table', () => {

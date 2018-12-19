@@ -208,7 +208,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
         },
         deleteCustomBlockCallback: (block: CustomBlock) => {
           let dialog = this.dialog.open(DeleteDialogComponent);
-          dialog.componentInstance.text = `Are you sure you want to delete '${block.title}' custom token?`;
+          dialog.componentInstance.secondaryText = `Are you sure you want to delete '${block.title}' custom token?`;
 
           return dialog.afterClosed().take(1).flatMap(result => {
             if (!result || !result.success) {

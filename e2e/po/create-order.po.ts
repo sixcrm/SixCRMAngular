@@ -50,8 +50,28 @@ export class CreateOrderPage {
     return element(by.css('mat-option'));
   }
 
-  getProductsChip() {
-    return this.getProductsPanel().element(by.css('mat-chip'))
+  getMenuOptions() {
+    return element.all(by.css('mat-option'));
+  }
+
+  getDisabledPanels() {
+    return element.all(by.css('[aria-disabled="true"]'))
+  }
+
+  getMenuOption(index: number) {
+    return this.getMenuOptions().get(index);
+  }
+
+  getProductsChip(index: number) {
+    return this.getProductsChips().get(index);
+  }
+
+  getProductsChips() {
+    return this.getProductsPanel().all(by.css('mat-chip'))
+  }
+
+  getProductsChipRemove(index: number) {
+    return this.getProductsChip(index).element(by.css('mat-icon'));
   }
 
   getProductsNextButton() {

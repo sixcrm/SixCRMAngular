@@ -29,9 +29,9 @@
           <div class="box">
             <div class="label">Status</div>
             <mat-checkbox [(ngModel)]="allResponse" (change)="allResponseSelected($event)">All</mat-checkbox>
-            <mat-checkbox [(ngModel)]="declineResponse" (change)="singleResponseSelected($event)">Decline</mat-checkbox>
+            <mat-checkbox [(ngModel)]="softDeclineResponse" (change)="singleResponseSelected($event)">Soft Decline</mat-checkbox>
+            <mat-checkbox [(ngModel)]="hardDeclineResponse" (change)="singleResponseSelected($event)">Hard Decline</mat-checkbox>
             <mat-checkbox [(ngModel)]="errorResponse" (change)="singleResponseSelected($event)">Error</mat-checkbox>
-            <mat-checkbox [(ngModel)]="failResponse" (change)="singleResponseSelected($event)">Fail</mat-checkbox>
             <mat-checkbox [(ngModel)]="successResponse" (change)="singleResponseSelected($event)">Success</mat-checkbox>
           </div>
         </div>

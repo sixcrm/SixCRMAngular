@@ -58,7 +58,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
 
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'Account Management'},
-    {label: () => 'Roles'},
+    {label: () => 'Roles', url: 'accountmanagement/roles'},
     {label: () => this.role ? this.role.name : ''}
   ];
 

@@ -271,7 +271,7 @@ function htmlEditorBlock(editor) {
   const codeViewer = editor.CodeManager.getViewer('CodeMirror').clone();
   const pnm = editor.Panels;
   const container = document.createElement('div');
-  const btnEdit = document.createElement('button');
+  const btnFinish = document.createElement('button');
   const previewPane = document.createElement('div');
   const htmlContent = document.createElement('div');
 
@@ -291,9 +291,9 @@ function htmlEditorBlock(editor) {
     indentWithTabs: true
   });
 
-  btnEdit.innerHTML = 'EDIT';
-  btnEdit.className = 'gjs-view-code-button mat-button';
-  btnEdit.onclick = () => {
+  btnFinish.innerHTML = 'FINISH';
+  btnFinish.className = 'gjs-view-code-button mat-button';
+  btnFinish.onclick = () => {
     const code = codeViewer.editor.getValue();
     editor.DomComponents.getWrapper().set('content', '');
     editor.setComponents(code.trim());
@@ -312,7 +312,7 @@ function htmlEditorBlock(editor) {
         htmlContent.appendChild(previewPane);
 
         container.appendChild(htmlContent);
-        container.appendChild(btnEdit);
+        container.appendChild(btnFinish);
 
         codeViewer.init(txtarea);
         viewer = codeViewer.editor;
@@ -748,8 +748,13 @@ export function initGrapesJS(
     editor.Panels.getButton('options', 'export-template').set({label: 'code', className: 'material-icons'});
     editor.Panels.getButton('options', 'preview').set({label: 'visibility', className: 'material-icons'});
     editor.Panels.getButton('options', 'sw-visibility').set({label: 'border_clear', className: 'material-icons'});
-    editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', className: 'material-icons material-icons--24'});
     editor.Panels.removeButton('options', 'fullscreen');
+
+    editor.Panels.getButton('views', 'open-blocks').set({label: 'apps', togglable: false, className: 'material-icons material-icons--24'});
+    editor.Panels.getButton('views', 'open-sm').set({togglable: false});
+    editor.Panels.getButton('views', 'open-tm').set({togglable: false});
+    editor.Panels.getButton('views', 'open-layers').set({togglable: false});
+
   };
   const tokensPlugin = (editor) => {
     if (!params.parent.allTokens || params.parent.allTokens.length === 0) return;
@@ -765,6 +770,18 @@ export function initGrapesJS(
         content: `<span>{{${token.value}}}</span>`
       });
     }
+  };
+
+  const styleManagerPlugin = (editor) => {
+    const updateStyleManager = () => {
+      const sm = document.getElementById('gjs-sm-decorations');
+
+      if (sm && sm.style) {
+        sm.style.visibility = editor.getSelected().getAttributes()['id'] === 'wrapper' ? 'hidden' : 'visible';
+      }
+    };
+
+    editor.on('component:selected', updateStyleManager);
   };
 
   const setDeleteOptionForCustomBlocks = () => {
@@ -793,6 +810,7 @@ export function initGrapesJS(
       saveCustomBlockPlugin,
       toolbarEditButtonsPlugin,
       toolbarActionButtonsPlugin,
+      styleManagerPlugin,
       htmlEditorBlock
     ],
     storageManager: { type: 'simple-storage' },

@@ -6,6 +6,7 @@
       [schedule]="_scheduleBackup"
       [productSchedule]="_productSchedule"
       [editable]="editable"
+      [singleScheduleMode]="singleScheduleMode"
       (close)="closeModal()"
       (removeSchedule)="removeSchedule()"
       (removeProductSchedule)="removeProductSchedule()">
@@ -69,7 +70,7 @@
                                 [checked]="+_scheduleBackup.period > 0 && !_scheduleBackup.sameDayOfMonth">
                 Repeat cycle every
                 <mat-form-field class="cycle-input">
-                  <input type="text" [disabled]="!editable" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period">
+                  <input type="text" [disabled]="!editable" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" maxlength="4">
                 </mat-form-field>
                 Days
               </mat-radio-button>
@@ -83,7 +84,6 @@
             <div class="body__row">
               <mat-form-field>
                 <input type="text" matInput [disabled]="!editable || !_scheduleBackup.product.dynamicPrice.enabled" placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
-                <mat-hint align="end" *ngIf="_scheduleBackup.product.dynamicPrice.enabled">{{_scheduleBackup.product.dynamicPrice.min.usd()}} - {{_scheduleBackup.product.dynamicPrice.max.usd()}}</mat-hint>
               </mat-form-field>
             </div>
           </div>
@@ -151,13 +151,13 @@
             <div class="text">{{s.product.name}}</div>
             <mat-icon [matMenuTriggerFor]="scheduleoptions">more_vert</mat-icon>
             <mat-menu #scheduleoptions="matMenu" x-position="before">
-              <button mat-menu-item [routerLink]="['/products', s.product.id]">View Product</button>
-              <button *ngIf="editable" mat-menu-item (click)="deleteSchedule.emit(s)">Delete Schedule</button>
-              <button mat-menu-item (click)="focusSchedule.emit(s)">Focus Schedule</button>
+              <button mat-menu-item [routerLink]="['/products', 'product', s.product.id]">View Product</button>
+              <button *ngIf="editable && singleScheduleMode" mat-menu-item (click)="deleteSchedule.emit(s)">Delete Product</button>
+              <button mat-menu-item (click)="focusSchedule.emit(s)">Focus Product</button>
             </mat-menu>
           </div>
 
-          <div *ngIf="editable" class="item item--last">
+          <div *ngIf="editable && _productSchedule.schedules.length === 0" class="item item--last">
             <autocomplete-input
               class="session-autocomplete"
               [initialValue]="productToAdd"

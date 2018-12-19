@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {isAllowedCurrency} from '../shared/utils/form.utils';
 import {Currency} from '../shared/utils/currency/currency';
 import {MatDialogRef} from '@angular/material';
 
@@ -17,7 +16,7 @@ import {MatDialogRef} from '@angular/material';
         </div>
         <div>
           <mat-form-field>
-            <input matInput placeholder="{{'BILL_DETAILS_TABLE_AMOUNT' | translate}}" (keydown)="isCurrency($event)" type="text" currencyInput [initPrice]="amount" (priceChanged)="amount = $event">
+            <input matInput placeholder="{{'BILL_DETAILS_TABLE_AMOUNT' | translate}}" type="text" currencyInput [initPrice]="amount" (priceChanged)="amount = $event">
           </mat-form-field>
         </div>
       </mat-card-content>
@@ -33,7 +32,6 @@ export class AddBillDetailsDialogComponent {
 
   description: string = '';
   amount: Currency = new Currency(0);
-  isCurrency = isAllowedCurrency;
 
   constructor(public dialogRef: MatDialogRef<AddBillDetailsDialogComponent>) {}
 

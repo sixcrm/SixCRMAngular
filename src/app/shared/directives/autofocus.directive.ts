@@ -6,6 +6,7 @@ import {Directive, ElementRef, AfterViewInit, Input} from '@angular/core';
 export class AutofocusDirective implements AfterViewInit {
 
   @Input() applyAutofocus: boolean = true;
+  @Input() delay: number = 1;
 
   constructor(private el: ElementRef) { }
 
@@ -16,6 +17,6 @@ export class AutofocusDirective implements AfterViewInit {
 
     setTimeout(() => {
       this.el.nativeElement.focus();
-    }, 1);
+    }, this.delay);
   }
 }

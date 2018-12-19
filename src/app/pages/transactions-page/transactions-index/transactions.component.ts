@@ -20,7 +20,7 @@ import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
 })
 export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE', url: '/transactions'}];
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Transactions', url: '/transactions'}];
 
   sub: Subscription;
 
@@ -40,9 +40,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       new ColumnParams('Status', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
         .setSortName('response')
         .setCapitalize(true)
-        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' ? 'block' : 'error')
+        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' || e.response === 'soft decline' || e.response === 'hard decline' ? 'block' : 'error')
         .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#ED6922' : '#1EBEA5' : '#ffffff')
-        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : '#DC2547'),
+        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : e.response === 'soft decline' ? '#ED6922' : '#DC2547'),
       new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType : '–').setSortName('type').setCapitalize(true),
       new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer)
         .setSortName('customer_name')
@@ -68,13 +68,13 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         .setMaskLongData(true)
     ];
 
-    this.date = {start: utc().subtract(7,'d'), end: utc()};
-
     this.tabs = [
       {label: 'All', selected: true, visible: true},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
-      {label: 'Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['decline']}]}
+      {label: 'All Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline', 'soft decline']}]},
+      {label: 'Hard Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline']}]},
+      {label: 'Soft Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['soft decline']}]}
     ];
 
     this.options = ['View'];
@@ -132,13 +132,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   download(format: 'csv' | 'json') {
     if (format !== 'csv' && format !== 'json') return;
 
-    this.analyticsService.getTransactions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(transactions => {
+    this.analyticsService.getTransactions(this.getFetchParams(true)).subscribe(transactions => {
       if (!transactions || transactions instanceof CustomServerError) {
         return;
       }
@@ -159,17 +153,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   fetch() {
     this.router.navigate(
       ['/transactions'],
-      {
-        queryParams: {
-          start: this.date.start.clone().format(),
-          end: this.date.end.clone().format(),
-          sort: this.getSortColumn().sortName,
-          sortOrder: this.getSortColumn().sortOrder,
-          tab: this.getSelectedTab() ? this.getSelectedTab().label : '',
-          filters: JSON.stringify(this.filters)
-        },
-        replaceUrl: true
-      });
+      {queryParams: this.getQueryParams()}
+    );
 
     this.fetchData();
   }
@@ -181,15 +166,7 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.sub.unsubscribe();
     }
 
-    this.sub = this.analyticsService.getTransactions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
-      limit: 25,
-      offset: this.entities.length,
-      orderBy: this.getSortColumn().sortName,
-      sort: this.getSortColumn().sortOrder,
-      facets: this.getFacets()
-    }).subscribe(transactions => {
+    this.sub = this.analyticsService.getTransactions(this.getFetchParams()).subscribe(transactions => {
       this.loadingData = false;
 
       if (!transactions || transactions instanceof CustomServerError) {
@@ -205,19 +182,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   fetchCounts() {
-    if (this.lastCountsDate
-      && this.lastCountsDate.start.isSame(this.date.start.clone(), 'd')
-      && this.lastCountsDate.end.isSame(this.date.end.clone(), 'd')
-    ) {
-      return;
-    }
+    if (!this.shouldFetchCounts()) return;
 
-    this.lastCountsDate = {
-      start: this.date.start.clone(),
-      end: this.date.end.clone()
-    };
-
-    this.tabs.forEach(t => t.count = Observable.of(null));
+    this.prepareFetchCounts();
 
     this.analyticsService.getTransactions({
       start: this.date.start.clone().format(),
@@ -230,7 +197,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.tabs[0].count = Observable.of(transactions.length);
       this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
       this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'decline').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'soft decline' || t.response === 'hard decline').length);
+      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'hard decline').length);
+      this.tabs[5].count = Observable.of(transactions.filter(t=>t.response === 'soft decline').length);
     });
   }
 

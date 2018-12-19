@@ -36,7 +36,7 @@ describe('Merchant Provider', function() {
   it('should navigate to merchant provider page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(14).click();
+    nav.getLink(15).click();
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
@@ -77,15 +77,14 @@ describe('Merchant Provider', function() {
     merchantProvider.getNewFormInput(9).sendKeys('0.1');
     merchantProvider.getNewFormInput(10).sendKeys('0.1');
     merchantProvider.getNewFormInput(11).sendKeys('0.1');
-    merchantProvider.getNewFormInput(12).sendKeys('MNI');
 
     merchantProvider.getDropdown(0).click();
     browser.sleep(1000);
     merchantProvider.getDropdownOption().click();
 
+    merchantProvider.getNewFormInput(12).sendKeys('123');
     merchantProvider.getNewFormInput(13).sendKeys('123');
     merchantProvider.getNewFormInput(14).sendKeys('123');
-    merchantProvider.getNewFormInput(15).sendKeys('123');
 
     expect(merchantProvider.getErrorInputs().count()).toEqual(0);
   });
