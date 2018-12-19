@@ -70,7 +70,9 @@ export class UsersService extends AbstractEntityService<User> {
         }
 
         response.body.response.data.latesttermsandconditions.body =
-          response.body.response.data.latesttermsandconditions.body.replace('https://sixcrm.com', '<a href="https://sixcrm.com" target="_blank">https://sixcrm.com</a>');
+          response.body.response.data.latesttermsandconditions.body
+            .replace('https://sixcrm.com', '<a href="https://sixcrm.com" target="_blank">https://sixcrm.com</a>')
+            .replace('**get-help@sixcrm.com**', 'get-help@sixcrm.com');
 
         return response;
       });
