@@ -2,7 +2,7 @@
 
   <div class="header">
     <div class="info">
-      <div>Bills {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
+      <div>Next bill {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
 
       <button mat-button *ngIf="!sessionMode" (click)="navigateToWatermark(rebill)">Edit</button>
 

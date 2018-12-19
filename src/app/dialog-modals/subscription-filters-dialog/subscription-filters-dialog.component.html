@@ -9,27 +9,13 @@
 
     <div class="content">
 
-      <div class="mrw-bi-input search-input-container">
-        <mat-form-field [floatLabel]="'never'">
-          <input type="text" matInput placeholder="Search">
-        </mat-form-field>
-        <mat-icon class="topnav__search__icon">search</mat-icon>
-      </div>
-
-      <div class="date">
-
-        <div class="date__title">Date Range</div>
-        <filter-daterange-picker [date]="date" (dateChanged)="dateSelected($event)"></filter-daterange-picker>
-
-      </div>
-
       <div class="box-container">
         <div class="box-row">
           <div class="box box--single">
             <div class="label">Status</div>
-            <mat-checkbox [checked]="true">All</mat-checkbox>
-            <mat-checkbox>Active</mat-checkbox>
-            <mat-checkbox>Canceled</mat-checkbox>
+            <mat-checkbox [(ngModel)]="allStatus" (change)="allStatusSelected($event)">All</mat-checkbox>
+            <mat-checkbox [(ngModel)]="activeStatus" (change)="singleStatusSelected($event)">Active</mat-checkbox>
+            <mat-checkbox [(ngModel)]="cancelledStatus" (change)="singleStatusSelected($event)">Cancelled</mat-checkbox>
           </div>
         </div>
       </div>
@@ -38,7 +24,7 @@
         <div class="filter__title">Campaigns</div>
 
         <single-filter [items]="selectedCampaigns"
-                       [options]="allCampaigns"
+                       [options]="campaignsService.entities$ | async"
                        [title]="'campaign'"
                        [optionMapper]="campaignMapper"
                        (itemAdded)="addCampaign()"

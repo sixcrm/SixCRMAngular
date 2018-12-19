@@ -13,7 +13,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
     mainSub.items.push({label: 'Customers', icon: 'person', url: 'customers'});
-    // mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'coming-soon'})
+    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'subscriptions'})
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
@@ -109,10 +109,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     setup.children.push({label: 'Campaigns', url: 'campaigns'});
   }
   if ((authService.hasPermissions('product', 'read') || authService.isBillingDisabled())) {
-    setup.children.push({label: 'Products', url: 'products'});
-  }
-  if ((authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
-    setup.children.push({label: 'Product Schedules', url: 'productschedules'});
+    setup.children.push({label: 'Products and Schedules', url: 'products'});
   }
   if ((authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
     setup.children.push({label: 'Email Templates', url: 'emailtemplates'});

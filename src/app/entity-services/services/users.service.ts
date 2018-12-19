@@ -63,6 +63,18 @@ export class UsersService extends AbstractEntityService<User> {
   }
 
   getlatestTermsAndConditions(accountId?: string, role?: string): Observable<HttpResponse<any> | CustomServerError> {
-    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditions(accountId, role), { });
+    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditions(accountId, role), { })
+      .map(response => {
+        if (response instanceof CustomServerError) {
+          return response;
+        }
+
+        response.body.response.data.latesttermsandconditions.body =
+          response.body.response.data.latesttermsandconditions.body
+            .replace('https://sixcrm.com', '<a href="https://sixcrm.com" target="_blank">https://sixcrm.com</a>')
+            .replace('**get-help@sixcrm.com**', 'get-help@sixcrm.com');
+
+        return response;
+      });
   }
 }

@@ -71,7 +71,7 @@ export class TransactionSingleViewComponent implements OnInit {
   }
 
   goToProduct(products: Products) {
-    this.router.navigate(['/products', products.product.id])
+    this.router.navigate(['/products', 'product', products.product.id])
   }
 
   refundAllToggle(event) {

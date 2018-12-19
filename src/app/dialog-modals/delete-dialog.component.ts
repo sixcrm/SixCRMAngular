@@ -11,21 +11,29 @@ import {MatDialogRef} from '@angular/material';
 @Component({
   selector : 'delete-dialog',
   template : `
-    <mat-card>
-      <mat-card-content>
-        {{text | translate}}
-      </mat-card-content>
-      <mat-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">{{'DELETEDIALOG_CANCEL' | translate}}</div>
-        <div (click)="yes()">{{'DELETEDIALOG_DEL' | translate}}</div>
-      </mat-card-actions>
-    </mat-card>
+    <div class="delete-dialog-container">
+      <div>
+        <div class="text">{{text}}</div>
+        <div class="secondary">{{secondaryText}}</div>
+        <div class="items-list">
+            <div *ngFor="let item of items">
+                {{item}}
+            </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button mat-button (click)="no()">No</button>
+        <button mat-button (click)="yes()">Yes</button>
+      </div>
+    </div>
   `,
   styles : []
 })
 export class DeleteDialogComponent {
 
-  text: string = 'DELETEDIALOG_TEXT';
+  text: string = 'Delete Confirmation';
+  secondaryText: string = 'Deleting is permanent and irreversible. Are you sure you want to proceed?';
+  items: string[] = [];
 
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>) {}
 

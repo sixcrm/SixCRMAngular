@@ -75,6 +75,10 @@ export class Notification implements Entity<Notification> {
   }
 
   contextLink(): string {
+    if (this.name === 'user_invited') {
+      return '/accountmanagement/users';
+    }
+
     let identifiableEntityId;
     let identifiableEntityName;
 

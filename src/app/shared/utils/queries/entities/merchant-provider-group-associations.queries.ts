@@ -43,6 +43,15 @@ export function createMerchantProviderGroupAssociationMutation(merchantProviderG
 	  }`
 }
 
+export function updateMerchantProviderGroupAssociationMutation(merchantProviderGroupAssociation: MerchantProviderGroupAssociation): string {
+  return `
+    mutation {
+      updatemerchantprovidergroupassociation ( merchantprovidergroupassociation: { ${merchantProviderGroupAssociationInputQuery(merchantProviderGroupAssociation, true)} } ) {
+        ${merchantProviderGroupAssociationResponseQuery()}
+      }
+	  }`
+}
+
 export function deleteMerchantProviderGroupAssociationMutation(id: string): string {
   return deleteMutationQuery('merchantprovidergroupassociation', id);
 }

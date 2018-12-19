@@ -1,38 +1,70 @@
-<div class="entity-index">
+<blue-header [items]="crumbItems" [titleValue]="'Products and Schedules'"></blue-header>
 
-  <blue-header [items]="crumbItems" [titleValue]="'PRODUCT_INDEX_TITLE'"></blue-header>
+<div class="grid-body">
+  <div class="header">
+    <button mat-button class="add-new-button" *ngIf="productsService.hasWritePermission()" (click)="createNewProduct()">NEW PRODUCT</button>
 
-  <button mat-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
+    <div class="mrw-bi-input">
+      <mat-form-field [floatLabel]="'never'">
+        <input matInput type="text" placeholder="Find ..." [(ngModel)]="filterString">
+      </mat-form-field>
+    </div>
 
-  <entities-table-wrapper
-    [data]="entities"
-    [loaded]="initialLoaded"
-    [columnParams]="columnParams"
-    [filterString]="filterValue"
-    [serverError]="serverError"
-    (selected)="viewEntity($event.id)"
+    <div class="count">{{(entities | filterStrings: filterString: filterFunction)?.length}} Items</div>
 
-    [service]="service"
-    (viewClicked)="viewEntity($event.id)"
-    (copyClicked)="copyEntity($event.id)"
-    (exportClicked)="exportEntity($event.id)"
-    (editClicked)="editEntity($event.id)"
-    (deleteClicked)="deleteEntity($event.id)"
-    (deleteManyClicked)="deleteMany($event)"
-    (refreshData)="refreshData()"
+    <div class="sort" [matMenuTriggerFor]="sortoptions">
+      <div>Sort by <span>{{selectedSortBy ? ' ' + selectedSortBy.label : ''}}</span></div>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
 
-    [limit]="limit"
-    [paginationValues]="paginationValues"
-    [previousDisabled]="page <= 0"
-    [nextDisabled]="!hasMorePages()"
-    (previous)="previous()"
-    (next)="next()"
-    (updateLimit)="updateLimit($event)"
-    (filterChanged)="filterValue = $event"
-    (searchChanged)="setSearchString($event)">
-  </entities-table-wrapper>
+    <mat-menu #sortoptions="matMenu" x-position="before">
+      <button mat-menu-item *ngFor="let sort of sortBy" (click)="applySortBy(sort)">{{sort.label}}</button>
+    </mat-menu>
+
+    <div class="sort" [matMenuTriggerFor]="filterptions">
+      <div>Show <span>{{selectedFilter ? ' ' + selectedFilter.label : ''}}</span></div>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+
+    <mat-menu #filterptions="matMenu" x-position="before">
+      <button mat-menu-item *ngFor="let filter of filters" (click)="applyFilter(filter)">{{filter.label}}</button>
+    </mat-menu>
+
+  </div>
+
+  <div class="content-wrapper" *ngIf="entities">
+
+    <ng-container *ngFor="let entity of entities | filterStrings: filterString: filterFunction">
+      <div class="entity-card" [class.entity-card--selected]="entity.bulkSelected" (click)="selectEntity(entity, $event)">
+        <div class="title">{{entity.name}}</div>
+
+        <div class="product-image" [style.background-image]="'url(' + getDefaultImagePath(entity) + ')'"></div>
+
+        <ng-container *ngIf="isSubscription(entity); else product">
+          <div class="subscription-mark">Schedule</div>
+          <div class="product-details">
+            <div>
+              <div>Schedules {{entity.schedules.length}}</div>
+              <div>{{entity.getInitialPrice().usd()}}</div>
+            </div>
+            <button mat-button [routerLink]="['/products', 'schedule', entity.id]" fragment="cycles">EDIT</button>
+          </div>
+        </ng-container>
+
+        <ng-template #product>
+          <div class="product-details">
+            <div>
+              <div>SKU {{entity.sku}}</div>
+              <div>{{entity.defaultPrice.usd()}}</div>
+            </div>
+            <button mat-button [routerLink]="['/products', 'product', entity.id]">EDIT</button>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
+
+  </div>
+
 </div>
 
-<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <product-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-add-new>
-</div>
+<bulk-selector [items]="entities" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>

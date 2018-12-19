@@ -16,7 +16,7 @@ import {EmailTemplatePreviewModalComponent} from '../../../dialog-modals/email-t
 })
 export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailTemplate> implements OnInit, OnDestroy {
 
-  sortBy: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number}[] = [
+  sortBy = [
     {label: 'Name', sortFunction: (f: EmailTemplate, s: EmailTemplate) => {
       if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
       if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
@@ -39,8 +39,6 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
     }}
   ];
 
-  selectedSortBy: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number};
-
   crumbItems: BreadcrumbItem[] = [{label: () => 'Email Templates'}];
 
   filterString: string;
@@ -62,19 +60,14 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
   }
 
   ngOnInit() {
+    this.setInfiniteScroll(true);
     this.shareLimit = false;
     this.limit = 100;
-
     this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
-  }
-
-  applySortBy(sort: {label: string, sortFunction: (f: EmailTemplate, s: EmailTemplate) => number}) {
-    this.selectedSortBy = sort;
-    this.entities = this.entities.sort(sort.sortFunction);
   }
 
   previewTemplate(template: EmailTemplate) {

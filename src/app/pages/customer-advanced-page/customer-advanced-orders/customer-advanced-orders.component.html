@@ -3,7 +3,7 @@
 
     <mat-tab>
 
-      <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedOrder ? 1 : selectedGranularityIndex">
+      <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedOrder ? 1 : selectedGranularityIndex == 1 ? 0 : selectedGranularityIndex ">
 
         <mat-tab>
           <div>

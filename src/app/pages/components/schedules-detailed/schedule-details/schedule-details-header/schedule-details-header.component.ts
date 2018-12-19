@@ -6,7 +6,8 @@ import {ProductSchedule} from '../../../../../shared/models/product-schedule.mod
 @Component({
   selector: 'schedule-details-header',
   templateUrl: './schedule-details-header.component.html',
-  styleUrls: ['./schedule-details-header.component.scss']
+  styleUrls: ['./schedule-details-header.component.scss'],
+  host: {'(document:keydown)': 'parseDeleteKey($event)'}
 })
 export class ScheduleDetailsHeaderComponent implements OnInit {
 
@@ -14,6 +15,7 @@ export class ScheduleDetailsHeaderComponent implements OnInit {
   @Input() schedule: Schedule;
   @Input() productSchedule: ProductSchedule;
   @Input() editable: boolean = true;
+  @Input() singleScheduleMode: boolean;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() removeProduct: EventEmitter<boolean> = new EventEmitter();
@@ -25,4 +27,9 @@ export class ScheduleDetailsHeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  parseDeleteKey(key) {
+    if (key && key.code === 'Escape') {
+      this.close.emit(true);
+    }
+  }
 }

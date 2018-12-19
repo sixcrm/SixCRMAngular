@@ -1,5 +1,6 @@
 import {Moment, utc} from 'moment';
 import {Currency} from '../../utils/currency/currency';
+import {getValueOf} from './analytics-model.utilities';
 
 export class OrderAnalytics {
 
@@ -27,30 +28,20 @@ export class OrderAnalytics {
 
     this.obj = obj;
 
-    this.id = this.getValueOf('id');
-    this.alias = this.getValueOf('alias');
-    this.status = this.getValueOf('status');
-    this.date = utc(this.getValueOf('datetime'));
-    this.type = this.getValueOf('type');
-    this.amount = new Currency(this.getValueOf('amount') || 0);
-    this.returns = +this.getValueOf('returns');
-    this.refunds = new Currency(this.getValueOf('refunds') || 0);
-    this.total = new Currency(this.getValueOf('total') || 0);
-    this.items = +this.getValueOf('items');
-    this.customer = this.getValueOf('customer');
-    this.customerName = this.getValueOf('customer_name');
-    this.campaign = this.getValueOf('campaign');
-    this.campaignName = this.getValueOf('campaign_name')
-  }
-
-  private getValueOf(key): any {
-    for (let i = 0; i < this.obj.length; i++) {
-      if (this.obj[i].key === key) {
-        return this.obj[i].value;
-      }
-    }
-
-    return '';
+    this.id = getValueOf(obj, 'id');
+    this.alias = getValueOf(obj, 'alias');
+    this.status = getValueOf(obj, 'status');
+    this.date = utc(getValueOf(obj, 'datetime'));
+    this.type = getValueOf(obj, 'type');
+    this.amount = new Currency(getValueOf(obj, 'amount') || 0);
+    this.returns = +getValueOf(obj, 'returns');
+    this.refunds = new Currency(getValueOf(obj, 'refunds') || 0);
+    this.total = new Currency(getValueOf(obj, 'total') || 0);
+    this.items = +getValueOf(obj, 'items');
+    this.customer = getValueOf(obj, 'customer');
+    this.customerName = getValueOf(obj, 'customer_name');
+    this.campaign = getValueOf(obj, 'campaign');
+    this.campaignName = getValueOf(obj, 'campaign_name')
   }
 
 }

@@ -62,6 +62,7 @@
 
   .section {
     display: flex;
+    overflow: visible;
 
     &--dropdown {
       margin-bottom: 185px;
@@ -94,6 +95,7 @@
       width: 205px;
       overflow: hidden;
       transition: 0.15s ease-in-out;
+      height: auto;
 
       &--collapsed {
         width: 0;

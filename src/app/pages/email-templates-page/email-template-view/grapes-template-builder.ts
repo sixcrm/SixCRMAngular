@@ -772,6 +772,18 @@ export function initGrapesJS(
     }
   };
 
+  const styleManagerPlugin = (editor) => {
+    const updateStyleManager = () => {
+      const sm = document.getElementById('gjs-sm-decorations');
+
+      if (sm && sm.style) {
+        sm.style.visibility = editor.getSelected().getAttributes()['id'] === 'wrapper' ? 'hidden' : 'visible';
+      }
+    };
+
+    editor.on('component:selected', updateStyleManager);
+  };
+
   const setDeleteOptionForCustomBlocks = () => {
     params.parent.customBlocks.forEach(block => {
       document.getElementById(block.id).addEventListener('click', () => {
@@ -798,6 +810,7 @@ export function initGrapesJS(
       saveCustomBlockPlugin,
       toolbarEditButtonsPlugin,
       toolbarActionButtonsPlugin,
+      styleManagerPlugin,
       htmlEditorBlock
     ],
     storageManager: { type: 'simple-storage' },

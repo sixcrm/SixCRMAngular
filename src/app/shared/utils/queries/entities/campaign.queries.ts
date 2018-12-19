@@ -112,10 +112,7 @@ function campaignResponseQuery(): string {
 }
 
 function campaignInfoResponseQuery(): string {
-  return `
-    id name created_at allow_prepaid show_prepaid allow_on_order_form updated_at,
-    productschedules { ${productScheduleInfoResponseQuery()} }
-    emailtemplates { id name }`
+  return `id name created_at allow_prepaid show_prepaid allow_on_order_form updated_at`
 }
 
 function campaignInputQuery(campaign: Campaign, includeId?: boolean): string {
