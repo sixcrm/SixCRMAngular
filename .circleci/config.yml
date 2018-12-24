@@ -80,7 +80,7 @@ jobs:
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
       - run:
           name: Deploy App to s3
-          command: node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+          command: node libs/deployment_scripts/src/application/application-deploy-s3.js admin.sixcrm.com
   deploy_cloudfront:
     <<: *job-defaults
     steps:
@@ -94,7 +94,7 @@ jobs:
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
       - run:
           name: Add/Update CloudFront Distribution
-          command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
+          command: node libs/deployment_scripts/src/application/application-deploy-cloudfront.js admin.sixcrm.com
   e2e_local_smoke:
     <<: *job-defaults
     steps:
@@ -155,7 +155,7 @@ jobs:
           when: always
       - run:
           name: Deploy Report to s3
-          command: node libs/deployment_scripts/src/deploy-report.js deployment/deploy-config.json
+          command: node libs/deployment_scripts/src/application/application-deploy-report.js admin.sixcrm.com
           when: always
 
 workflows:
