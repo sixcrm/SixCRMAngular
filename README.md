@@ -14,4 +14,3 @@ Build with development variables
 
 Build with production variables
 * `npm run build.prod`
-
