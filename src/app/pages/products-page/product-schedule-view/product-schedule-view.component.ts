@@ -178,7 +178,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       productSchedule.updatedAt = this.entity.updatedAt.clone();
 
       this.takeUpdated = false;
-      this.updateEntity(productSchedule, {ignoreSnack: true});
+      this.updateEntity(productSchedule);
     });
 
     super.init(() => this.navigation.goToNotFoundPage());
