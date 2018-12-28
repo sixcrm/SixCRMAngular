@@ -70,7 +70,7 @@
                                 [checked]="+_scheduleBackup.period > 0 && !_scheduleBackup.sameDayOfMonth">
                 Repeat cycle every
                 <mat-form-field class="cycle-input">
-                  <input type="text" [disabled]="!editable" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" maxlength="4">
+                  <input type="text" [disabled]="!editable || !(+_scheduleBackup.period > 0 && !_scheduleBackup.sameDayOfMonth)" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" maxlength="4">
                 </mat-form-field>
                 Days
               </mat-radio-button>
