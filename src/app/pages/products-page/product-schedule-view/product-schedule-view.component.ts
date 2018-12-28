@@ -145,7 +145,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   saveDebouncer: Subject<ProductSchedule> = new Subject();
   productScheduleWaitingForUpdate: ProductSchedule;
   updateError: boolean;
-  autosaveDebouncer: number = 3500;
+  autosaveDebouncer: number = 2000;
 
   constructor(
     service: ProductScheduleService,
