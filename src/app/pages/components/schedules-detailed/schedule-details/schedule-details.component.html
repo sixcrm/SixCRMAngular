@@ -49,14 +49,6 @@
             </div>
 
             <div class="radio-buttons">
-
-              <mat-radio-button [disabled]="!editable"
-                                class="radio-blue"
-                                (click)="setCycleNoRepeat()"
-                                [checked]="+_scheduleBackup.period === 0 && !_scheduleBackup.sameDayOfMonth">
-                No cycle repeat
-              </mat-radio-button>
-
               <mat-radio-button class="radio-blue"
                                 [disabled]="!editable"
                                 (click)="setCycleSameDay()"
@@ -67,10 +59,10 @@
               <mat-radio-button class="radio-blue"
                                 [disabled]="!editable"
                                 (click)="setCycleRepeatEvery()"
-                                [checked]="+_scheduleBackup.period > 0 && !_scheduleBackup.sameDayOfMonth">
+                                [checked]="!_scheduleBackup.sameDayOfMonth">
                 Repeat cycle every
-                <mat-form-field class="cycle-input">
-                  <input type="text" [disabled]="!editable || !(+_scheduleBackup.period > 0 && !_scheduleBackup.sameDayOfMonth)" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" maxlength="4">
+                <mat-form-field class="cycle-input" [class.error]="!_scheduleBackup.sameDayOfMonth && +_scheduleBackup.period <= 0">
+                  <input type="text" [disabled]="!editable || _scheduleBackup.sameDayOfMonth" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" maxlength="4">
                 </mat-form-field>
                 Days
               </mat-radio-button>
