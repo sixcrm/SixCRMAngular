@@ -39,8 +39,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
     {name: 'orders', label: 'ORDERS'},
     {name: 'transactions', label: 'TRANSACTIONS'},
-    {name: 'fulfillment', label: 'FULFILLMENT'},
-    {name: 'activity', label: 'ACTIVITY'}
+    {name: 'fulfillment', label: 'FULFILLMENT'}
   ];
 
   secondaryTabHeaders: TabHeaderElement[] = [
@@ -253,7 +252,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       {name: 'orders', label: 'ORDERS'},
       {name: 'transactions', label: 'TRANSACTIONS'},
       {name: 'fulfillment', label: 'FULFILLMENT'},
-      {name: 'activity', label: 'ACTIVITY'}
     ];
 
     if (this.selectedIndex === 5) {
@@ -308,7 +306,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
           {name: 'orders', label: 'ORDERS'},
           {name: 'transactions', label: 'TRANSACTIONS'},
           {name: 'fulfillment', label: 'FULFILLMENT'},
-          {name: 'activity', label: 'ACTIVITY'},
           {name: 'watermark', label: 'WATERMARK'}
         ];
 

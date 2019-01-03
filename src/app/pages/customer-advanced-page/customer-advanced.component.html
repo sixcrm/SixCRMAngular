@@ -37,9 +37,6 @@
             <mat-tab>
               <customer-advanced-fulfillments [receipts]="shippingReceipts"></customer-advanced-fulfillments>
             </mat-tab>
-            <mat-tab>
-              <customer-advanced-events [customerId]="customer ? customer.id : null"></customer-advanced-events>
-            </mat-tab>
             <mat-tab *ngIf="sessionId && session">
               <schedules-detailed
                       [productSchedules]="session.watermark.extractedProductSchedules"
