@@ -9,7 +9,6 @@ import { CustomerInfoNotesComponent } from './customer-info-notes/customer-info-
 import {FormsModule} from '@angular/forms';
 import { CustomerAdvancedTransactionsComponent } from './customer-advanced-transactions/customer-advanced-transactions.component';
 import { CustomerAdvancedFulfillmentComponent } from './customer-advanced-fulfillment/customer-advanced-fulfillment.component';
-import { CustomerAdvancedEventsComponent } from './customer-advanced-events/customer-advanced-events.component';
 import { RebillItemComponent } from './rebill-item/rebill-item.component';
 import { CustomerAdvancedSubscriptionsComponent } from './customer-advanced-subscriptions/customer-advanced-subscriptions.component';
 import { InfoTableComponent } from './item-components/info-table/info-table.component';
@@ -40,7 +39,6 @@ import { TransactionSingleViewComponent } from './transaction-single-view/transa
     CustomerAdvancedTransactionsComponent,
     CustomerAdvancedOrdersComponent,
     CustomerAdvancedFulfillmentComponent,
-    CustomerAdvancedEventsComponent,
     RebillItemComponent,
     OrderItemComponent,
     CustomerAdvancedSubscriptionsComponent,
