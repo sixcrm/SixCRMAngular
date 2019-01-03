@@ -74,7 +74,7 @@ exports.config = {
       './e2e/**/navigation.e2e-spec.ts'
     ],
     temp: [
-      './e2e/**/merchant-provider.e2e-spec.ts'
+      './e2e/**/merchant-provider-group.e2e-spec.ts'
     ]
   },
   capabilities: {

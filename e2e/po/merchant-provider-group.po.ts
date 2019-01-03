@@ -31,7 +31,7 @@ export class MerchantProviderGroupPage {
   }
 
   getProviderGroupDeleteModalButton() {
-    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+    return element(by.css('.delete-dialog-container')).all(by.css('button')).last();
   }
 
   getMerchantProviderIndexButton() {
