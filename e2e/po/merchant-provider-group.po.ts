@@ -19,7 +19,7 @@ export class MerchantProviderGroupPage {
   }
 
   getMerchantProviderGroupName() {
-    return element(by.css('.entity-view__info__data__name'));
+    return element(by.css('.entity-view__card__content__item')).all(by.css('input')).first();
   }
 
   getIndividualProvidergroup() {

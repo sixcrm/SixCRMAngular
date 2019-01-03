@@ -75,7 +75,7 @@ describe('Merchant Provider Group', function() {
   });
 
   xit('should display product schedule details', () => {
-    browser.sleep(2000);
+    browser.sleep(20000);
     expect(merchantProviderGroup.getMerchantProviderGroupName().getText()).toEqual('e2e load balancer');
   });
 
@@ -106,7 +106,7 @@ describe('Merchant Provider Group', function() {
     browser.sleep(200);
     merchantProviderGroup.getProviderGroupDeleteModalButton().click();
     waitForPresenceOf(page.getSuccessSnackbar());
-    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
+    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!');
   });
 
 });
