@@ -7,14 +7,13 @@ import {HttpResponse} from '@angular/common/http';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
-  activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery,
+  heroChartQuery, eventsFunnelTimeseriesQuery,
   productSchedulesByAmountQuery, analyticsDetailQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
 import {FilterTerm} from '../models/filter-term.model';
 import {downloadFile} from '../utils/file.utils';
-import {Activity} from '../models/analytics/activity.model';
 import {HttpWrapperService, extractData, generateHeaders, FailStrategy} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {SubscriptionStats} from "../models/subscription-stats.model";
@@ -39,8 +38,6 @@ export class AnalyticsService {
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
   subscriptionsByAmount$: BehaviorSubject<SubscriptionStats[] | CustomServerError>;
 
-  activitiesByCustomer$: Subject<Activity[] | CustomServerError>;
-
   constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: HttpWrapperService) {
     this.eventFunnel$ = new BehaviorSubject(null);
     this.eventFunnelTimeseries$ = new BehaviorSubject(null);
@@ -50,8 +47,6 @@ export class AnalyticsService {
     this.heroChartSeries$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
     this.subscriptionsByAmount$ = new BehaviorSubject(null);
-
-    this.activitiesByCustomer$ = new Subject();
 
     this.authService.activeAcl$.subscribe(() => {
       if (this.authService.active()) {
@@ -378,17 +373,6 @@ export class AnalyticsService {
 
         return entities.map(entity => new CustomerAnalytics(entity));
       })
-  }
-
-  getActivityByCustomer(params: {start: string, end: string, customer: string, limit: number, offset: number}) {
-    this.queryRequest(activitiesByCustomer(params.start, params.end, params.customer, params.limit, params.offset)).subscribe(data => {
-      this.handleResponse(
-        data,
-        this.activitiesByCustomer$,
-        (t: any) => new Activity(t),
-        (data: any) => extractData(data).analytics.records
-      );
-    })
   }
 
   hasPermission(operation: string): boolean {

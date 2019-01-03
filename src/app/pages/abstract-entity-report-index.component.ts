@@ -96,16 +96,24 @@ export abstract class AbstractEntityReportIndexComponent<T> {
       }
     }
 
+    if (params['filters']) {
+      this.filters = JSON.parse(params['filters']);
+
+      this.tabs = this.tabs.map(tab => {
+        tab.selected = false;
+
+        return tab;
+      });
+
+      return;
+    }
+
     for (let i = 0; i < this.tabs.length; i++) {
       if (!params['tab']) {
         this.tabs[i].selected = (i === 0);
       } else {
         this.tabs[i].selected = this.tabs[i].visible && this.tabs[i].label === params['tab'];
       }
-    }
-
-    if (params['filters']) {
-      this.filters = JSON.parse(params['filters']);
     }
   }
 
@@ -130,6 +138,8 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
       return t;
     });
+
+    this.filters = [];
 
     this.refetch();
   }

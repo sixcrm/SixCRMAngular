@@ -122,6 +122,8 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   }
 
   saveSchedule() {
+    if (!this._scheduleBackup.sameDayOfMonth && +this._scheduleBackup.period <= 0) return;
+
     this._schedule.start = +this._scheduleBackup.start;
     this._schedule.end = +this._scheduleBackup.end;
     this._schedule.price = this._scheduleBackup.price;
@@ -169,13 +171,6 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     if (!this._productSchedule) return;
 
     this.save.emit(true);
-  }
-
-  setCycleNoRepeat() {
-    if (!this.editable) return;
-
-    this._scheduleBackup.period = 0;
-    this._scheduleBackup.sameDayOfMonth = false;
   }
 
   setCycleSameDay() {
