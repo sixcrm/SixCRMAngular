@@ -5,8 +5,6 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
 import {TranslationService} from "../../../../translation/translation.service";
 import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";
-import {Transaction} from "../../../../shared/models/transaction.model";
-import {HeroChartSeries} from "../../../../shared/models/hero-chart-series.model";
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
 import {utc} from 'moment';
 import {TransactionAnalytics} from '../../../../shared/models/analytics/transaction-analytics.model';
@@ -81,13 +79,5 @@ export class DashboardLowDataComponent implements OnInit {
     });
 
     this.analyticsService.getTransactionsLifetimeRevenue();
-  }
-
-  calculateRevenue(series: HeroChartSeries[]){
-    let revenues = series.find(el => el.facet === 'revenue');
-    if (!revenues) {
-      return;
-    }
-    this.revenue = new Currency(revenues.timeseries.map(s => s.value).reduce((a, b) => a+b, 0));
   }
 }
