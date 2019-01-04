@@ -25,6 +25,7 @@ import {SubscriptionAnalytics} from '../models/analytics/subscription-analytics.
 import {AffiliateAnalytics} from '../models/analytics/affiliate-analytics.model';
 import {MerchantAnalytics} from '../models/analytics/merchant-analytics.model';
 import {CustomerAnalytics} from '../models/analytics/customer-analytics.model';
+import {utc} from 'moment';
 
 @Injectable()
 export class AnalyticsService {
@@ -35,6 +36,7 @@ export class AnalyticsService {
   eventFunnelTimeseriesSimple$: BehaviorSubject<EventFunnelTimeseries | CustomServerError>;
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
   heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
+  transactionsLifetimeRevenue$: BehaviorSubject<number | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
   subscriptionsByAmount$: BehaviorSubject<SubscriptionStats[] | CustomServerError>;
 
@@ -45,6 +47,7 @@ export class AnalyticsService {
     this.eventFunnelTimeseriesSimple$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.heroChartSeries$ = new BehaviorSubject(null);
+    this.transactionsLifetimeRevenue$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
     this.subscriptionsByAmount$ = new BehaviorSubject(null);
 
@@ -67,6 +70,18 @@ export class AnalyticsService {
         this.heroChartSeries$,
         (t: any) => new HeroChartSeries(t),
         (data: any) => extractData(data).analytics.records[0]
+      );
+    })
+  }
+
+  getTransactionsLifetimeRevenue() {
+    this.queryRequest(heroChartQuery(utc().subtract(3, 'y').format(), utc().format(), 'day', 'revenueVersusOrders', null)).subscribe(data => {
+      this.handleResponse(
+        data,
+        this.transactionsLifetimeRevenue$,
+        (t: any) => t.value.map(v => v.value),
+        (data: any) => extractData(data).analytics.records[0][1],
+        (data: any[]) => data.reduce((a,b) => a+b, 0)
       );
     })
   }
@@ -393,7 +408,8 @@ export class AnalyticsService {
     response: HttpResponse<any> | CustomServerError,
     dataStream: Subject<any | CustomServerError>,
     mapFunction: (el: any) => any,
-    extractFunction: (el: any) => any[]
+    extractFunction: (el: any) => any[],
+    reduceFunction?: (el: any) => any
   ): any {
     if (response instanceof CustomServerError) {
       dataStream.next(response);
@@ -405,7 +421,11 @@ export class AnalyticsService {
 
     if (!entities) return null;
 
-    const e = entities instanceof Array ? entities.map(entity => mapFunction(entity)) : mapFunction(entities);
+    let e = entities instanceof Array ? entities.map(entity => mapFunction(entity)) : mapFunction(entities);
+
+    if (reduceFunction && e instanceof Array) {
+      e = reduceFunction(e);
+    }
 
     dataStream.next(e);
 
