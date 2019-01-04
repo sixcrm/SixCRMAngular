@@ -74,12 +74,13 @@ export class DashboardLowDataComponent implements OnInit {
       this.transactions = transactions;
     });
 
-    this.analyticsService.heroChartSeries$.subscribe(data => {
+    this.analyticsService.transactionsLifetimeRevenue$.subscribe(data => {
       if (!data || data instanceof CustomServerError) return;
 
-      this.calculateRevenue(data);
+      this.revenue = new Currency(data);
     });
 
+    this.analyticsService.getTransactionsLifetimeRevenue();
   }
 
   calculateRevenue(series: HeroChartSeries[]){
