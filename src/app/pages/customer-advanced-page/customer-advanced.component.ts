@@ -254,7 +254,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       {name: 'fulfillment', label: 'FULFILLMENT'},
     ];
 
-    if (this.selectedIndex === 5) {
+    if (this.selectedIndex === 4) {
       this.setIndex(0);
     }
 
