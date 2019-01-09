@@ -108,7 +108,8 @@
                 <div [matMenuTriggerFor]="fulfillmentProviderMenu" class="dropdown-container" [style.pointer-events]="editSecondary ? 'auto' : 'none'">
                   <div class="floating-placeholder" [class.floating-placeholder--invisible]="!entity.fulfillmentProvider.name">Fulfillment Provider</div>
                   <div class="content">
-                    <div [class.placeholder]="!entity.fulfillmentProvider.name">
+                    <div [class.placeholder]="!entity.fulfillmentProvider.name"
+                         [class.placeholder-error]="fulfillmentInvalid && !entity.fulfillmentProvider.name">
                       {{entity.fulfillmentProvider.name || 'Fulfillment Provider'}}
                     </div>
                     <mat-icon>arrow_drop_down</mat-icon>
