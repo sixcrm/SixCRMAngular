@@ -169,5 +169,5 @@ function sessionRebillResponseQuery() {
 }
 
 export function sessionInfoResponseQuery(): string {
-  return `id alias created_at updated_at customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
+  return `id alias created_at updated_at customer { id firstname lastname } watermark { product_schedules { quantity } } rebills { id } campaign { id name }`;
 }

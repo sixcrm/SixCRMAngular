@@ -26,7 +26,7 @@ export function ordersBySession(sessionId: string, params: IndexQueryParameters)
 export function orderResponseQuery(): string {
   return `id, amount, date
   products { quantity, amount
-    product { id, name, sku, ship }
+    product { id, name, sku, ship, attributes { images { path, default_image } } }
     returns { quantity, return{ id, alias, created_at }}
     shippingreceipt { id, status, fulfillment_provider_reference, tracking {id, carrier}, history {status, detail, created_at}, created_at, updated_at }
   }

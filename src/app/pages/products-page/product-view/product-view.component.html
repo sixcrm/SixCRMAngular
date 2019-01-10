@@ -105,7 +105,7 @@
               <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.ship" [disabled]="!editSecondary">is Shippable</mat-checkbox>
 
               <ng-container *ngIf="entity.ship">
-                <div [matMenuTriggerFor]="fulfillmentProviderMenu" class="dropdown-container">
+                <div [matMenuTriggerFor]="fulfillmentProviderMenu" class="dropdown-container" [style.pointer-events]="editSecondary ? 'auto' : 'none'">
                   <div class="floating-placeholder" [class.floating-placeholder--invisible]="!entity.fulfillmentProvider.name">Fulfillment Provider</div>
                   <div class="content">
                     <div [class.placeholder]="!entity.fulfillmentProvider.name">
