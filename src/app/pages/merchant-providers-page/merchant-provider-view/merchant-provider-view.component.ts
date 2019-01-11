@@ -35,7 +35,6 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'MERCHANTPROVIDER_TAB_GENERAL'},
-    {name: 'precessing', label: 'MERCHANTPROVIDER_TAB_PROCESSING'},
     {name: 'merchantprovidergroups', label: 'MERCHANTPROVIDER_TAB_MERCHANTPROVIDERGROUP'}
   ];
 
