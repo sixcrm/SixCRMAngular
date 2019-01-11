@@ -7,6 +7,7 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
 import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
 import {utc} from 'moment';
+import * as moment from 'moment-timezone';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Subscription, Observable} from 'rxjs';
@@ -60,7 +61,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
         .setColorMapper((e: CustomerAnalytics) => e.refundAmount.amount ? '#E35871' : 'black')
     ];
 
-    this.defaultDate = {start: utc().subtract(1,'M'), end: utc()};
+    this.defaultDate = {start: moment().subtract(1,'M'), end: moment()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},

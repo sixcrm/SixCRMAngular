@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {utc, Moment} from 'moment';
+import {Moment} from 'moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'filter-daterange-picker',
@@ -8,7 +9,7 @@ import {utc, Moment} from 'moment';
 })
 export class FilterDaterangePickerComponent implements OnInit {
 
-  _date: {start: Moment, end: Moment} = {start: utc().subtract(1, 'M'), end: utc()};
+  _date: {start: Moment, end: Moment} = {start: moment().subtract(1, 'M'), end: moment()};
 
   @Input() set date(value: {start: Moment, end: Moment}) {
     this._date = value;
