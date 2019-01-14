@@ -18,8 +18,8 @@
             </ng-container>
           </div>
           <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
-            <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="detailsFormInvalid && !entity.name">
-              <input required [disabled]="viewMode" matInput placeholder="{{'MERCHANTPROVIDERGROUP_INFO_NAME' | translate}}"name="name" [(ngModel)]="entity.name" type="text">
+            <mat-form-field class="entity-view__card__content__item" [class.error]="detailsFormInvalid && !entity.name">
+              <input required [disabled]="viewMode" matInput placeholder="{{'MERCHANTPROVIDERGROUP_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
             </mat-form-field>
           </form>
 

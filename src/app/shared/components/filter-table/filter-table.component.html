@@ -119,11 +119,12 @@
             </td>
           </ng-container>
           <td>
-
-            <mat-icon [matMenuTriggerFor]="singleOptionMenu">more_vert</mat-icon>
-            <mat-menu #singleOptionMenu="matMenu" x-position="before">
-              <button *ngFor="let option of singleOptions" mat-menu-item (click)="singleOptionSelected.emit({item: item, option: option})">{{option}}</button>
-            </mat-menu>
+            <ng-container *ngIf="singleOptions && singleOptions.length">
+              <mat-icon [matMenuTriggerFor]="singleOptionMenu">more_vert</mat-icon>
+              <mat-menu #singleOptionMenu="matMenu" x-position="before">
+                <button *ngFor="let option of singleOptions" mat-menu-item (click)="singleOptionSelected.emit({item: item, option: option})">{{option}}</button>
+              </mat-menu>
+            </ng-container>
           </td>
         </tr>
         </tbody>

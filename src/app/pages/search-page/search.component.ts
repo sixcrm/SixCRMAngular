@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {Subscription, Subject} from 'rxjs';
 import {utc, Moment} from 'moment';
+import * as moment from 'moment-timezone';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {environment} from '../../../environments/environment';
 import {firstIndexOf} from '../../shared/utils/array.utils';
@@ -64,8 +65,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private daterangepickerOptions: DaterangepickerConfig,
     private translationService: TranslationService
   ) {
-    this.startDate = utc().subtract(1,'M');
-    this.endDate = utc();
+    this.startDate = moment().subtract(1,'M');
+    this.endDate = moment();
 
     this.setDatepickerOptions();
   }

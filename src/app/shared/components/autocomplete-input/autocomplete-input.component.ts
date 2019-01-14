@@ -43,6 +43,7 @@ export class AutocompleteInputComponent implements OnInit {
   @Input() unmatchedEnabled: boolean = false;
   @Input() unmatchedFactory: (value: string) => any = (el) => (el);
   @Input() strictFilteringStrategy: boolean = false; // If is true will match ORegon but not califORnia when filtering string 'OR'. If false, will match both.
+  @Input() emitEmpty: boolean = false;
   @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
@@ -141,6 +142,11 @@ export class AutocompleteInputComponent implements OnInit {
 
   change(value) {
     this.currentValue = value;
+
+    if (this.emitEmpty && !this.currentValue) {
+      this.selected.emit('');
+    }
+
     this.filterOptions();
   }
 
