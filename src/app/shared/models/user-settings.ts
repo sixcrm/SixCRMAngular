@@ -46,7 +46,7 @@ export class UserSettings {
     this.id = obj.id || '';
     this.workPhone = obj.work_phone || '';
     this.cellPhone = obj.cell_phone || '';
-    this.timezone = obj.timezone || moment.tz.guess();
+    this.timezone = obj.timezone || '';
     this.language = obj.language || 'English';
 
     if (obj.column_preferences) {
