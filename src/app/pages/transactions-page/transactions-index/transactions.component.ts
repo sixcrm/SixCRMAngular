@@ -187,8 +187,8 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
     this.prepareFetchCounts();
 
     this.analyticsService.getTransactions({
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format()
+      start: this.date.start.clone().toISOString(),
+      end: this.date.end.clone().toISOString()
     }).subscribe(transactions => {
       if (transactions instanceof CustomServerError) {
         return;

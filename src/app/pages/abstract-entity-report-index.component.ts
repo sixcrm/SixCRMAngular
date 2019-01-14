@@ -5,11 +5,11 @@ import {Moment} from 'moment';
 import {FilterTableTab} from '../shared/components/filter-table/filter-table.component';
 import {AsyncSubject, Observable} from 'rxjs';
 import {ColumnParams} from '../shared/models/column-params.model';
-import {utc} from 'moment';
+import * as moment from 'moment-timezone';
 
 export abstract class AbstractEntityReportIndexComponent<T> {
 
-  defaultDate: {start: Moment, end: Moment} = {start: utc().subtract(7,'d'), end: utc()};
+  defaultDate: {start: Moment, end: Moment} = {start: moment().subtract(7,'d'), end: moment()};
   date: {start: Moment, end: Moment};
   lastCountsDate: {start: Moment, end: Moment};
 
@@ -38,8 +38,8 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   getFetchParams(fetchAll?: boolean): any {
     const params = {
-      start: this.date.start.clone().format(),
-      end: this.date.end.clone().format(),
+      start: this.date.start.clone().toISOString(),
+      end: this.date.end.clone().toISOString(),
       orderBy: this.getSortColumn().sortName,
       sort: this.getSortColumn().sortOrder,
       facets: this.getFacets()
@@ -81,8 +81,8 @@ export abstract class AbstractEntityReportIndexComponent<T> {
 
   parseParams(params: Params): void {
     this.date = {
-      start: params['start'] ? utc(params['start']) : this.defaultDate.start.clone(),
-      end: params['end'] ? utc(params['end']) : this.defaultDate.end.clone()
+      start: params['start'] ? moment(params['start']) : this.defaultDate.start.clone(),
+      end: params['end'] ? moment(params['end']) : this.defaultDate.end.clone()
     };
 
     if (params['sort'] && params['sortOrder']) {
