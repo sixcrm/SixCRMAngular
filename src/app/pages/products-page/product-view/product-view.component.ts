@@ -66,6 +66,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   merchantProviderGroups: MerchantProviderGroup[] = [];
   campaigns: Campaign[] = [];
 
+  fulfillmentInvalid: boolean;
+
 
   emailTemplateMapper = (el: EmailTemplate) => el.name;
   emailTemplateColumnParams = [
@@ -240,6 +242,11 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   addNewImage(image: SixImage) {
     const temp = this.entityBackup.copy();
+
+    if (!temp.attributes.images.length) {
+      image.defaultImage = true;
+    }
+
     temp.attributes.images.push(image);
 
     this.service.updateEntity(temp);
@@ -319,6 +326,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   saveSecondary() {
     const product = this.entityBackup.copy();
+
+    this.fulfillmentInvalid = this.entity.ship && !this.entity.fulfillmentProvider.name;
+
+    if (this.fulfillmentInvalid) {
+      return;
+    }
 
     product.sku = this.entity.sku;
     product.ship = this.entity.ship;
