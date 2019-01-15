@@ -242,6 +242,11 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   addNewImage(image: SixImage) {
     const temp = this.entityBackup.copy();
+
+    if (!temp.attributes.images.length) {
+      image.defaultImage = true;
+    }
+
     temp.attributes.images.push(image);
 
     this.service.updateEntity(temp);
