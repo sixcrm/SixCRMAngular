@@ -1,5 +1,4 @@
 import {FilterTerm} from '../../models/filter-term.model';
-import {utc} from 'moment';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
   return `
@@ -127,11 +126,11 @@ export function analyticsDetailQuery(params: {
         reportType: ${params.reportName}
         facets: [{
           facet: "start"
-            values: ["${utc(params.start).utc().format()}"]
+            values: ["${params.start}"]
           },
           {
             facet: "end"
-            values: ["${utc(params.end).utc().format()}"]
+            values: ["${params.end}"]
           }${additionalFacets}
         ],
         pagination: {

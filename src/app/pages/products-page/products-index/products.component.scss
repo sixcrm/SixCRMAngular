@@ -1,5 +1,6 @@
 .product-image {
   display: flex;
+  margin-top: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,6 +36,8 @@
 .entity-card {
   cursor: pointer;
   margin-top: 5px;
+  display: flex;
+  flex-direction: column;
 
   &--selected {
     margin-top: 0;
@@ -80,4 +83,5 @@ bulk-selector {
 
 .title {
   overflow: hidden;
+  word-break: break-word;
 }

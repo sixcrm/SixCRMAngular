@@ -12,6 +12,7 @@ import {SubscriptionAnalytics} from '../../../shared/models/analytics/subscripti
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {downloadJSON, downloadCSV} from '../../../shared/utils/file.utils';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'subscriptions',
@@ -62,7 +63,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         .setQueryParams((e: SubscriptionAnalytics) => { return { session: e.sessionId } })
     ];
 
-    this.defaultDate = {start: utc(), end: utc().add(1,'M')};
+    this.defaultDate = {start: moment(), end: moment().add(1,'M')};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},

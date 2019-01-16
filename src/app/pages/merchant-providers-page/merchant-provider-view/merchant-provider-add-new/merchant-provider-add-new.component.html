@@ -89,18 +89,6 @@
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
-      </mat-form-field>
-
-      <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
-      </mat-form-field>
-
-      <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
-      </mat-form-field>
-
-      <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
         <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isFloatNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
       </mat-form-field>
 
