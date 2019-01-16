@@ -254,8 +254,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   deleteImage(image: SixImage) {
     for (let i = 0; i < this.entity.attributes.images.length; i++) {
-      if (this.entity.attributes.images[i].path === image.path) {
+      if (this.entity.attributes.images[i].randomIdentifier === image.randomIdentifier) {
         this.entity.attributes.images.splice(i, 1);
+
+        if (image.defaultImage && this.entity.attributes.images.length > 0) {
+          this.entity.attributes.images[0].defaultImage = true;
+        }
 
         this.updateEntity(this.entity);
         return;
@@ -265,7 +269,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   updateDefaultImage(image: SixImage) {
     this.entityBackup.attributes.images = this.entityBackup.attributes.images.map(i => {
-      i.defaultImage = i.path === image.path;
+      i.defaultImage = i.randomIdentifier === image.randomIdentifier;
 
       return i;
     });
