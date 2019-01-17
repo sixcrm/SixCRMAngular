@@ -248,7 +248,7 @@
                     <input type="text" matInput [(ngModel)]="shippingAddress.line2" placeholder="Street Address 2 (optional)" name="line2">
                   </mat-form-field>
 
-                  <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
+                  <mat-form-field [class.error]="shippingAddressInvalid && !isCityValid(shippingAddress.city)">
                     <input type="text" matInput [(ngModel)]="shippingAddress.city" placeholder="City" required name="city">
                   </mat-form-field>
 

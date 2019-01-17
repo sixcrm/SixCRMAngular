@@ -28,6 +28,7 @@ import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'product-view',
@@ -99,7 +100,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     private merchantProviderGroupsService: MerchantProviderGroupsService,
     private campaignService: CampaignsService,
     private productScheduleService: ProductScheduleService,
-    private emailTemplateService: EmailTemplatesService
+    private emailTemplateService: EmailTemplatesService,
+    private location: Location
   ) {
     super(service, route);
   }
@@ -144,6 +146,13 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
           this.merchantAssociationBackup = this.merchantAssociation.copy();
         }
       });
+
+    this.route.queryParams.takeUntil(this.unsubscribe$).subscribe((params) => {
+      if (params['edit'] === 'true') {
+        const plainUrl = this.router.url.substring(0, this.router.url.indexOf('?'));
+        this.location.replaceState(plainUrl);
+      }
+    });
   }
 
   onEntityUpdated(updated: Product) {
@@ -254,8 +263,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   deleteImage(image: SixImage) {
     for (let i = 0; i < this.entity.attributes.images.length; i++) {
-      if (this.entity.attributes.images[i].path === image.path) {
+      if (this.entity.attributes.images[i].randomIdentifier === image.randomIdentifier) {
         this.entity.attributes.images.splice(i, 1);
+
+        if (image.defaultImage && this.entity.attributes.images.length > 0) {
+          this.entity.attributes.images[0].defaultImage = true;
+        }
 
         this.updateEntity(this.entity);
         return;
@@ -265,7 +278,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   updateDefaultImage(image: SixImage) {
     this.entityBackup.attributes.images = this.entityBackup.attributes.images.map(i => {
-      i.defaultImage = i.path === image.path;
+      i.defaultImage = i.randomIdentifier === image.randomIdentifier;
 
       return i;
     });

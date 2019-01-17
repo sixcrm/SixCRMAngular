@@ -58,7 +58,7 @@
 
     <div [style.width]="getHeaderWidthByElement(head)" class="floating-header">
       <div class="head" [style.width]="getHeaderWidthByElement(bulkheader)">
-        <mat-checkbox class="checkbox-blue" [(ngModel)]="bulkSelected" (change)="toggleBulkSelection($event)"></mat-checkbox>
+        <mat-checkbox [disabled]="!bulkOptions || bulkOptions.length < 1" class="checkbox-blue" [(ngModel)]="bulkSelected" (change)="toggleBulkSelection($event)"></mat-checkbox>
       </div>
       <ng-container *ngFor="let params of columnParams;">
         <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)" (click)="onSort.emit(params)">
@@ -95,7 +95,7 @@
 
         <tbody>
         <tr *ngFor="let item of _items">
-          <td><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
+          <td><mat-checkbox [disabled]="!bulkOptions || bulkOptions.length < 1" class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let param of columnParams">
             <td *ngIf="param.selected" [class.capitalized]="param.capitalize">
 
