@@ -224,16 +224,19 @@ export class CreateOrderComponent implements OnInit {
   }
 
   confirmNewCustomer() {
-    this.newCustomerInvalid =
-      !this.selectedCustomer.firstName
-      || !this.selectedCustomer.lastName
-      || !this.selectedCustomer.phone
-      || !this.selectedCustomer.email;
+    this.newCustomerInvalid = this.isCustomerInvalid(this.selectedCustomer);
 
     if (this.newCustomerInvalid) return;
 
     this.selectedCustomer.id = 'newid';
     this.setStep(1);
+  }
+
+  isCustomerInvalid(customer: Customer) {
+    return !customer.firstName
+      || !customer.lastName
+      || !customer.phone
+      || !customer.email;
   }
 
   removeCustomer() {
@@ -316,22 +319,27 @@ export class CreateOrderComponent implements OnInit {
   }
 
   confirmShippingAddress() {
-    this.shippingAddressInvalid =
-    !this.shippingAddress.line1 || !this.isAddressValid(this.shippingAddress.line1)
-    || !this.isCityValid(this.shippingAddress.city)
-    || !this.isStateValid(this.shippingAddress.state)
-    || !this.shippingAddress.zip || !this.isZipValid(this.shippingAddress.zip)
-    || !this.isCountryValid(this.shippingAddress.country);
+    this.shippingAddressInvalid = this.isAddressInvalid(this.shippingAddress);
 
     if (this.shippingAddressInvalid) return;
 
-    this.selectedShippingAddress = this.shippingAddress.copy();
+    this.selectedShippingAddress = this.shippingAddress;
 
     if (this.shippingDisabled) {
       this.setStep(5);
     } else {
       this.setStep(4);
     }
+  }
+
+  isAddressInvalid(address: Address): boolean {
+    return !address.line1
+    || !this.isAddressValid(address.line1)
+    || !this.isCityValid(address.city)
+    || !this.isStateValid(address.state)
+    || !address.zip
+    || !this.isZipValid(address.zip)
+    || !this.isCountryValid(address.country);
   }
 
   removeShippingAddress() {
