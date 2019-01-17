@@ -23,6 +23,8 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {AcknowledgeInvite} from '../shared/models/acknowledge-invite.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
+import * as moment from 'moment-timezone';
+
 import * as auth0 from 'auth0-js';
 
 @Injectable()
@@ -38,13 +40,13 @@ export class AuthenticationService {
   private sixUser: string = 'six_user';
   private activeAcl: string = 'active_acl';
   private isInvitedUserKey: string = 'is_invited_user';
+  private userTimezone: string = 'user_timezone';
 
   private currentSixUser: User = new User();
   private currentUserSettings: UserSettings = new UserSettings();
   private currentActiveAcl: Acl = new Acl();
   private actingAs: Account;
 
-  private timezone: string = 'America/Los_Angeles';
   public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   public userSettings$: BehaviorSubject<UserSettings> = new BehaviorSubject(null);
   public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -75,6 +77,7 @@ export class AuthenticationService {
       this.actingAs = account;
     });
 
+    moment.tz.setDefault(this.getTimezone());
   }
 
   private initLock() {
@@ -183,6 +186,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+    localStorage.removeItem(this.userTimezone);
 
     this.auth.logout({returnTo: environment.auth0RedirectUrl});
   }
@@ -193,6 +197,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+    localStorage.removeItem(this.userTimezone);
 
     this.auth.logout({returnTo: environment.auth0RedirectUrl + '/signup'});
   }
@@ -202,6 +207,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
     localStorage.removeItem(this.activated);
+    localStorage.removeItem(this.userTimezone);
     localStorage.setItem(this.idToken, jwt);
 
     this.getUserIntrospectionExternal(url);
@@ -220,11 +226,16 @@ export class AuthenticationService {
   }
 
   public getTimezone(): string {
-    return this.timezone || 'America/Los_Angeles';
+    return localStorage.getItem(this.userTimezone) || moment.tz.guess();
   }
 
   public updateTimezone(timezone: string): void {
-    this.timezone = timezone || this.timezone || 'America/Los_Angeles';
+    if (timezone) {
+      localStorage.setItem(this.userTimezone, timezone);
+      moment.tz.setDefault(timezone);
+    } else {
+      localStorage.removeItem(this.userTimezone);
+    }
   }
 
   public updateSettings(settings: UserSettings): void {
@@ -448,13 +459,10 @@ export class AuthenticationService {
           if (profile) {
             introspectionUser.picture = profile.picture;
           }
+
           this.updateSixUser(introspectionUser);
           this.updateActiveAcl(introspectionUser);
-
-          if (user && user.usersetting) {
-            this.updateTimezone(user.usersetting.timezone);
-          }
-
+          this.updateTimezone(user && user.usersetting && user.usersetting.timezone);
           this.updateSettings(new UserSettings(user.usersetting));
 
           if (redirectUrl && forceRedirect) {

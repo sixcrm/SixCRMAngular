@@ -66,6 +66,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   merchantProviderGroups: MerchantProviderGroup[] = [];
   campaigns: Campaign[] = [];
 
+  fulfillmentInvalid: boolean;
+
 
   emailTemplateMapper = (el: EmailTemplate) => el.name;
   emailTemplateColumnParams = [
@@ -319,6 +321,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   saveSecondary() {
     const product = this.entityBackup.copy();
+
+    this.fulfillmentInvalid = this.entity.ship && !this.entity.fulfillmentProvider.name;
+
+    if (this.fulfillmentInvalid) {
+      return;
+    }
 
     product.sku = this.entity.sku;
     product.ship = this.entity.ship;

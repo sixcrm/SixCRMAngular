@@ -179,6 +179,10 @@
       color: rgba(0,0,0,0.54);
     }
 
+    .placeholder-error {
+      color: $danger-color;
+    }
+
     mat-icon {
       margin-left: auto;
       color: #5F6368;

@@ -31,6 +31,7 @@
                 <autocomplete-input
                   [initialValue]="userSettingsBackup.timezone"
                   [options]="timezones"
+                  [emitEmpty]="true"
                   [placeholder]="'PROFILE_DETAILS_TIMEZONE' | translate"
                   (selected)="userSettingsBackup.timezone = $event">
                 </autocomplete-input>

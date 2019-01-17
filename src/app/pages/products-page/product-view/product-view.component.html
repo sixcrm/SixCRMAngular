@@ -64,7 +64,7 @@
             <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
               <div class="edit-row edit-row--first">
                 <mat-form-field>
-                  <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" maxlength="100">
+                  <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" maxlength="55">
                 </mat-form-field>
 
                 <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
@@ -108,7 +108,8 @@
                 <div [matMenuTriggerFor]="fulfillmentProviderMenu" class="dropdown-container" [style.pointer-events]="editSecondary ? 'auto' : 'none'">
                   <div class="floating-placeholder" [class.floating-placeholder--invisible]="!entity.fulfillmentProvider.name">Fulfillment Provider</div>
                   <div class="content">
-                    <div [class.placeholder]="!entity.fulfillmentProvider.name">
+                    <div [class.placeholder]="!entity.fulfillmentProvider.name"
+                         [class.placeholder-error]="fulfillmentInvalid && !entity.fulfillmentProvider.name">
                       {{entity.fulfillmentProvider.name || 'Fulfillment Provider'}}
                     </div>
                     <mat-icon>arrow_drop_down</mat-icon>

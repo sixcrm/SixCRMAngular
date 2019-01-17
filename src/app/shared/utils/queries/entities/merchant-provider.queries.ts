@@ -54,9 +54,7 @@ export function merchantProviderResponseQuery(): string {
   return `
     id name enabled created_at updated_at allow_prepaid accepted_payment_methods,
     processor { name },
-    processing { discount_rate transaction_fee reserve_rate maximum_chargeback_ratio monthly_cap,
-      transaction_counts { daily weekly monthly }
-    }
+    processing { discount_rate transaction_fee reserve_rate maximum_chargeback_ratio monthly_cap }
     merchantprovidergroups { id name }
     gateway {
       ... on NMI { name type username password processor_id processor midnumber descriptor }
@@ -85,12 +83,7 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       discount_rate: ${provider.processing.discountRate ? +provider.processing.discountRate / 100 : 0},
       transaction_fee: ${provider.processing.transactionFee ? +provider.processing.transactionFee : 0},
       reserve_rate: ${provider.processing.reserveRate ? +provider.processing.reserveRate / 100 : 0},
-      maximum_chargeback_ratio: ${provider.processing.maximumChargebackRatio ? +provider.processing.maximumChargebackRatio / 100 : 0},
-      transaction_counts: {
-        ${provider.processing.transactionCounts.daily ? `daily: ${provider.processing.transactionCounts.daily},` : ''}
-        ${provider.processing.transactionCounts.weekly ? `weekly: ${provider.processing.transactionCounts.weekly},` : ''}
-        ${provider.processing.transactionCounts.monthly ? `monthly: ${provider.processing.transactionCounts.monthly},` : ''}
-      }
+      maximum_chargeback_ratio: ${provider.processing.maximumChargebackRatio ? +provider.processing.maximumChargebackRatio / 100 : 0}
     },
     processor:{
       name:"${provider.gateway.getType()}"
