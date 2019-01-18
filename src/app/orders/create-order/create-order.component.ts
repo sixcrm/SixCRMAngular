@@ -80,7 +80,6 @@ export class CreateOrderComponent implements OnInit {
   customerSearchSub: Subscription;
   customerSearchDebouncer: Subject<string> = new Subject();
 
-  selectedCvvError: boolean = false;
   showPreview: boolean;
 
   isZipValid = isValidZip;
@@ -424,9 +423,9 @@ export class CreateOrderComponent implements OnInit {
 
   billingNextStep() {
     if (this.paymentForm) {
-      const card = this.paymentForm.getValidCreditCard();
+      const card = this.paymentForm.getValidCreditCardSticky();
       if (card) {
-        this.selectedCreditCard = card.copy();
+        this.selectedCreditCard = card;
       } else {
         return;
       }
@@ -439,8 +438,6 @@ export class CreateOrderComponent implements OnInit {
   }
 
   allSelectedValid() {
-    this.selectedCvvError = false;
-
     if (!this.selectedCustomer || !this.selectedCustomer.id) {
       this.setStep(0);
 
@@ -459,20 +456,13 @@ export class CreateOrderComponent implements OnInit {
       return false;
     }
 
-    if (!this.selectedShippingAddress) {
+    if (!this.selectedShippingAddress || this.isAddressInvalid(this.selectedShippingAddress)) {
       this.setStep(3);
 
       return false;
     }
 
-    if (!this.selectedCreditCard) {
-      this.setStep(5);
-
-      return false;
-    }
-
-    if (this.selectedCreditCard.cvv && this.cvvInvalid(this.selectedCreditCard)) {
-      this.selectedCvvError = true;
+    if (!this.selectedCreditCard || !this.paymentForm.getValidCreditCard()) {
       this.setStep(5);
 
       return false;
@@ -541,7 +531,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   processOrder() {
-    if (!this.keys || !this.keys.secretKey || !this.keys.accessKey) return;
+    if (!this.keys || !this.keys.secretKey || !this.keys.accessKey || !this.allSelectedValid()) return;
 
     const checkoutBody: CheckoutBody = this.parseCheckoutBody();
 
