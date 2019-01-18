@@ -272,6 +272,7 @@ export class CreateOrderComponent implements OnInit {
     }
 
     this.selectedProducts.push(product);
+    this.products = this.products.map(p => p.copy());
     input.blur();
   }
 
@@ -354,6 +355,7 @@ export class CreateOrderComponent implements OnInit {
   shippingSelected(option, input) {
     const shipping = option.option.value.copy();
     this.selectedShippings.push(shipping);
+    this.shippings = this.shippings.map(s => s.copy());
     input.blur();
   }
 
