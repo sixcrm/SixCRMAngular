@@ -80,7 +80,6 @@ export class CreateOrderComponent implements OnInit {
   customerSearchSub: Subscription;
   customerSearchDebouncer: Subject<string> = new Subject();
 
-  selectedCvvError: boolean = false;
   showPreview: boolean;
 
   isZipValid = isValidZip;
@@ -224,16 +223,19 @@ export class CreateOrderComponent implements OnInit {
   }
 
   confirmNewCustomer() {
-    this.newCustomerInvalid =
-      !this.selectedCustomer.firstName
-      || !this.selectedCustomer.lastName
-      || !this.selectedCustomer.phone
-      || !this.selectedCustomer.email;
+    this.newCustomerInvalid = this.isCustomerInvalid(this.selectedCustomer);
 
     if (this.newCustomerInvalid) return;
 
     this.selectedCustomer.id = 'newid';
     this.setStep(1);
+  }
+
+  isCustomerInvalid(customer: Customer) {
+    return !customer.firstName
+      || !customer.lastName
+      || !customer.phone
+      || !customer.email;
   }
 
   removeCustomer() {
@@ -270,6 +272,7 @@ export class CreateOrderComponent implements OnInit {
     }
 
     this.selectedProducts.push(product);
+    this.products = this.products.map(p => p.copy());
     input.blur();
   }
 
@@ -316,22 +319,27 @@ export class CreateOrderComponent implements OnInit {
   }
 
   confirmShippingAddress() {
-    this.shippingAddressInvalid =
-    !this.shippingAddress.line1 || !this.isAddressValid(this.shippingAddress.line1)
-    || !this.isCityValid(this.shippingAddress.city)
-    || !this.isStateValid(this.shippingAddress.state)
-    || !this.shippingAddress.zip || !this.isZipValid(this.shippingAddress.zip)
-    || !this.isCountryValid(this.shippingAddress.country);
+    this.shippingAddressInvalid = this.isAddressInvalid(this.shippingAddress);
 
     if (this.shippingAddressInvalid) return;
 
-    this.selectedShippingAddress = this.shippingAddress.copy();
+    this.selectedShippingAddress = this.shippingAddress;
 
     if (this.shippingDisabled) {
       this.setStep(5);
     } else {
       this.setStep(4);
     }
+  }
+
+  isAddressInvalid(address: Address): boolean {
+    return !address.line1
+    || !this.isAddressValid(address.line1)
+    || !this.isCityValid(address.city)
+    || !this.isStateValid(address.state)
+    || !address.zip
+    || !this.isZipValid(address.zip)
+    || !this.isCountryValid(address.country);
   }
 
   removeShippingAddress() {
@@ -347,6 +355,7 @@ export class CreateOrderComponent implements OnInit {
   shippingSelected(option, input) {
     const shipping = option.option.value.copy();
     this.selectedShippings.push(shipping);
+    this.shippings = this.shippings.map(s => s.copy());
     input.blur();
   }
 
@@ -416,9 +425,9 @@ export class CreateOrderComponent implements OnInit {
 
   billingNextStep() {
     if (this.paymentForm) {
-      const card = this.paymentForm.getValidCreditCard();
+      const card = this.paymentForm.getValidCreditCardSticky();
       if (card) {
-        this.selectedCreditCard = card.copy();
+        this.selectedCreditCard = card;
       } else {
         return;
       }
@@ -431,8 +440,6 @@ export class CreateOrderComponent implements OnInit {
   }
 
   allSelectedValid() {
-    this.selectedCvvError = false;
-
     if (!this.selectedCustomer || !this.selectedCustomer.id) {
       this.setStep(0);
 
@@ -451,20 +458,13 @@ export class CreateOrderComponent implements OnInit {
       return false;
     }
 
-    if (!this.selectedShippingAddress) {
+    if (!this.selectedShippingAddress || this.isAddressInvalid(this.selectedShippingAddress)) {
       this.setStep(3);
 
       return false;
     }
 
-    if (!this.selectedCreditCard) {
-      this.setStep(5);
-
-      return false;
-    }
-
-    if (this.selectedCreditCard.cvv && this.cvvInvalid(this.selectedCreditCard)) {
-      this.selectedCvvError = true;
+    if (!this.selectedCreditCard || !this.paymentForm.getValidCreditCard()) {
       this.setStep(5);
 
       return false;
@@ -533,7 +533,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   processOrder() {
-    if (!this.keys || !this.keys.secretKey || !this.keys.accessKey) return;
+    if (!this.keys || !this.keys.secretKey || !this.keys.accessKey || !this.allSelectedValid()) return;
 
     const checkoutBody: CheckoutBody = this.parseCheckoutBody();
 
