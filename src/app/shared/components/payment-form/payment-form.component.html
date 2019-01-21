@@ -27,28 +27,26 @@
         <input type="text" matInput placeholder="Full Name" [(ngModel)]="_creditCard.name">
       </mat-form-field>
 
-      <div class="dates">
-        <div class="element"
-             [matMenuTriggerFor]="monthMenu"
-             [class.error]="formInvalid && !_creditCard.expirationMonth"
-             [class.selected]="_creditCard.expirationMonth">
-          <div>{{(_creditCard.expirationMonth || 'Month') | translate}}</div>
-          <mat-icon>arrow_drop_down</mat-icon>
-          <mat-menu #monthMenu="matMenu">
-            <button mat-menu-item *ngFor="let month of months" (click)="setMonth(month)">{{month}}</button>
-          </mat-menu>
-        </div>
+      <div class="row">
+        <mat-form-field [class.error]="formInvalid && !_creditCard.expirationMonth">
+          <input (keydown)="dateKeyDown($event)" type="text" matInput [(ngModel)]="_creditCard.expirationMonth" placeholder="Month" name="month" [matAutocomplete]="monthAutocomplete">
+          <mat-icon matSuffix>arrow_drop_down</mat-icon>
+          <mat-autocomplete #monthAutocomplete="matAutocomplete">
+            <mat-option *ngFor="let month of months" [value]="month">
+              <div>{{month}}</div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
 
-        <div class="element"
-             [matMenuTriggerFor]="yearMenu"
-             [class.error]="formInvalid && !_creditCard.expirationYear"
-             [class.selected]="_creditCard.expirationYear">
-          <div>{{(_creditCard.expirationYear || 'Year') | translate}}</div>
-          <mat-icon>arrow_drop_down</mat-icon>
-          <mat-menu #yearMenu="matMenu">
-            <button mat-menu-item *ngFor="let year of years" (click)="setYear(year)">{{year}}</button>
-          </mat-menu>
-        </div>
+        <mat-form-field [class.error]="formInvalid && !_creditCard.expirationYear">
+          <input (keydown)="dateKeyDown($event)" type="text" matInput [(ngModel)]="_creditCard.expirationYear" placeholder="Year" name="year" [matAutocomplete]="yearAutocomplete">
+          <mat-icon matSuffix>arrow_drop_down</mat-icon>
+          <mat-autocomplete #yearAutocomplete="matAutocomplete">
+            <mat-option *ngFor="let year of years" [value]="year">
+              <div>{{year}}</div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </div>
 
 
