@@ -46,10 +46,10 @@
       <div *ngIf="!ignoreFilters" (click)="filtersSelected.emit(true)"><mat-icon>filter_list</mat-icon>Filters</div>
       <div (click)="openColumnPreferencesDialog()"><mat-icon>view_column</mat-icon>Columns</div>
       <div *ngIf="!ignoreFilters" (click)="openTabPreferencesDialog()"><mat-icon>settings</mat-icon>Settings</div>
-      <div [matMenuTriggerFor]="downloadMenu"><mat-icon>cloud_download</mat-icon>Download</div>
+      <div [matMenuTriggerFor]="downloadMenu" [class.download-disabled]="!_items || _items.length === 0"><mat-icon>cloud_download</mat-icon>Download</div>
       <mat-menu #downloadMenu="matMenu" x-position="before">
-        <button mat-menu-item (click)="download.emit('csv')">Download CSV</button>
-        <button mat-menu-item (click)="download.emit('json')">Download JSON</button>
+        <button mat-menu-item (click)="emitDownload('csv')">Download CSV</button>
+        <button mat-menu-item (click)="emitDownload('json')">Download JSON</button>
       </mat-menu>
     </div>
   </div>

@@ -237,4 +237,10 @@ export class FilterTableComponent implements OnInit, OnDestroy {
     return content > container;
   }
 
+  emitDownload(format: string) {
+    if (this._items && this._items.length > 0) {
+      this.download.emit(format);
+    }
+  }
+
 }

@@ -344,3 +344,12 @@ a {
     margin: auto;
   }
 }
+
+.download-disabled {
+  pointer-events: none;
+  color: rgba(0,0,0,0.48);
+
+  mat-icon {
+    color: rgba(0,0,0,0.38) !important;
+  }
+}
