@@ -25,7 +25,7 @@ import {SubscriptionAnalytics} from '../models/analytics/subscription-analytics.
 import {AffiliateAnalytics} from '../models/analytics/affiliate-analytics.model';
 import {MerchantAnalytics} from '../models/analytics/merchant-analytics.model';
 import {CustomerAnalytics} from '../models/analytics/customer-analytics.model';
-import {utc} from 'moment';
+import * as moment from 'moment-timezone';
 
 @Injectable()
 export class AnalyticsService {
@@ -75,7 +75,7 @@ export class AnalyticsService {
   }
 
   getTransactionsLifetimeRevenue() {
-    this.queryRequest(heroChartQuery(utc().subtract(3, 'y').format(), utc().format(), 'day', 'revenueVersusOrders', null)).subscribe(data => {
+    this.queryRequest(heroChartQuery(moment().subtract(3, 'y').format(), moment().format(), 'day', 'revenueVersusOrders', null)).subscribe(data => {
       this.handleResponse(
         data,
         this.transactionsLifetimeRevenue$,

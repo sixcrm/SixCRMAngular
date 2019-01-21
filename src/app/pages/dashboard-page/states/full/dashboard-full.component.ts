@@ -8,7 +8,7 @@ import {DashboardIssueReportItem} from '../../dashboard-issues-report/dashboard-
 import {TranslationService} from "../../../../translation/translation.service";
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
-import {utc} from 'moment';
+import * as moment from 'moment-timezone'
 import {HeroChartSeries} from '../../../../shared/models/hero-chart-series.model';
 import {SeriesType} from '../../series-type';
 
@@ -82,8 +82,8 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
   timeFilters: DashboardTimeFilter[] = [
     {
       label: 'Lifetime',
-      start: utc().subtract(365, 'd').format(),
-      end: utc().format(),
+      start: moment().subtract(365, 'd').format(),
+      end: moment().format(),
       selected: false,
       callback: () => {
         this.fetchData();
@@ -93,8 +93,8 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
     },
     {
       label: 'Past 30 Days',
-      start: utc().subtract(30, 'd').format(),
-      end: utc().format(),
+      start: moment().subtract(30, 'd').format(),
+      end: moment().format(),
       selected: true,
       callback: () => {
         this.fetchData();
