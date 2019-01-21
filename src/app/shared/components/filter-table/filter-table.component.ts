@@ -164,6 +164,8 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   }
 
   getHeaderWidthByElement(element) {
+    if (!element) return 'auto';
+
     return element.clientWidth + 'px';
   }
 
