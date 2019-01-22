@@ -151,7 +151,7 @@
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isStripe()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">
-          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
+          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="Secret Key" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isAuthorizeNet()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">

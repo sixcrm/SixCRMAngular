@@ -7,6 +7,7 @@ export class SixImage {
   description: string;
   defaultImage: boolean;
   editMode: boolean;
+  randomIdentifier: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -19,6 +20,7 @@ export class SixImage {
     this.name = obj.name || '';
     this.description = obj.description || '';
     this.defaultImage = obj.default_image;
+    this.randomIdentifier = obj.random_identifier || ('i' + (Math.random()*1e32).toString(36).substr(0, 12));
   }
 
   copy(): SixImage {
@@ -32,7 +34,8 @@ export class SixImage {
       raw: this.raw,
       name: this.name,
       description: this.description,
-      default_image: this.defaultImage
+      default_image: this.defaultImage,
+      random_identifier: this.randomIdentifier
     }
   }
 }

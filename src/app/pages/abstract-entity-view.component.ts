@@ -30,7 +30,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   protected fetchEntityOnInit: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
-  constructor(public service: AbstractEntityService<T>, route: ActivatedRoute) {
+  constructor(public service: AbstractEntityService<T>, public route: ActivatedRoute) {
     route.params.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
       if (params['id'] === 'add') {
         this.setMode(Modes.Add);
