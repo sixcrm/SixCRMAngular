@@ -46,10 +46,10 @@
       <div *ngIf="!ignoreFilters" (click)="filtersSelected.emit(true)"><mat-icon>filter_list</mat-icon>Filters</div>
       <div (click)="openColumnPreferencesDialog()"><mat-icon>view_column</mat-icon>Columns</div>
       <div *ngIf="!ignoreFilters" (click)="openTabPreferencesDialog()"><mat-icon>settings</mat-icon>Settings</div>
-      <div [matMenuTriggerFor]="downloadMenu"><mat-icon>cloud_download</mat-icon>Download</div>
+      <div [matMenuTriggerFor]="downloadMenu" [class.download-disabled]="!_items || _items.length === 0"><mat-icon>cloud_download</mat-icon>Download</div>
       <mat-menu #downloadMenu="matMenu" x-position="before">
-        <button mat-menu-item (click)="download.emit('csv')">Download CSV</button>
-        <button mat-menu-item (click)="download.emit('json')">Download JSON</button>
+        <button mat-menu-item (click)="emitDownload('csv')">Download CSV</button>
+        <button mat-menu-item (click)="emitDownload('json')">Download JSON</button>
       </mat-menu>
     </div>
   </div>
@@ -57,8 +57,8 @@
   <div class="data">
 
     <div [style.width]="getHeaderWidthByElement(head)" class="floating-header">
-      <div class="head" [style.width]="getHeaderWidthByElement(bulkheader)">
-        <mat-checkbox [disabled]="!bulkOptions || bulkOptions.length < 1" class="checkbox-blue" [(ngModel)]="bulkSelected" (change)="toggleBulkSelection($event)"></mat-checkbox>
+      <div class="head checkbox-cell" *ngIf="bulkOptions && bulkOptions.length > 0" [style.width]="getHeaderWidthByElement(bulkheader)">
+        <mat-checkbox class="checkbox-blue" [(ngModel)]="bulkSelected" (change)="toggleBulkSelection($event)"></mat-checkbox>
       </div>
       <ng-container *ngFor="let params of columnParams;">
         <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)" (click)="onSort.emit(params)">
@@ -82,7 +82,7 @@
 
       <table>
         <thead #head>
-        <th #bulkheader>
+        <th class="checkbox-cell" *ngIf="bulkOptions && bulkOptions.length > 0" #bulkheader>
           <mat-checkbox class="checkbox-blue"></mat-checkbox>
         </th>
         <ng-container *ngFor="let param of columnParams">
@@ -95,7 +95,7 @@
 
         <tbody>
         <tr *ngFor="let item of _items">
-          <td><mat-checkbox [disabled]="!bulkOptions || bulkOptions.length < 1" class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
+          <td class="checkbox-cell" *ngIf="bulkOptions && bulkOptions.length > 0"><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let param of columnParams">
             <td *ngIf="param.selected" [class.capitalized]="param.capitalize">
 

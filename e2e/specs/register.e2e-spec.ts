@@ -80,19 +80,19 @@ describe('Register', function() {
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
     registerPage.getInputs().get(1).sendKeys(123);
     registerPage.getInputs().get(2).sendKeys('Card Name');
-    registerPage.getPaymentEntryCardDate().first().click();
+    registerPage.getInputs().get(3).click();
     browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(6).click();
-    registerPage.getPaymentEntryCardDate().last().click();
+    registerPage.getPaymentEntryCardDates().get(6).click();
+    registerPage.getInputs().get(4).click();
     browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(4).click();
+    registerPage.getPaymentEntryCardDates().get(4).click();
 
-    registerPage.getInputs().get(3).sendKeys('1 test');
-    registerPage.getInputs().get(4).sendKeys('test line');
-    registerPage.getInputs().get(5).sendKeys('New York');
-    registerPage.getInputs().get(6).sendKeys('Oregon');
-    registerPage.getInputs().get(7).sendKeys('21000');
-    registerPage.getInputs().get(8).sendKeys('United States');
+    registerPage.getInputs().get(5).sendKeys('1 test');
+    registerPage.getInputs().get(6).sendKeys('test line');
+    registerPage.getInputs().get(7).sendKeys('New York');
+    registerPage.getInputs().get(8).sendKeys('Oregon');
+    registerPage.getInputs().get(9).sendKeys('21000');
+    registerPage.getInputs().get(10).sendKeys('United States');
   });
 
   it('should continue to confirmation screen', () => {
