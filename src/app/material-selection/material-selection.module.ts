@@ -3,7 +3,7 @@ import {
   MatInputModule, MatCardModule, MatIconModule, MatTabsModule, MatCheckboxModule,
   MatDialogModule, MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule,
   MatMenuModule, MatToolbarModule, MatListModule, MatButtonModule, MatFormFieldModule,
-  MatSlideToggleModule, MatExpansionModule, MatAutocompleteModule, MatChipsModule, MatRadioModule
+  MatSlideToggleModule, MatExpansionModule, MatAutocompleteModule, MatChipsModule, MatRadioModule, MAT_TABS_CONFIG
 } from '@angular/material';
 
 @NgModule({
@@ -51,6 +51,9 @@ import {
     MatChipsModule,
     MatRadioModule
   ],
-  declarations: []
+  declarations: [],
+  providers: [
+    { provide: MAT_TABS_CONFIG, useValue: { animationDuration: '335ms' } }
+  ]
 })
 export class MaterialSelectionModule { }

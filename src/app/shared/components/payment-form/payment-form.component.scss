@@ -46,6 +46,10 @@ mat-form-field {
       margin-right: auto;
     }
   }
+
+  mat-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
 }
 
 .input-with-codes {
@@ -60,46 +64,6 @@ mat-form-field {
   img {
     margin-left: auto;
     margin-right: 15px;
-  }
-}
-
-.dates {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 30px;
-
-  .error {
-    mat-icon {
-      margin-left: auto;
-      color: $danger-color;
-    }
-
-    div {
-      color: $danger-color;
-    }
-  }
-
-  .element {
-    width: calc(50% - 10px);
-    display: flex;
-    align-items: center;
-    color: rgba(0, 0, 0, 0.54);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-    cursor: pointer;
-
-    mat-icon {
-      margin-left: auto;
-      color: rgba(0, 0, 0, 0.54);
-    }
-  }
-
-  .error {
-    border-color: $danger-color !important;
-  }
-
-  .selected {
-    color: rgba(0, 0, 0, 0.87);
   }
 }
 

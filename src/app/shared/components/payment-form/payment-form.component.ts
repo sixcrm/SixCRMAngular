@@ -135,20 +135,18 @@ export class PaymentFormComponent implements OnInit {
     return +this._creditCard.expirationYear < utc().year() || +this._creditCard.expirationYear > utc().year()+20;
   }
 
-  setMonth(month) {
-    this._creditCard.expirationMonth = month;
-  }
-
-  setYear(year) {
-    this._creditCard.expirationYear = year;
-  }
-
   defaultAddressSwitched(value) {
     if (value.checked) {
       this._creditCard.address = this._defaultAddress;
     } else {
       this._creditCard.address = new Address();
     }
+  }
+
+  dateKeyDown(event) {
+    if (event && event.code === 'Tab') return;
+
+    event.preventDefault();
   }
 
 }
