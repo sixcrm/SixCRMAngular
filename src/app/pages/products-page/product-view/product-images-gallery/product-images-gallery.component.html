@@ -6,7 +6,6 @@
   <slider-gallery>
     <div class="image-wrapper" sliderGalleryItem *ngFor="let image of product.attributes.images">
       <div class="image-box">
-        <div class="name">{{image.name || 'Unnamed Image'}}</div>
         <div class="image" [style.background-image]="'url(' + image.path + ')'">
           <div *ngIf="image.defaultImage" class="default">Default</div>
         </div>

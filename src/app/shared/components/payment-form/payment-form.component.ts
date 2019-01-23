@@ -22,6 +22,16 @@ export class PaymentFormComponent implements OnInit {
   @Input() set creditCard(card: CreditCard) {
     this._creditCard = card ? card.copy() : new CreditCard();
   }
+  @Input() set stickyDefaultAddress(address: Address) {
+    this._defaultAddress = address;
+
+    if (this.useDefaultAddress && this._defaultAddress) {
+      this._creditCard.address = this._defaultAddress;
+    } else {
+      this._creditCard.address = new Address();
+      this.useDefaultAddress = false;
+    }
+  }
   @Input() set defaultAddress(address: Address) {
     this._defaultAddress = address ? address.copy() : undefined;
   }
@@ -42,7 +52,7 @@ export class PaymentFormComponent implements OnInit {
   isAllowedNumericKey = isAllowedNumeric;
 
   months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-  years = ['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028'];
+  years = Array.from({length: 10}, (x,i) => i + utc().year() + '');
 
   constructor() { }
 
@@ -57,6 +67,16 @@ export class PaymentFormComponent implements OnInit {
     this._creditCard.expiration = `${this._creditCard.expirationMonth}/${this._creditCard.expirationYear}`;
 
     return this._creditCard.copy();
+  }
+
+  public getValidCreditCardSticky(): CreditCard {
+    this.formInvalid = !this.isFormValid();
+
+    if (this.formInvalid) return;
+
+    this._creditCard.expiration = `${this._creditCard.expirationMonth}/${this._creditCard.expirationYear}`;
+
+    return this._creditCard;
   }
 
   public isFormValid(): boolean {
@@ -125,7 +145,7 @@ export class PaymentFormComponent implements OnInit {
 
   defaultAddressSwitched(value) {
     if (value.checked) {
-      this._creditCard.address = this._defaultAddress.copy();
+      this._creditCard.address = this._defaultAddress;
     } else {
       this._creditCard.address = new Address();
     }
