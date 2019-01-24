@@ -1,10 +1,12 @@
-.product-image {
-  display: flex;
+.image-wrapper {
+  position: relative;
   margin-top: auto;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  display: flex;
   height: 12.5vw;
+
+  &--blue {
+    background: #4478BD;
+  }
 
   @media only screen and (max-width: 1200px) {
     height: 18vw;
@@ -16,6 +18,12 @@
 
   @media only screen and (max-width: 600px) {
     height: 45vw
+  }
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
   }
 }
 
@@ -70,7 +78,7 @@ bulk-selector {
 
 .subscription-mark {
   position: absolute;
-  top: 75px;
+  top: 25px;
   left: 0;
   padding: 8px 44px;
   background: #296CCC;
