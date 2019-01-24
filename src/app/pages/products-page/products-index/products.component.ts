@@ -124,16 +124,8 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() { }
 
-  selectEntity(entity: any, event): void {
+  selectEntity(entity: any): void {
     entity['bulkSelected'] = !entity['bulkSelected'];
-
-    if (event && event.ctrlKey) return;
-
-    for (let i = 0; i < this.entities.length; i++) {
-      if (this.entities[i].id !== entity.id) {
-        this.entities[i]['bulkSelected'] = false;
-      }
-    }
   }
 
   getDefaultImagePath(entity: Product | ProductSchedule) {
