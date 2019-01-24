@@ -81,7 +81,7 @@ export abstract class AbstractFilterDialog<T> {
     const filters: {facet: string; values: string[]}[] = [];
 
     this.filters
-      .filter(filter => !!filter.value)
+      .filter(filter => !!(filter.value || '').trim())
       .forEach(filter => {
         const index = firstIndexOf(filters, (f) => f.facet === filter.column.name);
 

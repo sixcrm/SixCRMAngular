@@ -6,8 +6,9 @@
   <slider-gallery>
     <div class="image-wrapper" sliderGalleryItem *ngFor="let image of product.attributes.images">
       <div class="image-box">
-        <div class="image" [style.background-image]="'url(' + image.path + ')'">
+        <div class="image">
           <div *ngIf="image.defaultImage" class="default">Default</div>
+          <img src="{{image.path}}" alt="">
         </div>
         <div class="buttons">
           <button *ngIf="!image.defaultImage" mat-button class="default-button" (click)="setDefaultImage.emit(image)">Make Default</button>

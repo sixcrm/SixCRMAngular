@@ -33,10 +33,6 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
 
   enterEditMode() {
     this.changeMode.emit(this.modes.Update);
-    this.entity.provider.username = '';
-    this.entity.provider.password = '';
-    this.entity.provider.apiKey = '';
-    this.entity.provider.apiSecret = '';
   }
 
   onKeyDown(key) {
