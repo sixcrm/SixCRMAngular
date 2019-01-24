@@ -12,7 +12,9 @@
 
   <div class="description">
     <div>{{product.description || 'This product has no description.'}}</div>
-    <div class="image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
+    <div class="image">
+      <img src="{{product.getDefaultImagePath()}}" alt="">
+    </div>
   </div>
 
   <div class="details">

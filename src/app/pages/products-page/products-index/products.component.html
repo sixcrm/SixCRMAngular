@@ -38,10 +38,12 @@
       <div class="entity-card" [class.entity-card--selected]="entity.bulkSelected" (click)="selectEntity(entity)">
         <div class="title">{{entity.name}}</div>
 
-        <div class="product-image" [style.background-image]="'url(' + getDefaultImagePath(entity) + ')'"></div>
+        <div class="image-wrapper" [class.image-wrapper--blue]="getDefaultImagePath(entity) === '/assets/images/product-default-image.svg'">
+          <img src="{{getDefaultImagePath(entity)}}" alt="">
+          <div class="subscription-mark" *ngIf="isSubscription(entity)">Schedule</div>
+        </div>
 
         <ng-container *ngIf="isSubscription(entity); else product">
-          <div class="subscription-mark">Schedule</div>
           <div class="product-details">
             <div>
               <div>Schedules {{entity.schedules.length}}</div>
