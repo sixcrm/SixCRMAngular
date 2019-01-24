@@ -164,6 +164,8 @@ export class FilterTableComponent implements OnInit, OnDestroy {
   }
 
   getHeaderWidthByElement(element) {
+    if (!element) return 'auto';
+
     return element.clientWidth + 'px';
   }
 
@@ -233,6 +235,12 @@ export class FilterTableComponent implements OnInit, OnDestroy {
     const container = this.tabContainer.nativeElement.clientWidth;
 
     return content > container;
+  }
+
+  emitDownload(format: string) {
+    if (this._items && this._items.length > 0) {
+      this.download.emit(format);
+    }
   }
 
 }

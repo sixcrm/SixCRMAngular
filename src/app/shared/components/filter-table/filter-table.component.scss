@@ -221,10 +221,13 @@
       color: #5F6368;
     }
 
+    .checkbox-cell {
+      width: 1px;
+    }
+
     th, td, .head {
       &:first-of-type {
         padding-left: 20px;
-        width: 1px;
         line-height: 16px;
       }
 
@@ -339,5 +342,14 @@ a {
 
   span {
     margin: auto;
+  }
+}
+
+.download-disabled {
+  pointer-events: none;
+  color: rgba(0,0,0,0.48);
+
+  mat-icon {
+    color: rgba(0,0,0,0.38) !important;
   }
 }

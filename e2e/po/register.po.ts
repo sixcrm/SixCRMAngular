@@ -26,24 +26,8 @@ export class RegisterPage {
     return element(by.css('.container')).all(by.css('button'));
   }
 
-  getPaymentEntryTitle() {
-    return element(by.css('.registration-column-right')).element(by.css('.title'));
-  }
-
-  getPaymentEntryCardDate() {
-    return element(by.css('.dates')).all(by.css('.element'));
-  }
-
-  getPaymentEntryCardMonth() {
-    return element(by.css('.mat-menu-content')).all(by.css('button'));
-  }
-
-  getPaymentContinueButton() {
-    return element(by.css('.registration-column-right')).element(by.css('button'));
-  }
-
-  getPaymentDeclineButton() {
-    return element(by.css('.column.right')).element(by.css('button'));
+  getPaymentEntryCardDates() {
+    return element(by.css('.mat-autocomplete-panel')).all(by.css('mat-option'));
   }
 
   getPaymentSetupButtonText() {

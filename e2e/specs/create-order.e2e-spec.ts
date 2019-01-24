@@ -148,12 +148,12 @@ describe('New Order', function() {
     createOrderPage.getBillingInputs().get(0).sendKeys('4242424242424242');
     createOrderPage.getBillingInputs().get(1).sendKeys('123');
     createOrderPage.getBillingInputs().get(2).sendKeys('Test Customer');
-    createOrderPage.getBillingDateDropdowns().first().click();
+    createOrderPage.getBillingInputs().get(3).click();
     browser.sleep(200);
-    createOrderPage.getDropdownOptions().get(6).click();
-    createOrderPage.getBillingDateDropdowns().last().click();
+    createOrderPage.getDateDropdownOptions().get(6).click();
+    createOrderPage.getBillingInputs().get(4).click();
     browser.sleep(200);
-    createOrderPage.getDropdownOptions().get(4).click();
+    createOrderPage.getDateDropdownOptions().get(4).click();
     createOrderPage.getAddressCheckbox().click();
   });
 

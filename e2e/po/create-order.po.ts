@@ -154,11 +154,7 @@ export class CreateOrderPage {
     return element(by.css('.same-checkbox'));
   }
 
-  getDropdownOptions() {
-    return element(by.css('.mat-menu-content')).all(by.css('button'));
-  }
-
-  getBillingDateDropdowns() {
-    return element(by.css('.dates')).all(by.css('.element'));
+  getDateDropdownOptions() {
+    return element(by.css('.mat-autocomplete-panel')).all(by.css('mat-option'));
   }
 }
