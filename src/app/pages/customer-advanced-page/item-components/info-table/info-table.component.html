@@ -16,7 +16,9 @@
 
   <div class="item">
     <div>Campaign</div>
-    <div class="campaign" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</div>
+    <div>
+      <a [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</a>
+    </div>
   </div>
 </div>
 
@@ -38,6 +40,8 @@
 
   <div class="item">
     <div>Campaign</div>
-    <div class="campaign" [routerLink]="['/campaigns', order.session.campaign.id]">{{order.session.campaign.name}}</div>
+    <div>
+      <a [routerLink]="['/campaigns', order.session.campaign.id]">{{order.session.campaign.name}}</a>
+    </div>
   </div>
 </div>
