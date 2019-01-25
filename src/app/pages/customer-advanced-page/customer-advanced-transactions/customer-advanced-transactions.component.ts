@@ -42,40 +42,18 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         .setMaterialIconMapper((e: Transaction) => e.chargeback || e.isError() ? 'error' : e.isDecline() || e.isSoftDecline() ? 'block' : 'done')
         .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() || e.isSoftDecline() ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : e.isSoftDecline() ? '#ED6922' : '#ffffff'),
-      new ColumnParams('Order Alias', (e: Transaction) => e.rebill.alias || e.rebill.id).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Session Alias', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
+      new ColumnParams('Order Alias', (e: Transaction) => e.rebill.alias || e.rebill.id).setLink((e: Transaction) => `/customers/advanced`).setQueryParams((e: Transaction) => {return {order: e.rebill.id}}).setFragment((_) => `orders`),
+      new ColumnParams('Session Alias', (e: Transaction) => e.rebill.parentSession.alias).setLink((_) => `/customers/advanced`).setQueryParams((e: Transaction) => {return {session: e.rebill.parentSession.id}}).setFragment((_) => `watermark`).setSeparator(true),
       new ColumnParams('Amount', (e: Transaction) => e.isRefund() ? '-' : e.amount.usd()),
       new ColumnParams('Refund', (e: Transaction) => e.isRefund() ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('Chargeback', (e: Transaction) => e.chargeback ? e.amount.usd() : '-').setAlign('center'),
-      new ColumnParams('MID', (e: Transaction) => e.merchantProvider.name).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Transaction Alias', (e: Transaction) => e.alias).setSeparator(true).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('MID', (e: Transaction) => e.merchantProvider.name).setLink((e: Transaction) => `/merchantproviders/${e.merchantProvider.id}`),
+      new ColumnParams('Transaction Alias', (e: Transaction) => e.alias).setLink((_) => `/customers/advanced`).setQueryParams((e: Transaction) => {return {transaction: e.id}}),
       new ColumnParams('Message', (e: Transaction) => e.processorResponse.message)
     ]
   }
 
   ngOnInit() {
-  }
-
-  itemClicked(option: {item: Transaction, param: ColumnParams<Transaction>}) {
-    switch (option.param.label) {
-      case ('MID'): {
-        this.router.navigate(['/merchantproviders', option.item.merchantProvider.id]);
-        break
-      }
-      case ('Transaction Alias'): {
-        this.router.navigate(['/customers', 'advanced'], { queryParams: { transaction: option.item.id } });
-        break
-      }
-      case ('Session Alias'): {
-        this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.rebill.parentSession.id }, fragment: 'watermark' });
-        break
-      }
-      case ('Order Alias'): {
-        this.orderSelected.emit(option.item.rebill.id);
-        break
-      }
-      default: {}
-    }
   }
 
   multiOptionSelected(result: {items: Transaction[], option: string}) {

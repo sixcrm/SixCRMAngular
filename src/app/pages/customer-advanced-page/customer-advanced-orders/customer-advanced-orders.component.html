@@ -59,8 +59,7 @@
         [columnParams]="columnParams"
         [rowColorFunction]="rowColorFunction"
         [options]="options"
-        (optionSelected)="optionSelected($event)"
-        (itemClicked)="itemClicked($event)">
+        (optionSelected)="optionSelected($event)">
 
         <div class="switcher">
           <mat-icon class="icon" [class.icon--active]="selectedIndex === 0" (click)="setIndex(0)">view_agenda</mat-icon>
