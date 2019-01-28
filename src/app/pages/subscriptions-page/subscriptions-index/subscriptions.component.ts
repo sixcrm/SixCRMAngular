@@ -183,7 +183,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
   optionSelected(option: {item: any, option: string}) {
     switch (option.option) {
       case 'View': {
-        this.router.navigate(['/customers/advanced'], {queryParams: {order: option.item.id}});
+        this.router.navigate(['/customers/advanced'], {queryParams: {session: option.item.sessionId}});
         break;
       }
     }
