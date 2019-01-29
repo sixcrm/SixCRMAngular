@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {Router} from '@angular/router';
 import {Return} from '../../../shared/models/return.model';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {OptionItem} from '../../components/table-memory-advanced/table-memory-advanced.component';
@@ -45,7 +44,6 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router,
     private dialog: MatDialog
   ) {
     let f = this.authService.getTimezone();
@@ -62,35 +60,15 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
       new ColumnParams('Refunds', (e: Order) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
       new ColumnParams('Chargebacks', (e: Order) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
       new ColumnParams('Total', (e: Order) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
-      new ColumnParams('Order Alias',(e: Order) => e.id).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Session Alias',(e: Order) => e.session.alias).setClickable(true).setColor('#2C98F0'),
-      new ColumnParams('Campaign', (e: Order) => e.session.campaign.name).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('Order Alias',(e: Order) => e.id).setLink((e: Order) => `/customers/advanced`).setQueryParams((e: Order) => {return {order: e.rebill.id}}).setFragment((_) => `orders`),
+      new ColumnParams('Session Alias',(e: Order) => e.session.alias).setLink((e: Order) => `/customers/advanced`).setQueryParams((e: Order) => {return {session: e.session.id}}).setFragment((_) => `watermark`),
+      new ColumnParams('Campaign', (e: Order) => e.session.campaign.name).setLink((e: Order) => `/campaigns/${e.session.campaign.id}`),
       new ColumnParams('Type', (e: Order) => e.rebill.cycle === 0 ? 'Sale' : 'Recurring').setAlign('center')
     ];
 
   }
 
   ngOnInit() { }
-
-  itemClicked(option: {item: Order, param: ColumnParams<Order>}) {
-    switch (option.param.label) {
-      case ('Campaign'): {
-        this.router.navigate(['/campaigns', option.item.session.campaign.id]);
-        break
-      }
-      case ('Session Alias'): {
-        this.router.navigate(['/customers', 'advanced'], { queryParams: { session: option.item.session.id }, fragment: 'watermark' });
-
-        break
-      }
-      case ('Order Alias'): {
-        this.viewSingleOrder(option.item);
-
-        break
-      }
-      default: {}
-    }
-  }
 
   setIndex(index: number) {
     this.selectedIndex = index;

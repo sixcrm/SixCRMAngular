@@ -62,12 +62,9 @@
           <td *ngIf="bulkOptions"><mat-checkbox [(ngModel)]="item.bulkSelected" class="checkbox-blue"></mat-checkbox></td>
 
           <ng-container *ngFor ="let param of columnParams">
-            <td [class.cell--separator]="param.separator"
-                [class.clickable]="param.clickable"
-                (click)="clicked(item, param)">
+            <td [class.cell--separator]="param.separator">
               <div class="cell-data-wrapper"
-                   [style.text-align]="param.align || 'left'"
-                   [style.color]="param.color || 'rgba(0, 0, 0, 0.87)'">
+                   [style.text-align]="param.align || 'left'">
                 <mat-icon
                   *ngIf="param.materialIconMapper"
                   class="cell-icon"
@@ -76,7 +73,16 @@
                   {{param.materialIconMapper(item)}}
                 </mat-icon>
 
-                <span>{{param.mappingFunction(item) | translate}}</span>
+                <a *ngIf="param.link; else plaintext"
+                   [routerLink]="[param.link(item)]"
+                   [queryParams]="param.queryParams(item)"
+                   fragment="{{param.fragment(item)}}"
+                >
+                  {{param.mappingFunction(item) | translate}}
+                </a>
+                <ng-template #plaintext>
+                  <span>{{param.mappingFunction(item) | translate}}</span>
+                </ng-template>
               </div>
 
             </td>

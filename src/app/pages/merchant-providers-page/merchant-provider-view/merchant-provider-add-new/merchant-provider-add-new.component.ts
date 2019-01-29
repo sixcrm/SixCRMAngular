@@ -45,7 +45,11 @@ export class MerchantProviderAddNewComponent implements OnInit {
   ngOnInit() { }
 
   saveProvider(valid: boolean): void {
-    this.formInvalid = !valid || !this.entity.acceptedPaymentMethods.length;
+    this.formInvalid =
+      !valid
+      || !this.entity.acceptedPaymentMethods.length
+      || !this.entity.gateway.isTypeSelected();
+
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);

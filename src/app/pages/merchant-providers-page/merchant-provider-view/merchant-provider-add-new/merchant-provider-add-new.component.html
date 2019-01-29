@@ -12,8 +12,8 @@
 
     <div class="entity-view__card__content merchant-provider-view__details">
 
-      <mat-form-field class="entity-view__card__content__item" [class.error]="formInvalid && !entity.name">
-        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" auto-focus required matInput placeholder="{{'MERCHANTPROVIDER_INFO_SETTINGS_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+      <mat-form-field class="entity-view__card__content__item">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" auto-focus required minlength="2" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SETTINGS_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
       </mat-form-field>
 
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">

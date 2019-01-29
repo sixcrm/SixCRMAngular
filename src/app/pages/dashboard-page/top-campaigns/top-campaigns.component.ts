@@ -3,7 +3,7 @@ import {CampaignStats} from '../../../shared/models/campaign-stats.model';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {utc} from 'moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'top-campaigns',
@@ -48,8 +48,8 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
       }
     });
 
-    this.start = utc().subtract(30, 'd');
-    this.end = utc();
+    this.start = moment().subtract(30, 'd');
+    this.end = moment();
     this.shouldFetch = true;
   }
 
