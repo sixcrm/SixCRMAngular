@@ -74,7 +74,13 @@ exports.config = {
       './e2e/**/navigation.e2e-spec.ts'
     ],
     temp: [
-      './e2e/**/merchant-provider-group.e2e-spec.ts'
+      './e2e/**/merchant-provider.e2e-spec.ts',
+      './e2e/**/merchant-provider-group.e2e-spec.ts',
+      './e2e/**/transaction.e2e-spec.ts',
+      './e2e/**/order.e2e-spec.ts',
+      './e2e/**/subscription.e2e-spec.ts',
+      './e2e/**/customer.e2e-spec.ts',
+      './e2e/**/email-template.e2e-spec.ts'
     ]
   },
   capabilities: {
