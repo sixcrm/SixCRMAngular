@@ -14,7 +14,6 @@ import { TableAdvancedBulkComponent } from './table-advanced/table-advanced-bulk
 import { TableDensityComponent } from './table-density/table-density.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import {RouterModule} from '@angular/router';
-import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-gallery.component';
 import { EntityViewTagComponent } from './entity-view-tag/entity-view-tag.component';
 import { EntityViewEntityaclComponent } from './entity-view-entityacl/entity-view-entityacl.component';
 import {SchedulesDetailedComponent} from './schedules-detailed/schedules-detailed.component';
@@ -56,7 +55,6 @@ import { ShipmentDetailsComponent } from './shipment-details/shipment-details.co
     TableAdvancedHeaderComponent,
     TableAdvancedBulkComponent,
     TableDensityComponent,
-    EntityViewGalleryComponent,
     EntityViewTagComponent,
     EntityViewEntityaclComponent,
     SchedulesDetailedComponent,
@@ -81,7 +79,6 @@ import { ShipmentDetailsComponent } from './shipment-details/shipment-details.co
     TableMemoryComponent,
     TablePreferencesComponent,
     TableAdvancedComponent,
-    EntityViewGalleryComponent,
     EntityViewTagComponent,
     EntityViewEntityaclComponent,
     SchedulesDetailedComponent,
