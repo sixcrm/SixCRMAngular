@@ -4,14 +4,14 @@
     <button mat-button (click)="displayImageUploadDialog()">Upload New Image</button>
   </div>
   <slider-gallery>
-    <div class="image-wrapper" sliderGalleryItem *ngFor="let image of product.attributes.images">
+    <div class="image-wrapper" sliderGalleryItem *ngFor="let image of product.imageUrls; let i = index">
       <div class="image-box">
         <div class="image">
-          <div *ngIf="image.defaultImage" class="default">Default</div>
-          <img src="{{image.path}}" alt="">
+          <div *ngIf="i === 0" class="default">Default</div>
+          <img src="{{image}}" alt="">
         </div>
         <div class="buttons">
-          <button *ngIf="!image.defaultImage" mat-button class="default-button" (click)="setDefaultImage.emit(image)">Make Default</button>
+          <button *ngIf="i !== 0" mat-button class="default-button" (click)="setDefaultImage.emit(image)">Make Default</button>
           <button mat-button (click)="deleteImage(image)">Delete</button>
         </div>
       </div>

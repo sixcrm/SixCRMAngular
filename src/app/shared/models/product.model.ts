@@ -1,10 +1,7 @@
 import {FulfillmentProvider} from './fulfillment-provider.model';
 import {Entity} from './entity.interface';
 import {Currency} from '../utils/currency/currency';
-import {ProductAttributes} from './product-attributes.model';
 import {Moment, utc} from 'moment';
-import {SixImage} from './six-image.model';
-import {ProductDynamicPricing} from './product-dynamic-pricing.model';
 import {EmailTemplate} from './email-template.model';
 
 export class Product implements Entity<Product> {
@@ -15,15 +12,16 @@ export class Product implements Entity<Product> {
   shippingDelay: number;
   description: string;
   defaultPrice: Currency;
-  attributes: ProductAttributes;
   fulfillmentProvider: FulfillmentProvider;
+  emailTemplates: EmailTemplate[] = [];
+  imageUrls: string[] = [];
+
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
-  dynamicPrice: ProductDynamicPricing;
+
   quantity: number = 1;
   price: Currency;
-  emailTemplates: EmailTemplate[] = [];
 
   constructor(obj?: any, additional?: any) {
     if (!obj) {
@@ -33,17 +31,16 @@ export class Product implements Entity<Product> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.sku = obj.sku || '';
-    this.ship = obj.ship;
+    this.ship = obj.is_shippable;
     this.shippingDelay = obj.shipping_delay || 0;
     this.description = obj.description || '';
-    this.attributes = new ProductAttributes(obj.attributes);
-    this.defaultPrice = new Currency(obj.default_price);
+    this.defaultPrice = new Currency(obj.price);
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
-    this.dynamicPrice = new ProductDynamicPricing(obj.dynamic_pricing);
     this.emailTemplates = (obj.emailtemplates || []).map(e => new EmailTemplate(e));
+    this.imageUrls = (obj.image_urls || []);
 
     if (additional) {
       this.quantity = additional.quantity || 1;
@@ -51,22 +48,8 @@ export class Product implements Entity<Product> {
     }
   }
 
-  getDefaultImage(): SixImage {
-    if (!this.attributes || !this.attributes.images || this.attributes.images.length === 0) return null;
-
-    const defs = this.attributes.images.filter(i => i.defaultImage);
-
-    if (defs && defs.length > 0) return defs[0];
-
-    return this.attributes.images[0];
-  }
-
   getDefaultImagePath(): string {
-    const image = this.getDefaultImage();
-
-    if (!image) return '/assets/images/product-default-image.svg';
-
-    return image.path;
+    return this.imageUrls[0] || '/assets/images/product-default-image.svg';
   }
 
   copy(): Product {
@@ -78,16 +61,15 @@ export class Product implements Entity<Product> {
       id: this.id,
       name: this.name,
       sku: this.sku,
-      ship: this.ship,
+      is_shippable: this.ship,
       shipping_delay: this.shippingDelay,
-      default_price: this.defaultPrice.amount,
+      price: this.defaultPrice.amount,
       description: this.description,
-      attributes: this.attributes.inverse(),
       fulfillment_provider: this.fulfillmentProvider.inverse(),
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI,
-      dynamic_pricing: this.dynamicPrice.enabled ? this.dynamicPrice.inverse() : null,
-      emailtemplates: this.emailTemplates.map(e => e.inverse())
+      emailtemplates: this.emailTemplates.map(e => e.inverse()),
+      image_urls: this.imageUrls
     }
   }
 }
