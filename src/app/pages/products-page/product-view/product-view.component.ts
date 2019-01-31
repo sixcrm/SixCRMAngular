@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
-import {SixImage} from '../../../shared/models/six-image.model';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {MatDialog} from '@angular/material';
 import {Currency} from '../../../shared/utils/currency/currency';
@@ -68,7 +67,6 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   campaigns: Campaign[] = [];
 
   fulfillmentInvalid: boolean;
-
 
   emailTemplateMapper = (el: EmailTemplate) => el.name;
   emailTemplateColumnParams = [
@@ -249,39 +247,33 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     });
   }
 
-  addNewImage(image: SixImage) {
+  addNewImage(image: string) {
     const temp = this.entityBackup.copy();
 
-    if (!temp.attributes.images.length) {
-      image.defaultImage = true;
-    }
+    if (temp.imageUrls.indexOf(image) !== -1) return;
 
-    temp.attributes.images.push(image);
+    temp.imageUrls.push(image);
 
     this.service.updateEntity(temp);
   }
 
-  deleteImage(image: SixImage) {
-    for (let i = 0; i < this.entity.attributes.images.length; i++) {
-      if (this.entity.attributes.images[i].randomIdentifier === image.randomIdentifier) {
-        this.entity.attributes.images.splice(i, 1);
+  deleteImage(image: string) {
+    const index = this.entity.imageUrls.indexOf(image);
 
-        if (image.defaultImage && this.entity.attributes.images.length > 0) {
-          this.entity.attributes.images[0].defaultImage = true;
-        }
+    if (index === -1) return;
 
-        this.updateEntity(this.entity);
-        return;
-      }
-    }
+    this.entity.imageUrls.slice(index, 1);
+
+    this.updateEntity(this.entity);
   }
 
-  updateDefaultImage(image: SixImage) {
-    this.entityBackup.attributes.images = this.entityBackup.attributes.images.map(i => {
-      i.defaultImage = i.randomIdentifier === image.randomIdentifier;
+  updateDefaultImage(image: string) {
+    const index = this.entity.imageUrls.indexOf(image);
 
-      return i;
-    });
+    if (index <= 0) return;
+
+    this.entity.imageUrls[index] = this.entity.imageUrls[0];
+    this.entity.imageUrls[0] = image;
 
     this.updateEntity(this.entityBackup);
   }

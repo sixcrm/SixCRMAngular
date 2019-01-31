@@ -75,7 +75,7 @@
           <div class="body">
             <div class="body__row">
               <mat-form-field>
-                <input type="text" matInput [disabled]="!editable || !_scheduleBackup.product.dynamicPrice.enabled" placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
+                <input type="text" matInput [disabled]="!editable" placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
               </mat-form-field>
             </div>
           </div>
