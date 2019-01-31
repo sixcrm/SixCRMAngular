@@ -161,9 +161,11 @@ describe('Products', function() {
     page.getCardAt(0).click();
     browser.sleep(500);
     page.getBulkOptions().click();
+    browser.sleep(200);
     page.getBulkSelectAllOption().click();
     page.getBulkApply().click();
     page.getBulkOptions().click();
+    browser.sleep(200);
     page.getBulkDeleteOption().click();
     page.getBulkApply().click();
     page.getConfirmDeleteButton().click();
@@ -186,9 +188,11 @@ describe('Products', function() {
     page.getCardAt(0).click();
     browser.sleep(500);
     page.getBulkOptions().click();
+    browser.sleep(200);
     page.getBulkSelectAllOption().click();
     page.getBulkApply().click();
     page.getBulkOptions().click();
+    browser.sleep(200);
     page.getBulkDeleteOption().click();
     page.getBulkApply().click();
     page.getConfirmDeleteButton().click();
@@ -197,7 +201,7 @@ describe('Products', function() {
     expect(page.getCards().count()).toEqual(0);
   });
 
-  it('should display both product and schedule on show all filter', () => {
+  it('should display 0 product and schedule on show all filter', () => {
     page.getShowFilter().click();
     browser.sleep(200);
 
