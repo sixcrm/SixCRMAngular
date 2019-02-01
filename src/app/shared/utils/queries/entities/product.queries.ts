@@ -69,5 +69,5 @@ export function productInputQuery(p: Product, includeId?: boolean): string {
     sku = `sku: "${product.sku}"`;
   }
 
-  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${images}, ${product.description ? `description: "${product.description}",` : ''} ${sku}, is_shippable: ${!!product.ship}, price:${product.defaultPrice.amount || 0} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
+  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${images}, ${product.description ? `description: "${product.description}",` : ''} ${sku}, is_shippable: ${!!product.ship}, price:${product.defaultPrice.amount || 0}, shipping_price:${product.shippingPrice.amount || 0}  ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
 }

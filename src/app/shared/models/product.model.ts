@@ -10,6 +10,7 @@ export class Product implements Entity<Product> {
   sku: string;
   ship: boolean;
   shippingDelay: number;
+  shippingPrice: Currency;
   description: string;
   defaultPrice: Currency;
   fulfillmentProvider: FulfillmentProvider;
@@ -33,6 +34,7 @@ export class Product implements Entity<Product> {
     this.sku = obj.sku || '';
     this.ship = obj.is_shippable;
     this.shippingDelay = obj.shipping_delay || 0;
+    this.shippingPrice = new Currency(obj.shipping_price);
     this.description = obj.description || '';
     this.defaultPrice = new Currency(obj.price);
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
@@ -63,6 +65,7 @@ export class Product implements Entity<Product> {
       sku: this.sku,
       is_shippable: this.ship,
       shipping_delay: this.shippingDelay,
+      shipping_price: this.shippingPrice.amount,
       price: this.defaultPrice.amount,
       description: this.description,
       fulfillment_provider: this.fulfillmentProvider.inverse(),

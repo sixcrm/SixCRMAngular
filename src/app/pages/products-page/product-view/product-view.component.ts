@@ -293,11 +293,28 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.setViewMain();
     this.service.updateEntity(product);
 
-    this.saveMerchantAssociation();
+    this.updateMerchantAssociation();
   }
 
-  saveMerchantAssociation(): void {
-    if (!this.merchantAssociation.merchantProviderGroup.id) return;
+  updateMerchantAssociation(): void {
+    if (!this.merchantAssociation.merchantProviderGroup.id && !this.merchantAssociationBackup.merchantProviderGroup.id) {
+      return;
+    }
+
+    if (!this.merchantAssociation.merchantProviderGroup.id && this.merchantAssociationBackup.merchantProviderGroup.id) {
+      this.merchantAssociationsService.entityDeleted$
+        .take(1)
+        .subscribe(association => {
+          if (association instanceof CustomServerError) return;
+
+          this.merchantAssociation = new MerchantProviderGroupAssociation();
+          this.merchantAssociationBackup = new MerchantProviderGroupAssociation();
+        });
+
+      this.merchantAssociationsService.deleteEntity(this.merchantAssociationBackup.id);
+
+      return;
+    }
 
     this.merchantAssociationsService.entityCreated$
       .merge(this.merchantAssociationsService.entityUpdated$)
@@ -314,6 +331,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     } else {
       this.merchantAssociationsService.createEntity(this.merchantAssociation);
     }
+  }
+
+  removeMerchantAssociation() {
+    this.merchantAssociation = new MerchantProviderGroupAssociation();
   }
 
   cancelEditMain() {
@@ -342,6 +363,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     product.ship = this.entity.ship;
     product.shippingDelay = this.entity.shippingDelay;
     product.defaultPrice = new Currency(this.entity.defaultPrice.amount);
+    product.shippingPrice = new Currency(this.entity.shippingPrice.amount);
     product.fulfillmentProvider = this.entity.fulfillmentProvider.copy();
 
     this.service.updateEntity(product);
@@ -404,6 +426,9 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.entity.defaultPrice = price;
   }
 
+  shippingPriceUpdated(price: Currency) {
+    this.entity.shippingPrice = price;
+  }
 
   viewEmailTemplate(emailTemplate: EmailTemplate): void {
     this.router.navigate(['/emailtemplates', emailTemplate.id]);
