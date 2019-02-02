@@ -52,11 +52,7 @@
       </div>
     </div>
 
-    <img *ngIf="product.attributes && product.attributes[0]; else defaultimage" src="{{product.attributes[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
-    <ng-template #defaultimage>
-      <img src="/assets/images/product-image-placeholder.svg" alt="">
-    </ng-template>
-
+    <img src="{{product.getDefaultImagePath()}}" alt="">
   </div>
 </mat-card>
 

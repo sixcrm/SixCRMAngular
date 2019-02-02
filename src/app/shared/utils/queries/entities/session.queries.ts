@@ -67,7 +67,7 @@ function parseProduct(product: Product): string {
     ${product.sku ? `sku: "${product.sku}",`:''}
     ${product.ship ? `ship: ${!!product.ship},`:''}
     ${product.shippingDelay ? `shipping_delay: ${product.shippingDelay},`:''}
-    ${product.defaultPrice ? `default_price: ${product.defaultPrice.amount},`:''}
+    ${product.price ? `price: ${product.defaultPrice.amount},`:''}
     ${product.fulfillmentProvider.id ? `fulfillment_provider: "${product.fulfillmentProvider.id}",`:''}
   }`;
 }

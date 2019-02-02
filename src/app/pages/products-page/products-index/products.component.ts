@@ -129,12 +129,8 @@ export class ProductsComponent implements OnInit {
   }
 
   getDefaultImagePath(entity: Product | ProductSchedule) {
-    if (entity instanceof Product) {
+    if (entity instanceof Product || entity instanceof ProductSchedule) {
       return entity.getDefaultImagePath();
-    }
-
-    if (entity instanceof ProductSchedule) {
-      return entity.getInitialDefaultImagePath();
     }
 
     return '/assets/images/product-default-image.svg';
