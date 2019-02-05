@@ -64,12 +64,8 @@ export class CreateOrderComponent implements OnInit {
   selectedShippingAddress: Address;
   shippingAddressInvalid: boolean;
 
-  shippings: Product[] = [];
-  selectedShippings: Product[] = [];
-  shippingDisabled: boolean;
-
-  shippingFilterValue: string;
-  filteredShippings: Product[] = [];
+  totalShippingPrice: Currency;
+  selectedTotalShippingPrice: Currency;
 
   step: number = 0;
 
@@ -171,12 +167,6 @@ export class CreateOrderComponent implements OnInit {
       });
     });
 
-    this.productService.entities$.take(1).subscribe(shippings => {
-      if (shippings instanceof CustomServerError) return;
-
-      this.shippings = shippings;
-    });
-
     this.keysService.getEntities(10, null, {ignorePermissions: true});
     this.campaignService.getEntities(null, null, {ignorePermissions: true});
     this.productService.getEntities(null, null, {ignorePermissions: true});
@@ -266,11 +256,6 @@ export class CreateOrderComponent implements OnInit {
   productSelected(option, input) {
     const product = option.option.value.copy();
 
-    if (product instanceof ProductSchedule) {
-      this.selectedShippings = [];
-      this.shippingDisabled = true;
-    }
-
     this.selectedProducts.push(product);
     this.products = this.products.map(p => p.copy());
     input.blur();
@@ -304,18 +289,13 @@ export class CreateOrderComponent implements OnInit {
 
     if (index !== -1) {
       this.selectedProducts.splice(index, 1);
-      this.shippingDisabled = this.selectedProducts.filter(p => p instanceof ProductSchedule).length > 0;
     }
 
     this.productFilterValue = '';
   }
 
   billingPrevious() {
-    if (this.shippingDisabled) {
-      this.setStep(3);
-    } else {
-      this.setStep(4);
-    }
+    this.setStep(4);
   }
 
   confirmShippingAddress() {
@@ -325,11 +305,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.selectedShippingAddress = this.shippingAddress;
 
-    if (this.shippingDisabled) {
-      this.setStep(5);
-    } else {
-      this.setStep(4);
-    }
+    this.setStep(4);
   }
 
   isAddressInvalid(address: Address): boolean {
@@ -352,40 +328,6 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  shippingSelected(option, input) {
-    const shipping = option.option.value.copy();
-    this.selectedShippings.push(shipping);
-    this.shippings = this.shippings.map(s => s.copy());
-    input.blur();
-  }
-
-  shippingFilterFunction = (shipping: Product) => {
-    if (!this.shippingFilterValue || !this.shippingFilterValue.toLowerCase) return true;
-
-    const filter = this.shippingFilterValue.toLowerCase();
-
-    return shipping.name.toLowerCase().indexOf(filter) !== -1;
-  };
-
-  shippingInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|Delete|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
-
-    if (event && event.key && !pattern.test(event.key)) {
-      return;
-    }
-
-    this.filteredShippings = this.shippings.filter(this.shippingFilterFunction);
-  }
-
-  removeShipping(shipping: Product) {
-    const index = firstIndexOf(this.selectedShippings, (el: Product) => el.id === shipping.id);
-
-    if (index !== -1) {
-      this.selectedShippings.splice(index, 1);
-    }
-
-    this.shippingFilterValue = '';
-  }
 
   removeCreditCard() {
     this.selectedCreditCard = undefined;
@@ -399,6 +341,10 @@ export class CreateOrderComponent implements OnInit {
     if (product.quantity > 1) {
       product.quantity--;
     }
+  }
+
+  removeShipping() {
+    this.selectedTotalShippingPrice = undefined;
   }
 
   customerNextStep() {
@@ -420,6 +366,10 @@ export class CreateOrderComponent implements OnInit {
   }
 
   shippingNextStep() {
+    if (!this.totalShippingPrice) return;
+
+    this.selectedTotalShippingPrice = this.totalShippingPrice;
+
     this.setStep(5);
   }
 
@@ -464,6 +414,12 @@ export class CreateOrderComponent implements OnInit {
       return false;
     }
 
+    if (!this.selectedTotalShippingPrice) {
+      this.setStep(4);
+
+      return false;
+    }
+
     if (!this.selectedCreditCard || !this.paymentForm.getValidCreditCard()) {
       this.setStep(5);
 
@@ -493,9 +449,23 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getShipping() {
-    if (!this.selectedShippings) return new Currency(0);
+    return this.selectedTotalShippingPrice || new Currency(0);
+  }
 
-    return new Currency(this.selectedShippings.map(p => (p.defaultPrice.amount || 0) * p.quantity).reduce((a,b) => a+b, 0));
+  updateTotalShippingPrice(price: Currency) {
+    this.totalShippingPrice = price;
+
+    if (this.selectedTotalShippingPrice) {
+      this.selectedTotalShippingPrice = this.totalShippingPrice;
+    }
+  }
+
+  getTotalDefaultShipping() {
+    return (this.selectedProducts || []).reduce((a,b) => {
+      const price = b instanceof Product ? b.shippingPrice.amount : 0;
+
+      return a + price*b.quantity
+    }, 0).toFixed(2);
   }
 
   getTotal() {
@@ -634,12 +604,6 @@ export class CreateOrderComponent implements OnInit {
         productSchedules.push({quantity: p.quantity || 1, product_schedule: p.id});
       }
     });
-
-    if (this.selectedShippings) {
-      products = [...products, ...this.selectedShippings.map(sp => {
-        return {quantity: sp.quantity || 1, price: sp.defaultPrice.amount || 0, product: sp.id}
-      })];
-    }
 
     return {products: products, productSchedules: productSchedules}
   }

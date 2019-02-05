@@ -283,19 +283,19 @@
               </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="shippingDisabled">
+            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
                   <span class="title">
-                    <mat-icon *ngIf="selectedShippings && selectedShippings.length > 0; else placeholder">done</mat-icon>
+                    <mat-icon *ngIf="selectedTotalShippingPrice; else placeholder">done</mat-icon>
                     Shipping
                   </span>
 
                   <mat-chip-list  [selectable]="false">
-                    <mat-chip *ngFor="let shipping of selectedShippings"
+                    <mat-chip *ngIf="selectedTotalShippingPrice"
                               [removable]="true"
-                              (removed)="removeShipping(shipping)">
-                      {{shipping.name}}
+                              (removed)="removeShipping()">
+                      {{selectedTotalShippingPrice.usd()}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
                   </mat-chip-list>
@@ -303,46 +303,14 @@
               </mat-expansion-panel-header>
 
               <div class="expansion-body">
-
                 <mat-form-field class="autocomplete-input-container">
-                  <input #shippingInput type="text" matInput placeholder="Choose Shipping and Insurance" [matAutocomplete]="autoShipping" [(ngModel)]="shippingFilterValue" (keyup)="shippingInputChanged($event)" (focus)="shippingInputChanged()">
-
-                  <mat-autocomplete class="three-row-autocomplete" #autoShipping="matAutocomplete" [displayWith]="displayFn" (optionSelected)="shippingSelected($event, shippingInput)">
-                    <mat-option *ngFor="let shipping of filteredShippings" [value]="shipping">
-                      <div class="autocomplete-row">{{ shipping.name }} </div>
-                      <div class="autocomplete-row">{{ shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0' }} </div>
-                      <div class="autocomplete-row">{{ shipping.description || '–'}}</div>
-                    </mat-option>
-                  </mat-autocomplete>
-
+                  <input type="text"
+                         matInput
+                         placeholder="${{getTotalDefaultShipping()}}"
+                         currencyInput
+                         (priceChanged)="updateTotalShippingPrice($event)">
                 </mat-form-field>
-
               </div>
-
-              <ng-container *ngIf="selectedShippings && selectedShippings.length > 0">
-                <table class="highlight products-table">
-                  <thead>
-                  <th>Items</th>
-                  <th class="mid">Quantity</th>
-                  <th class="mid">Price</th>
-                  <th></th>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let shipping of selectedShippings">
-                    <td>{{shipping.name}}</td>
-                    <td class="mid">
-                      <div class="quantity-container">
-                        <mat-icon (click)="quantityMinus(shipping)">remove</mat-icon>
-                        <div>{{shipping.quantity || 1}}</div>
-                        <mat-icon (click)="quantityPlus(shipping)">add</mat-icon>
-                      </div>
-                    </td>
-                    <td class="mid">{{shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0.00'}}</td>
-                    <td class="mid"><mat-icon class="delete-icon" (click)="removeShipping(shipping)">delete</mat-icon></td>
-                  </tr>
-                  </tbody>
-                </table>
-              </ng-container>
 
               <div class="buttons">
                 <button mat-button (click)="setStep(3)">PREVIOUS</button>
@@ -386,7 +354,7 @@
             [creditCard]="selectedCreditCard"
             [shippingAddress]="selectedShippingAddress"
             [products]="selectedProducts"
-            [shippings]="selectedShippings"
+            [shipping]="selectedTotalShippingPrice"
             (confirm)="processOrder()">
           </create-order-preview>
         </div>
@@ -403,9 +371,10 @@
         </ng-template>
 
         <div class="details">
-          <create-order-summary [price]="getPrice()"
-                                [shipping]="getShipping()"
-                                [total]="getTotal()">
+          <create-order-summary
+            [price]="getPrice()"
+            [shipping]="getShipping()"
+            [total]="getTotal()">
           </create-order-summary>
           <div class="cancel" (click)="close.emit(true)">
             <div>CANCEL ORDER</div>
@@ -418,7 +387,7 @@
           (done)="close.emit(true)"
           [customer]="selectedCustomer"
           [products]="selectedProducts"
-          [shippings]="selectedShippings"
+          [shipping]="selectedTotalShippingPrice"
           [creditCard]="selectedCreditCard"
           [shippingAddress]="selectedShippingAddress"
           [checkoutResponse]="checkoutResponse">

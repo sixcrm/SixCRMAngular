@@ -21,7 +21,7 @@ export class CreateOrderSuccessComponent implements OnInit {
   @Input() shippingAddress: Address;
   @Input() creditCard: CreditCard;
   @Input() products: (Product | ProductSchedule)[] = [];
-  @Input() shippings: Product[] = [];
+  @Input() shipping: Currency = new Currency(0);
   @Input() checkoutResponse: CheckoutResponse;
 
   @Output() done: EventEmitter<boolean> = new EventEmitter();
@@ -56,9 +56,7 @@ export class CreateOrderSuccessComponent implements OnInit {
   }
 
   getShipping() {
-    if (!this.shippings) return new Currency(0);
-
-    return new Currency(this.shippings.map(p => (p.defaultPrice.amount || 0) * p.quantity).reduce((a,b) => a+b, 0));
+    return this.shipping || new Currency(0);
   }
 
   getTotal() {
