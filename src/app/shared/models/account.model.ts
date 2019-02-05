@@ -36,6 +36,10 @@ export class Account implements Entity<Account> {
     this.updatedAtAPI = obj.updated_at;
   }
 
+  isFreePlan(): boolean {
+    return this.billing && this.billing.plan === 'free';
+  }
+
   toggleActive(): void {
     this.active = !this.active;
   }

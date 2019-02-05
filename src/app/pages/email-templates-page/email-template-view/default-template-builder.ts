@@ -600,7 +600,7 @@ function getDefaultReturnTemplateBody(): string {
 							</tbody>
 						  </table>
 						</td>
-						<td id="ibvkc" width="20%" align="right" style="box-sizing: border-box; text-align: right; width: 20%; color: #5F6368; font-weight: bold; padding: 1px 10px 1px 1px;">\${{product.default_price}}
+						<td id="ibvkc" width="20%" align="right" style="box-sizing: border-box; text-align: right; width: 20%; color: #5F6368; font-weight: bold; padding: 1px 10px 1px 1px;">\${{product.price}}
 						</td>
 					  </tr>
 					</tbody>

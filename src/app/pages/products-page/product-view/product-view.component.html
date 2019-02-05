@@ -70,16 +70,20 @@
                 <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
               </div>
 
-              <div class="dropdown-container dropdown-container--first" (click)="openMerchantAssociationModal()">
-                <div class="floating-placeholder" [class.floating-placeholder--invisible]="!merchantAssociation.merchantProviderGroup.name">
-                  Merchant Processing
-                </div>
-                <div class="content">
-                  <div [class.placeholder]="!merchantAssociation.merchantProviderGroup.name">
-                    {{merchantAssociation.merchantProviderGroup.name || 'Merchant Processing'}}
+              <div class="flex-custom flex-custom--center">
+                <div class="dropdown-container dropdown-container--first" (click)="openMerchantAssociationModal()">
+                  <div class="floating-placeholder" [class.floating-placeholder--invisible]="!merchantAssociation.merchantProviderGroup.name">
+                    Merchant Processing
                   </div>
-                  <mat-icon>arrow_drop_down</mat-icon>
+                  <div class="content">
+                    <div [class.placeholder]="!merchantAssociation.merchantProviderGroup.name">
+                      {{merchantAssociation.merchantProviderGroup.name || 'Merchant Processing'}}
+                    </div>
+                    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
+                  </div>
                 </div>
+
+                <mat-icon *ngIf="editMain && merchantAssociationBackup.id" class="dropdown-icon" (click)="removeMerchantAssociation()">close</mat-icon>
               </div>
 
               <div class="edit-buttons" *ngIf="editMain">
@@ -112,7 +116,7 @@
                          [class.placeholder-error]="fulfillmentInvalid && !entity.fulfillmentProvider.name">
                       {{entity.fulfillmentProvider.name || 'Fulfillment Provider'}}
                     </div>
-                    <mat-icon>arrow_drop_down</mat-icon>
+                    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
                   </div>
                 </div>
 
@@ -131,6 +135,10 @@
                 <div class="row">
                   <mat-form-field>
                     <input matInput [(ngModel)]="entity.shippingDelay" placeholder="Shipping Delay" [readonly]="!editSecondary">
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <input matInput currencyInput [initPrice]="entity.shippingPrice" (priceChanged)="shippingPriceUpdated($event)" placeholder="Shipping Price" type="text" [readonly]="!editSecondary">
                   </mat-form-field>
                 </div>
 

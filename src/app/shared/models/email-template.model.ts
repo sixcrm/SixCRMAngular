@@ -59,7 +59,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
 
     if (obj.products) {
       this.products = obj.products.map(p => new Product(p));
-      this.associations = [...this.associations, ...this.products.map(p => { return {url: `/products/${p.id}`, type: 'Product', name: p.name} })];
+      this.associations = [...this.associations, ...this.products.map(p => { return {url: `/products/product/${p.id}`, type: 'Product', name: p.name} })];
     }
 
     if (obj.campaigns) {
@@ -69,7 +69,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
 
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(p => new ProductSchedule(p));
-      this.associations = [...this.associations, ...this.productSchedules.map(p => { return {url: `/productschedules/${p.id}`, type: 'Product Schedule', name: p.name} })];
+      this.associations = [...this.associations, ...this.productSchedules.map(p => { return {url: `/products/schedule/${p.id}`, type: 'Product Schedule', name: p.name} })];
     }
   }
 

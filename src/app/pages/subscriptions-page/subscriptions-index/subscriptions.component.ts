@@ -52,9 +52,9 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
       new ColumnParams('Campaign', (e: SubscriptionAnalytics) => e.campaignName).setSortName('campaign_name')
         .setLink((e: SubscriptionAnalytics) => `/campaigns/${e.campaignId}`),
       new ColumnParams('Product Schedule', (e: SubscriptionAnalytics) => e.productScheduleName || '–').setSortName('product_schedule_name')
-        .setLink((e: SubscriptionAnalytics) => `/productschedules/${e.productScheduleId}`),
+        .setLink((e: SubscriptionAnalytics) => `/products/schedule/${e.productScheduleId}`),
       new ColumnParams('Product', (e: SubscriptionAnalytics) => e.productName || '–').setSortName('product_name')
-        .setLink((e: SubscriptionAnalytics) => `/products/${e.productId}`),
+        .setLink((e: SubscriptionAnalytics) => `/products/product/${e.productId}`),
       new ColumnParams('Merchant Provider', (e: SubscriptionAnalytics) => e.merchantProviderName || '–').setSortName('merchant_provider_name')
         .setLink((e: SubscriptionAnalytics) => `/merchantproviders/${e.merchantProviderId}`),
       new ColumnParams('Sale Amount', (e: SubscriptionAnalytics) => e.amount.usd()).setSortName('amount'),
@@ -183,7 +183,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
   optionSelected(option: {item: any, option: string}) {
     switch (option.option) {
       case 'View': {
-        this.router.navigate(['/customers/advanced'], {queryParams: {order: option.item.id}});
+        this.router.navigate(['/customers/advanced'], {queryParams: {session: option.item.sessionId}});
         break;
       }
     }

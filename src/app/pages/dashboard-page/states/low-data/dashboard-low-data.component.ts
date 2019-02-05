@@ -6,7 +6,7 @@ import {TranslatedQuote} from "../../../../translation/translated-quote.model";
 import {TranslationService} from "../../../../translation/translation.service";
 import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
-import {utc} from 'moment';
+import * as moment from 'moment-timezone';
 import {TransactionAnalytics} from '../../../../shared/models/analytics/transaction-analytics.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
 
@@ -54,8 +54,8 @@ export class DashboardLowDataComponent implements OnInit {
 
     this.analyticsService.getTransactions(
       {
-        start: utc().subtract(10, 'y').format(),
-        end: utc().format(),
+        start: moment().subtract(10, 'y').format(),
+        end: moment().format(),
         limit: 7,
         offset: 0,
         orderBy: 'datetime',

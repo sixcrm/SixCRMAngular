@@ -4,7 +4,8 @@ import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeser
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {Moment, utc} from 'moment';
+import {Moment} from 'moment';
+import * as moment from 'moment-timezone';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -61,7 +62,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
         color: '#F4F4F4',
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
         lineWidth: 2,
-        pointStart: utc().subtract(this.numberOfDays, 'd'),
+        pointStart: moment().subtract(this.numberOfDays, 'd'),
         pointInterval: 24 * 3600 * 1000 //one day
       }
     ]
@@ -123,8 +124,8 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       this.redrawChartData();
     });
 
-    this.start = utc().subtract(this.numberOfDays, 'd');
-    this.end = utc();
+    this.start = moment().subtract(this.numberOfDays, 'd');
+    this.end = moment();
     this.eventType = 'click';
     this.shouldFetch = true;
     this.showChart = true;
@@ -142,7 +143,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.start = utc().subtract(this.numberOfDays, 'd');
+      this.start = moment().subtract(this.numberOfDays, 'd');
 
       let params = {
         start: this.start.format(),
@@ -206,7 +207,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
     this.chart.series[0].update({
       color: chartLineColor,
-      pointStart: utc(this.startDate)
+      pointStart: moment(this.startDate)
     });
 
     this.chart.series[0].setData(data, true, true);
