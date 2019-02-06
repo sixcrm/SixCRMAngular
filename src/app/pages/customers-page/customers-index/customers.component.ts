@@ -61,7 +61,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
         .setColorMapper((e: CustomerAnalytics) => e.refundAmount.amount ? '#E35871' : 'black')
     ];
 
-    this.defaultDate = {start: moment().subtract(1,'M'), end: moment()};
+    this.defaultDate = {start: moment().startOf('day').subtract(1,'M'), end: moment().endOf('day')};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
