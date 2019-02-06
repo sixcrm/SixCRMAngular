@@ -18,6 +18,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { AccountManagementRolesSelectorComponent } from './account-management-roles-selector/account-management-roles-selector.component';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
 import {PageComponentsModule} from '../components/pages-components.module';
+import {BillingGuard} from './billing-guard.service';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
     AccountManagementRolesSelectorComponent
   ],
   providers: [
+    BillingGuard,
     {
       provide: HighchartsStatic,
       useFactory: () => require('highcharts/highstock')
