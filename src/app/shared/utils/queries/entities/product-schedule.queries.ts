@@ -52,7 +52,7 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
 
 export function productScheduleResponseQuery(): string {
   return `
-    id name created_at updated_at,
+    id name confirmation_required created_at updated_at,
     schedule { price start end period samedayofmonth,
       product { id name ship sku image_urls }
     },
@@ -60,11 +60,11 @@ export function productScheduleResponseQuery(): string {
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name created_at updated_at schedule { start samedayofmonth end period price product {id sku name price description image_urls} }`
+  return `id name created_at confirmation_required updated_at schedule { start samedayofmonth end period price product {id sku name price description image_urls} }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
   let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}, samedayofmonth: ${!!b.sameDayOfMonth}}, `, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
+  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", confirmation_required: ${!!productSchedule.confirmationRequired}, schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

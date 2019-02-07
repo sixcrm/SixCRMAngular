@@ -2,7 +2,6 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {MerchantProviderGroupsService} from '../../../../entity-services/services/merchant-provider-groups.service';
-import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
 
 @Component({
   selector: 'product-schedule-add-new',
@@ -24,8 +23,6 @@ export class ProductScheduleAddNewComponent implements OnInit {
   view = Modes.View;
 
   formInvalid: boolean;
-
-  merchantProviderGroupMapper = (merchantProviderGroup: MerchantProviderGroup) => merchantProviderGroup.name || merchantProviderGroup.id;
 
   constructor(public merchantProviderGroupService: MerchantProviderGroupsService) { }
 

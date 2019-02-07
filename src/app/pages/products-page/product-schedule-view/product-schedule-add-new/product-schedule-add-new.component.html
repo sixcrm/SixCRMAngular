@@ -5,7 +5,6 @@
       <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
       <mat-menu #shipOptions="matMenu" x-position="before">
         <button mat-menu-item (click)="changeMode.emit(update);">{{'PRODUCTSCHEDULE_INFO_EDIT' | translate}}</button>
-        <button *ngIf="entity.merchantProviderGroup && entity.merchantProviderGroup.id" mat-menu-item [routerLink]="['/merchantprovidergroups', entity.merchantProviderGroup.id]">{{'PRODUCTSCHEDULE_INFO_VIEWMERCHANTPROVIDERGROUP' | translate}}</button>
       </mat-menu>
     </ng-container>
   </div>
@@ -14,6 +13,8 @@
     <mat-form-field [class.error]="formInvalid && !entity.name">
       <input auto-focus [disabled]="mode === view" required matInput placeholder="{{'PRODUCTSCHEDULE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text" maxlength="55">
     </mat-form-field>
+
+    <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.confirmationRequired" [disabled]="mode === view" name="confirmation">Confirmation Required</mat-checkbox>
   </form>
 
   <div *ngIf="mode !== view" class="entity-view__card__actions product-schedule-view__details__actions">
