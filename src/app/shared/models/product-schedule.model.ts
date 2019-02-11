@@ -16,7 +16,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   updatedAt: Moment;
   updatedAtAPI: string;
   emailTemplates: EmailTemplate[] = [];
-  confirmationRequired: boolean;
+  trialRequired: boolean;
 
   start: number;
   end: number;
@@ -34,7 +34,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     if (obj.emailtemplates) {
       this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
-    this.confirmationRequired = !!obj.confirmation_required;
+    this.trialRequired = !!obj.trial_required;
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
@@ -149,7 +149,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       name: this.name,
       schedule: this.schedules.map(s => s.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
-      confirmation_required: this.confirmationRequired,
+      trial_required: this.trialRequired,
       updated_at: this.updatedAtAPI,
       created_at: this.createdAt.format()
     }

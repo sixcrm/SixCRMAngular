@@ -14,7 +14,7 @@
       <input auto-focus [disabled]="mode === view" required matInput placeholder="{{'PRODUCTSCHEDULE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text" maxlength="55">
     </mat-form-field>
 
-    <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.confirmationRequired" [disabled]="mode === view" name="confirmation">Confirmation Required</mat-checkbox>
+    <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.trialRequired" [disabled]="mode === view" name="confirmation">Confirmation Required</mat-checkbox>
   </form>
 
   <div *ngIf="mode !== view" class="entity-view__card__actions product-schedule-view__details__actions">
