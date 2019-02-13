@@ -10,6 +10,7 @@ import {doSignUp} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
 import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
+import {NavPage} from '../po/nav.po';
 
 let registrationUsername = `tr${new Date().getTime()}@example.com`;
 let registrationPassword = 'testingregistrationpassword';
@@ -21,6 +22,7 @@ describe('Register', function() {
   let appTopNav: TopnavPage;
   let termsAndConditionsPage: TermsAndConditionsPage;
   let acceptInvitePage: AcceptInvitePage;
+  let nav: NavPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
@@ -28,6 +30,7 @@ describe('Register', function() {
     appTopNav = new TopnavPage();
     termsAndConditionsPage = new TermsAndConditionsPage();
     acceptInvitePage = new AcceptInvitePage();
+    nav = new NavPage();
   });
 
   afterAll(() => {
@@ -116,4 +119,17 @@ describe('Register', function() {
     expectUrlToContain('/dashboard?w=true');
   });
 
+  it('should render full nav menu', () => {
+    browser.sleep(3000);
+
+    nav.getNavToggler().click();
+    expect(nav.getItems().count()).toBe(26);
+  });
+
+  it('should navigate to billing page', () => {
+    nav.getLink(20).click();
+
+    waitForUrlContains('accountmanagement/billing');
+    expectUrlToContain('accountmanagement/billing');
+  });
 });

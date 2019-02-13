@@ -56,4 +56,7 @@ export class CreateOrderPreviewComponent implements OnInit {
     return new Currency(p.amount + s.amount);
   }
 
+  confirmationRequired() {
+    return this.products && this.products.filter(p => p instanceof ProductSchedule && p.trialRequired).length > 0;
+  }
 }

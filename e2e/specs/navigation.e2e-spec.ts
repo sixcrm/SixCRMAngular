@@ -27,7 +27,7 @@ describe('Navigation', function() {
     clearAuth0SSO();
   });
 
-  it('should render full sidenav when registered as master', () => {
+  it('should render sidenav when login as free account', () => {
     browser.sleep(500);
     waitForUrlContains('/dashboard');
 
@@ -182,20 +182,20 @@ describe('Navigation', function() {
     expectUrlToContain('smtpproviders');
   });
 
-  it('should navigate to account general', () => {
+  it('should navigate to sms providers', () => {
     nav.getNavToggler().click();
     nav.getLink(18).click();
 
-    waitForUrlContains('accountmanagement/general');
-    expectUrlToContain('accountmanagement/general');
+    waitForUrlContains('smsproviders');
+    expectUrlToContain('smsproviders');
   });
 
-  it('should navigate to account billing', () => {
+  it('should navigate to account general', () => {
     nav.getNavToggler().click();
     nav.getLink(19).click();
 
-    waitForUrlContains('accountmanagement/billing');
-    expectUrlToContain('accountmanagement/billing');
+    waitForUrlContains('accountmanagement/general');
+    expectUrlToContain('accountmanagement/general');
   });
 
   it('should navigate to account keys', () => {
@@ -237,5 +237,4 @@ describe('Navigation', function() {
     waitForUrlContains('profile#signingstrings');
     expectUrlToContain('profile#signingstrings');
   });
-
 });

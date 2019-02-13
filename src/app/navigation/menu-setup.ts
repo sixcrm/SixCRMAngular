@@ -152,6 +152,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if ((authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled())) {
     integrations.children.push({label: 'SMTP Providers', url: 'smtpproviders'});
   }
+  if ((authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled())) {
+    integrations.children.push({label: 'SMS Providers', url: 'smsproviders'});
+  }
   if (integrations.children.length > 0) {
     crmSection.items.push(integrations);
   }
@@ -167,16 +170,16 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if ((authService.hasPermissions('account', 'read') || authService.isBillingDisabled())) {
     settings.children.push({label: 'General', url: 'accountmanagement/general'});
   }
-  if ((authService.hasPermissions('bill', 'read') || authService.isBillingDisabled())) {
+  if ((authService.hasPermissions('bill', 'read') && !authService.getActiveAcl().account.isFreePlan()) || authService.isBillingDisabled()) {
     settings.children.push({label: 'Billing', url: 'accountmanagement/billing'});
   }
-  if ((authService.hasPermissions('accesskey', 'read') || authService.isBillingDisabled())) {
+  if (authService.hasPermissions('accesskey', 'read') || authService.isBillingDisabled()) {
     settings.children.push({label: 'API Access Keys', url: 'accountmanagement/apikeys'});
   }
-  if ((authService.hasPermissions('role', 'read') || authService.isBillingDisabled())) {
+  if (authService.hasPermissions('role', 'read') || authService.isBillingDisabled()) {
     settings.children.push({label: 'Roles', url: 'accountmanagement/roles'});
   }
-  if ((authService.hasPermissions('user', 'read') || authService.isBillingDisabled())) {
+  if (authService.hasPermissions('user', 'read') || authService.isBillingDisabled()) {
     settings.children.push({label: 'Users', url: 'accountmanagement/users'});
   }
   if (settings.children.length > 0) {

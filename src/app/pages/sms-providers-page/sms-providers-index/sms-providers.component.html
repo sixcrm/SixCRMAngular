@@ -1,0 +1,40 @@
+<div class="entity-index">
+
+  <blue-header [items]="crumbItems" [titleValue]="'SMS Providers'"></blue-header>
+
+  <button mat-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
+
+  <entities-table-wrapper
+    [data]="entities"
+    [loaded]="initialLoaded"
+    [columnParams]="columnParams"
+    [filterString]="filterValue"
+    [serverError]="serverError"
+    (selected)="viewEntity($event.id)"
+
+    [service]="service"
+    (viewClicked)="viewEntity($event.id)"
+    (copyClicked)="copyEntity($event.id)"
+    (exportClicked)="exportEntity($event.id)"
+    (editClicked)="editEntity($event.id)"
+    (deleteClicked)="deleteEntity($event.id)"
+    (deleteManyClicked)="deleteMany($event)"
+    (refreshData)="refreshData()"
+
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)"
+    (filterChanged)="filterValue = $event"
+    (searchChanged)="setSearchString($event)"
+  >
+  </entities-table-wrapper>
+
+</div>
+
+<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
+  <sms-provider-add-new class="modal-center" [entity]="entity" [mode]="modes.Add" (cancel)="closeAddMode()" (save)="createEntity($event)"></sms-provider-add-new>
+</div>

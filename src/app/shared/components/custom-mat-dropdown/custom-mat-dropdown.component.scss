@@ -1,0 +1,52 @@
+@import "../../../../assets/scss/colors";
+
+.dropdown-container {
+  margin-bottom: 23.625px;
+  cursor: pointer;
+
+  &--first {
+    margin-bottom: 20px;
+    margin-top: 15px;
+  }
+
+  .floating-placeholder {
+    transform: scale(0.75) translateX(-16.5%);
+    color: rgba(0, 0, 0, 0.44);
+    font-weight: 500;
+
+    &--invisible {
+      color: rgba(0,0,0,0);
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    width: 200px;
+
+    .placeholder {
+      color: rgba(0,0,0,0.54);
+    }
+
+    .placeholder-error {
+      color: $danger-color;
+    }
+  }
+}
+
+.dropdown-icon {
+  margin-left: auto;
+  color: #5F6368;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.new-item {
+  min-width: 193px;
+  background: #E5F0F9;
+  padding: 0 36px;
+  margin-bottom: -8px;
+  text-align: center;
+}

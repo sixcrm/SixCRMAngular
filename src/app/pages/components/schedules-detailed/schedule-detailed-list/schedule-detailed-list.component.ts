@@ -100,8 +100,4 @@ export class ScheduleDetailedListComponent implements OnInit {
     this.productScheduleToAdd = new ProductSchedule();
     this.productToAdd = new Product();
   }
-
-  showAddButton(): boolean {
-    return this.productSchedules.length === 0 || this.productSchedules[0].schedules.length === 0;
-  }
 }

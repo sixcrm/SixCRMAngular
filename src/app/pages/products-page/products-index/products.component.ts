@@ -128,6 +128,12 @@ export class ProductsComponent implements OnInit {
     entity['bulkSelected'] = !entity['bulkSelected'];
   }
 
+  goToEntity(entity: Product | ProductSchedule): void {
+    const entityRoute = entity instanceof Product ? 'product' : 'schedule';
+
+    this.router.navigate(['/products', entityRoute, entity.id]);
+  }
+
   getDefaultImagePath(entity: Product | ProductSchedule) {
     if (entity instanceof Product || entity instanceof ProductSchedule) {
       return entity.getDefaultImagePath();
