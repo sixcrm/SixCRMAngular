@@ -162,7 +162,7 @@ export class CreateOrderComponent implements OnInit {
     this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
       if (productSchedules instanceof CustomServerError) return;
 
-      productSchedules = productSchedules.filter(p => p.schedules.length === 1);
+      productSchedules = productSchedules.filter(p => p.schedules.length > 0);
 
       this.products = [...this.products, ...productSchedules].sort((a,b) => {
         if (a.name > b.name) return 1;
