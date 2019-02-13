@@ -3,6 +3,7 @@ import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
 import {Currency} from '../utils/currency/currency';
 import {EmailTemplate} from './email-template.model';
+import {SmsProvider} from './sms-provider.model';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
@@ -17,6 +18,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   updatedAtAPI: string;
   emailTemplates: EmailTemplate[] = [];
   trialRequired: boolean;
+  trialSmsProvider: SmsProvider;
 
   start: number;
   end: number;
@@ -35,6 +37,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
     this.trialRequired = !!obj.trial_required;
+    this.trialSmsProvider = new SmsProvider(obj.trial_sms_provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
@@ -150,6 +153,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       schedule: this.schedules.map(s => s.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
       trial_required: this.trialRequired,
+      trial_sms_provider: this.trialSmsProvider.inverse(),
       updated_at: this.updatedAtAPI,
       created_at: this.createdAt.format()
     }

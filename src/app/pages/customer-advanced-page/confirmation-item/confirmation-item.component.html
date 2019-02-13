@@ -1,0 +1,23 @@
+<div class="container">
+
+  <div class="header">
+    <div class="info">
+      <div>
+        Waiting for Trial {{sessionConfirmation.trialConfirmation.delivered_at ? 'Confirmation' : 'Delivery'}}
+      </div>
+      <div class="separator"></div>
+      <div>
+        {{sessionConfirmation.alias}}
+      </div>
+
+      <button mat-button (click)="confirm()">CONFIRM {{sessionConfirmation.trialConfirmation.delivered_at ? 'TRIAL' : 'DELIVERY'}}</button>
+      <button mat-button
+              [routerLink]="['/customers/advanced']"
+              [queryParams]="{session: sessionConfirmation.id}"
+              fragment="watermark">
+        VIEW SESSION
+      </button>
+    </div>
+  </div>
+
+</div>

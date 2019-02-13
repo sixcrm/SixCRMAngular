@@ -137,6 +137,10 @@ export function cancelSessionMutation(session: Session, canceledBy: string): str
      }`
 }
 
+export function confirmDelivery(sessionId: string): string {
+  return `mutation { confirmtrialdelivery (session_id: "${sessionId}") { result } }`
+}
+
 export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at completed,
@@ -144,6 +148,7 @@ export function sessionResponseQuery(): string {
       product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, samedayofmonth, product {id, name } } } },
       products { quantity, price, product { id name } }
     }
+    trial_confirmation { id code delivered_at confirmed_at }
     customer { ${customerResponseQuery()} }
     rebills { ${sessionRebillResponseQuery()} },
     campaign { id name }

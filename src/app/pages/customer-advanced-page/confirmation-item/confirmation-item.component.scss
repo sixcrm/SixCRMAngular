@@ -1,0 +1,42 @@
+.container {
+  background: white;
+  border-radius: 4px;
+  border: 2px solid rgba(0,0,0,0.12);
+}
+
+.header {
+  padding: 20px;
+
+  .info {
+    display: flex;
+    align-items: center;
+
+    div {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 500;
+      color: #202124;
+    }
+
+
+    button {
+      font-size: 12px;
+      color: #202124;
+      background: #FAFAFA;
+      border-radius: 4px;
+      margin-left: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+
+      &:first-of-type {
+        margin-left: auto;
+      }
+    }
+
+    .separator {
+      margin: 0 24px;
+      width: 1px;
+      height: 30px;
+      background: rgba(0,0,0,0.12);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<div *ngIf="entity; else spinner" class="entity-view">
+
+  <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name"></blue-header>
+
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
+
+      <sms-provider-add-new [entity]="entity"
+                             [mode]="viewMode ? modes.View : modes.Update"
+                             (changeMode)="setMode($event)"
+                             (cancel)="cancelUpdate()"
+                             (save)="saveOrUpdate($event)">
+      </sms-provider-add-new>
+
+    </mat-tab>
+
+    <mat-tab>
+      <sms-provider-validate [entity]="entity"></sms-provider-validate>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
+
+<ng-template #spinner>
+  <spe-loader [numberOfTabs]="2" [numberOfCards]="1" [title]="'SMS Providers'"></spe-loader>
+</ng-template>
+
