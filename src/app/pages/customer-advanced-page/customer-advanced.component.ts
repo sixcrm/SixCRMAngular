@@ -74,6 +74,8 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
+  confirmationSessions: Session[] = [];
+
   constructor(
     private rebillService: RebillsService,
     private orderService: OrdersService,
@@ -277,6 +279,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
     this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
       this.orders = this.filterOrders(orders);
+      this.confirmationSessions = orders.map(order => order.session).filter(session => this.sessionNeedsConfirmation(session));
     });
 
     this.shippingReceiptsService.getShippingReceiptsByCustomer(this.customerId, {}).subscribe(receipts => {
@@ -300,6 +303,8 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.productSchedulesWaitingForUpdate = null;
 
         this.session = session;
+
+        this.confirmationSessions = this.sessionNeedsConfirmation(this.session) ? [this.session] : [];
 
         this.tabHeaders = [
           {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
@@ -441,6 +446,42 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.selectedOrder = this.orders[index];
       }
     }
+  }
+
+  private sessionNeedsConfirmation(session: Session): boolean {
+    if (!session) return false;
+
+    return session.trialConfirmation
+        && session.trialConfirmation.id
+        && (!session.trialConfirmation.delivered_at || !session.trialConfirmation.confirmed_at);
+  }
+
+  public confirmTrial(session: Session) {
+    this.confirmationSessions =
+      this.confirmationSessions
+        .map(cs => {
+          if (cs.id === session.id) {
+            cs.trialConfirmation.confirmed_at = utc();
+          }
+
+          return cs;
+        })
+        .filter(cs => !cs.trialConfirmation.confirmed_at);
+  }
+
+  public confirmDelivery(session: Session) {
+    this.sessionService.confirmDelivery(session.id).subscribe(result => {
+      if (result instanceof CustomServerError) return;
+
+      this.confirmationSessions = this.confirmationSessions
+        .map(cs => {
+          if (cs.id === session.id) {
+            cs.trialConfirmation.delivered_at = utc()
+          }
+
+          return cs;
+        });
+    })
   }
 
 }

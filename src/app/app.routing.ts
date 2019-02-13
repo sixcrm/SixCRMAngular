@@ -36,6 +36,7 @@ const appRoutes: Routes = [
     { path : 'sessions', loadChildren : './pages/sessions-page/sessions.module#SessionsModule', canActivate: [AuthGuard] },
     { path : 'shippingreceipts', loadChildren : './pages/shipping-receipts-page/shipping-receipts.module#ShippingReceiptsModule', canActivate: [AuthGuard] },
     { path : 'smtpproviders', loadChildren : './pages/smtp-providers-page/smtp-providers.module#SmtpProvidersModule', canActivate: [AuthGuard] },
+    { path : 'smsproviders', loadChildren : './pages/sms-providers-page/sms-providers.module#SmsProvidersModule', canActivate: [AuthGuard] },
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
     { path : 'users', loadChildren : './pages/users-page/users.module#UsersModule', canActivate: [AuthGuard] },
     { path : 'trackers', loadChildren : './pages/trackers-page/trackers.module#TrackersModule', canActivate: [AuthGuard] },
