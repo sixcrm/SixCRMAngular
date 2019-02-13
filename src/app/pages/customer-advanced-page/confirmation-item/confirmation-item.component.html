@@ -7,16 +7,39 @@
       </div>
       <div class="separator"></div>
       <div>
-        {{sessionConfirmation.alias}}
+        <button mat-button (click)="confirm()">CONFIRM {{sessionConfirmation.trialConfirmation.delivered_at ? 'TRIAL' : 'DELIVERY'}}</button>
       </div>
 
-      <button mat-button (click)="confirm()">CONFIRM {{sessionConfirmation.trialConfirmation.delivered_at ? 'TRIAL' : 'DELIVERY'}}</button>
       <button mat-button
               [routerLink]="['/customers/advanced']"
               [queryParams]="{session: sessionConfirmation.id}"
               fragment="watermark">
         VIEW SESSION
       </button>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="item">
+      <div>Session Alias</div>
+      <div>{{sessionConfirmation.alias}}</div>
+    </div>
+
+    <div class="item">
+      <div>Initial Order Date</div>
+      <div>{{sessionConfirmation.createdAt | formatDateTime}}</div>
+    </div>
+
+    <div class="item">
+      <div>Campaign</div>
+      <div>{{sessionConfirmation.campaign.id}}</div>
+    </div>
+
+    <div class="item">
+      <div>Delivered at</div>
+      <div>
+        {{sessionConfirmation.trialConfirmation.delivered_at ? (sessionConfirmation.trialConfirmation.delivered_at | formatDateTime) : 'Not Yet Delivered'}}
+      </div>
     </div>
   </div>
 

@@ -40,3 +40,34 @@
     }
   }
 }
+
+.details {
+  display: flex;
+  border: 1px solid rgba(0,0,0,0.12);
+  margin: 10px 20px 20px;
+
+  .item {
+    width: 25%;
+    border-right: 1px solid rgba(0,0,0,0.12);
+
+    &:last-of-type {
+      border-right: none;
+    }
+
+    div {
+      padding: 10px;
+
+      &:first-of-type {
+        border-bottom: 1px solid rgba(0,0,0,0.12);
+        font-size: 12px;
+        color: #5F6368;
+      }
+
+      &:last-of-type {
+        color: #202124;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
