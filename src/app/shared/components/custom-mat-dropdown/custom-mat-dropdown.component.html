@@ -1,0 +1,22 @@
+<div [matMenuTriggerFor]="dropdownMenu" class="dropdown-container" [style.pointer-events]="editable ? 'auto' : 'none'">
+  <div class="floating-placeholder" [class.floating-placeholder--invisible]="!mapper(selectedItem)">{{placeholder}}</div>
+  <div class="content">
+    <div [class.placeholder]="!mapper(selectedItem)"
+         [class.placeholder-error]="showError">
+      {{mapper(selectedItem) || placeholder}}
+    </div>
+    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
+  </div>
+</div>
+
+<mat-menu #dropdownMenu="matMenu" x-position="before">
+  <button mat-menu-item
+          *ngFor="let item of items"
+          (click)="selectItem.emit(item)">
+    {{mapper(item)}}
+  </button>
+
+  <button *ngIf="showAddNew" class="new-item" mat-menu-item (click)="addNewSelected.emit(true)">
+    Add New
+  </button>
+</mat-menu>

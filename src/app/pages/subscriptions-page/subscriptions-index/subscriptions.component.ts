@@ -63,7 +63,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         .setQueryParams((e: SubscriptionAnalytics) => { return { session: e.sessionId } })
     ];
 
-    this.defaultDate = {start: moment(), end: moment().add(1,'M')};
+    this.defaultDate = {start: moment().startOf('day'), end: moment().endOf('day').add(1,'M')};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},

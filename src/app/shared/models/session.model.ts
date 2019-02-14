@@ -10,6 +10,7 @@ import {SessionCancelation} from './session-cancelation.model';
 import {Product} from './product.model';
 import {WatermarkProductSchedule} from './watermark/watermark-product-schedule.model';
 import {WatermarkProduct} from './watermark/watermark-product.model';
+import {TrialConfirmation} from './trial-confirmation.model';
 
 export class Session implements Entity<Session> {
   id: string;
@@ -34,6 +35,8 @@ export class Session implements Entity<Session> {
   updatedAtAPI: string;
   startedAt: Moment;
 
+  trialConfirmation: TrialConfirmation;
+
   constructor(obj?: any) {
     if (!obj) {
       obj = {};
@@ -57,6 +60,10 @@ export class Session implements Entity<Session> {
     this.updatedAtAPI = obj.updated_at;
     this.startedAt = utc(obj.created_at).hour(0).minute(0).second(0).millisecond(0);
     this.watermark = new Watermark(obj.watermark, this.createdAt.clone());
+
+    if (obj.trial_confirmation) {
+      this.trialConfirmation = new TrialConfirmation(obj.trial_confirmation);
+    }
 
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));
@@ -128,6 +135,7 @@ export class Session implements Entity<Session> {
       subaffiliate_4: this.subAffiliate4.inverse(),
       subaffiliate_5: this.subAffiliate5.inverse(),
       watermark: this.watermark.inverse(),
+      trial_confirmation: this.trialConfirmation ? this.trialConfirmation.inverse() : undefined,
       cancelled: this.cancelled.inverse(),
       created_at: this.createdAt.clone().format(),
       updated_at: this.updatedAtAPI

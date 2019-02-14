@@ -9,7 +9,7 @@ import * as moment from 'moment-timezone';
 
 export abstract class AbstractEntityReportIndexComponent<T> {
 
-  defaultDate: {start: Moment, end: Moment} = {start: moment().subtract(7,'d'), end: moment()};
+  defaultDate: {start: Moment, end: Moment} = {start: moment().startOf('day').subtract(7,'d'), end: moment().endOf('day')};
   date: {start: Moment, end: Moment};
   lastCountsDate: {start: Moment, end: Moment};
 
