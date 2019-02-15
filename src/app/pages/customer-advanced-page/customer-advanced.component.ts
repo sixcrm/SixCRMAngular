@@ -23,6 +23,7 @@ import {TransactionsService} from '../../entity-services/services/transactions.s
 import {YesNoDialogComponent} from '../../dialog-modals/yes-no-dialog.component';
 import {MatDialog} from '@angular/material';
 import {firstIndexOf, sortByCreatedAtFn} from '../../shared/utils/array.utils';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'customer-advanced',
@@ -457,19 +458,22 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   }
 
   public confirmTrial(session: Session) {
-    this.confirmationSessions =
-      this.confirmationSessions
-        .map(cs => {
-          if (cs.id === session.id) {
-            cs.trialConfirmation.confirmed_at = utc();
-          }
+    if (!session
+      || !session.trialConfirmation
+      || !session.trialConfirmation.delivered_at
+      || session.trialConfirmation.confirmed_at
+    ) {
+      return;
+    }
 
-          return cs;
-        })
-        .filter(cs => !cs.trialConfirmation.confirmed_at);
+    window.location.href = environment.bareEndpoint + `confirm/${session.trialConfirmation.code}`;
   }
 
   public confirmDelivery(session: Session) {
+    if (!session || !session.trialConfirmation || this.session.trialConfirmation.delivered_at) {
+      return;
+    }
+
     this.sessionService.confirmDelivery(session.id).subscribe(result => {
       if (result instanceof CustomServerError) return;
 
