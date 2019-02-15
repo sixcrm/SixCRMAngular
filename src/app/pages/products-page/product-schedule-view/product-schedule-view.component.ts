@@ -166,19 +166,18 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
         this.updateError = true;
       } else {
         this.updateError = false;
-        this.entity.updatedAtAPI = ps.updatedAtAPI;
-        this.entity.updatedAt = ps.updatedAt.clone();
+        this.entity = ps;
         this.entityBackup = this.entity.copy();
         this.productScheduleWaitingForUpdate = null;
       }
     });
 
     this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
-      productSchedule.updatedAtAPI = this.entity.updatedAtAPI;
-      productSchedule.updatedAt = this.entity.updatedAt.clone();
+      const toBeUpdated = this.entity.copy();
+      toBeUpdated.schedules = productSchedule.schedules.slice();
 
       this.takeUpdated = false;
-      this.updateEntity(productSchedule);
+      this.updateEntity(toBeUpdated);
     });
 
     super.init(() => this.navigation.goToNotFoundPage());
