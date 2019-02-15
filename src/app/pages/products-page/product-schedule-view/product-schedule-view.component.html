@@ -18,9 +18,10 @@
 
       <mat-tab>
         <schedules-detailed
+          *ngIf="productScheduleDup"
           [statusMessage]="updateError ? 'Error occurred on save' : productScheduleWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           [singleScheduleMode]="true"
-          [productSchedules]="[entity]"
+          [productSchedules]="[productScheduleDup]"
           [startDate]="startDate"
           (productSchedulesChanged)="productSchedulesChanged($event)"
           (detailsComponent)="setDetails($event)">
