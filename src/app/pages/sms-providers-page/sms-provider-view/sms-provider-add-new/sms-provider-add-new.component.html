@@ -24,7 +24,7 @@
     </mat-form-field>
 
     <mat-form-field [class.error]="formInvalid && !entity.apiAccount" class="entity-view__card__content__item">
-      <input required matInput [disabled]="mode === modes.View" placeholder="Account ID" [(ngModel)]="entity.apiAccount" name="acc" type="text">
+      <input required matInput [disabled]="mode === modes.View" placeholder="Account SID" [(ngModel)]="entity.apiAccount" name="acc" type="text">
     </mat-form-field>
 
     <mat-form-field [class.error]="formInvalid && !entity.apiToken" class="entity-view__card__content__item">
