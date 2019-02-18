@@ -26,7 +26,7 @@ export class SmsProvidersService extends AbstractEntityService<SmsProvider> {
       createSmsProviderMutation,
       updateSmsProviderMutation,
       null,
-      'smtpprovider',
+      'smsprovider',
       snackBar
     );
   }
