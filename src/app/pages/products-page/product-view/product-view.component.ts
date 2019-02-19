@@ -262,7 +262,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
     if (index === -1) return;
 
-    this.entity.imageUrls.slice(index, 1);
+    this.entity.imageUrls.splice(index, 1);
 
     this.updateEntity(this.entity);
   }
