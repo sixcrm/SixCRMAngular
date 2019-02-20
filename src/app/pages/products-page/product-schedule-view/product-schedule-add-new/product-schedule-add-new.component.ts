@@ -46,7 +46,7 @@ export class ProductScheduleAddNewComponent implements OnInit {
   }
 
   saveSchedule(valid: boolean) {
-    this.formInvalid = !valid || (this.entity.trialRequired && !this.entity.trialSmsProvider.id);
+    this.formInvalid = !valid;
     if (this.formInvalid) return;
 
     this.save.emit(this.entity)
