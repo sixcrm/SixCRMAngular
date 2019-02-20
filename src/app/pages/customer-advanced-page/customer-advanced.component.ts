@@ -37,10 +37,10 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   breadcrumbs: BreadcrumbItem[] = [];
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
     {name: 'orders', label: 'ORDERS'},
     {name: 'transactions', label: 'TRANSACTIONS'},
-    {name: 'fulfillment', label: 'FULFILLMENT'}
+    {name: 'fulfillment', label: 'FULFILLMENT'},
+    {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
   ];
 
   secondaryTabHeaders: TabHeaderElement[] = [
