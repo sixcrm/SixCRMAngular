@@ -251,10 +251,10 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
   private initCustomer() {
     this.tabHeaders = [
-      {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
       {name: 'orders', label: 'ORDERS'},
       {name: 'transactions', label: 'TRANSACTIONS'},
       {name: 'fulfillment', label: 'FULFILLMENT'},
+      {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
     ];
 
     if (this.selectedIndex === 4) {
@@ -308,11 +308,11 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.confirmationSessions = this.sessionNeedsConfirmation(this.session) ? [this.session] : [];
 
         this.tabHeaders = [
-          {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
           {name: 'orders', label: 'ORDERS'},
           {name: 'transactions', label: 'TRANSACTIONS'},
           {name: 'fulfillment', label: 'FULFILLMENT'},
-          {name: 'watermark', label: 'WATERMARK'}
+          {name: 'watermark', label: 'WATERMARK'},
+          {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
         ];
 
         this.route.fragment.take(1).subscribe(frag => {
