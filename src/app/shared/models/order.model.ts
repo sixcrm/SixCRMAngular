@@ -13,7 +13,7 @@ export class Order {
   products: Products[] = [];
   rebill: Rebill;
   session: Session;
-  transactions: Transaction;
+  transactions: Transaction[];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -91,7 +91,8 @@ export class Order {
       date: this.date.clone().format(),
       products: this.products.map(p => p.inverse()),
       rebill: this.rebill.inverse(),
-      session: this.session.inverse()
+      session: this.session.inverse(),
+      transactions: this.transactions.map(t => t.inverse())
     }
   }
 
