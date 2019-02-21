@@ -152,9 +152,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if ((authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled())) {
     integrations.children.push({label: 'SMTP Providers', url: 'smtpproviders'});
   }
-  if ((authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled())) {
-    integrations.children.push({label: 'SMS Providers', url: 'smsproviders'});
-  }
+  // if ((authService.hasPermissions('smsprovider', 'read') || authService.isBillingDisabled())) {
+  //   integrations.children.push({label: 'SMS Providers', url: 'smsproviders'});
+  // }
   if (integrations.children.length > 0) {
     crmSection.items.push(integrations);
   }

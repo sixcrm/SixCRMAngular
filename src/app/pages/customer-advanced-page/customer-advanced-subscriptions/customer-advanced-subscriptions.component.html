@@ -12,15 +12,15 @@
 
     </div>
 
-    <div class="card-body" *ngIf="confirmationSessions && confirmationSessions.length > 0">
-      <ng-container *ngFor="let session of confirmationSessions">
-        <confirmation-item
-                [sessionConfirmation]="session"
-                (confirmDelivery)="confirmDelivery.emit($event)"
-                (confirmTrial)="confirmTrial.emit($event)">
-        </confirmation-item>
-      </ng-container>
-    </div>
+    <!--<div class="card-body" *ngIf="confirmationSessions && confirmationSessions.length > 0">-->
+      <!--<ng-container *ngFor="let session of confirmationSessions">-->
+        <!--<confirmation-item-->
+                <!--[sessionConfirmation]="session"-->
+                <!--(confirmDelivery)="confirmDelivery.emit($event)"-->
+                <!--(confirmTrial)="confirmTrial.emit($event)">-->
+        <!--</confirmation-item>-->
+      <!--</ng-container>-->
+    <!--</div>-->
 
     <div class="card-body" *ngIf="rebills">
       <ng-container *ngFor="let rebill of rebills | filterSimple : filterMapper : filterString">

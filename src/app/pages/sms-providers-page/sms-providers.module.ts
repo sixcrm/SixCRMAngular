@@ -11,6 +11,7 @@ import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
 import {SmsProviderValidateComponent} from './sms-provider-view/sms-provider-validate/sms-provider-validate.component';
+import {SmsProvidersAclGuard} from '../guards/sms-providers-acl-guard.service';
 
 @NgModule({
   imports : [
@@ -30,7 +31,9 @@ import {SmsProviderValidateComponent} from './sms-provider-view/sms-provider-val
     SmsProviderValidateComponent
   ],
   exports : [ ],
-  providers: [ ]
+  providers: [
+    SmsProvidersAclGuard
+  ]
 })
 export class SmsProvidersModule {
 }
