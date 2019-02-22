@@ -34,7 +34,7 @@ describe('Navigation', function() {
     browser.sleep(2000);
 
     nav.getNavToggler().click();
-    expect(nav.getItems().count()).toBe(25);
+    expect(nav.getItems().count()).toBe(24);
   });
 
   it('should navigate to dashboard', () => {
@@ -182,17 +182,9 @@ describe('Navigation', function() {
     expectUrlToContain('smtpproviders');
   });
 
-  it('should navigate to sms providers', () => {
-    nav.getNavToggler().click();
-    nav.getLink(18).click();
-
-    waitForUrlContains('smsproviders');
-    expectUrlToContain('smsproviders');
-  });
-
   it('should navigate to account general', () => {
     nav.getNavToggler().click();
-    nav.getLink(19).click();
+    nav.getLink(18).click();
 
     waitForUrlContains('accountmanagement/general');
     expectUrlToContain('accountmanagement/general');
@@ -200,7 +192,7 @@ describe('Navigation', function() {
 
   it('should navigate to account keys', () => {
     nav.getNavToggler().click();
-    nav.getLink(20).click();
+    nav.getLink(19).click();
 
     waitForUrlContains('accountmanagement/apikeys');
     expectUrlToContain('accountmanagement/apikeys');
@@ -208,7 +200,7 @@ describe('Navigation', function() {
 
   it('should navigate to account roles', () => {
     nav.getNavToggler().click();
-    nav.getLink(21).click();
+    nav.getLink(20).click();
 
     waitForUrlContains('accountmanagement/roles');
     expectUrlToContain('accountmanagement/roles');
@@ -216,7 +208,7 @@ describe('Navigation', function() {
 
   it('should navigate to account users', () => {
     nav.getNavToggler().click();
-    nav.getLink(22).click();
+    nav.getLink(21).click();
 
     waitForUrlContains('accountmanagement/users');
     expectUrlToContain('accountmanagement/users');
@@ -224,7 +216,7 @@ describe('Navigation', function() {
 
   it('should navigate to profile', () => {
     nav.getNavToggler().click();
-    nav.getLink(23).click();
+    nav.getLink(22).click();
 
     waitForUrlContains('profile');
     expectUrlToContain('profile');
@@ -232,7 +224,7 @@ describe('Navigation', function() {
 
   it('should navigate to signing strings', () => {
     nav.getNavToggler().click();
-    nav.getLink(24).click();
+    nav.getLink(23).click();
 
     waitForUrlContains('profile#signingstrings');
     expectUrlToContain('profile#signingstrings');

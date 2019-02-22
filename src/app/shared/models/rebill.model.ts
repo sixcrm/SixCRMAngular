@@ -73,6 +73,22 @@ export class Rebill implements Entity<Rebill> {
     return this.transactions && (firstIndexOf(this.transactions.filter(t => t.isSuccess()), (t) => t.chargeback) !== -1);
   }
 
+  isSuccess() {
+    return !this.isError() && !this.isPartialSuccess()
+  }
+
+  isPartialSuccess() {
+    if (this.isError()) return false;
+
+    const numOfSuccess = this.transactions.filter(t => t.isSuccess()).length;
+
+    return numOfSuccess > 0 && numOfSuccess < this.transactions.length;
+  }
+
+  isError() {
+    return !this.transactions || this.transactions.filter(t => t.isSuccess()).length === 0;
+  }
+
   hasRefund() {
     return this.transactions && (firstIndexOf(this.transactions.filter(t => t.isSuccess()), (t) => t.isRefund()) !== -1);
   }
@@ -85,46 +101,21 @@ export class Rebill implements Entity<Rebill> {
     )
   }
 
+  successAmount(): Currency {
+    return new Currency(
+      this.transactions
+        .filter(t => t.isSuccess() && !t.isRefund() && !t.isChargeback())
+        .map(t => t.amount.amount)
+        .reduce((a,b) => a + b, 0)
+    )
+  }
+
   chargebackAmount(): Currency {
     if (!this.transactions) return new Currency(0);
 
     return new Currency(
       this.transactions.filter(t => !t.isError() && t.chargeback).map(t => t.amount.amount).reduce((a,b) => a+b,0)
     )
-  }
-
-  amountAfterRefund(): Currency {
-    if (this.refundedAmount().amount === 0) return this.amount;
-
-    return new Currency(this.amount.amount - this.refundedAmount().amount);
-  }
-
-  getReturned(): Products[] {
-    if (!this.products || this.products.length === 0) return [];
-
-    return this.products.filter(p => p.returns && p.returns.length > 0);
-  }
-
-  amountTotal(): Currency {
-    const refunded = this.refundedAmount().amount;
-    const chargebacked = this.chargebackAmount().amount;
-
-    return new Currency(this.amount.amount - refunded - chargebacked);
-  }
-
-  canRefund(): boolean {
-    const transactions = this.transactions.filter(t => !t.isError() && t.isSale()).length;
-    const refunded = this.transactions.filter(t => !t.isError() && t.isRefund()).length;
-
-    return transactions > refunded;
-  }
-
-  canReturn(): boolean {
-    return this.products.filter(p => p.product.ship && (!p.returns || p.returns.length === 0)).length > 0;
-  }
-
-  calculateCycle(): number {
-    return 0;
   }
 
   copy(): Rebill {

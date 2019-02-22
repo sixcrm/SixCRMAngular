@@ -9,7 +9,7 @@
       <div>Billed {{order.rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
       <div class="separator"></div>
       <div class="refund" *ngIf="order.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
-        {{order.amountAfterRefund().usd()}}
+        {{order.amountTotal().usd()}}
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       <mat-menu #refundDetails="matMenu" x-position="before">
@@ -24,7 +24,7 @@
       </mat-menu>
 
       <ng-template #norefund>
-        <div>{{order.amount.usd()}}</div>
+        <div>{{order.amountTotal().usd()}}</div>
       </ng-template>
 
       <button class="refund-order-button" mat-button

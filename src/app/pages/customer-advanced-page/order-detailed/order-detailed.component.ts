@@ -3,7 +3,6 @@ import {Order} from '../../../shared/models/order.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Shipment} from '../../components/shipment-details/shipment-details.component';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
-import {Product} from '../../../shared/models/product.model';
 
 @Component({
   selector: 'order-detailed',
