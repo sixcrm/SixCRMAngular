@@ -33,6 +33,16 @@ export class Order {
     return this.rebill.hasChargeback();
   }
 
+  getStatus() {
+    if (this.hasChargeback()) return 'Chargeback';
+
+    if (this.rebill.isSuccess()) return 'Success';
+
+    if (this.rebill.isError()) return 'Error';
+
+    if (this.rebill.isPartialSuccess()) return 'Partial Success';
+  }
+
   hasRefund() {
     return this.rebill.hasRefund();
   }

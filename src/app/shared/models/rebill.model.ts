@@ -73,6 +73,22 @@ export class Rebill implements Entity<Rebill> {
     return this.transactions && (firstIndexOf(this.transactions.filter(t => t.isSuccess()), (t) => t.chargeback) !== -1);
   }
 
+  isSuccess() {
+    return !this.isError() && !this.isPartialSuccess()
+  }
+
+  isPartialSuccess() {
+    if (this.isError()) return false;
+
+    const numOfSuccess = this.transactions.filter(t => t.isSuccess()).length;
+
+    return numOfSuccess > 0 && numOfSuccess < this.transactions.length;
+  }
+
+  isError() {
+    return !this.transactions || this.transactions.filter(t => t.isSuccess()).length === 0;
+  }
+
   hasRefund() {
     return this.transactions && (firstIndexOf(this.transactions.filter(t => t.isSuccess()), (t) => t.isRefund()) !== -1);
   }
