@@ -40,7 +40,7 @@ describe('Subscription', function() {
   });
 
   it('should render subscriptions index title', () => {
-    expect(page.getTitle().getText()).toContain('Subscriptions')
+    expect(page.getTitle().getText()).toContain('Subscriptions');
   });
 
   it('should render subscriptions index table headers', () => {
@@ -72,7 +72,7 @@ describe('Subscription', function() {
 
   it('should render filters component', () => {
     page.getOpenFilterButton().click();
-    expect(page.getFiltersDialog()).toBeDefined()
+    expect(page.getFiltersDialog()).toBeDefined();
   });
 
   it('should refetch on filter', () => {
