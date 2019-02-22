@@ -123,11 +123,11 @@ describe('Register', function() {
     browser.sleep(3000);
 
     nav.getNavToggler().click();
-    expect(nav.getItems().count()).toBe(26);
+    expect(nav.getItems().count()).toBe(25);
   });
 
   it('should navigate to billing page', () => {
-    nav.getLink(20).click();
+    nav.getLink(19).click();
 
     waitForUrlContains('accountmanagement/billing');
     expectUrlToContain('accountmanagement/billing');
