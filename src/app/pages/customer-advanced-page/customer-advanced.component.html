@@ -29,6 +29,15 @@
               <customer-advanced-orders [orders]="orders" [selectedOrder]="selectedOrder" (transactionRefunded)="refreshTransactions()" (orderSelected)="setSelectedOrder($event)"></customer-advanced-orders>
             </mat-tab>
             <mat-tab>
+              <customer-advanced-subscriptions
+                [rebills]="rebills"
+                [confirmationSessions]="confirmationSessions"
+                [sessionMode]="sessionId"
+                (confirmDelivery)="confirmDelivery($event)"
+                (confirmTrial)="confirmTrial($event)">
+              </customer-advanced-subscriptions>
+            </mat-tab>
+            <mat-tab>
               <customer-advanced-transactions [transactions]="transactions" (orderSelected)="navigateToOrder($event)" (transactionRefunded)="refreshTransactions()"></customer-advanced-transactions>
             </mat-tab>
             <mat-tab>
@@ -46,15 +55,7 @@
                       (detailsComponent)="setDetails($event)">
               </schedules-detailed>
             </mat-tab>
-            <mat-tab>
-              <customer-advanced-subscriptions
-                [rebills]="rebills"
-                [confirmationSessions]="confirmationSessions"
-                [sessionMode]="sessionId"
-                (confirmDelivery)="confirmDelivery($event)"
-                (confirmTrial)="confirmTrial($event)">
-              </customer-advanced-subscriptions>
-            </mat-tab>
+
 
           </mat-tab-group>
 
