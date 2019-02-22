@@ -54,7 +54,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
         .setMaterialIconBackgroundColorMapper((e: Order) => e.rebill.isSuccess() || e.rebill.isPartialSuccess() ? '#1EBEA5' : '#ffffff')
         .setMaterialIconColorMapper((e: Order) => e.rebill.isSuccess() || e.rebill.isPartialSuccess() ? '#ffffff' : '#DC2547'),
       new ColumnParams('Bill at',(e: Order) => e.rebill.billAt.tz(f).format('MM/DD/YY')),
-      new ColumnParams('Amount', (e: Order) => e.amount.usd()),
+      new ColumnParams('Amount', (e: Order) => e.successAmount().usd()),
       new ColumnParams('Items', (e: Order) => e.products.length + ''),
       new ColumnParams('Returns', (e: Order) => e.getReturned().length > 0 ? e.getReturned().length + '' : '-'),
       new ColumnParams('Refunds', (e: Order) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),

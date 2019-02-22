@@ -71,7 +71,11 @@ export class Order {
     const refunded = this.refundedAmount().amount;
     const chargebacked = this.chargebackAmount().amount;
 
-    return new Currency(this.amount.amount - refunded - chargebacked);
+    return new Currency(this.successAmount().amount - refunded - chargebacked);
+  }
+
+  successAmount(): Currency {
+    return this.rebill.successAmount();
   }
 
   canRefund(): boolean {
