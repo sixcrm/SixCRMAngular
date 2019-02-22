@@ -99,6 +99,10 @@ export class Transaction implements Entity<Transaction>{
     return this.type === 'refund';
   }
 
+  isChargeback() {
+    return this.type === 'chargeback';
+  }
+
   isSale() {
     return this.type === 'sale';
   }

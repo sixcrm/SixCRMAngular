@@ -49,12 +49,12 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('Status', (e: Order) => e.hasChargeback() ? 'Chargeback' : e.rebill.state)
-        .setMaterialIconMapper((e: Order) => e.hasChargeback() ? 'error' : 'done')
-        .setMaterialIconBackgroundColorMapper((e: Order) => e.hasChargeback() ? '#ffffff' : '#1EBEA5')
-        .setMaterialIconColorMapper((e: Order) => e.hasChargeback() ? '#DC2547' : '#ffffff'),
+      new ColumnParams('Status', (e: Order) => e.getStatus())
+        .setMaterialIconMapper((e: Order) => e.rebill.isSuccess() || e.rebill.isPartialSuccess() ? 'done' : 'error')
+        .setMaterialIconBackgroundColorMapper((e: Order) => e.rebill.isSuccess() || e.rebill.isPartialSuccess() ? '#1EBEA5' : '#ffffff')
+        .setMaterialIconColorMapper((e: Order) => e.rebill.isSuccess() || e.rebill.isPartialSuccess() ? '#ffffff' : '#DC2547'),
       new ColumnParams('Bill at',(e: Order) => e.rebill.billAt.tz(f).format('MM/DD/YY')),
-      new ColumnParams('Amount', (e: Order) => e.amount.usd()),
+      new ColumnParams('Amount', (e: Order) => e.successAmount().usd()),
       new ColumnParams('Items', (e: Order) => e.products.length + ''),
       new ColumnParams('Returns', (e: Order) => e.getReturned().length > 0 ? e.getReturned().length + '' : '-'),
       new ColumnParams('Refunds', (e: Order) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
