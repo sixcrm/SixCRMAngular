@@ -147,6 +147,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   updateError: boolean;
   autosaveDebouncer: number = 2000;
 
+  productScheduleDup;
+
   constructor(
     service: ProductScheduleService,
     route: ActivatedRoute,
@@ -161,24 +163,31 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   ngOnInit() {
+    this.service.entity$.take(1).takeUntil(this.unsubscribe$).subscribe(ps => {
+      if (ps instanceof CustomServerError || !ps || !ps.id) {
+        return;
+      }
+
+      this.productScheduleDup = ps;
+    });
+
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
       if (ps instanceof CustomServerError) {
         this.updateError = true;
       } else {
         this.updateError = false;
-        this.entity.updatedAtAPI = ps.updatedAtAPI;
-        this.entity.updatedAt = ps.updatedAt.clone();
+        this.entity = ps;
         this.entityBackup = this.entity.copy();
         this.productScheduleWaitingForUpdate = null;
       }
     });
 
     this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
-      productSchedule.updatedAtAPI = this.entity.updatedAtAPI;
-      productSchedule.updatedAt = this.entity.updatedAt.clone();
+      const toBeUpdated = this.entity.copy();
+      toBeUpdated.schedules = productSchedule.schedules.slice();
 
       this.takeUpdated = false;
-      this.updateEntity(productSchedule);
+      this.updateEntity(toBeUpdated);
     });
 
     super.init(() => this.navigation.goToNotFoundPage());

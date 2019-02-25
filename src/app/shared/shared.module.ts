@@ -74,6 +74,7 @@ import { FilterSimplePipe } from './pipes/filter-simple.pipe';
 import { BulkSelectorComponent } from './components/bulk-selector/bulk-selector.component';
 import { SliderGalleryComponent } from './components/slider-gallery/slider-gallery.component';
 import { SliderGalleryItemDirective } from './components/slider-gallery/slider-gallery-item.directive';
+import { CustomMatDropdownComponent } from './components/custom-mat-dropdown/custom-mat-dropdown.component';
 
 @NgModule({
   declarations : [
@@ -132,7 +133,8 @@ import { SliderGalleryItemDirective } from './components/slider-gallery/slider-g
     FilterSimplePipe,
     BulkSelectorComponent,
     SliderGalleryComponent,
-    SliderGalleryItemDirective
+    SliderGalleryItemDirective,
+    CustomMatDropdownComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -184,7 +186,8 @@ import { SliderGalleryItemDirective } from './components/slider-gallery/slider-g
     FilterSimplePipe,
     BulkSelectorComponent,
     SliderGalleryComponent,
-    SliderGalleryItemDirective
+    SliderGalleryItemDirective,
+    CustomMatDropdownComponent
   ],
   imports : [
     FormsModule,

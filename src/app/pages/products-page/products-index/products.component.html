@@ -35,7 +35,7 @@
   <div class="content-wrapper" *ngIf="entities">
 
     <ng-container *ngFor="let entity of entities | filterStrings: filterString: filterFunction">
-      <div class="entity-card" [class.entity-card--selected]="entity.bulkSelected" (click)="selectEntity(entity)">
+      <div class="entity-card" [class.entity-card--selected]="entity.bulkSelected" (click)="selectEntity(entity)" (dblclick)="goToEntity(entity)">
         <div class="title">{{entity.name}}</div>
 
         <div class="image-wrapper" [class.image-wrapper--blue]="getDefaultImagePath(entity) === '/assets/images/product-default-image.svg'">

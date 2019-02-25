@@ -86,7 +86,9 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     }
   }
 
-  readNotification(notification: Notification): void {
+  readNotification(notification: Notification, clickEvent): void {
+    if (clickEvent && clickEvent.target.innerHTML === 'more_vert') return;
+
     if (!notification.readAt) {
       notification.markAsRead();
       this.notificationsService.updateEntity(notification, {ignoreSnack: true});
@@ -114,7 +116,7 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   }
 
   goToLink(notification: Notification) {
-    this.router.navigateByUrl(notification.contextLink());
+    this.router.navigate([notification.contextLink()], {queryParams: notification.contextQueryParams()});
   }
 
 }

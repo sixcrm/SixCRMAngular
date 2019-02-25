@@ -34,7 +34,7 @@
           <th></th>
         </thead>
         <tbody>
-          <tr *ngFor="let notification of notifications | filterEntitiesByField: 'type' : notificationType | filterStrings: filter: filterMapper" (click)="readNotification(notification)"
+          <tr *ngFor="let notification of notifications | filterEntitiesByField: 'type' : notificationType | filterStrings: filter: filterMapper" (click)="readNotification(notification, $event)"
               [class.unread-notification]="!notification.readAt && notification.type=='notification'"
               [class.unread-alert]="!notification.readAt && notification.type=='alert'">
             <td><div *ngIf="!notification.readAt" class="circle"></div><mat-icon *ngIf="notification.readAt" class="circle-icon">done</mat-icon></td>

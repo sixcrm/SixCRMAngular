@@ -1,0 +1,35 @@
+<div class="entity-view__card smtp-validation">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">Validate SMS Provider</div>
+  </div>
+
+  <div class="flex-custom">
+
+    <div class="smtp-validation__container entity-view__card__content">
+      <div class="smtp-validation__explanation"> Please provide a phone number below and SIX will try to send you a test sms using provided SMS Provider. SMS will be sent from '{{entity.fromNumber}}'.
+        <br><br>Results will be displayed in right column.</div>
+
+      <mat-form-field class="entity-view__card__content__item">
+        <input matInput required placeholder="Receiver phone number" [(ngModel)]="validationPhoneNumber" type="text">
+      </mat-form-field>
+
+    </div>
+
+    <div class="smtp-validation__container smtp-validation__container--results entity-view__card__content">
+      <div class="smtp-validation__results">
+        <textarea #responseMessage
+                  [style.color]="!validationResponse ? 'grey' : (validationSuccess ? '#316537' : '#C31313')"
+                  rows="9"
+                  class="validation__explanation--message"
+                  value="{{validationResponse || ('SMTP_VALIDATE_RESPONSE' | translate)}}"
+                  readonly>
+        </textarea>
+      </div>
+      <mat-icon *ngIf="!validationInProgress && !!validationResponse" matTooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</mat-icon>
+    </div>
+  </div>
+
+  <div class="entity-view__card__actions">
+    <div (click)="validateProvider()">{{'SMTP_VALIDATE_VALIDATE' | translate}}</div>
+  </div>
+</div>

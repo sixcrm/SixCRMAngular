@@ -120,7 +120,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
     const state = this.schedulesHistory[this.historyIndex];
 
-    let last = new Schedule({product: product.copy(), start: 0, end: 30, period: 30});
+    let last = new Schedule({product: product.inverse(), start: 0, end: 30, period: 30});
 
     if (state[0].schedules.length > 0) {
       last = state[0].schedules[state[0].schedules.length - 1];
@@ -135,7 +135,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     const period = last.period || 30;
     const end = start + period;
 
-    const schedule = new Schedule({product: product.copy(), price: product.defaultPrice.amount, start: start, end: end, period: period});
+    const schedule = new Schedule({product: product.inverse(), price: product.defaultPrice.amount, start: start, end: end, period: period});
 
     state[0].schedules.push(schedule);
 

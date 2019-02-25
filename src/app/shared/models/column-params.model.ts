@@ -21,7 +21,6 @@ export class ColumnParams<T> {
   sortApplied: boolean;
   sortEnabled: boolean = true;
   code: boolean;
-  color: string;
   colorMapper: (any) => string = (el) => 'black';
   copy: boolean;
   number: boolean;
@@ -39,7 +38,6 @@ export class ColumnParams<T> {
 
   autofocus: boolean;
   separator: boolean;
-  clickable: boolean;
 
   materialIconMapper: (any) => string;
   materialIconColorMapper: (any) => string;
@@ -48,7 +46,8 @@ export class ColumnParams<T> {
   imageMapper: (any) => string;
 
   link: (any) => string;
-  queryParams: (any) => any = (el) => {};
+  queryParams: (any) => any = (_) => {};
+  fragment: (any) => string = (_) => '';
 
   maskLongData: boolean;
 
@@ -96,14 +95,14 @@ export class ColumnParams<T> {
     return this;
   }
 
-  setQueryParams(value: (any) => any) {
-    this.queryParams = value;
+  setFragment(value: (any) => string) {
+    this.fragment = value;
 
     return this;
   }
 
-  setClickable(value: boolean) {
-    this.clickable = value;
+  setQueryParams(value: (any) => any) {
+    this.queryParams = value;
 
     return this;
   }
@@ -158,12 +157,6 @@ export class ColumnParams<T> {
 
   setCode(value: boolean) {
     this.code = value;
-
-    return this;
-  }
-
-  setColor(value: string) {
-    this.color = value;
 
     return this;
   }

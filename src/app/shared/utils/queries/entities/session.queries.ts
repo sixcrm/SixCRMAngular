@@ -67,7 +67,7 @@ function parseProduct(product: Product): string {
     ${product.sku ? `sku: "${product.sku}",`:''}
     ${product.ship ? `ship: ${!!product.ship},`:''}
     ${product.shippingDelay ? `shipping_delay: ${product.shippingDelay},`:''}
-    ${product.defaultPrice ? `default_price: ${product.defaultPrice.amount},`:''}
+    ${product.price ? `price: ${product.defaultPrice.amount},`:''}
     ${product.fulfillmentProvider.id ? `fulfillment_provider: "${product.fulfillmentProvider.id}",`:''}
   }`;
 }
@@ -137,13 +137,18 @@ export function cancelSessionMutation(session: Session, canceledBy: string): str
      }`
 }
 
+export function confirmDelivery(sessionId: string): string {
+  return `mutation { confirmtrialdelivery (session_id: "${sessionId}") { result } }`
+}
+
 export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at completed,
     watermark {
-      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, samedayofmonth, product {id, name } } } },
-      products { quantity, price, product { id name } }
+      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, samedayofmonth, product {id, name, image_urls } } } },
+      products { quantity, price, product { id name, image_urls } }
     }
+    trial_confirmation { id code delivered_at confirmed_at }
     customer { ${customerResponseQuery()} }
     rebills { ${sessionRebillResponseQuery()} },
     campaign { id name }
