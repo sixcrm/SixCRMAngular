@@ -1,4 +1,5 @@
 import {FilterTerm} from '../../models/filter-term.model';
+import {clean} from './entities/entities-helper.queries';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
   return `
@@ -117,7 +118,7 @@ export function analyticsDetailQuery(params: {
     `${a},
     {
       facet: "${b.facet}"
-      values: [${b.values.reduce((f,g) => `${f}${f?',':''} "${g}"`, '')}]
+      values: [${b.values.map(v => clean((v || '').trim())).reduce((f,g) => `${f}${f?',':''} "${g}"`, '')}]
     }`, '');
 
   return `

@@ -1,5 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
+import {Session} from '../../../shared/models/session.model';
 
 @Component({
   selector: 'customer-advanced-subscriptions',
@@ -9,7 +10,11 @@ import {Rebill} from '../../../shared/models/rebill.model';
 export class CustomerAdvancedSubscriptionsComponent implements OnInit {
 
   @Input() rebills: Rebill[];
+  @Input() confirmationSessions: Session[] = [];
   @Input() sessionMode: boolean;
+
+  @Output() confirmDelivery: EventEmitter<Session> = new EventEmitter();
+  @Output() confirmTrial: EventEmitter<Session> = new EventEmitter();
 
   filterString: string;
   filterMapper = (rebill: Rebill) => !this.filterString

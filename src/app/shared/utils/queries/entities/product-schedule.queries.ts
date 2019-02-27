@@ -1,5 +1,5 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
+  fullPaginationStringResponseQuery, deleteMutationQuery,
   addId, clean, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {ProductSchedule} from '../../../models/product-schedule.model';
@@ -10,17 +10,6 @@ export function  productScheduleListQuery(params: IndexQueryParameters): string 
     productschedulelist ${listQueryParams(params)} {
 			productschedules {
         ${productScheduleInfoResponseQuery()}
-			}
-      ${fullPaginationStringResponseQuery()}
-		}
-  }`;
-}
-
-export function productSchedulesByProduct(id: string, params: IndexQueryParameters): string {
-  return `{
-    productschedulelistbyproduct (product:"${id}" ${paginationParamsQuery(params, true)}) {
-			productschedules {
-        ${productScheduleResponseQuery()}
 			}
       ${fullPaginationStringResponseQuery()}
 		}
@@ -63,19 +52,19 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
 
 export function productScheduleResponseQuery(): string {
   return `
-    id name created_at updated_at,
+    id name trial_required trial_sms_provider { id, name } created_at updated_at,
     schedule { price start end period samedayofmonth,
-      product { id name ship sku dynamic_pricing {min, max} attributes { images { path default_image } } }
+      product { id name ship sku image_urls }
     },
     emailtemplates { id, name, type, subject, smtp_provider { id name } }`
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name created_at updated_at schedule { start samedayofmonth end period price product {id sku name default_price description dynamic_pricing {min, max} attributes {images {path default_image}}} }`
+  return `id name created_at trial_required updated_at schedule { start samedayofmonth end period price product {id sku name price description image_urls} }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
   let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}, samedayofmonth: ${!!b.sameDayOfMonth}}, `, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
+  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", trial_required: ${!!productSchedule.trialRequired}, ${productSchedule.trialSmsProvider.id ? `trial_sms_provider: "${productSchedule.trialSmsProvider.id}"` : ''} schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

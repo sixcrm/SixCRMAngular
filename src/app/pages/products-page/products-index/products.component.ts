@@ -124,25 +124,19 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() { }
 
-  selectEntity(entity: any, event): void {
+  selectEntity(entity: any): void {
     entity['bulkSelected'] = !entity['bulkSelected'];
+  }
 
-    if (event && event.ctrlKey) return;
+  goToEntity(entity: Product | ProductSchedule): void {
+    const entityRoute = entity instanceof Product ? 'product' : 'schedule';
 
-    for (let i = 0; i < this.entities.length; i++) {
-      if (this.entities[i].id !== entity.id) {
-        this.entities[i]['bulkSelected'] = false;
-      }
-    }
+    this.router.navigate(['/products', entityRoute, entity.id]);
   }
 
   getDefaultImagePath(entity: Product | ProductSchedule) {
-    if (entity instanceof Product) {
+    if (entity instanceof Product || entity instanceof ProductSchedule) {
       return entity.getDefaultImagePath();
-    }
-
-    if (entity instanceof ProductSchedule) {
-      return entity.getInitialDefaultImagePath();
     }
 
     return '/assets/images/product-default-image.svg';

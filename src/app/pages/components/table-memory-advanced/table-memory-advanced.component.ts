@@ -26,7 +26,6 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
 
   @Output() multiOptionSelected: EventEmitter<{items: any[], option: string}> = new EventEmitter();
   @Output() optionSelected: EventEmitter<{item: any, option: OptionItem}> = new EventEmitter();
-  @Output() itemClicked: EventEmitter<{item: any, param: ColumnParams<any>}> = new EventEmitter();
 
   filterString: string;
   selectedBulkOption: string;
@@ -75,12 +74,6 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
     if (this.filterDebouncerSub) {
       this.filterDebouncerSub.unsubscribe();
     }
-  }
-
-  clicked(item: any, param: ColumnParams<any>) {
-    if (!item || !param || !param.clickable) return;
-
-    this.itemClicked.emit({item: item, param: param});
   }
 
   globalCheckboxClicked(event) {

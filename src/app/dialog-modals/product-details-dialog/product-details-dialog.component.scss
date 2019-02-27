@@ -30,12 +30,14 @@
   .image {
     display: flex;
     margin-left: auto;
-    width: 240px;
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(0,0,0,0.2);
+    width: 280px;
+    height: 180px;
+
+    img {
+      margin: auto 0 auto auto;
+      max-height: 100%;
+      max-width: 100%;
+    }
   }
 }
 

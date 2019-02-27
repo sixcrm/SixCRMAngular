@@ -3,6 +3,7 @@ import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
 import {Currency} from '../utils/currency/currency';
 import {EmailTemplate} from './email-template.model';
+import {SmsProvider} from './sms-provider.model';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
@@ -16,6 +17,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   updatedAt: Moment;
   updatedAtAPI: string;
   emailTemplates: EmailTemplate[] = [];
+  trialRequired: boolean;
+  trialSmsProvider: SmsProvider;
 
   start: number;
   end: number;
@@ -33,7 +36,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     if (obj.emailtemplates) {
       this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
-
+    this.trialRequired = !!obj.trial_required;
+    this.trialSmsProvider = new SmsProvider(obj.trial_sms_provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
@@ -80,14 +84,10 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     return new Currency(this.schedules.filter(s => s.start === 0).map(s => s.price.amount).reduce((a,b)=>a+b,0));
   }
 
-  getInitialDefaultImagePath(): string {
+  getDefaultImagePath(): string {
     for (let i = 0; i < this.schedules.length; i++) {
       if (this.schedules[i].start === 0) {
-        const image = this.schedules[i].product.getDefaultImage();
-
-        if (image && image.path) {
-          return image.path;
-        }
+        return this.schedules[i].product.getDefaultImagePath();
       }
     }
 
@@ -152,6 +152,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       name: this.name,
       schedule: this.schedules.map(s => s.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
+      trial_required: this.trialRequired,
+      trial_sms_provider: this.trialSmsProvider.inverse(),
       updated_at: this.updatedAtAPI,
       created_at: this.createdAt.format()
     }

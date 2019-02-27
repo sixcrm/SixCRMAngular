@@ -23,6 +23,7 @@ import {TransactionsService} from '../../entity-services/services/transactions.s
 import {YesNoDialogComponent} from '../../dialog-modals/yes-no-dialog.component';
 import {MatDialog} from '@angular/material';
 import {firstIndexOf, sortByCreatedAtFn} from '../../shared/utils/array.utils';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'customer-advanced',
@@ -73,6 +74,8 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   saveDebouncer: Subject<ProductSchedule[]> = new Subject();
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
+
+  confirmationSessions: Session[] = [];
 
   constructor(
     private rebillService: RebillsService,
@@ -277,6 +280,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
     this.orderService.getOrdersByCustomer(this.customerId, {}).subscribe(orders => {
       this.orders = this.filterOrders(orders);
+      this.confirmationSessions = orders.map(order => order.session).filter(session => this.sessionNeedsConfirmation(session));
     });
 
     this.shippingReceiptsService.getShippingReceiptsByCustomer(this.customerId, {}).subscribe(receipts => {
@@ -300,6 +304,8 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.productSchedulesWaitingForUpdate = null;
 
         this.session = session;
+
+        this.confirmationSessions = this.sessionNeedsConfirmation(this.session) ? [this.session] : [];
 
         this.tabHeaders = [
           {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
@@ -441,6 +447,45 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.selectedOrder = this.orders[index];
       }
     }
+  }
+
+  private sessionNeedsConfirmation(session: Session): boolean {
+    if (!session) return false;
+
+    return session.trialConfirmation
+        && session.trialConfirmation.id
+        && (!session.trialConfirmation.delivered_at || !session.trialConfirmation.confirmed_at);
+  }
+
+  public confirmTrial(session: Session) {
+    if (!session
+      || !session.trialConfirmation
+      || !session.trialConfirmation.delivered_at
+      || session.trialConfirmation.confirmed_at
+    ) {
+      return;
+    }
+
+    window.location.href = environment.bareEndpoint + `confirm/${session.trialConfirmation.code}`;
+  }
+
+  public confirmDelivery(session: Session) {
+    if (!session || !session.trialConfirmation || this.session.trialConfirmation.delivered_at) {
+      return;
+    }
+
+    this.sessionService.confirmDelivery(session.id).subscribe(result => {
+      if (result instanceof CustomServerError) return;
+
+      this.confirmationSessions = this.confirmationSessions
+        .map(cs => {
+          if (cs.id === session.id) {
+            cs.trialConfirmation.delivered_at = utc()
+          }
+
+          return cs;
+        });
+    })
   }
 
 }

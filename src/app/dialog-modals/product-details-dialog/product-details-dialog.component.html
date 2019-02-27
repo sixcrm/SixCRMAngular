@@ -12,7 +12,9 @@
 
   <div class="description">
     <div>{{product.description || 'This product has no description.'}}</div>
-    <div class="image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
+    <div class="image">
+      <img src="{{product.getDefaultImagePath()}}" alt="">
+    </div>
   </div>
 
   <div class="details">
@@ -26,16 +28,6 @@
     <div class="item">
       <div>Price</div>
       <div>{{product.defaultPrice.usd()}}</div>
-    </div>
-
-    <div *ngIf="product.ship" class="item">
-      <div>Dimensions</div>
-      <div>{{product.attributes.dimensions.width.units}} x {{product.attributes.dimensions.height.units}} x {{product.attributes.dimensions.length.units}}</div>
-    </div>
-
-    <div *ngIf="product.ship" class="item">
-      <div>Weight</div>
-      <div>{{product.attributes.weight.units}} {{product.attributes.weight.unitofmeasurement}}</div>
     </div>
 
     <div *ngIf="product.ship" class="item">

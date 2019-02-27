@@ -523,13 +523,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   setProductInEditPrice(amount: Currency) {
-    this.productInEdit['error'] = !this.productInEdit.dynamicPrice
-      || !this.productInEdit.dynamicPrice.enabled
-      || amount.amount < this.productInEdit.dynamicPrice.min.amount || amount.amount > this.productInEdit.dynamicPrice.max.amount;
-
-    if (!this.productInEdit['error']) {
-      this.productInEdit.defaultPrice = amount;
-    }
+    this.productInEdit.defaultPrice = amount;
   }
 
   processOrder() {

@@ -13,7 +13,7 @@ export class Order {
   products: Products[] = [];
   rebill: Rebill;
   session: Session;
-  transactions: Transaction;
+  transactions: Transaction[];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -31,6 +31,16 @@ export class Order {
 
   hasChargeback() {
     return this.rebill.hasChargeback();
+  }
+
+  getStatus() {
+    if (this.hasChargeback()) return 'Chargeback';
+
+    if (this.rebill.isSuccess()) return 'Success';
+
+    if (this.rebill.isError()) return 'Error';
+
+    if (this.rebill.isPartialSuccess()) return 'Partial Success';
   }
 
   hasRefund() {
@@ -61,7 +71,11 @@ export class Order {
     const refunded = this.refundedAmount().amount;
     const chargebacked = this.chargebackAmount().amount;
 
-    return new Currency(this.amount.amount - refunded - chargebacked);
+    return new Currency(this.successAmount().amount - refunded - chargebacked);
+  }
+
+  successAmount(): Currency {
+    return this.rebill.successAmount();
   }
 
   canRefund(): boolean {
@@ -91,7 +105,8 @@ export class Order {
       date: this.date.clone().format(),
       products: this.products.map(p => p.inverse()),
       rebill: this.rebill.inverse(),
-      session: this.session.inverse()
+      session: this.session.inverse(),
+      transactions: this.transactions.map(t => t.inverse())
     }
   }
 

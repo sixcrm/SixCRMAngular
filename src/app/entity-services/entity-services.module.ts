@@ -38,6 +38,7 @@ import {UserSettingsService} from './services/user-settings.service';
 import {OrdersService} from './services/orders.service';
 import {AccountDetailsService} from './services/account-details.service';
 import {ReturnsService} from './services/returns.service';
+import {SmsProvidersService} from './services/sms-providers.service';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import {ReturnsService} from './services/returns.service';
     CreditCardsService,
     UsersService,
     SmtpProvidersService,
+    SmsProvidersService,
     EmailTemplatesService,
     AccessKeysService,
     ProductScheduleService,

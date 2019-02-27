@@ -1,9 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractDashboardItem} from "../abstract-dashboard-item.component";
 import {AnalyticsService} from "../../../shared/services/analytics.service";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
 import {SubscriptionStats} from "../../../shared/models/subscription-stats.model";
-import {utc} from 'moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'top-subscriptions',
@@ -45,8 +45,8 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
       }
     });
 
-    this.start = utc().subtract(30, 'd');
-    this.end = utc();
+    this.start = moment().subtract(30, 'd');
+    this.end = moment();
     this.shouldFetch = true;
   }
 

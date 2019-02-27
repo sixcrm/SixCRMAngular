@@ -10,6 +10,7 @@ import {doSignUp} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
 import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
+import {NavPage} from '../po/nav.po';
 
 let registrationUsername = `tr${new Date().getTime()}@example.com`;
 let registrationPassword = 'testingregistrationpassword';
@@ -21,6 +22,7 @@ describe('Register', function() {
   let appTopNav: TopnavPage;
   let termsAndConditionsPage: TermsAndConditionsPage;
   let acceptInvitePage: AcceptInvitePage;
+  let nav: NavPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
@@ -28,6 +30,7 @@ describe('Register', function() {
     appTopNav = new TopnavPage();
     termsAndConditionsPage = new TermsAndConditionsPage();
     acceptInvitePage = new AcceptInvitePage();
+    nav = new NavPage();
   });
 
   afterAll(() => {
@@ -80,19 +83,19 @@ describe('Register', function() {
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
     registerPage.getInputs().get(1).sendKeys(123);
     registerPage.getInputs().get(2).sendKeys('Card Name');
-    registerPage.getPaymentEntryCardDate().first().click();
+    registerPage.getInputs().get(3).click();
     browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(6).click();
-    registerPage.getPaymentEntryCardDate().last().click();
+    registerPage.getPaymentEntryCardDates().get(6).click();
+    registerPage.getInputs().get(4).click();
     browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(4).click();
+    registerPage.getPaymentEntryCardDates().get(4).click();
 
-    registerPage.getInputs().get(3).sendKeys('1 test');
-    registerPage.getInputs().get(4).sendKeys('test line');
-    registerPage.getInputs().get(5).sendKeys('New York');
-    registerPage.getInputs().get(6).sendKeys('Oregon');
-    registerPage.getInputs().get(7).sendKeys('21000');
-    registerPage.getInputs().get(8).sendKeys('United States');
+    registerPage.getInputs().get(5).sendKeys('1 test');
+    registerPage.getInputs().get(6).sendKeys('test line');
+    registerPage.getInputs().get(7).sendKeys('New York');
+    registerPage.getInputs().get(8).sendKeys('Oregon');
+    registerPage.getInputs().get(9).sendKeys('21000');
+    registerPage.getInputs().get(10).sendKeys('United States');
   });
 
   it('should continue to confirmation screen', () => {
@@ -116,4 +119,17 @@ describe('Register', function() {
     expectUrlToContain('/dashboard?w=true');
   });
 
+  it('should render full nav menu', () => {
+    browser.sleep(3000);
+
+    nav.getNavToggler().click();
+    expect(nav.getItems().count()).toBe(25);
+  });
+
+  it('should navigate to billing page', () => {
+    nav.getLink(19).click();
+
+    waitForUrlContains('accountmanagement/billing');
+    expectUrlToContain('accountmanagement/billing');
+  });
 });

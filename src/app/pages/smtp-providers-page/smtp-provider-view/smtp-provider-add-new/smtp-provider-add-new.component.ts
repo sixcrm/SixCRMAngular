@@ -31,8 +31,6 @@ export class SmtpProviderAddNewComponent implements OnInit {
 
   enterEditMode() {
     this.changeMode.emit(this.modes.Update);
-    this.entity.username = '';
-    this.entity.password = '';
   }
 
   saveProvider(value: boolean): void {
