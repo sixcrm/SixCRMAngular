@@ -19,7 +19,7 @@
       </div>
     </ng-container>
     <ng-template #preview>
-      <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone" style="width: 100%;"/>
+      <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone"/>
     </ng-template>
 
     <div class="upload-spinner" *ngIf="uploadInProgress">
