@@ -1,0 +1,22 @@
+<div class="split-wrapper">
+  <div class="container">
+    <div class="content">
+      <div class="section section--main" [class.section--full]="!selectedCycle">
+
+        <left-rail [title]="getTitle()" [products]="products" (addNewCycle)="addNewCycle()"></left-rail>
+
+        <div class="editor-container">
+          <editor [productSchedule]="productSchedule" [zoomLevel]="zoomLevel" (cycleSelected)="cycleSelected($event)"></editor>
+          <toolbar [zoomLevel]="zoomLevel" (zoomLevelChanged)="zoomLevel = $event"></toolbar>
+        </div>
+
+      </div>
+
+      <div class="section section--side" [class.section--invisible]="!selectedCycle">
+
+        <cycle-info [selectedCycle]="selectedCycle"></cycle-info>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="content">
+  <div class="actions-container">
+    <div class="revert">REVERT</div>
+    <mat-icon>undo</mat-icon>
+    <mat-icon>redo</mat-icon>
+    <div class="status">All changes saved</div>
+  </div>
+
+  <div class="zoom-label">Zoom</div>
+  <input type="range" min="1" max="10" step="1" value="{{zoomLevel}}" (mousewheel)="mouseWheel($event)" (change)="zoomLevelChanged.emit($event.target.value)">
+</div>

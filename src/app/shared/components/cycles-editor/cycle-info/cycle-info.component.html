@@ -1,0 +1,65 @@
+<div *ngIf="selectedCycle" class="details-wrapper">
+
+  <div class="row title">
+    <div>Cycle {{selectedCycle.position}}</div>
+
+    <mat-icon class="edit-icon">edit</mat-icon>
+  </div>
+
+
+  <div class="row">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length">
+    </mat-form-field>
+
+    <custom-mat-dropdown
+            class="days-dropdown"
+            [items]="['Days', 'Month']"
+            [selectedItem]="'Days'"
+            [showAddNew]="false">
+    </custom-mat-dropdown>
+
+    <custom-mat-dropdown
+            class="cycle-dropdown"
+            [items]="['1','2','3', '-']"
+            [selectedItem]="selectedCycle.nextPosition"
+            [placeholder]="'Next Cycle'"
+            [showAddNew]="false">
+    </custom-mat-dropdown>
+  </div>
+
+  <div class="row">
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: auto">
+      <input type="text" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice">
+    </mat-form-field>
+
+  </div>
+
+  <div class="products-title">Products in Cycle {{selectedCycle.position}}</div>
+
+  <div>
+
+    <div class="heading">
+      <div>Products</div>
+      <div>Qty</div>
+      <div>Ship</div>
+    </div>
+
+    <div *ngFor="let product of selectedCycle.cycleProducts" class="row">
+      <div>{{product.name}}</div>
+
+      <mat-form-field class="quantity">
+        <input type="text" matInput [(ngModel)]="product.quantity">
+      </mat-form-field>
+
+      <mat-checkbox class="checkbox-blue" [(ngModel)]="product.isShippable"></mat-checkbox>
+    </div>
+
+  </div>
+
+</div>

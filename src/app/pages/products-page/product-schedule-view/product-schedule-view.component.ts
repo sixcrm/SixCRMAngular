@@ -20,6 +20,7 @@ import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
+import {ProductScheduleCycles, getSimpleProductSchedule} from '../../../shared/models/product-schedule-cycles';
 
 @Component({
   selector: 'product-schedule-view',
@@ -133,7 +134,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
     {name: 'list', label: 'PRODUCTSCHEDULE_TAB_LIST'},
     {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'},
-    {name: 'emailtemplates', label: 'EMAIL TEMPLATES'}
+    {name: 'emailtemplates', label: 'EMAIL TEMPLATES'},
+    {name: 'cycles2', label: 'CYCLES'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
@@ -148,6 +150,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   autosaveDebouncer: number = 2000;
 
   productScheduleDup;
+
+  productScheduleCycles: ProductScheduleCycles = getSimpleProductSchedule();
 
   constructor(
     service: ProductScheduleService,

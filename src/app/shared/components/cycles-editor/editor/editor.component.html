@@ -1,0 +1,59 @@
+<div class="content" drag-scroll-x>
+
+  <div class="editor"
+       [style.width]="(days / zoom) * cellwidth + 20 + 'px'"
+       [style.background-size]="cellwidth + 'px ' + cellheight + 'px'">
+
+    <div class="editor-body">
+      <div class="editor-header">
+        <div class="item"><div class="item__text"></div><div class="item__background"></div></div>
+        <ng-container *ngFor="let measure of measureArray">
+          <div class="item" [style.left]="(measure) * cellwidth + 'px'">
+            <div class="item__text">
+              {{measure * zoom}}
+            </div>
+            <div class="item__background" [style.background-size]="cellwidth / zoom + 'px 26px'"></div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="editor-cycles" *ngIf="productSchedule">
+
+        <ng-container *ngFor="let cycle of productSchedule.cycles">
+
+          <div class="cycle"
+               [class.cycle--selected]="cycle.selected"
+               [style.width]="(cycle.length + cycle.dragDiff) * cellwidth / zoom + 'px'"
+               (click)="selectCycle(cycle)">
+
+            <div class="position">
+              <div class="data">
+                <div>- {{cycle.position}} -</div>
+                <div>{{cycle.length + cycle.dragDiff}} Days</div>
+              </div>
+
+              <div *ngIf="cycle.nextPosition <= cycle.position" class="inf">
+                <mat-icon>autorenew</mat-icon>
+              </div>
+
+              <div class="resizer"
+                   [draggable]="true"
+                   (dragstart)="dragResizeStarted($event, cycle)"
+                   (drag)="dragResize($event, cycle)"
+                   (dragend)="dragResizeEnded(cycle)"></div>
+            </div>
+
+            <ng-container *ngFor="let product of cycle.cycleProducts">
+              <div class="block"></div>
+            </ng-container>
+
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

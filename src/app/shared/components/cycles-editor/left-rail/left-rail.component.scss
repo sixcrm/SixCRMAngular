@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 36px;
+  box-sizing: border-box;
+  width: 260px;
+
+  .length {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  button {
+    margin: 22px auto;
+    padding: 6px 36px;
+    font-size: 13px;
+    color: #ffffff;
+    background: #296CCC;
+  }
+
+  .product {
+    padding: 18px 0;
+    font-size: 15px;
+  }
+}
