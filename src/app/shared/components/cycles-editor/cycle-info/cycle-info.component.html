@@ -9,19 +9,22 @@
 
   <div class="row">
     <mat-form-field>
-      <input type="text" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length">
+      <input type="text" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length" [disabled]="selectedCycle.monthly">
     </mat-form-field>
 
     <custom-mat-dropdown
             class="days-dropdown"
+            (selectItem)="granularityChanged.emit($event)"
             [items]="['Days', 'Month']"
-            [selectedItem]="'Days'"
+            [selectedItem]="selectedCycle.monthly ? 'Month' : 'Days'"
             [showAddNew]="false">
     </custom-mat-dropdown>
 
     <custom-mat-dropdown
             class="cycle-dropdown"
-            [items]="['1','2','3', '-']"
+            (selectItem)="nextChanged($event)"
+            [editable]="selectedCycle.position === numberOfCycles"
+            [items]="cycleOptions"
             [selectedItem]="selectedCycle.nextPosition"
             [placeholder]="'Next Cycle'"
             [showAddNew]="false">
@@ -61,5 +64,7 @@
     </div>
 
   </div>
+
+  <button mat-button class="delete-button">DELETE CYCLE</button>
 
 </div>

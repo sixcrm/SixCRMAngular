@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {ProductScheduleCycles, Cycle} from '../../../models/product-schedule-cycles';
+import {CdkDragDrop} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'editor',
@@ -8,7 +9,7 @@ import {ProductScheduleCycles, Cycle} from '../../../models/product-schedule-cyc
 })
 export class EditorComponent implements OnInit {
 
-  days = 365;
+  days = 366;
 
   cellwidth: number = 65;
   cellheight: number = 46;
@@ -67,4 +68,13 @@ export class EditorComponent implements OnInit {
     cycle.dragDiff = 0;
   }
 
+  cyclesReorganized(event: CdkDragDrop<any>) {
+    const fromIndex = event.previousIndex;
+    const toIndex = event.currentIndex;
+
+    const temp = this.productSchedule.cycles[fromIndex];
+
+    this.productSchedule.cycles[fromIndex] = this.productSchedule.cycles[toIndex];
+    this.productSchedule.cycles[toIndex] = temp;
+  }
 }

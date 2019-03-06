@@ -24,6 +24,7 @@ export class Cycle {
   public position: string;
   public nextPosition: string;
   public length: number;
+  public monthly: boolean;
   public cycleProducts: CycleProduct[] = [];
   public price: Currency;
   public shippingPrice: Currency;
@@ -39,7 +40,7 @@ export class Cycle {
     this.length = obj.length || 0;
     this.price = new Currency(obj.price || 0);
     this.shippingPrice = new Currency(obj.shipping_price || 0);
-
+    this.monthly = !!obj.monthly;
     if (obj.cycle_products) {
       this.cycleProducts = obj.cycle_products.map(p => new CycleProduct(p));
     }

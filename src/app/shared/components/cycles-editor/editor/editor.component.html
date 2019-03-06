@@ -1,4 +1,4 @@
-<div class="content" drag-scroll-x>
+<div class="content">
 
   <div class="editor"
        [style.width]="(days / zoom) * cellwidth + 20 + 'px'"
@@ -19,40 +19,44 @@
 
       <div class="editor-cycles" *ngIf="productSchedule">
 
-        <ng-container *ngFor="let cycle of productSchedule.cycles">
+        <div cdkDropList cdkDropListOrientation="horizontal" class="drag-container" (cdkDropListDropped)="cyclesReorganized($event)">
+          <ng-container *ngFor="let cycle of productSchedule.cycles">
 
-          <div class="cycle"
-               [class.cycle--selected]="cycle.selected"
-               [style.width]="(cycle.length + cycle.dragDiff) * cellwidth / zoom + 'px'"
-               (click)="selectCycle(cycle)">
+            <div class="cycle"
+                 cdkDrag
+                 cdkDragLockAxis="x"
+                 [class.cycle--selected]="cycle.selected"
+                 [style.width]="(cycle.monthly ? cycle.length * 30 : cycle.length + cycle.dragDiff) * cellwidth / zoom + 'px'"
+                 (click)="selectCycle(cycle)">
 
-            <div class="position">
-              <div class="data">
-                <div>- {{cycle.position}} -</div>
-                <div>{{cycle.length + cycle.dragDiff}} Days</div>
+              <div class="position">
+                <div cdkDragHandle class="data">
+                  <div>- {{cycle.position}} -</div>
+                  <div>{{cycle.monthly ? 'Month' : cycle.length + cycle.dragDiff + ' Days'}}</div>
+                </div>
+
+                <div *ngIf="cycle.nextPosition <= cycle.position" class="inf">
+                  <mat-icon>autorenew</mat-icon>
+                </div>
+
+                <div class="resizer"
+                     *ngIf="!cycle.monthly"
+                     [draggable]="true"
+                     (dragstart)="dragResizeStarted($event, cycle)"
+                     (drag)="dragResize($event, cycle)"
+                     (dragend)="dragResizeEnded(cycle)"></div>
               </div>
 
-              <div *ngIf="cycle.nextPosition <= cycle.position" class="inf">
-                <mat-icon>autorenew</mat-icon>
-              </div>
+              <ng-container *ngFor="let product of cycle.cycleProducts">
+                <div class="block"></div>
+              </ng-container>
 
-              <div class="resizer"
-                   [draggable]="true"
-                   (dragstart)="dragResizeStarted($event, cycle)"
-                   (drag)="dragResize($event, cycle)"
-                   (dragend)="dragResizeEnded(cycle)"></div>
             </div>
 
-            <ng-container *ngFor="let product of cycle.cycleProducts">
-              <div class="block"></div>
-            </ng-container>
-
-          </div>
-
-        </ng-container>
+          </ng-container>
+        </div>
 
       </div>
-
     </div>
 
   </div>

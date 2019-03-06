@@ -44,4 +44,20 @@ export class CyclesEditorComponent implements OnInit {
     return `${this.productSchedule.cycles.map(cycle => cycle.length).reduce((a,b) => a+b,0)} Days in Subscription`;
   }
 
+  nextCycleChanged(data: {cycle: Cycle, nextCycle: '-' | number}) {
+    data.cycle.nextPosition = data.nextCycle + '';
+  }
+
+  granularityChanged(granularity: 'Days' | 'Month') {
+    if (granularity === 'Days') {
+      this.selectedCycle.monthly = false;
+      this.selectedCycle.length = 30;
+    }
+
+    if (granularity === 'Month') {
+      this.selectedCycle.monthly = true;
+      this.selectedCycle.length = 1;
+    }
+  }
+
 }

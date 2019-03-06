@@ -14,7 +14,12 @@
 
       <div class="section section--side" [class.section--invisible]="!selectedCycle">
 
-        <cycle-info [selectedCycle]="selectedCycle"></cycle-info>
+        <cycle-info
+          (nextCycleChanged)="nextCycleChanged($event)"
+          (granularityChanged)="granularityChanged($event)"
+          [selectedCycle]="selectedCycle"
+          [numberOfCycles]="productSchedule.cycles.length">
+        </cycle-info>
 
       </div>
     </div>
