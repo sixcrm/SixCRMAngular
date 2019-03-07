@@ -69,7 +69,6 @@ export class CyclesEditorComponent implements OnInit {
     if (deletePosition === this.productSchedule.cycles.length - 1) {
       this.productSchedule.cycles[this.productSchedule.cycles.length - 2].nextPosition = -1;
       this.productSchedule.cycles.splice(deletePosition);
-      this.selectedCycle = undefined;
     } else {
       for (let i = deletePosition; i < this.productSchedule.cycles.length; i++) {
 
@@ -89,6 +88,8 @@ export class CyclesEditorComponent implements OnInit {
 
       this.productSchedule.cycles.splice(deletePosition, 1);
     }
+
+    this.selectedCycle = undefined;
   }
 
   cycleSelected(selectedCycle: Cycle): void {

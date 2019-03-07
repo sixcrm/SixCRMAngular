@@ -35,10 +35,6 @@
                   <div>{{cycle.monthly ? 'Month' : cycle.length + cycle.dragDiff + ' Days'}}</div>
                 </div>
 
-                <div *ngIf="cycle.nextPosition !== -1 && cycle.nextPosition <= cycle.position" class="inf">
-                  <mat-icon>autorenew</mat-icon>
-                </div>
-
                 <div class="resizer"
                      *ngIf="!cycle.monthly"
                      [draggable]="true"
@@ -53,6 +49,13 @@
 
             </div>
 
+            <div *ngIf="cycle.nextPosition !== -1 && cycle.nextPosition <= cycle.position" class="inf">
+              <mat-icon>autorenew</mat-icon>
+              <div class="inf__data">
+                <div>Repeat</div>
+                <div>- {{cycle.nextPosition}} -</div>
+              </div>
+            </div>
           </ng-container>
         </div>
 

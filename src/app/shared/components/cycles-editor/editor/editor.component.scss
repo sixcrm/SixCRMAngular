@@ -29,7 +29,6 @@
       line-height: 20px;
       font-size: 10px;
       color: rgba(0,0,0,0.45);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
       &__text {
         height: 20px;
@@ -45,6 +44,8 @@
 
   .editor-cycles {
     display: flex;
+    margin-top: -1px;
+    border-top: 1px solid rgba(0,0,0,0.2);
   }
 }
 
@@ -74,19 +75,6 @@
       }
     }
 
-    .inf {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-
-      mat-icon {
-        height: 32px;
-        width: 32px;
-        font-size: 32px;
-      }
-    }
-
     .resizer {
       width: 16px;
       opacity: 0;
@@ -107,6 +95,30 @@
     transition: opacity 150ms;
   }
 
+}
+
+.inf {
+  display: flex;
+  margin-left: 8px;
+  height: 46px;
+  padding: 0 6px 0 0;
+  background: #2962B3;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+
+  mat-icon {
+    margin: auto;
+    height: 28px;
+    width: 28px;
+    font-size: 28px;
+  }
+
+  &__data {
+    margin: auto;
+  }
 }
 
 
