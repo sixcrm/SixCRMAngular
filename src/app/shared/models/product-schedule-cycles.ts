@@ -17,12 +17,25 @@ export class CycleProduct {
     this.isShippable = !!obj.is_shippable;
     this.quantity = obj.quantity || 1;
   }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      name: this.name,
+      is_shippable: this.isShippable,
+      quantity: this.quantity
+    }
+  }
+
+  copy(): CycleProduct {
+    return new CycleProduct(this.inverse());
+  }
 }
 
 export class Cycle {
 
-  public position: string;
-  public nextPosition: string;
+  public position: number;
+  public nextPosition: number;
   public length: number;
   public monthly: boolean;
   public cycleProducts: CycleProduct[] = [];
@@ -35,8 +48,8 @@ export class Cycle {
       obj = {};
     }
 
-    this.position = obj.position || '';
-    this.nextPosition = obj.next_position || '';
+    this.position = obj.position || 0;
+    this.nextPosition = obj.next_position || 0;
     this.length = obj.length || 0;
     this.price = new Currency(obj.price || 0);
     this.shippingPrice = new Currency(obj.shipping_price || 0);
@@ -44,6 +57,22 @@ export class Cycle {
     if (obj.cycle_products) {
       this.cycleProducts = obj.cycle_products.map(p => new CycleProduct(p));
     }
+  }
+
+  inverse() {
+    return {
+      position: this.position,
+      next_position: this.nextPosition,
+      length: this.length,
+      monthly: this.monthly,
+      cycle_products: this.cycleProducts.map(cp => cp.inverse()),
+      shipping_price: this.shippingPrice.amount,
+      price: this.price.amount
+    }
+  }
+
+  copy() {
+    return new Cycle(this.inverse());
   }
 }
 
@@ -64,6 +93,18 @@ export class ProductScheduleCycles {
     if (obj.cycles) {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
+  }
+
+  inverse() {
+    return {
+      id: this.id,
+      name: this.name,
+      cycles: this.cycles.map(c => c.inverse())
+    }
+  }
+
+  copy(): ProductScheduleCycles {
+    return new ProductScheduleCycles(this.inverse());
   }
 
 }

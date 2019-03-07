@@ -6,7 +6,12 @@
         <left-rail [title]="getTitle()" [products]="products" (addNewCycle)="addNewCycle()"></left-rail>
 
         <div class="editor-container">
-          <editor [productSchedule]="productSchedule" [zoomLevel]="zoomLevel" (cycleSelected)="cycleSelected($event)"></editor>
+          <editor
+             [productSchedule]="productSchedule"
+             [zoomLevel]="zoomLevel"
+             (reorganizeCycles)="reorganizeCycles($event)"
+             (cycleSelected)="cycleSelected($event)">
+          </editor>
           <toolbar [zoomLevel]="zoomLevel" (zoomLevelChanged)="zoomLevel = $event"></toolbar>
         </div>
 
@@ -17,6 +22,7 @@
         <cycle-info
           (nextCycleChanged)="nextCycleChanged($event)"
           (granularityChanged)="granularityChanged($event)"
+          (deleteSelectedCycle)="deleteSelectedCycle($event)"
           [selectedCycle]="selectedCycle"
           [numberOfCycles]="productSchedule.cycles.length">
         </cycle-info>

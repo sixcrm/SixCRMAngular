@@ -35,7 +35,7 @@
                   <div>{{cycle.monthly ? 'Month' : cycle.length + cycle.dragDiff + ' Days'}}</div>
                 </div>
 
-                <div *ngIf="cycle.nextPosition <= cycle.position" class="inf">
+                <div *ngIf="cycle.nextPosition !== -1 && cycle.nextPosition <= cycle.position" class="inf">
                   <mat-icon>autorenew</mat-icon>
                 </div>
 

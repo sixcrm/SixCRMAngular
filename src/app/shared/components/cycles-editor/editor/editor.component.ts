@@ -11,8 +11,8 @@ export class EditorComponent implements OnInit {
 
   days = 366;
 
-  cellwidth: number = 65;
-  cellheight: number = 46;
+  cellwidth: number = 55;
+  cellheight: number = 32;
   zoom = 5;
   measureArray: number[] = [];
 
@@ -24,6 +24,7 @@ export class EditorComponent implements OnInit {
   @Input() productSchedule: ProductScheduleCycles;
 
   @Output() cycleSelected: EventEmitter<Cycle> = new EventEmitter();
+  @Output() reorganizeCycles: EventEmitter<{fromIndex: number, toIndex: number}> = new EventEmitter();
 
   startX: number;
 
@@ -69,12 +70,6 @@ export class EditorComponent implements OnInit {
   }
 
   cyclesReorganized(event: CdkDragDrop<any>) {
-    const fromIndex = event.previousIndex;
-    const toIndex = event.currentIndex;
-
-    const temp = this.productSchedule.cycles[fromIndex];
-
-    this.productSchedule.cycles[fromIndex] = this.productSchedule.cycles[toIndex];
-    this.productSchedule.cycles[toIndex] = temp;
+    this.reorganizeCycles.emit({fromIndex: event.previousIndex, toIndex: event.currentIndex});
   }
 }

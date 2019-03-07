@@ -55,11 +55,12 @@
   .position {
     position: relative;
     display: flex;
-    height: 90px;
+    margin-bottom: 16px;
+    height: 46px;
     background: #2962B3;
     text-align: center;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.12);
 
@@ -95,7 +96,7 @@
 
   .block {
     margin: 3px 0;
-    height: 48px;
+    height: 32px;
     background: #99CCFF;
     border-radius: 5px;
     border: 1px solid rgba(41, 108, 204, 0.5);

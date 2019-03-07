@@ -27,7 +27,68 @@ export class CyclesEditorComponent implements OnInit {
   }
 
   addNewCycle() {
+    const selectedPosition = firstIndexOf(this.productSchedule.cycles, cycle => cycle['selected']);
 
+    if (selectedPosition === -1 || selectedPosition === this.productSchedule.cycles.length - 1) {
+      const lastCycle = this.productSchedule.cycles[this.productSchedule.cycles.length - 1];
+      const nextPosition = lastCycle.nextPosition === lastCycle.position ? lastCycle.nextPosition + 1 : lastCycle.nextPosition;
+
+      const newCycle = lastCycle.copy();
+      newCycle.position = newCycle.position + 1;
+      newCycle.nextPosition = nextPosition;
+
+      lastCycle.nextPosition = newCycle.position;
+      this.productSchedule.cycles.push(newCycle);
+    } else {
+      const afterCycle = this.productSchedule.cycles[selectedPosition];
+      const newCycle = afterCycle.copy();
+
+      this.productSchedule.cycles.splice(selectedPosition + 1, 0, newCycle);
+
+      for (let i = selectedPosition + 1; i < this.productSchedule.cycles.length; i++) {
+        if (i === this.productSchedule.cycles.length - 1) {
+          this.productSchedule.cycles[i].nextPosition =
+            this.productSchedule.cycles[i].position === this.productSchedule.cycles[i].nextPosition
+              ? this.productSchedule.cycles[i].nextPosition + 1
+              : this.productSchedule.cycles[i].nextPosition;
+
+          this.productSchedule.cycles[i].position = this.productSchedule.cycles[i].position + 1;
+        } else {
+          this.productSchedule.cycles[i].position = this.productSchedule.cycles[i].position + 1;
+          this.productSchedule.cycles[i].nextPosition = this.productSchedule.cycles[i].nextPosition + 1;
+        }
+      }
+    }
+  }
+
+  deleteSelectedCycle(selected: Cycle) {
+    const deletePosition = firstIndexOf(this.productSchedule.cycles, cycle => cycle['selected']);
+
+    if (deletePosition === -1) return;
+
+    if (deletePosition === this.productSchedule.cycles.length - 1) {
+      this.productSchedule.cycles[this.productSchedule.cycles.length - 2].nextPosition = -1;
+      this.productSchedule.cycles.splice(deletePosition);
+      this.selectedCycle = undefined;
+    } else {
+      for (let i = deletePosition; i < this.productSchedule.cycles.length; i++) {
+
+        if (i === this.productSchedule.cycles.length - 1) {
+
+          this.productSchedule.cycles[i].nextPosition =
+            this.productSchedule.cycles[i].position === this.productSchedule.cycles[i].nextPosition
+              ? this.productSchedule.cycles[i].nextPosition - 1
+              : this.productSchedule.cycles[i].nextPosition;
+
+        } else {
+          this.productSchedule.cycles[i].nextPosition = this.productSchedule.cycles[i].nextPosition - 1;
+        }
+
+        this.productSchedule.cycles[i].position = this.productSchedule.cycles[i].position - 1;
+      }
+
+      this.productSchedule.cycles.splice(deletePosition, 1);
+    }
   }
 
   cycleSelected(selectedCycle: Cycle): void {
@@ -44,8 +105,8 @@ export class CyclesEditorComponent implements OnInit {
     return `${this.productSchedule.cycles.map(cycle => cycle.length).reduce((a,b) => a+b,0)} Days in Subscription`;
   }
 
-  nextCycleChanged(data: {cycle: Cycle, nextCycle: '-' | number}) {
-    data.cycle.nextPosition = data.nextCycle + '';
+  nextCycleChanged(data: {cycle: Cycle, nextCycle: number}) {
+    data.cycle.nextPosition = data.nextCycle;
   }
 
   granularityChanged(granularity: 'Days' | 'Month') {
@@ -60,4 +121,41 @@ export class CyclesEditorComponent implements OnInit {
     }
   }
 
+  reorganizeCycles(data: {fromIndex: number, toIndex: number}) {
+    const {fromIndex, toIndex} = data;
+
+    if (fromIndex === toIndex) return;
+
+    if (fromIndex < toIndex) {
+      for (let i = fromIndex; i < toIndex; i++) {
+        this.switchCyclePositions(i, i+1);
+      }
+    }
+
+    if (fromIndex > toIndex) {
+      for (let i = fromIndex; i > toIndex; i--) {
+        this.switchCyclePositions(i, i-1);
+      }
+    }
+
+  }
+
+  switchCyclePositions(fromIndex: number, toIndex: number) {
+    const fromPosition = this.productSchedule.cycles[fromIndex].position;
+    const fromNextPosition = this.productSchedule.cycles[fromIndex].nextPosition;
+
+    const toPosition = this.productSchedule.cycles[toIndex].position;
+    const toNextPosition = this.productSchedule.cycles[toIndex].nextPosition;
+
+    const temp = this.productSchedule.cycles[fromIndex];
+
+    this.productSchedule.cycles[fromIndex] = this.productSchedule.cycles[toIndex];
+    this.productSchedule.cycles[toIndex] = temp;
+
+    this.productSchedule.cycles[fromIndex].position = fromPosition;
+    this.productSchedule.cycles[fromIndex].nextPosition = fromNextPosition;
+
+    this.productSchedule.cycles[toIndex].position = toPosition;
+    this.productSchedule.cycles[toIndex].nextPosition = toNextPosition;
+  }
 }
