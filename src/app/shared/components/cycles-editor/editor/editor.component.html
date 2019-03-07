@@ -32,7 +32,7 @@
               <div class="position">
                 <div cdkDragHandle class="data">
                   <div>- {{cycle.position}} -</div>
-                  <div>{{cycle.monthly ? 'Month' : cycle.length + cycle.dragDiff + ' Days'}}</div>
+                  <div>{{cycle.monthly ? (cycle.length + ' Month' + (cycle.length > 1 ? 's' : '')) : cycle.length + cycle.dragDiff + ' Days'}}</div>
                 </div>
 
                 <div class="resizer"
