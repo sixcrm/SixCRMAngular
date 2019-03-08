@@ -49,7 +49,7 @@
               <div>Schedules {{entity.schedules.length}}</div>
               <div>{{entity.getInitialPrice().usd()}}</div>
             </div>
-            <button mat-button [routerLink]="['/products', 'schedule', entity.id]" fragment="cycles">EDIT</button>
+            <button mat-button [routerLink]="['/products', 'schedule', entity.id]">EDIT</button>
           </div>
         </ng-container>
 

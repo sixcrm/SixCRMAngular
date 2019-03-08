@@ -1,0 +1,41 @@
+<div class="split-wrapper">
+  <div class="container">
+    <div class="content">
+      <div class="section section--main" [class.section--full]="!selectedCycle">
+
+        <left-rail [title]="getTitle()" [products]="products" (addNewCycle)="addNewCycle()"></left-rail>
+
+        <div class="editor-container">
+          <editor
+             [productSchedule]="productSchedule"
+             [zoomLevel]="zoomLevel"
+             (reorganizeCycles)="reorganizeCycles($event)"
+             (cycleSelected)="cycleSelected($event)">
+          </editor>
+          <toolbar
+              [zoomLevel]="zoomLevel"
+              [statePersisted]="statePersisted"
+              (zoomLevelChanged)="zoomLevel = $event"
+              (save)="save()"
+              (undo)="undo()"
+              (redo)="redo()"
+              (revert)="revert()">
+          </toolbar>
+        </div>
+
+      </div>
+
+      <div class="section section--side" [class.section--invisible]="!selectedCycle">
+
+        <cycle-info
+          (nextCycleChanged)="nextCycleChanged($event)"
+          (granularityChanged)="granularityChanged($event)"
+          (deleteSelectedCycle)="deleteSelectedCycle($event)"
+          [selectedCycle]="selectedCycle"
+          [numberOfCycles]="productSchedule.cycles.length">
+        </cycle-info>
+
+      </div>
+    </div>
+  </div>
+</div>

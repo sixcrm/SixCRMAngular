@@ -5,6 +5,7 @@ import {
   MatMenuModule, MatToolbarModule, MatListModule, MatButtonModule, MatFormFieldModule,
   MatSlideToggleModule, MatExpansionModule, MatAutocompleteModule, MatChipsModule, MatRadioModule, MAT_TABS_CONFIG
 } from '@angular/material';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {
     MatExpansionModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    DragDropModule
   ],
   exports: [
     MatInputModule,
@@ -49,7 +51,8 @@ import {
     MatExpansionModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    DragDropModule
   ],
   declarations: [],
   providers: [
