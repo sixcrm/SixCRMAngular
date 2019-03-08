@@ -12,7 +12,15 @@
              (reorganizeCycles)="reorganizeCycles($event)"
              (cycleSelected)="cycleSelected($event)">
           </editor>
-          <toolbar [zoomLevel]="zoomLevel" (zoomLevelChanged)="zoomLevel = $event"></toolbar>
+          <toolbar
+              [zoomLevel]="zoomLevel"
+              [statePersisted]="statePersisted"
+              (zoomLevelChanged)="zoomLevel = $event"
+              (save)="save()"
+              (undo)="undo()"
+              (redo)="redo()"
+              (revert)="revert()">
+          </toolbar>
         </div>
 
       </div>

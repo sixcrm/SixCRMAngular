@@ -6,3 +6,10 @@
 .editor-container {
   width: 100%;
 }
+
+cycle-info {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  overflow: auto;
+}

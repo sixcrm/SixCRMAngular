@@ -1,11 +1,20 @@
 <div class="content">
   <div class="actions-container">
-    <div class="revert">REVERT</div>
-    <mat-icon>undo</mat-icon>
-    <mat-icon>redo</mat-icon>
-    <div class="status">All changes saved</div>
+    <div class="revert" (click)="revert.emit(true)">REVERT</div>
+    <mat-icon (click)="undo.emit(true)">undo</mat-icon>
+    <mat-icon (click)="redo.emit(true)">redo</mat-icon>
+    <div class="status">{{statePersisted ? 'All changes saved' : 'Please save changes' }}</div>
   </div>
 
   <div class="zoom-label">Zoom</div>
-  <input type="range" min="1" max="10" step="1" value="{{zoomLevel}}" (mousewheel)="mouseWheel($event)" (change)="zoomLevelChanged.emit($event.target.value)">
+  <input
+     type="range"
+     min="1"
+     max="10"
+     step="1"
+     value="{{zoomLevel}}"
+     (mousewheel)="mouseWheel($event)"
+     (change)="zoomLevelChanged.emit($event.target.value)">
+
+  <button mat-button class="save-button" (click)="save.emit(true)">SAVE</button>
 </div>

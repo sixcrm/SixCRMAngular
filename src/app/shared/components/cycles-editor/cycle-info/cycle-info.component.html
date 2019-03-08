@@ -25,7 +25,7 @@
             (selectItem)="nextChanged($event)"
             [editable]="selectedCycle.position === (cycleOptions.length - 1)"
             [items]="cycleOptions"
-            [selectedItem]="selectedCycle.nextPosition"
+            [selectedItem]="selectedCycle.nextPosition === -1 ? 'None' : selectedCycle.nextPosition"
             [placeholder]="'Next Cycle'"
             [showAddNew]="false">
     </custom-mat-dropdown>
@@ -34,11 +34,11 @@
   <div class="row">
 
     <mat-form-field>
-      <input type="text" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price">
+      <input type="text" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price" (priceChanged)="selectedCycle.price = $event">
     </mat-form-field>
 
     <mat-form-field style="margin-left: auto">
-      <input type="text" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice">
+      <input type="text" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice" (priceChanged)="selectedCycle.shippingPrice = $event">
     </mat-form-field>
 
   </div>
@@ -65,6 +65,6 @@
 
   </div>
 
-  <button *ngIf="cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>
-
 </div>
+
+<button *ngIf="cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ProductScheduleCycles, Cycle, CycleProduct} from '../../models/product-schedule-cycles';
 import {firstIndexOf} from '../../utils/array.utils';
 
@@ -11,6 +11,14 @@ export class CyclesEditorComponent implements OnInit {
 
   @Input()
   public productSchedule: ProductScheduleCycles;
+
+  @Input()
+  public statePersisted: boolean;
+
+  @Output() saveChanges: EventEmitter<ProductScheduleCycles> = new EventEmitter();
+  @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
+  @Output() redoChanges: EventEmitter<boolean> = new EventEmitter();
+  @Output() revertChanges: EventEmitter<boolean> = new EventEmitter();
 
   public zoomLevel: number = 5;
 
@@ -158,5 +166,26 @@ export class CyclesEditorComponent implements OnInit {
 
     this.productSchedule.cycles[toIndex].position = toPosition;
     this.productSchedule.cycles[toIndex].nextPosition = toNextPosition;
+  }
+
+  save() {
+    const snapshot = this.productSchedule.copy();
+    this.saveChanges.emit(snapshot);
+  }
+
+  undo() {
+    this.undoChanges.emit(true);
+  }
+
+  redo() {
+    this.redoChanges.emit(true);
+  }
+
+  revert() {
+    this.revertChanges.emit(true);
+  }
+
+  allChangesSaved() {
+
   }
 }

@@ -16,14 +16,14 @@ export class CycleInfoComponent implements OnInit {
       this.cycleOptions.push(i + 1);
     }
 
-    this.cycleOptions.push('-');
+    this.cycleOptions.push('None');
   };
 
   @Output() nextCycleChanged: EventEmitter<{cycle: Cycle, nextCycle: number}> = new EventEmitter();
   @Output() granularityChanged: EventEmitter<'Days' | 'Month'> = new EventEmitter();
   @Output() deleteSelectedCycle: EventEmitter<Cycle> = new EventEmitter();
 
-  cycleOptions: ('-' | number)[] = [];
+  cycleOptions: ('None' | number)[] = [];
 
   constructor() { }
 
@@ -31,8 +31,8 @@ export class CycleInfoComponent implements OnInit {
 
   }
 
-  nextChanged(nextCycle: '-' | number) {
-    this.nextCycleChanged.emit({cycle: this.selectedCycle, nextCycle: nextCycle === '-' ? -1 : nextCycle})
+  nextChanged(nextCycle: 'None' | number) {
+    this.nextCycleChanged.emit({cycle: this.selectedCycle, nextCycle: nextCycle === 'None' ? -1 : nextCycle})
   }
 
   deleteCycle() {

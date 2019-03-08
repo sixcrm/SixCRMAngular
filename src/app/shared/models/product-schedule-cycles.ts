@@ -1,4 +1,6 @@
 import {Currency} from '../utils/currency/currency';
+import {ProductSchedule} from './product-schedule.model';
+import {Schedule} from './schedule.model';
 
 export class CycleProduct {
 
@@ -157,4 +159,29 @@ export function getSimpleProductSchedule(): ProductScheduleCycles {
     ]
   })
 
+}
+
+export function getSimplerProductSchedule(productSchedule: ProductSchedule) {
+  const initialSchedule = productSchedule.schedules[0] || new Schedule();
+
+  return new ProductScheduleCycles({
+    id: productSchedule.id,
+    name: `${productSchedule.name}`,
+    cycles: [
+      {
+        position: 1,
+        next_position: 1,
+        length: initialSchedule.sameDayOfMonth ? 1 : initialSchedule.period || 30,
+        monthly: initialSchedule.sameDayOfMonth,
+        price: initialSchedule.price.amount,
+        cycle_products: [
+          {
+            id: initialSchedule.product.id,
+            name: initialSchedule.product.name,
+            is_shippable: initialSchedule.product.ship
+          }
+        ]
+      }
+    ]
+  })
 }

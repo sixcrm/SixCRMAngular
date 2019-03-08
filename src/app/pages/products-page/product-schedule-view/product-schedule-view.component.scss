@@ -1,12 +1,3 @@
-product-schedule-add-new {
-  display: flex;
-}
-
-table-advanced {
-  display: block;
-  margin-top: 18px;
-}
-
 .entity-view__container {
   display: flex;
   overflow: hidden;
@@ -24,7 +15,49 @@ spe-loader {
   margin-top: 27px;
 }
 
-schedules-detailed {
+.section--side {
+  height: calc(100vh - 220px);
+}
+
+custom-mat-dropdown {
   display: block;
-  background: #F3F3F3;
+  margin-top: 15px;
+}
+
+.delete-button {
+  position: relative;
+  margin-top: 15px;
+  background: #DC2547;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 500;
+  color: #ffffff;
+  width: 165px;
+}
+
+.details__title {
+  line-height: 14px;
+  font-size: 14px;
+}
+
+.details__container {
+  display: flex;
+  margin-top: 15px;
+
+  .details_container__item {
+    width: 50%;
+
+    div:first-of-type {
+      font-weight: 500;
+      line-height: 24px;
+      font-size: 13px;
+      color: #5F6368;
+    }
+
+    div:last-of-type {
+      line-height: 24px;
+      font-size: 14px;
+      color: #202124;
+    }
+  }
 }
