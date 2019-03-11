@@ -1,3 +1,5 @@
+@import "../../../../../assets/scss/colors";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -18,7 +20,7 @@
     padding: 0 36px;
     font-size: 13px;
     color: #ffffff;
-    background: #296CCC;
+    background: $action-color;
   }
 
   .product {

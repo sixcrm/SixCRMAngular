@@ -1,3 +1,5 @@
+@import "../../../../../assets/scss/colors";
+
 .content {
   display: block !important;
   min-width: 100%;
@@ -58,7 +60,7 @@
     display: flex;
     margin-bottom: 16px;
     height: 46px;
-    background: #2962B3;
+    background: $main-color-500;
     text-align: center;
     color: #ffffff;
     font-size: 13px;
@@ -85,7 +87,7 @@
   .block {
     margin: 3px 0;
     height: 32px;
-    background: #99CCFF;
+    background: $main-color-100;
     border-radius: 5px;
     border: 1px solid rgba(41, 108, 204, 0.5);
   }
@@ -102,7 +104,7 @@
   margin-left: 8px;
   height: 46px;
   padding: 0 6px 0 0;
-  background: #2962B3;
+  background: $main-color-500;
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: #ffffff;
