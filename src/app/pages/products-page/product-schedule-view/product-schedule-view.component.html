@@ -39,10 +39,13 @@
                   </div>
 
                   <custom-mat-dropdown
+                          (selectItem)="productScheduleCycles.merchantProviderGroup = $event"
                           [editable]="editMain"
                           [placeholder]="'Merchant Processing'"
-                          [items]="[]"
-                          [selectedItem]="'-'">
+                          [items]="merchantProviderGroups"
+                          [mapper]="merchantProviderGroupMapper"
+                          [showAddNew]="false"
+                          [selectedItem]="productScheduleCycles.merchantProviderGroup">
                   </custom-mat-dropdown>
 
                   <div class="edit-buttons" *ngIf="editMain">

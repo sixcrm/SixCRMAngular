@@ -12,6 +12,8 @@ import {utc, Moment} from 'moment'
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {ProductScheduleCycles, getSimplerProductSchedule} from '../../../shared/models/product-schedule-cycles';
+import {MerchantProviderGroupsService} from '../../../entity-services/services/merchant-provider-groups.service';
+import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
 
 @Component({
   selector: 'product-schedule-view',
@@ -42,13 +44,17 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   editDescription: boolean;
   editMain: boolean;
 
+  merchantProviderGroupMapper = (el: MerchantProviderGroup) => el.name || '-';
+  merchantProviderGroups: MerchantProviderGroup[] = [];
+
   constructor(
     service: ProductScheduleService,
     route: ActivatedRoute,
     public navigation: NavigationService,
     public authService: AuthenticationService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public merchantProviderGroupsService: MerchantProviderGroupsService
   ) {
     super(service, route);
   }
@@ -71,6 +77,13 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.entityBackup = this.entity.copy();
     });
 
+    this.merchantProviderGroupsService.entities$.take(1).subscribe(groups => {
+      if (groups instanceof CustomServerError) return;
+
+      this.merchantProviderGroups = groups;
+    });
+
+    this.merchantProviderGroupsService.getEntities();
     super.init(() => this.navigation.goToNotFoundPage());
   }
 

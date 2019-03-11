@@ -646,6 +646,8 @@ $info-width: 290px;
         }
 
         &--side {
+          display: flex;
+          flex-direction: column;
           width: $info-width;
           border-left: 1px solid rgba(0,0,0,0.12);
           background: #ffffff;
@@ -657,6 +659,8 @@ $info-width: 290px;
         }
 
         &__content {
+          display: flex;
+          flex-direction: column;
           height: calc(100vh - 225px);
           width: $info-width;
         }

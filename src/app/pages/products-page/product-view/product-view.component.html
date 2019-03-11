@@ -150,10 +150,8 @@
               </div>
             </div>
 
-            <div class="action-buttons" *ngIf="!editMain && !editSecondary">
-              <button mat-button (click)="createSubscription()">CREATE SCHEDULE</button>
-              <button mat-button (click)="remove()">DELETE</button>
-            </div>
+            <button *ngIf="!editMain && !editSecondary" mat-button class="action-button create-button" (click)="createSubscription()">CREATE SCHEDULE</button>
+            <button *ngIf="!editMain && !editSecondary" mat-button class="action-button delete-button" (click)="remove()">DELETE</button>
           </ng-container>
         </div>
       </div>

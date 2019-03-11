@@ -13,22 +13,20 @@
   font-weight: 500;
 }
 
-.action-buttons {
-  margin-top: 15px;
+.action-button {
+  font-weight: 500;
+  color: #ffffff;
+  width: 220px;
+}
 
-  button {
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: 500;
-    color: #ffffff;
-    background: $main-color-400;
-    width: 220px;
+.create-button {
+  margin: 15px auto auto;
+  background: $action-color;
+}
 
-    &:last-of-type {
-      margin-top: 15px;
-      background: $danger-color;
-    }
-  }
+.delete-button {
+  margin: auto auto 2px;
+  background: $danger-color;
 }
 
 .dropdown-container {
