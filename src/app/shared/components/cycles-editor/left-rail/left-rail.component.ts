@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {CycleProduct} from '../../../models/product-schedule-cycles';
-import {Cycle} from '../../../models/schedule.model';
+import {CycleProduct, Cycle} from '../../../models/product-schedule-cycles';
 
 @Component({
   selector: 'left-rail',
