@@ -5,7 +5,8 @@ import {firstIndexOf} from '../../utils/array.utils';
 @Component({
   selector: 'cycles-editor',
   templateUrl: './cycles-editor.component.html',
-  styleUrls: ['./cycles-editor.component.scss']
+  styleUrls: ['./cycles-editor.component.scss'],
+  host: {'(document:keydown)':'onKeyDown($event)'}
 })
 export class CyclesEditorComponent implements OnInit {
 
@@ -37,36 +38,23 @@ export class CyclesEditorComponent implements OnInit {
   addNewCycle() {
     const selectedPosition = firstIndexOf(this.productSchedule.cycles, cycle => cycle['selected']);
 
-    if (selectedPosition === -1 || selectedPosition === this.productSchedule.cycles.length - 1) {
-      const lastCycle = this.productSchedule.cycles[this.productSchedule.cycles.length - 1];
-      const nextPosition = lastCycle.nextPosition === lastCycle.position ? lastCycle.nextPosition + 1 : lastCycle.nextPosition;
+    const cycle = selectedPosition === -1 ? this.productSchedule.cycles[this.productSchedule.cycles.length - 1] : this.productSchedule.cycles[selectedPosition];
+    const lastCycle = this.productSchedule.cycles[this.productSchedule.cycles.length - 1];
+    const position = lastCycle.position + 1;
+    const nextPosition = lastCycle.nextPosition === lastCycle.position ? lastCycle.nextPosition + 1 : lastCycle.nextPosition;
+    lastCycle.nextPosition = position;
 
-      const newCycle = lastCycle.copy();
-      newCycle.position = newCycle.position + 1;
-      newCycle.nextPosition = nextPosition;
-
-      lastCycle.nextPosition = newCycle.position;
-      this.productSchedule.cycles.push(newCycle);
-    } else {
-      const afterCycle = this.productSchedule.cycles[selectedPosition];
-      const newCycle = afterCycle.copy();
-
-      this.productSchedule.cycles.splice(selectedPosition + 1, 0, newCycle);
-
-      for (let i = selectedPosition + 1; i < this.productSchedule.cycles.length; i++) {
-        if (i === this.productSchedule.cycles.length - 1) {
-          this.productSchedule.cycles[i].nextPosition =
-            this.productSchedule.cycles[i].position === this.productSchedule.cycles[i].nextPosition
-              ? this.productSchedule.cycles[i].nextPosition + 1
-              : this.productSchedule.cycles[i].nextPosition;
-
-          this.productSchedule.cycles[i].position = this.productSchedule.cycles[i].position + 1;
-        } else {
-          this.productSchedule.cycles[i].position = this.productSchedule.cycles[i].position + 1;
-          this.productSchedule.cycles[i].nextPosition = this.productSchedule.cycles[i].nextPosition + 1;
-        }
-      }
+    for (let i = 0; i < this.productSchedule.cycles.length; i++) {
+      this.productSchedule.cycles[i]['selected'] = false;
     }
+
+    const newCycle = cycle.copy();
+    newCycle.position = position;
+    newCycle.nextPosition = nextPosition;
+    newCycle['selected'] = true;
+
+    this.selectedCycle = newCycle;
+    this.productSchedule.cycles.push(newCycle);
   }
 
   deleteSelectedCycle(selected: Cycle) {
@@ -187,5 +175,15 @@ export class CyclesEditorComponent implements OnInit {
 
   allChangesSaved() {
 
+  }
+
+  onKeyDown(event) {
+    if (event && event.key === 'Escape' || event.code == 'Escape') {
+      for (let i = 0; i < this.productSchedule.cycles.length; i++) {
+        this.productSchedule.cycles[i]['selected'] = false
+      }
+
+      this.selectedCycle = undefined;
+    }
   }
 }

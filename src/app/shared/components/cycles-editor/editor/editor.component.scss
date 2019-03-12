@@ -94,7 +94,7 @@
 
   &--selected {
     opacity: 0.5;
-    transition: opacity 150ms;
+    transition: width 80ms, opacity 80ms;
   }
 
 }
