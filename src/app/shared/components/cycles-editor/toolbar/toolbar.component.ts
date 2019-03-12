@@ -14,7 +14,6 @@ export class ToolbarComponent implements OnInit {
   @Output() save: EventEmitter<boolean> = new EventEmitter();
   @Output() undo: EventEmitter<boolean> = new EventEmitter();
   @Output() redo: EventEmitter<boolean> = new EventEmitter();
-  @Output() revert: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 

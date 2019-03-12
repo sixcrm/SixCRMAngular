@@ -1,6 +1,7 @@
-<div class="content">
+<div class="content" drag-scroll-x [target]="editor">
 
   <div class="editor"
+       #editor
        [style.width]="(days / zoom) * cellwidth + 20 + 'px'"
        [style.background-size]="cellwidth + 'px ' + cellheight + 'px'">
 

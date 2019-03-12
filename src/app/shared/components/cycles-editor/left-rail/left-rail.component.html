@@ -1,7 +1,7 @@
 <div class="container">
   <div class="length">{{title}}</div>
 
-  <button mat-button (click)="addNewCycle.emit(true)">ADD CYCLE</button>
+  <button mat-button (click)="addNewCycle.emit(true)">{{selectedCycle ? 'Copy Cycle ' + selectedCycle.position : 'Add Cycle'}}</button>
 
   <div class="product" *ngFor="let product of products">
     {{product.name}}

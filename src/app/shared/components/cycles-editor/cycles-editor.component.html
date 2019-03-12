@@ -3,7 +3,12 @@
     <div class="content">
       <div class="section section--main" [class.section--full]="!selectedCycle">
 
-        <left-rail [title]="getTitle()" [products]="products" (addNewCycle)="addNewCycle()"></left-rail>
+        <left-rail
+             [title]="getTitle()"
+             [products]="products"
+             [selectedCycle]="selectedCycle"
+             (addNewCycle)="addNewCycle()">
+        </left-rail>
 
         <div class="editor-container">
           <editor
@@ -18,8 +23,7 @@
               (zoomLevelChanged)="zoomLevel = $event"
               (save)="save()"
               (undo)="undo()"
-              (redo)="redo()"
-              (revert)="revert()">
+              (redo)="redo()">
           </toolbar>
         </div>
 

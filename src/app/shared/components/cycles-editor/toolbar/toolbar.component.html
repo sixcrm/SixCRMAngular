@@ -1,8 +1,7 @@
 <div class="content">
   <div class="actions-container">
-    <div class="revert" (click)="revert.emit(true)">REVERT</div>
-    <mat-icon (click)="undo.emit(true)">undo</mat-icon>
-    <mat-icon (click)="redo.emit(true)">redo</mat-icon>
+    <div class="action-item" (click)="undo.emit(true)">UNDO<mat-icon>undo</mat-icon></div>
+    <div class="action-item" (click)="redo.emit(true)"><mat-icon>redo</mat-icon>REDO</div>
     <div class="status">{{statePersisted ? 'All changes saved' : 'Please save changes' }}</div>
   </div>
 

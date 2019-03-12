@@ -1,6 +1,7 @@
 import {Currency} from '../utils/currency/currency';
 import {ProductSchedule} from './product-schedule.model';
 import {Schedule} from './schedule.model';
+import {MerchantProviderGroup} from './merchant-provider-group.model';
 
 export class CycleProduct {
 
@@ -83,6 +84,7 @@ export class ProductScheduleCycles {
   public id: string;
   public name: string;
   public cycles: Cycle[] = [];
+  public merchantProviderGroup: MerchantProviderGroup;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -91,7 +93,7 @@ export class ProductScheduleCycles {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-
+    this.merchantProviderGroup = new MerchantProviderGroup(obj.merchant_provider_group);
     if (obj.cycles) {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
@@ -101,7 +103,8 @@ export class ProductScheduleCycles {
     return {
       id: this.id,
       name: this.name,
-      cycles: this.cycles.map(c => c.inverse())
+      cycles: this.cycles.map(c => c.inverse()),
+      merchant_provider_group: this.merchantProviderGroup.inverse()
     }
   }
 
