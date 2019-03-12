@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CycleProduct} from '../../../models/product-schedule-cycles';
+import {Cycle} from '../../../models/schedule.model';
 
 @Component({
   selector: 'left-rail',
@@ -11,6 +12,7 @@ export class LeftRailComponent implements OnInit {
   @Output() addNewCycle: EventEmitter<boolean>  = new EventEmitter();
 
   @Input() title: string;
+  @Input() selectedCycle: Cycle;
   @Input() products: CycleProduct[] = [];
 
   constructor() { }
