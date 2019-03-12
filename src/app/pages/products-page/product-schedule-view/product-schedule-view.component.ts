@@ -118,10 +118,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     });
   }
 
-  revertProductScheduleCycles() {
-    this.saveProductScheduleCycles(this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy());
-  }
-
   redoProductScheduleCycles() {
     if (this.productScheduleCyclesIndex >= this.productScheduleCyclesStates.length - 1) return;
 

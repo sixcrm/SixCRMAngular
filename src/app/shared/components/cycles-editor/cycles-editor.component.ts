@@ -19,7 +19,6 @@ export class CyclesEditorComponent implements OnInit {
   @Output() saveChanges: EventEmitter<ProductScheduleCycles> = new EventEmitter();
   @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() redoChanges: EventEmitter<boolean> = new EventEmitter();
-  @Output() revertChanges: EventEmitter<boolean> = new EventEmitter();
 
   public zoomLevel: number = 5;
 
@@ -167,10 +166,6 @@ export class CyclesEditorComponent implements OnInit {
 
   redo() {
     this.redoChanges.emit(true);
-  }
-
-  revert() {
-    this.revertChanges.emit(true);
   }
 
   allChangesSaved() {

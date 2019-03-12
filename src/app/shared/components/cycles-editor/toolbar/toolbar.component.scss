@@ -1,29 +1,45 @@
 .content {
   display: flex;
   align-items: center;
-  height: 46px;
-  line-height: 46px;
+  height: 56px;
+  line-height: 56px;
   padding: 0 15px;
   background: white;
   color: #8E8E8E;
   font-size: 12px;
-
-  mat-icon {
-    cursor: pointer;
-    width: 22px;
-    height: 22px;
-    font-size: 22px;
-    color: #8E8E8E;
-  }
 
   .actions-container {
     margin-right: auto;
     display: flex;
     align-items: center;
 
-    .revert {
-      margin-right: 6px;
+    .action-item {
+      display: flex;
+      align-items: center;
+      color: rgba(51, 51, 51, 0.6);;
+      font-size: 13px;
       cursor: pointer;
+
+      &:first-of-type {
+        margin-right: 8px;
+
+        mat-icon {
+          margin-left: 18px;
+        }
+      }
+
+      &:nth-of-type(2) {
+        mat-icon {
+          margin-right: 18px;
+        }
+      }
+
+      mat-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 22px;
+        color: #333333;
+      }
     }
 
   }
@@ -33,7 +49,7 @@
   }
 
   .status {
-    margin-left: 8px;
+    margin-left: 18px;
   }
 
   .save-button {

@@ -3,10 +3,10 @@
 .content {
   display: block !important;
   min-width: 100%;
-  height: calc(100% - 44px);
+  height: calc(100% - 56px);
   width: 1px;
   overflow: auto;
-  min-height: calc(100vh - 268px);
+  min-height: calc(100vh - 276px);
   transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
   background: #f3f3f3;
 }
@@ -60,12 +60,12 @@
     display: flex;
     margin-bottom: 16px;
     height: 46px;
-    background: $main-color-500;
+    background: $main-color-600;
     text-align: center;
     color: #ffffff;
     font-size: 13px;
     cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.12);;
 
     .data {
       margin: auto;
@@ -87,9 +87,9 @@
   .block {
     margin: 3px 0;
     height: 32px;
-    background: $main-color-100;
+    background: $main-color-600;
     border-radius: 5px;
-    border: 1px solid rgba(41, 108, 204, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.12);;
   }
 
   &--selected {
@@ -104,7 +104,7 @@
   margin-left: 8px;
   height: 46px;
   padding: 0 6px 0 0;
-  background: $main-color-500;
+  background: $main-color-600;
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: #ffffff;
