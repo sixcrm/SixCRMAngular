@@ -1,0 +1,70 @@
+<div *ngIf="selectedCycle" class="details-wrapper">
+
+  <div class="row title">
+    <div>Cycle {{selectedCycle.position}}</div>
+
+    <mat-icon class="edit-icon">edit</mat-icon>
+  </div>
+
+
+  <div class="row">
+    <mat-form-field>
+      <input type="number" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length" min="1">
+    </mat-form-field>
+
+    <custom-mat-dropdown
+            class="days-dropdown"
+            (selectItem)="granularityChanged.emit($event)"
+            [items]="['Days', 'Month']"
+            [selectedItem]="selectedCycle.monthly ? 'Month' : 'Days'"
+            [showAddNew]="false">
+    </custom-mat-dropdown>
+
+    <custom-mat-dropdown
+            class="cycle-dropdown"
+            (selectItem)="nextChanged($event)"
+            [editable]="selectedCycle.position === (cycleOptions.length - 1)"
+            [items]="cycleOptions"
+            [selectedItem]="selectedCycle.nextPosition === -1 ? 'None' : selectedCycle.nextPosition"
+            [placeholder]="'Next Cycle'"
+            [showAddNew]="false">
+    </custom-mat-dropdown>
+  </div>
+
+  <div class="row">
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price" (priceChanged)="selectedCycle.price = $event">
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: auto">
+      <input type="text" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice" (priceChanged)="selectedCycle.shippingPrice = $event">
+    </mat-form-field>
+
+  </div>
+
+  <div class="products-title">Products in Cycle {{selectedCycle.position}}</div>
+
+  <div>
+
+    <div class="heading">
+      <div>Products</div>
+      <div>Qty</div>
+      <div>Ship</div>
+    </div>
+
+    <div *ngFor="let product of selectedCycle.cycleProducts" class="row">
+      <div>{{product.name}}</div>
+
+      <mat-form-field class="quantity">
+        <input type="text" matInput [(ngModel)]="product.quantity">
+      </mat-form-field>
+
+      <mat-checkbox class="checkbox-blue" [(ngModel)]="product.isShippable"></mat-checkbox>
+    </div>
+
+  </div>
+
+</div>
+
+<button *ngIf="cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>

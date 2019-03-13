@@ -7,71 +7,95 @@
 
     <mat-tab-group [(selectedIndex)]="selectedIndex">
       <mat-tab>
-        <product-schedule-add-new [entity]="entity"
-                                  [mode]="viewMode ? modes.View : modes.Update"
-                                  (save)="saveOrUpdate(entity)"
-                                  (cancel)="cancelUpdate()"
-                                  (changeMode)="setMode($event)">
-        </product-schedule-add-new>
+
+        <div class="split-wrapper">
+          <div class="container">
+            <div class="content">
+              <div class="section section--main">
+                <div class="description-container">
+                  <div class="title">
+                    <div>Description</div>
+                    <mat-icon (click)="setEditDescription()" *ngIf="!editDescription">edit</mat-icon>
+                  </div>
+
+                  <textarea name="description" rows="8" [readonly]="!editDescription"></textarea>
+
+                  <div class="edit-buttons" *ngIf="editDescription">
+                    <button mat-button (click)="cancelEditDescription()">CANCEL</button>
+                    <button mat-button (click)="updateDescription()">SAVE</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section section--side">
+
+                <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
+                  <div class="edit-row edit-row--first">
+                    <mat-form-field>
+                      <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" maxlength="55">
+                    </mat-form-field>
+
+                    <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
+                  </div>
+
+                  <custom-mat-dropdown
+                          (selectItem)="productScheduleCycles.merchantProviderGroup = $event"
+                          [editable]="editMain"
+                          [placeholder]="'Merchant Processing'"
+                          [items]="merchantProviderGroups"
+                          [mapper]="merchantProviderGroupMapper"
+                          [showAddNew]="false"
+                          [selectedItem]="productScheduleCycles.merchantProviderGroup">
+                  </custom-mat-dropdown>
+
+                  <div class="edit-buttons" *ngIf="editMain">
+                    <button mat-button (click)="cancelEditMain()">CANCEL</button>
+                    <button mat-button (click)="saveMain()">SAVE</button>
+                  </div>
+                </div>
+
+                <div class="details-box">
+                  <div class="details__title">GENERAL</div>
+
+                  <div class="details__container">
+                    <div class="details_container__item">
+                      <div>Cycles</div>
+                      <div>{{productScheduleCycles ? productScheduleCycles.cycles.length : 1}}</div>
+                    </div>
+
+                    <div class="details_container__item">
+                      <div>Products</div>
+                      <div>1</div>
+                    </div>
+                  </div>
+                </div>
+
+                <button mat-button (click)="deleteProductSchedule()" class="delete-button">DELETE</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
 
       </mat-tab>
 
       <mat-tab>
-        <schedules-detailed
-          *ngIf="productScheduleDup"
-          [statusMessage]="updateError ? 'Error occurred on save' : productScheduleWaitingForUpdate ? 'Saving...' : 'All changes saved'"
-          [singleScheduleMode]="true"
-          [productSchedules]="[productScheduleDup]"
-          [startDate]="startDate"
-          (productSchedulesChanged)="productSchedulesChanged($event)"
-          (detailsComponent)="setDetails($event)">
-        </schedules-detailed>
-      </mat-tab>
-
-      <mat-tab>
-        <table-advanced [data]="entity.schedules"
-                        [addEnabled]="entity && entity.schedules.length === 0"
-                        [columnParams]="scheduleColumnParams"
-                        [entityFactory]="scheduleFactory"
-                        [textOptions]="tableTexts"
-                        (viewEntity)="navigateToProduct($event)"
-                        (deleteEntity)="disassociateSchedule($event)"
-                        (deleteMultipleEntities)="disassociateSchedules($event)"
-                        (add)="addSchedule($event)"
-                        (update)="updateSchedule($event)">
-        </table-advanced>
-      </mat-tab>
-
-      <mat-tab>
-        <product-schedule-campaigns [id]="entity.id"></product-schedule-campaigns>
-      </mat-tab>
-
-      <mat-tab>
-
-        <table-memory
-                class="campaign-view__email-templates"
-                [data]="entity.emailTemplates"
-                [columnParams]="emailTemplateColumnParams"
-                [associateData]="emailTemplateService.entities$ | async"
-                [textOptions]="emailText"
-                [associateDataMapper]="emailTemplateMapper"
-                (associate)="associateEmailTemplate($event)"
-                (disassociate)="disassociateEmailTemplate($event)"
-                (view)="viewEmailTemplate($event)">
-        </table-memory>
-
+        <cycles-editor
+          [productSchedule]="productScheduleCycles"
+          [statePersisted]="productScheduleCyclesStatePersisted()"
+          (saveChanges)="saveProductScheduleCycles($event)"
+          (undoChanges)="undoProductScheduleCycles()"
+          (redoChanges)="redoProductScheduleCycles()"
+        ></cycles-editor>
       </mat-tab>
 
     </mat-tab-group>
   </div>
 
-  <div class="details-container" [class.details-container--hidden]="selectedIndex !== 1">
-    <ng-container *ngTemplateOutlet="detailsElement"></ng-container>
-  </div>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="5" [title]="'PRODUCTSCHEDULE_INDEX_TITLE' | translate" [cardsExpression]="'300px'"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [title]="'PRODUCTSCHEDULE_INDEX_TITLE' | translate" [cardsExpression]="'80%'"></spe-loader>
 </ng-template>
 
 

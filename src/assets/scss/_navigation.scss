@@ -49,13 +49,12 @@ app-topnav {
 }
 
 .topnav {
-  background-color: $main-color-400 !important;
+  background-color: $main-color-600 !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
 }
 
 .topnav-search-input {
   width: 100%;
-  color: white;
   font-size: 16px;
 
   .mat-form-field-wrapper {
@@ -64,10 +63,6 @@ app-topnav {
 
   .mat-input-infix {
     border-top: none;
-  }
-
-  .mat-input-placeholder {
-    color: white;
   }
 
   .mat-input-underline {
