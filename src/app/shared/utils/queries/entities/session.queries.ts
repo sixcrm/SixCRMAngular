@@ -5,7 +5,7 @@ import {
 import {IndexQueryParameters} from '../index-query-parameters.model';
 import {Session} from '../../../models/session.model';
 import {Watermark} from '../../../models/watermark/watermark.model';
-import {ProductSchedule} from '../../../models/product-schedule.model';
+import {ProductSchedule} from '../../../models/product-schedule-legacy.model';
 import {Product} from '../../../models/product.model';
 import {Schedule} from '../../../models/schedule.model';
 import {customerResponseQuery} from './customer.queries';

@@ -12,7 +12,7 @@ import {Affiliate} from '../../../shared/models/affiliate.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../../shared/models/product-schedule-legacy.model';
 import {Subject} from 'rxjs';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Product} from '../../../shared/models/product.model';
@@ -20,7 +20,6 @@ import {WatermarkProductSchedule} from '../../../shared/models/watermark/waterma
 import {WatermarkProduct} from '../../../shared/models/watermark/watermark-product.model';
 import {MatDialog} from '@angular/material';
 import {YesNoDialogComponent} from '../../../dialog-modals/yes-no-dialog.component';
-import {utc} from 'moment';
 
 @Component({
   selector: 'session-view',

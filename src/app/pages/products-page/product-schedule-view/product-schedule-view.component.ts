@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -11,9 +10,9 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {utc, Moment} from 'moment'
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
-import {ProductScheduleCycles, getSimplerProductSchedule} from '../../../shared/models/product-schedule-cycles';
 import {MerchantProviderGroupsService} from '../../../entity-services/services/merchant-provider-groups.service';
 import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 
 @Component({
   selector: 'product-schedule-view',
@@ -38,8 +37,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {label: () => `${this.entity.name}`}
   ];
 
-  productScheduleCycles: ProductScheduleCycles;
-  productScheduleCyclesStates: ProductScheduleCycles[] = [];
+  productScheduleCycles: ProductSchedule;
+  productScheduleCyclesStates: ProductSchedule[] = [];
   productScheduleCyclesIndex = 0;
   editDescription: boolean;
   editMain: boolean;
@@ -60,12 +59,12 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   ngOnInit() {
-    this.service.entity$.take(1).takeUntil(this.unsubscribe$).subscribe(ps => {
-      if (ps instanceof CustomServerError || !ps || !ps.id) {
+    this.service.entity$.take(1).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
+      if (productSchedule instanceof CustomServerError) {
         return;
       }
 
-      this.productScheduleCycles = getSimplerProductSchedule(ps);
+      this.productScheduleCycles = productSchedule;
       this.productScheduleCyclesStates = [this.productScheduleCycles.copy()];
       this.productScheduleCyclesIndex = 0;
     });
@@ -132,11 +131,13 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.productScheduleCycles = this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy();
   }
 
-  saveProductScheduleCycles(productScheduleCycles: ProductScheduleCycles) {
+  saveProductScheduleCycles(productSchedule: ProductSchedule) {
     this.productScheduleCyclesStates = this.productScheduleCyclesStates.slice(0, this.productScheduleCyclesIndex + 1);
-    this.productScheduleCyclesStates.push(productScheduleCycles.copy());
-    this.productScheduleCycles = productScheduleCycles.copy();
+    this.productScheduleCyclesStates.push(productSchedule.copy());
+    this.productScheduleCycles = productSchedule.copy();
     this.productScheduleCyclesIndex++;
+
+    this.service.updateEntity(this.productScheduleCycles);
   }
 
   productScheduleCyclesStatePersisted() {

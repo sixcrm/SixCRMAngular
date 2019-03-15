@@ -1,5 +1,5 @@
 import {Customer} from './customer.model';
-import {ProductSchedule} from './product-schedule.model';
+import {ProductSchedule} from './product-schedule-legacy.model';
 import {Rebill} from './rebill.model';
 import {Campaign} from './campaign.model';
 import {Entity} from './entity.interface';

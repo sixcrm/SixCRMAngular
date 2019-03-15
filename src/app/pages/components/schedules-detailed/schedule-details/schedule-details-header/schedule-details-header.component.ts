@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Product} from '../../../../../shared/models/product.model';
 import {Schedule} from '../../../../../shared/models/schedule.model';
-import {ProductSchedule} from '../../../../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../../../../shared/models/product-schedule-legacy.model';
 
 @Component({
   selector: 'schedule-details-header',
