@@ -410,8 +410,21 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   createSubscription() {
-    const productSchedule = new ProductSchedule({name: `${this.entity.name} Subscription`});
-    const cycle = new Cycle({position: 1, next_position: 1, shipping_price: this.entity.shippingPrice.amount, price: this.entity.defaultPrice.amount, cycle_products: [{product: this.entity.inverse(), quantity: this.entity.quantity, is_shipping: this.entity.ship, position: 1}]});
+    const productSchedule = new ProductSchedule({name: `${this.entity.name} Schedule`});
+
+    if (this.merchantAssociation && this.merchantAssociation.merchantProviderGroup && this.merchantAssociation.merchantProviderGroup.id) {
+      productSchedule.merchantProviderGroup = this.merchantAssociation.merchantProviderGroup.inverse();
+    }
+
+    const cycle = new Cycle({
+      position: 1,
+      next_position: 1,
+      shipping_price: this.entity.shippingPrice.amount,
+      price: this.entity.defaultPrice.amount,
+      cycle_products: [
+        {product: this.entity.inverse(), quantity: this.entity.quantity, is_shipping: this.entity.ship, position: 1}
+      ]
+    });
 
     productSchedule.cycles = [cycle];
 
