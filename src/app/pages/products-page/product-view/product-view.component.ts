@@ -21,8 +21,7 @@ import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-gr
 import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {MerchantProviderGroupAssociationDialogComponent} from '../../../dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
-import {ProductSchedule} from '../../../shared/models/product-schedule.model';
-import {Schedule} from '../../../shared/models/schedule.model';
+import {ProductSchedule, Cycle} from '../../../shared/models/product-schedule.model';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
@@ -410,10 +409,23 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   createSubscription() {
-    const productSchedule = new ProductSchedule({name: `${this.entity.name} Subscription`});
-    const schedule = new Schedule({start: 0, period: 30, end: 0, product: this.entity.copy(), price: this.entity.defaultPrice.amount});
+    const productSchedule = new ProductSchedule({name: `${this.entity.name} Schedule`});
 
-    productSchedule.schedules = [schedule];
+    if (this.merchantAssociation && this.merchantAssociation.merchantProviderGroup && this.merchantAssociation.merchantProviderGroup.id) {
+      productSchedule.merchantProviderGroup = this.merchantAssociation.merchantProviderGroup.inverse();
+    }
+
+    const cycle = new Cycle({
+      position: 1,
+      next_position: 1,
+      shipping_price: this.entity.shippingPrice.amount,
+      price: this.entity.defaultPrice.amount,
+      cycle_products: [
+        {product: this.entity.inverse(), quantity: this.entity.quantity, is_shipping: this.entity.ship, position: 1}
+      ]
+    });
+
+    productSchedule.cycles = [cycle];
 
     this.productScheduleService.fetchCreateEntity(productSchedule).subscribe(ps => {
       if (ps instanceof CustomServerError) return;

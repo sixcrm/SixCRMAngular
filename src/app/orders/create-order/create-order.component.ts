@@ -162,7 +162,7 @@ export class CreateOrderComponent implements OnInit {
     this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
       if (productSchedules instanceof CustomServerError) return;
 
-      productSchedules = productSchedules.filter(p => p.schedules.length === 1);
+      productSchedules = productSchedules.filter(p => p.cycles.length === 1);
 
       this.products = [...this.products, ...productSchedules].sort((a,b) => {
         if (a.name > b.name) return 1;
@@ -485,7 +485,7 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(this.selectedProducts.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
+        return (p.getInitialPrice().amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;

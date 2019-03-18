@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Cycle} from '../../../models/product-schedule-cycles';
+import {Cycle} from '../../../models/product-schedule.model';
 
 @Component({
   selector: 'cycle-info',

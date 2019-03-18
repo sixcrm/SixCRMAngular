@@ -1,6 +1,6 @@
 import {WatermarkProduct} from './watermark-product.model';
 import {WatermarkProductSchedule} from './watermark-product-schedule.model';
-import {ProductSchedule} from '../product-schedule.model';
+import {ProductSchedule} from '../product-schedule-legacy.model';
 import {Product} from '../product.model';
 import {Moment} from 'moment';
 

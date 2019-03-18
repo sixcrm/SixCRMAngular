@@ -84,7 +84,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     this.setMode(Modes.View);
   }
 
-  private fetchData() {
+  protected fetchData() {
     if (this.fetchEntityOnInit && (this.viewMode || this.updateMode)) {
       this.entity = null;
       this.service.getEntity(this.entityId);

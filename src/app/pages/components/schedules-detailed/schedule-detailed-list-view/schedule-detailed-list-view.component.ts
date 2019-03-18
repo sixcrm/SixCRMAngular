@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../../../shared/models/product-schedule-legacy.model';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {ColumnParamsInputType, ColumnParams} from '../../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../table-memory/table-memory.component';

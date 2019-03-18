@@ -53,14 +53,14 @@
       <div>Ship</div>
     </div>
 
-    <div *ngFor="let product of selectedCycle.cycleProducts" class="row">
-      <div>{{product.name}}</div>
+    <div *ngFor="let cycleProduct of selectedCycle.cycleProducts" class="row">
+      <div>{{cycleProduct.product.name}}</div>
 
       <mat-form-field class="quantity">
-        <input type="text" matInput [(ngModel)]="product.quantity">
+        <input type="text" matInput [(ngModel)]="cycleProduct.quantity">
       </mat-form-field>
 
-      <mat-checkbox class="checkbox-blue" [(ngModel)]="product.isShippable"></mat-checkbox>
+      <mat-checkbox class="checkbox-blue" [(ngModel)]="cycleProduct.isShipping"></mat-checkbox>
     </div>
 
   </div>

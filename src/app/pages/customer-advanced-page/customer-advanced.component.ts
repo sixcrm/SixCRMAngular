@@ -17,7 +17,7 @@ import {Order} from '../../shared/models/order.model';
 import {Transaction} from '../../shared/models/transaction.model';
 import {ShippingReceiptsService} from '../../entity-services/services/shipping-receipts.service';
 import {ShippingReceipt} from '../../shared/models/shipping-receipt.model';
-import {ProductSchedule} from '../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../shared/models/product-schedule-legacy.model';
 import {Session} from '../../shared/models/session.model';
 import {TransactionsService} from '../../entity-services/services/transactions.service';
 import {YesNoDialogComponent} from '../../dialog-modals/yes-no-dialog.component';

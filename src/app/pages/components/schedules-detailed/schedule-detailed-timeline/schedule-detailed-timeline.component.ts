@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../../../shared/models/product-schedule-legacy.model';
 import {Moment, utc} from 'moment';
 import {Schedule, Cycle} from '../../../../shared/models/schedule.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';

@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../../../shared/models/product-schedule-legacy.model';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {Product} from '../../../../shared/models/product.model';
 import {ProductScheduleService} from '../../../../entity-services/services/product-schedule.service';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'schedule-detailed-list',
@@ -36,17 +35,7 @@ export class ScheduleDetailedListComponent implements OnInit {
 
   constructor(public productScheduleService: ProductScheduleService) { }
 
-  ngOnInit() {
-    if (!this.singleScheduleMode) {
-      this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
-        if (productSchedules instanceof CustomServerError) return;
-
-        this.allProductSchedules = productSchedules;
-      });
-
-      this.productScheduleService.getEntities();
-    }
-  }
+  ngOnInit() {}
 
   productScheduleToggle(checked, productSchedule: ProductSchedule) {
     if (checked) {

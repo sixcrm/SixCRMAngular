@@ -1,161 +1,144 @@
-import {Schedule} from './schedule.model';
-import {Entity} from './entity.interface';
-import {Moment, utc} from 'moment';
 import {Currency} from '../utils/currency/currency';
-import {EmailTemplate} from './email-template.model';
-import {SmsProvider} from './sms-provider.model';
+import {MerchantProviderGroup} from './merchant-provider-group.model';
+import {Product} from './product.model';
+import {Entity} from './entity.interface';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
-  id: string;
-  name: string;
-  quantity: number;
-  initialCycleSchedules: Schedule[] = [];
-  initialCycleSchedulesPrice: Currency = new Currency(0);
-  schedules: Schedule[] = [];
-  instantiationDate: Moment;
-  createdAt: Moment;
-  updatedAt: Moment;
-  updatedAtAPI: string;
-  emailTemplates: EmailTemplate[] = [];
-  trialRequired: boolean;
-  trialSmsProvider: SmsProvider;
 
-  start: number;
-  end: number;
+  public id: string;
+  public name: string;
+  public cycles: Cycle[] = [];
+  public merchantProviderGroup: MerchantProviderGroup;
 
-  constructor(obj?: any, additional?: any) {
+  public quantity: number;
+
+  constructor(obj?: any) {
     if (!obj) {
       obj = {};
     }
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.quantity = additional && additional.quantity ? additional.quantity : 1;
-    this.instantiationDate = additional && additional.instantiationDate ? additional.instantiationDate : null;
-
-    if (obj.emailtemplates) {
-      this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
-    }
-    this.trialRequired = !!obj.trial_required;
-    this.trialSmsProvider = new SmsProvider(obj.trial_sms_provider);
-    this.createdAt = utc(obj.created_at);
-    this.updatedAt = utc(obj.updated_at);
-    this.updatedAtAPI = obj.updated_at;
-
-    if (obj.schedule) {
-      this.schedules = obj.schedule.map(s => {
-        s.instantiationDate = additional ? additional.instantiationDate : null;
-
-        return new Schedule(s, obj.days)
-      });
-
-      this.initialCycleSchedules = this.calculateInitialSchedules();
-      this.initialCycleSchedulesPrice = new Currency((this.initialCycleSchedules || []).reduce((a,b)=> a + b.price.amount, 0));
-      this.start = this.getStart();
-      this.end = this.getEnd();
+    this.merchantProviderGroup = new MerchantProviderGroup(obj.merchant_provider_group);
+    if (obj.cycles) {
+      this.cycles = obj.cycles.map(c => new Cycle(c));
     }
   }
 
-  calculateInitialSchedules(): Schedule[] {
-    let start = this.schedules[0] ? this.schedules[0].start : 0;
-    let schedules: Schedule[] = [];
-
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (this.schedules[i].start === 0) {
-        start = 0;
-        break;
-      }
-
-      if (this.schedules[i].start < start) {
-        start = this.schedules[i].start;
-      }
+  inverse() {
+    return {
+      id: this.id,
+      name: this.name,
+      cycles: this.cycles.map(c => c.inverse()),
+      merchant_provider_group: this.merchantProviderGroup.inverse()
     }
+  }
 
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (this.schedules[i].start === start) {
-        schedules.push(this.schedules[i].copy());
-      }
-    }
-
-    return schedules;
+  copy(): ProductSchedule {
+    return new ProductSchedule(this.inverse());
   }
 
   getInitialPrice(): Currency {
-    return new Currency(this.schedules.filter(s => s.start === 0).map(s => s.price.amount).reduce((a,b)=>a+b,0));
+    if (!this.cycles || this.cycles.length === 0) {
+      return new Currency(0);
+    }
+
+    return this.cycles[0].price
   }
 
   getDefaultImagePath(): string {
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (this.schedules[i].start === 0) {
-        return this.schedules[i].product.getDefaultImagePath();
-      }
-    }
-
     return '/assets/images/product-default-image.svg';
   }
 
-  getStart(): number {
-    if (!this.schedules || this.schedules.length === 0) return 0;
+}
 
-    let start = this.schedules[0].start || 0;
+export class CycleProduct {
+  public product: Product;
+  public quantity: number;
+  public isShipping: boolean;
+  public position: number;
 
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (this.schedules[i].start < start) {
-        start = this.schedules[i].start;
-      }
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
     }
 
-    return start;
-  }
-
-  getEnd(): number {
-    if (!this.schedules || this.schedules.length === 0) return null;
-
-    let end = this.schedules[0].end;
-
-    if (!end) return null;
-
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (!this.schedules[i].end) return null;
-
-      if (this.schedules[i].end > end) {
-        end = this.schedules[i].end;
-      }
-    }
-
-    return end;
-  }
-
-  copy(days?: number): ProductSchedule {
-    const obj = this.inverse();
-
-    if (days) {
-      obj['days'] = days;
-    }
-
-    let additional = {};
-
-    if (this.quantity) {
-      additional['quantity'] = this.quantity;
-    }
-
-    if (this.instantiationDate) {
-      additional['instantiationDate'] = this.instantiationDate;
-    }
-
-    return new ProductSchedule(obj, additional);
+    this.isShipping = !!obj.is_shipping;
+    this.quantity = obj.quantity || 1;
+    this.product = new Product(obj.product);
+    this.position = obj.position || 1;
   }
 
   inverse(): any {
     return {
-      id: this.id,
-      name: this.name,
-      schedule: this.schedules.map(s => s.inverse()),
-      emailtemplates: this.emailTemplates.map(e => e.inverse()),
-      trial_required: this.trialRequired,
-      trial_sms_provider: this.trialSmsProvider.inverse(),
-      updated_at: this.updatedAtAPI,
-      created_at: this.createdAt.format()
+      is_shipping: this.isShipping,
+      quantity: this.quantity,
+      product: this.product.inverse(),
+      position: this.position
     }
+  }
+
+  copy(): CycleProduct {
+    return new CycleProduct(this.inverse());
+  }
+}
+
+export class Cycle {
+
+  public position: number;
+  public nextPosition: number;
+  public length: number;
+  public monthly: boolean;
+  public cycleProducts: CycleProduct[] = [];
+  public price: Currency;
+  public shippingPrice: Currency;
+  public dragDiff: number = 0;
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.position = obj.position || 0;
+    this.nextPosition = obj.next_position || 0;
+    this.monthly = this.calculateMonthly(obj);
+    this.length = this.calculateLength(obj);
+    this.price = new Currency(obj.price || 0);
+    this.shippingPrice = new Currency(obj.shipping_price || 0);
+    if (obj.cycle_products) {
+      this.cycleProducts = obj.cycle_products.map(p => new CycleProduct(p));
+    }
+  }
+
+  calculateLength(obj) {
+    if (!obj.length) return 30;
+
+    return obj.length['month'] || obj.length['months'] || obj.length['day'] || obj.length['days'] || 30;
+  }
+
+  calculateMonthly(obj) {
+    if (!obj.length) return false;
+
+    return !!(obj.length['month'] || obj.length['months']);
+  }
+
+  inverse() {
+    const len = {};
+    const lenKey = this.monthly ? 'months' : 'days';
+    len[lenKey] = this.length;
+
+    return {
+      position: this.position,
+      next_position: this.nextPosition,
+      length: len,
+      monthly: this.monthly,
+      cycle_products: this.cycleProducts.map(cp => cp.inverse()),
+      shipping_price: this.shippingPrice.amount,
+      price: this.price.amount
+    }
+  }
+
+  copy() {
+    return new Cycle(this.inverse());
   }
 }
