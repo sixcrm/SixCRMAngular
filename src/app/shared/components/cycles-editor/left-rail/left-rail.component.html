@@ -3,7 +3,7 @@
 
   <button mat-button (click)="addNewCycle.emit(true)">{{selectedCycle ? 'Copy Cycle ' + selectedCycle.position : 'Add Cycle'}}</button>
 
-  <div class="product" *ngFor="let product of products">
-    {{product.name}}
+  <div class="product" *ngFor="let cycleProduct of cycleProducts">
+    {{cycleProduct.product.name}}
   </div>
 </div>

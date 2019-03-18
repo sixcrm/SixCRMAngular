@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ProductScheduleCycles, Cycle, CycleProduct} from '../../models/product-schedule-cycles';
+import {ProductSchedule, Cycle, CycleProduct} from '../../models/product-schedule.model';
 import {firstIndexOf} from '../../utils/array.utils';
 
 @Component({
@@ -11,27 +11,27 @@ import {firstIndexOf} from '../../utils/array.utils';
 export class CyclesEditorComponent implements OnInit {
 
   @Input()
-  public productSchedule: ProductScheduleCycles;
+  public productSchedule: ProductSchedule;
 
   @Input()
   public statePersisted: boolean;
 
-  @Output() saveChanges: EventEmitter<ProductScheduleCycles> = new EventEmitter();
+  @Output() saveChanges: EventEmitter<ProductSchedule> = new EventEmitter();
   @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() redoChanges: EventEmitter<boolean> = new EventEmitter();
 
   public zoomLevel: number = 5;
 
   public selectedCycle: Cycle;
-  public products: CycleProduct[];
+  public cycleProducts: CycleProduct[];
 
   constructor() { }
 
   ngOnInit() {
-    this.products = this.productSchedule.cycles
+    this.cycleProducts = this.productSchedule.cycles
       .map(cycle => cycle.cycleProducts)
       .reduce((a,b) => a.concat(...b), [])
-      .reduce((a,b) => firstIndexOf(a, el => el.id === b.id) === -1 ? a.concat(b) : a, []);
+      .reduce((a,b) => firstIndexOf(a, el => el.product.id === b.product.id) === -1 ? a.concat(b) : a, []);
   }
 
   addNewCycle() {

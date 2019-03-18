@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import {ProductScheduleCycles, Cycle} from '../../../models/product-schedule-cycles';
+import {ProductSchedule, Cycle} from '../../../models/product-schedule.model';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 
 @Component({
@@ -21,7 +21,7 @@ export class EditorComponent implements OnInit {
     this.measureArray = this.createRangeArray(this.days / this.zoom);
   }
 
-  @Input() productSchedule: ProductScheduleCycles;
+  @Input() productSchedule: ProductSchedule;
 
   @Output() cycleSelected: EventEmitter<Cycle> = new EventEmitter();
   @Output() reorganizeCycles: EventEmitter<{fromIndex: number, toIndex: number}> = new EventEmitter();
