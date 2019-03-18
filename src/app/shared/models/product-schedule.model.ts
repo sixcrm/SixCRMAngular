@@ -101,20 +101,36 @@ export class Cycle {
 
     this.position = obj.position || 0;
     this.nextPosition = obj.next_position || 0;
-    this.length = 30;
+    this.monthly = this.calculateMonthly(obj);
+    this.length = this.calculateLength(obj);
     this.price = new Currency(obj.price || 0);
     this.shippingPrice = new Currency(obj.shipping_price || 0);
-    this.monthly = !!obj.monthly;
     if (obj.cycle_products) {
       this.cycleProducts = obj.cycle_products.map(p => new CycleProduct(p));
     }
   }
 
+  calculateLength(obj) {
+    if (!obj.length) return 30;
+
+    return obj.length['month'] || obj.length['months'] || obj.length['day'] || obj.length['days'] || 30;
+  }
+
+  calculateMonthly(obj) {
+    if (!obj.length) return false;
+
+    return !!(obj.length['month'] || obj.length['months']);
+  }
+
   inverse() {
+    const len = {};
+    const lenKey = this.monthly ? 'months' : 'days';
+    len[lenKey] = this.length;
+
     return {
       position: this.position,
       next_position: this.nextPosition,
-      length: this.length,
+      length: len,
       monthly: this.monthly,
       cycle_products: this.cycleProducts.map(cp => cp.inverse()),
       shipping_price: this.shippingPrice.amount,

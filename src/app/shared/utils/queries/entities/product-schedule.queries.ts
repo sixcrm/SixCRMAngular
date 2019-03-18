@@ -66,7 +66,7 @@ export function productScheduleInputQuery(productSchedule: ProductSchedule, incl
   };
 
   let cycles = productSchedule.cycles.reduce((a,b) => {
-    return `${a}${a?',':''}{cycle_products: [${extractCycleProducts(b.cycleProducts)}], price:${b.price.amount}, shipping_price:${b.shippingPrice.amount}, length:"days:30", position:${b.position}, next_position:${b.nextPosition}}`;
+    return `${a}${a?',':''}{cycle_products: [${extractCycleProducts(b.cycleProducts)}], price:${b.price.amount}, shipping_price:${b.shippingPrice.amount}, length:"${b.length} ${b.monthly ? 'months' : 'days'}", position:${b.position}, next_position:${b.nextPosition}}`;
   }, '');
 
   return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}" ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup:"${productSchedule.merchantProviderGroup.id}"` : ''} cycles: [${cycles}], ${addUpdatedAtApi(productSchedule, includeId)}`;
