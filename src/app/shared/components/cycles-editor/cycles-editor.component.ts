@@ -157,6 +157,8 @@ export class CyclesEditorComponent implements OnInit {
 
   save() {
     const snapshot = this.productSchedule.copy();
+    this.selectedCycle = undefined;
+
     this.saveChanges.emit(snapshot);
   }
 

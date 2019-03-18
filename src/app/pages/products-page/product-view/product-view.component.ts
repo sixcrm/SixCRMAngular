@@ -22,7 +22,6 @@ import {CampaignsService} from '../../../entity-services/services/campaigns.serv
 import {MerchantProviderGroupAssociationDialogComponent} from '../../../dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ProductSchedule, Cycle} from '../../../shared/models/product-schedule.model';
-import {Schedule} from '../../../shared/models/schedule.model';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
@@ -410,8 +409,21 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   createSubscription() {
-    const productSchedule = new ProductSchedule({name: `${this.entity.name} Subscription`});
-    const cycle = new Cycle({position: 1, next_position: 1, shipping_price: this.entity.shippingPrice.amount, price: this.entity.defaultPrice.amount, cycle_products: [{product: this.entity.inverse(), quantity: this.entity.quantity, is_shipping: this.entity.ship, position: 1}]});
+    const productSchedule = new ProductSchedule({name: `${this.entity.name} Schedule`});
+
+    if (this.merchantAssociation && this.merchantAssociation.merchantProviderGroup && this.merchantAssociation.merchantProviderGroup.id) {
+      productSchedule.merchantProviderGroup = this.merchantAssociation.merchantProviderGroup.inverse();
+    }
+
+    const cycle = new Cycle({
+      position: 1,
+      next_position: 1,
+      shipping_price: this.entity.shippingPrice.amount,
+      price: this.entity.defaultPrice.amount,
+      cycle_products: [
+        {product: this.entity.inverse(), quantity: this.entity.quantity, is_shipping: this.entity.ship, position: 1}
+      ]
+    });
 
     productSchedule.cycles = [cycle];
 
