@@ -22,7 +22,6 @@ import {CampaignsService} from '../../../entity-services/services/campaigns.serv
 import {MerchantProviderGroupAssociationDialogComponent} from '../../../dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ProductSchedule, Cycle} from '../../../shared/models/product-schedule.model';
-import {Schedule} from '../../../shared/models/schedule.model';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
