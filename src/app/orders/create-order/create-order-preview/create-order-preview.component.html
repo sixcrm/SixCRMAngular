@@ -41,14 +41,9 @@
       <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.getInitialPrice().usd()}} <div class="subscription" *ngIf="product.schedules">SUBSCRIPTION{{confirmationRequired() ? ', CONFIRMATION REQUIRED':''}}</div></div>
 
       <div class="description">
-        <ng-container *ngIf="product.description; else schedulesdescription">
+        <ng-container *ngIf="product.description">
           {{product.description || '–' }}
         </ng-container>
-        <ng-template #schedulesdescription>
-          <div *ngFor="let cycleProduct of product.cycle[0].cycleProducts">
-            {{cycleProduct.product.description || '–' }}
-          </div>
-        </ng-template>
       </div>
     </div>
 
