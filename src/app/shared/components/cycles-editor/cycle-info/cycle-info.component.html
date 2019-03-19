@@ -55,7 +55,7 @@
       <div>{{cycleProduct.product.name}}</div>
 
       <mat-form-field class="quantity">
-        <input type="text" matInput [(ngModel)]="cycleProduct.quantity">
+        <input type="number" min="1" matInput [(ngModel)]="cycleProduct.quantity">
       </mat-form-field>
 
       <mat-checkbox class="checkbox-blue" [(ngModel)]="cycleProduct.isShipping"></mat-checkbox>

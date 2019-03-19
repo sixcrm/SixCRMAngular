@@ -19,7 +19,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.merchantProviderGroup = new MerchantProviderGroup(obj.merchant_provider_group);
+    this.merchantProviderGroup = new MerchantProviderGroup(obj.merchantprovidergroup);
     if (obj.cycles) {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
@@ -30,7 +30,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       id: this.id,
       name: this.name,
       cycles: this.cycles.map(c => c.inverse()),
-      merchant_provider_group: this.merchantProviderGroup.inverse()
+      merchantprovidergroup: this.merchantProviderGroup.inverse()
     }
   }
 
