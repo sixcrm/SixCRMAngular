@@ -105,6 +105,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
   private parseCustomersForDownload(customers: CustomerAnalytics[]): any {
     return customers.map(c => {
       return {
+        'ID': c.id,
         'Status': c.status,
         'First Name': c.firstName,
         'Last Name': c.lastName,
