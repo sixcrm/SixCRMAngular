@@ -46,7 +46,7 @@
         <ng-container *ngIf="isSubscription(entity); else product">
           <div class="product-details">
             <div>
-              <div>Schedules {{entity.cycles.length}}</div>
+              <div>Cycles {{entity.cycles.length}}</div>
               <div>{{entity.getInitialPrice().usd()}}</div>
             </div>
             <button mat-button [routerLink]="['/products', 'schedule', entity.id]">EDIT</button>

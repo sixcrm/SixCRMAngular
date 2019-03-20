@@ -38,4 +38,10 @@ export class CycleInfoComponent implements OnInit {
   deleteCycle() {
     this.deleteSelectedCycle.emit(this.selectedCycle);
   }
+
+  validatePositiveInteger(event) {
+    if (event && (event.key === '-' || event.key === '+' || event.key === '.' || event.key === ',')) {
+      event.preventDefault();
+    }
+  }
 }
