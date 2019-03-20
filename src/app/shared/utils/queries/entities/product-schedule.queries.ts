@@ -51,7 +51,7 @@ export function updateProductScheduleMutation(productSchedule: ProductSchedule):
 }
 
 export function productScheduleResponseQuery(): string {
-  return `id name created_at merchantprovidergroup {id, name} updated_at cycles { cycle_products { product {id, name}, is_shipping, quantity, position }, price, shipping_price, length, position, next_position }`
+  return `id name created_at merchantprovidergroup {id, name} updated_at cycles { cycle_products { product {id, name, is_shippable}, is_shipping, quantity, position }, price, shipping_price, length, position, next_position }`
 }
 
 export function productScheduleInfoResponseQuery(): string {

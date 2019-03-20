@@ -58,7 +58,12 @@
         <input type="number" (keydown)="validatePositiveInteger($event)" min="1" step="1" matInput [(ngModel)]="cycleProduct.quantity">
       </mat-form-field>
 
-      <mat-checkbox class="checkbox-blue" [(ngModel)]="cycleProduct.isShipping"></mat-checkbox>
+      <mat-checkbox class="checkbox-blue"
+                    [(ngModel)]="cycleProduct.isShipping"
+                    [disabled]="!cycleProduct.product.ship"
+                    [matTooltipDisabled]="cycleProduct.product.ship"
+                    matTooltip="To make this product shippable, please add a fulfillment provider in the Product settings.">
+      </mat-checkbox>
     </div>
 
   </div>
