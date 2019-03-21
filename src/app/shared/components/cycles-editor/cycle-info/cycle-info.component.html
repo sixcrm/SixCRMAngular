@@ -6,7 +6,7 @@
 
 
   <div class="row">
-    <mat-form-field>
+    <mat-form-field [class.error]="!selectedCycle.isValidLength()">
       <input type="number" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length" min="1" step="1" (keydown)="validatePositiveInteger($event)">
     </mat-form-field>
 
@@ -54,7 +54,7 @@
     <div *ngFor="let cycleProduct of selectedCycle.cycleProducts" class="row">
       <div>{{cycleProduct.product.name}}</div>
 
-      <mat-form-field class="quantity">
+      <mat-form-field class="quantity" [class.error]="!cycleProduct.isValidQuantity()">
         <input type="number" (keydown)="validatePositiveInteger($event)" min="1" step="1" matInput [(ngModel)]="cycleProduct.quantity">
       </mat-form-field>
 
