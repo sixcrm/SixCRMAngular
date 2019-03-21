@@ -38,15 +38,20 @@
                     <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
                   </div>
 
-                  <custom-mat-dropdown
-                          (selectItem)="productScheduleCycles.merchantProviderGroup = $event"
-                          [editable]="editMain"
-                          [placeholder]="'Merchant Processing'"
-                          [items]="merchantProviderGroups"
-                          [mapper]="merchantProviderGroupMapper"
-                          [showAddNew]="false"
-                          [selectedItem]="productScheduleCycles.merchantProviderGroup">
-                  </custom-mat-dropdown>
+                  <div class="edit-row mid-group">
+                    <mat-form-field>
+                      <input type="text" [readonly]="!editMain" matInput placeholder="Merchant Processing" [matAutocomplete]="autoMid" (keyup)="midInputChanged()" [(ngModel)]="midFilter">
+
+                      <mat-autocomplete #autoMid="matAutocomplete" (optionSelected)="midSelected($event)">
+                        <mat-option *ngFor="let mid of merchantProviderGroupsFiltered" [value]="mid">
+                          <div>{{ mid.name }} </div>
+                        </mat-option>
+                      </mat-autocomplete>
+
+                    </mat-form-field>
+
+                    <mat-icon class="dropdown-icon" *ngIf="editMain">arrow_drop_down</mat-icon>
+                  </div>
 
                   <div class="edit-buttons" *ngIf="editMain">
                     <button mat-button (click)="cancelEditMain()">CANCEL</button>

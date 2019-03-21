@@ -43,8 +43,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   editDescription: boolean;
   editMain: boolean;
 
-  merchantProviderGroupMapper = (el: MerchantProviderGroup) => el.name || '-';
   merchantProviderGroups: MerchantProviderGroup[] = [];
+  merchantProviderGroupsFiltered: MerchantProviderGroup[] = [];
+
+  midFilter: string;
 
   constructor(
     service: ProductScheduleService,
@@ -80,6 +82,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       if (groups instanceof CustomServerError) return;
 
       this.merchantProviderGroups = groups;
+      this.merchantProviderGroupsFiltered = this.merchantProviderGroups.slice();
     });
 
     this.merchantProviderGroupsService.getEntities();
@@ -169,5 +172,31 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   cancelEditMain() {
     this.cancelUpdate();
     this.editMain = false;
+  }
+
+  midInputChanged() {
+    this.productScheduleCycles.merchantProviderGroup = new MerchantProviderGroup();
+
+    if (!this.midFilter) {
+      this.merchantProviderGroupsFiltered = this.merchantProviderGroups.slice();
+
+      return;
+    }
+
+    this.merchantProviderGroupsFiltered = this.merchantProviderGroups
+      .filter(g => g.name.indexOf(this.midFilter) !== -1);
+
+    for (let i = 0; i < this.merchantProviderGroupsFiltered.length; i++) {
+      if (this.merchantProviderGroupsFiltered[i].name === this.midFilter) {
+        this.productScheduleCycles.merchantProviderGroup = this.merchantProviderGroupsFiltered[i].copy();
+
+        return;
+      }
+    }
+  }
+
+  midSelected(option) {
+    this.productScheduleCycles.merchantProviderGroup = option.option.value.copy();
+    this.midFilter = this.productScheduleCycles.merchantProviderGroup.name;
   }
 }
