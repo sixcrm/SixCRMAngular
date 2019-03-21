@@ -88,7 +88,15 @@ export class CyclesEditorComponent implements OnInit {
   }
 
   cycleSelected(selectedCycle: Cycle): void {
-    this.selectedCycle = selectedCycle;
+    for (let i = 0; i < this.productSchedule.cycles.length; i++) {
+      if (this.productSchedule.cycles[i] === selectedCycle) {
+        selectedCycle['selected'] = !selectedCycle['selected'];
+      } else {
+        this.productSchedule.cycles[i]['selected'] = false;
+      }
+    }
+
+    this.selectedCycle = selectedCycle['selected'] ? selectedCycle : undefined;
   }
 
   getTitle() {
@@ -156,6 +164,14 @@ export class CyclesEditorComponent implements OnInit {
   }
 
   save() {
+    for (let i = 0; i < this.productSchedule.cycles.length; i++) {
+      if (!this.productSchedule.cycles[i].isValid()) {
+        this.cycleSelected(this.productSchedule.cycles[i]);
+
+        return;
+      }
+    }
+
     const snapshot = this.productSchedule.copy();
     this.selectedCycle = undefined;
 

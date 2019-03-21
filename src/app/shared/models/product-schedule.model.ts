@@ -78,6 +78,10 @@ export class CycleProduct {
     }
   }
 
+  isValidQuantity() {
+    return +this.quantity > 0;
+  }
+
   copy(): CycleProduct {
     return new CycleProduct(this.inverse());
   }
@@ -136,6 +140,16 @@ export class Cycle {
       shipping_price: this.shippingPrice.amount,
       price: this.price.amount
     }
+  }
+
+  isValidLength() {
+    return +this.length > 0;
+  }
+
+  isValid() {
+    return this.cycleProducts
+      .map(cycleProduct => cycleProduct.isValidQuantity())
+      .reduce((a,b) => a && b, this.isValidLength())
   }
 
   copy() {

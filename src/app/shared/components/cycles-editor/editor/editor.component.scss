@@ -67,6 +67,10 @@
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.12);;
 
+    &--error {
+      background: $danger-color;
+    }
+
     .data {
       margin: auto;
       font-weight: 500;
@@ -89,7 +93,11 @@
     height: 32px;
     background: $main-color-600;
     border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.12);;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+
+    &--error {
+      background: $danger-color;
+    }
   }
 
   &--selected {
