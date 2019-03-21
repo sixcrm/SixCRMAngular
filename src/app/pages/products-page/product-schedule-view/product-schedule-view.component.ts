@@ -171,11 +171,12 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   cancelEditMain() {
     this.cancelUpdate();
+    this.midFilter = this.entity.merchantProviderGroup.name;
     this.editMain = false;
   }
 
   midInputChanged() {
-    this.productScheduleCycles.merchantProviderGroup = new MerchantProviderGroup();
+    this.entity.merchantProviderGroup = new MerchantProviderGroup();
 
     if (!this.midFilter) {
       this.merchantProviderGroupsFiltered = this.merchantProviderGroups.slice();
@@ -188,7 +189,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
     for (let i = 0; i < this.merchantProviderGroupsFiltered.length; i++) {
       if (this.merchantProviderGroupsFiltered[i].name === this.midFilter) {
-        this.productScheduleCycles.merchantProviderGroup = this.merchantProviderGroupsFiltered[i].copy();
+        this.entity.merchantProviderGroup = this.merchantProviderGroupsFiltered[i].copy();
 
         return;
       }
@@ -196,7 +197,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   midSelected(option) {
-    this.productScheduleCycles.merchantProviderGroup = option.option.value.copy();
-    this.midFilter = this.productScheduleCycles.merchantProviderGroup.name;
+    this.entity.merchantProviderGroup = option.option.value.copy();
+    this.midFilter = this.entity.merchantProviderGroup.name;
   }
 }
