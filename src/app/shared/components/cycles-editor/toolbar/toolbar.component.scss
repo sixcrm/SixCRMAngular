@@ -12,6 +12,7 @@
     margin-right: auto;
     display: flex;
     align-items: center;
+    width: 163px;
 
     .action-item {
       display: flex;
@@ -44,6 +45,12 @@
 
   }
 
+  .zoom-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+
   .zoom-label {
     margin: 0 3px 0 auto;
   }
@@ -52,11 +59,15 @@
     margin-left: 18px;
   }
 
-  .save-button {
-    margin-left: 30px;
+  .blue-button {
     padding: 0 36px;
     background: #2962B3;
     color: #ffffff;
+  }
+
+  .cancel-button {
+    color: #333333;
+    margin-right: 15px;
   }
 
   input[type=range] {

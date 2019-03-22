@@ -200,4 +200,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.entity.merchantProviderGroup = option.option.value.copy();
     this.midFilter = this.entity.merchantProviderGroup.name;
   }
+
+  cancelProductScheduleCyclesChanges() {
+    this.productScheduleCycles = this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy();
+  }
 }

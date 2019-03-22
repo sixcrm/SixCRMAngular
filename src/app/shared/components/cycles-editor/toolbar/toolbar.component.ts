@@ -8,12 +8,14 @@ import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 export class ToolbarComponent implements OnInit {
 
   @Input() zoomLevel: number;
-  @Input() statePersisted: boolean;
+  @Input() editMode: boolean;
 
   @Output() zoomLevelChanged: EventEmitter<number> = new EventEmitter();
   @Output() save: EventEmitter<boolean> = new EventEmitter();
   @Output() undo: EventEmitter<boolean> = new EventEmitter();
   @Output() redo: EventEmitter<boolean> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
+  @Output() edit: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 

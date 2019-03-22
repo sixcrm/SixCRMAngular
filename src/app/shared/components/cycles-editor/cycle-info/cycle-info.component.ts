@@ -9,6 +9,7 @@ import {Cycle} from '../../../models/product-schedule.model';
 export class CycleInfoComponent implements OnInit {
 
   @Input() selectedCycle: Cycle;
+  @Input() editMode: boolean;
   @Input() set numberOfCycles(numberOfCycles: number) {
     this.cycleOptions = [];
 
