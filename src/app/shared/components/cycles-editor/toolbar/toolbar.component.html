@@ -1,19 +1,27 @@
 <div class="content">
   <div class="actions-container">
-    <div class="action-item" (click)="undo.emit(true)">UNDO<mat-icon>undo</mat-icon></div>
-    <div class="action-item" (click)="redo.emit(true)"><mat-icon>redo</mat-icon>REDO</div>
-    <div class="status">{{statePersisted ? 'All changes saved' : 'Please save changes' }}</div>
+    <ng-container *ngIf="editMode">
+      <div class="action-item" (click)="undo.emit(true)">UNDO<mat-icon>undo</mat-icon></div>
+      <div class="action-item" (click)="redo.emit(true)"><mat-icon>redo</mat-icon>REDO</div>
+    </ng-container>
   </div>
 
-  <div class="zoom-label">Zoom</div>
-  <input
-     type="range"
-     min="1"
-     max="10"
-     step="1"
-     value="{{zoomLevel}}"
-     (mousewheel)="mouseWheel($event)"
-     (change)="zoomLevelChanged.emit($event.target.value)">
+  <div *ngIf="editMode">
+    <button mat-button class="cancel-button" (click)="cancel.emit(true)">CANCEL</button>
+    <button mat-button class="blue-button" (click)="save.emit(true)">Save</button>
+  </div>
 
-  <button mat-button class="save-button" (click)="save.emit(true)">SAVE</button>
+  <button mat-button class="blue-button" *ngIf="!editMode" (click)="edit.emit(true)">Edit</button>
+
+  <div class="zoom-container">
+    <div class="zoom-label">Zoom</div>
+    <input
+            type="range"
+            min="1"
+            max="10"
+            step="1"
+            value="{{zoomLevel}}"
+            (mousewheel)="mouseWheel($event)"
+            (change)="zoomLevelChanged.emit($event.target.value)">
+  </div>
 </div>

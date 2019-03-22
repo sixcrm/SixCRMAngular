@@ -13,12 +13,12 @@ export class CyclesEditorComponent implements OnInit {
   @Input()
   public productSchedule: ProductSchedule;
 
-  @Input()
-  public statePersisted: boolean;
-
   @Output() saveChanges: EventEmitter<ProductSchedule> = new EventEmitter();
   @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() redoChanges: EventEmitter<boolean> = new EventEmitter();
+  @Output() cancelChanges: EventEmitter<boolean> = new EventEmitter();
+
+  editMode: boolean;
 
   public zoomLevel: number = 5;
 
@@ -186,8 +186,9 @@ export class CyclesEditorComponent implements OnInit {
     this.redoChanges.emit(true);
   }
 
-  allChangesSaved() {
-
+  cancelUpdates() {
+    this.editMode = false;
+    this.cancelChanges.emit(true);
   }
 
   onKeyDown(event) {

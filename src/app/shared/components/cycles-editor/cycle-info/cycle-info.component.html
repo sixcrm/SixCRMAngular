@@ -7,12 +7,13 @@
 
   <div class="row">
     <mat-form-field [class.error]="!selectedCycle.isValidLength()">
-      <input type="number" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length" min="1" step="1" (keydown)="validatePositiveInteger($event)">
+      <input type="number" [readonly]="!editMode" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length" min="1" step="1" (keydown)="validatePositiveInteger($event)">
     </mat-form-field>
 
     <custom-mat-dropdown
             class="days-dropdown"
             (selectItem)="granularityChanged.emit($event)"
+            [editable]="editMode"
             [items]="['Days', 'Month']"
             [selectedItem]="selectedCycle.monthly ? 'Month' : 'Days'"
             [showAddNew]="false">
@@ -21,7 +22,7 @@
     <custom-mat-dropdown
             class="cycle-dropdown"
             (selectItem)="nextChanged($event)"
-            [editable]="selectedCycle.position === (cycleOptions.length - 1)"
+            [editable]="selectedCycle.position === (cycleOptions.length - 1) && editMode"
             [items]="cycleOptions"
             [selectedItem]="selectedCycle.nextPosition === -1 ? 'None' : selectedCycle.nextPosition"
             [placeholder]="'Next Cycle'"
@@ -32,11 +33,11 @@
   <div class="row">
 
     <mat-form-field>
-      <input type="text" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price" (priceChanged)="selectedCycle.price = $event">
+      <input type="text" [readonly]="!editMode" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price" (priceChanged)="selectedCycle.price = $event">
     </mat-form-field>
 
     <mat-form-field style="margin-left: auto">
-      <input type="text" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice" (priceChanged)="selectedCycle.shippingPrice = $event">
+      <input type="text" [readonly]="!editMode" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice" (priceChanged)="selectedCycle.shippingPrice = $event">
     </mat-form-field>
 
   </div>
@@ -55,13 +56,13 @@
       <div>{{cycleProduct.product.name}}</div>
 
       <mat-form-field class="quantity" [class.error]="!cycleProduct.isValidQuantity()">
-        <input type="number" (keydown)="validatePositiveInteger($event)" min="1" step="1" matInput [(ngModel)]="cycleProduct.quantity">
+        <input type="number" [readonly]="!editMode" (keydown)="validatePositiveInteger($event)" min="1" step="1" matInput [(ngModel)]="cycleProduct.quantity">
       </mat-form-field>
 
       <mat-checkbox class="checkbox-blue"
                     [(ngModel)]="cycleProduct.isShipping"
-                    [disabled]="!cycleProduct.product.ship"
-                    [matTooltipDisabled]="cycleProduct.product.ship"
+                    [disabled]="!cycleProduct.product.ship || !editMode"
+                    [matTooltipDisabled]="cycleProduct.product.ship || !editMode"
                     matTooltip="To make this product shippable, please add a fulfillment provider in the Product settings.">
       </mat-checkbox>
     </div>
@@ -70,4 +71,4 @@
 
 </div>
 
-<button *ngIf="cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>
+<button *ngIf="editMode && cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>

@@ -87,10 +87,10 @@
       <mat-tab>
         <cycles-editor
           [productSchedule]="productScheduleCycles"
-          [statePersisted]="productScheduleCyclesStatePersisted()"
           (saveChanges)="saveProductScheduleCycles($event)"
           (undoChanges)="undoProductScheduleCycles()"
           (redoChanges)="redoProductScheduleCycles()"
+          (cancelChanges)="cancelProductScheduleCyclesChanges()"
         ></cycles-editor>
       </mat-tab>
 
