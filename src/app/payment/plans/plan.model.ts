@@ -4,7 +4,7 @@ export class Plan {
   public static ofName(name: string): Plan {
     switch (name) {
       case 'Basic': {
-        return new Plan('Basic', 30, '37cbb0aa-a1e9-4ad0-afe3-38f1dce31d5b');
+        return new Plan('Basic', 50, '37cbb0aa-a1e9-4ad0-afe3-38f1dce31d5b');
       }
 
       case 'Professional': {
