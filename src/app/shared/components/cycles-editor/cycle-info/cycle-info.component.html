@@ -71,4 +71,4 @@
 
 </div>
 
-<button *ngIf="cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>
+<button *ngIf="editMode && cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>
