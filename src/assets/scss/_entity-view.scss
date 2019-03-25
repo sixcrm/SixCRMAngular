@@ -721,7 +721,7 @@ $info-width: 290px;
 }
 
 .details-box {
-  padding: 20px;
+  padding: 25px;
   font-size: 14px;
 
   &--blue {
@@ -776,14 +776,10 @@ $info-width: 290px;
 .edit-row {
   display: flex;
   align-items: center;
-  height: 20px;
 
   &--first {
-    margin-top: 20px;
-
-    mat-icon {
-      margin-bottom: 12px;
-    }
+    margin-top: 10px;
+    margin-bottom: 0;
   }
 
   &--second {
@@ -792,6 +788,14 @@ $info-width: 290px;
 
   mat-form-field {
     width: 180px;
+  }
+
+  .edit-button {
+    margin-left: auto;
+    margin-top: -30px;
+    color: $main-color-400;
+    font-weight: 500;
+    cursor: pointer;
   }
 
   mat-icon {
@@ -814,9 +818,9 @@ $info-width: 290px;
 
 .underline-container {
   display: flex;
-  padding: 0 8px 5px;
+  padding: 0 10px 5px;
   border-bottom: 2px solid rgba(0,0,0,0);
-  transition: border-color 250ms;
+  transition: border-color 180ms;
 
   .mat-form-field-wrapper {
     padding-bottom: 0 !important;
@@ -832,6 +836,6 @@ $info-width: 290px;
 
   &--editable {
     border-color: $main-color-400;
-    transition: border-color 250ms;
+    transition: border-color 180ms;
   }
 }

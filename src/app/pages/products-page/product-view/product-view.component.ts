@@ -67,6 +67,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   fulfillmentInvalid: boolean;
 
+  fulfillmentProviderMapper = (el: FulfillmentProvider) => el ? el.name : '';
+
   emailTemplateMapper = (el: EmailTemplate) => el.name;
   emailTemplateColumnParams = [
     new ColumnParams('Name', (e: EmailTemplate) => e.name),
@@ -374,6 +376,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.entity.ship = this.entityBackup.ship;
     this.entity.shippingDelay = this.entityBackup.shippingDelay;
     this.entity.defaultPrice = new Currency(this.entityBackup.defaultPrice.amount);
+    this.entity.shippingPrice = new Currency(this.entityBackup.shippingPrice.amount);
     this.entity.fulfillmentProvider = this.entityBackup.fulfillmentProvider.copy();
 
     this.setViewSecondary();
@@ -460,5 +463,9 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
       this.entity.emailTemplates = [...this.entity.emailTemplates, template];
     });
+  }
+
+  navigateToAddNewFulfillmentProvider() {
+    this.router.navigate(['/fulfillmentproviders'], {queryParams: {action: 'new'}})
   }
 }
