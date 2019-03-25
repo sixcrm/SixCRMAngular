@@ -1,5 +1,9 @@
 @import "../../../../assets/scss/colors";
 
+.details-box {
+  padding: 25px 15px;
+}
+
 .buttons {
   display: flex;
   align-items: center;
@@ -72,12 +76,38 @@
   cursor: pointer;
 }
 
-.new-fulfillment {
-  background: #E5F0F9;
-  padding: 0 36px;
-  margin-bottom: -8px;
+.close-icon {
+  align-self: flex-end;
+  margin-bottom: 4px;
 }
 
 .section__content {
   min-height: 650px;
+}
+
+mat-form-field {
+  height: 30px;
+}
+
+.underline-container {
+  margin-top: 20px;
+}
+
+.row {
+  .underline-container {
+    width: 45%;
+    box-sizing: border-box;
+  }
+}
+
+.edit-buttons {
+  margin-top: 10px;
+}
+
+.edit-row--second {
+  padding: 0 10px;
+}
+
+mat-checkbox {
+  margin-left: 8px;
 }

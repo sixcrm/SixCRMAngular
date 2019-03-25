@@ -188,6 +188,7 @@ export class CyclesEditorComponent implements OnInit {
 
   cancelUpdates() {
     this.editMode = false;
+    this.selectedCycle = undefined;
     this.cancelChanges.emit(true);
   }
 

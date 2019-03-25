@@ -30,15 +30,16 @@
               <div class="section section--side">
 
                 <div class="details-box details-box--blue" [class.details-box--disabled]="!editMain">
-                  <div class="edit-row edit-row--first">
+                  <div class="edit-row edit-row--first underline-container" [class.underline-container--editable]="editMain">
                     <mat-form-field>
                       <input auto-focus [delay]="500" type="text" matInput [(ngModel)]="entity.name" [readonly]="!editMain" maxlength="55">
                     </mat-form-field>
 
-                    <mat-icon *ngIf="!editMain" (click)="setEditMain()">edit</mat-icon>
+                    <div class="edit-button" *ngIf="!editMain" (click)="setEditMain()">EDIT</div>
                   </div>
 
-                  <div class="edit-row mid-group">
+                  <div class="edit-row mid-group underline-container" [class.underline-container--editable]="editMain">
+
                     <mat-form-field>
                       <input type="text" [readonly]="!editMain" matInput placeholder="Merchant Processing" [matAutocomplete]="autoMid" (keyup)="midInputChanged()" [(ngModel)]="midFilter">
 
@@ -60,7 +61,7 @@
                 </div>
 
                 <div class="details-box">
-                  <div class="details__title">GENERAL</div>
+                  <div class="details__title">General Information</div>
 
                   <div class="details__container">
                     <div class="details_container__item">
