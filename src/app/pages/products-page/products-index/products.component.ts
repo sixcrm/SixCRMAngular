@@ -264,4 +264,18 @@ export class ProductsComponent implements OnInit {
       }
     }
   }
+
+  navigateTo(entity: Product | ProductSchedule) {
+    const route = entity instanceof Product ? 'product' : 'schedule';
+
+    this.router.navigate(['/products', route, entity.id])
+  }
+
+  getSku(entity: Product | ProductSchedule) {
+    if (entity instanceof ProductSchedule) {
+      return entity.getInitialSku();
+    }
+
+    return entity.sku;
+  }
 }

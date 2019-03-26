@@ -59,4 +59,12 @@ export class CreateOrderPreviewComponent implements OnInit {
   confirmationRequired() {
     return false;
   }
+
+  getSku(product: Product | ProductSchedule) {
+    if (product instanceof ProductSchedule) {
+      return product.getInitialSku || '-';
+    }
+
+    return product.sku || '-';
+  }
 }
