@@ -1,6 +1,6 @@
 <blue-header [items]="crumbItems" [titleValue]="'Products and Schedules'"></blue-header>
 
-<div class="grid-body">
+<div class="grid-body" *ngIf="status === 'NONEMPTY'; else noitems">
   <div class="header">
     <button mat-button class="add-new-button" *ngIf="productsService.hasWritePermission()" (click)="createNewProduct()">NEW PRODUCT</button>
 
@@ -62,4 +62,21 @@
 
 </div>
 
+<ng-template #noitems>
+  <div class="empty-container" *ngIf="status === 'EMPTY'">
+
+    <div class="empty-content">
+
+      <div class="config">Configuration</div>
+      <div class="ttl">Products & Subscriptions</div>
+      <div class="bdy">
+        <div>You’re on your way to making your first sale!  Set up your first product to sell!  After you configure the base product you turn it into a product with Continuity by setting up a billing and shipping schedule.</div>
+        <img src="/assets/images/dashboard/shopping_cart.svg">
+      </div>
+      <button mat-button *ngIf="productsService.hasWritePermission()" (click)="createNewProduct()">Create New Product</button>
+
+    </div>
+
+  </div>
+</ng-template>
 <bulk-selector [items]="entities" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>

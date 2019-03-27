@@ -135,3 +135,58 @@ bulk-selector {
     width: 22px;
   }
 }
+
+.empty-container {
+  display: flex;
+  min-height: calc(100vh - 166px);
+  background: $main-color-400;
+
+  .empty-content {
+    margin: auto;
+    max-width: 940px;
+
+    .config {
+      font-size: 20px;
+      font-weight: 500;
+      color: #8ED8FD;
+      font-family: Montserrat, serif;
+    }
+
+    .ttl {
+      color: #FFFFFF;
+      font-size: 72px;
+      font-weight: bold;
+      font-family: Montserrat, serif;
+    }
+
+    .bdy {
+      margin-top: 20px;
+      display: flex;
+      font-family: Montserrat, serif;
+
+      div {
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 1.8px;
+        width: 670px;
+      }
+
+      img {
+        margin-left: 25px;
+        width: 81px;
+        height: 81px;
+      }
+    }
+
+    button {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #ffffff;
+      background: $action-color;
+      padding: 6px 32px;
+      margin-bottom: 48px;
+    }
+
+  }
+}
