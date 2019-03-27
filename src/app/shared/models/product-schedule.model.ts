@@ -46,6 +46,18 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     return this.cycles[0].price
   }
 
+  getInitialSku(): string {
+    if (!this.cycles || this.cycles.length === 0) {
+      return '';
+    }
+
+    if (!this.cycles[0].cycleProducts || !this.cycles[0].cycleProducts[0]) {
+      return '';
+    }
+
+    return this.cycles[0].cycleProducts[0].product.sku;
+  }
+
   getDefaultImagePath(): string {
     return '/assets/images/product-default-image.svg';
   }
@@ -76,6 +88,10 @@ export class CycleProduct {
       product: this.product.inverse(),
       position: this.position
     }
+  }
+
+  isValidQuantity() {
+    return +this.quantity > 0;
   }
 
   copy(): CycleProduct {
@@ -136,6 +152,16 @@ export class Cycle {
       shipping_price: this.shippingPrice.amount,
       price: this.price.amount
     }
+  }
+
+  isValidLength() {
+    return +this.length > 0;
+  }
+
+  isValid() {
+    return this.cycleProducts
+      .map(cycleProduct => cycleProduct.isValidQuantity())
+      .reduce((a,b) => a && b, this.isValidLength())
   }
 
   copy() {

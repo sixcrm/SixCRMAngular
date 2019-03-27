@@ -17,7 +17,7 @@
 
     button {
       margin-left: auto;
-      background: $main-color-400;
+      background: $action-color;
       color: #ffffff;
     }
   }
@@ -40,18 +40,6 @@
         max-width: 100%;
         margin: auto;
       }
-
-      .default {
-        position: absolute;
-        top: 25px;
-        left: 0;
-        padding: 8px 44px;
-        background: #296CCC;
-        border-radius: 4px;
-        color: #ffffff;
-        font-size: 14px;
-        font-weight: 500;
-      }
     }
 
     .buttons {
@@ -60,13 +48,23 @@
       padding: 10px 15px;
       font-size: 14px;
 
-      .default-button {
-        color: #2C98F0;
+      .delete-button {
+        color: $main-color-400;
+        margin-right: auto;
+        letter-spacing: 0.75px;
       }
 
-      button:last-of-type {
-        margin-left: auto;
+      .favorite {
+        color: rgba(0, 0, 0, 0.54);
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 6px 0 0 6px;
+
+        &--selected {
+          color: rgba(255, 0, 0, 0.54);
+          background: rgba(255, 0, 0, 0.1);
+        }
       }
+
     }
   }
 }

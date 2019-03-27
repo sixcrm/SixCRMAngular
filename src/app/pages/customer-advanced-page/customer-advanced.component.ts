@@ -67,12 +67,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   selectedTransaction: Transaction;
   shippingReceipts: ShippingReceipt[];
 
-  detailsElement: ElementRef;
-
-  productSchedulesWaitingForUpdate: ProductSchedule[];
-  autosaveDebouncer: number = 3500;
-  saveDebouncer: Subject<ProductSchedule[]> = new Subject();
-
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   confirmationSessions: Session[] = [];
@@ -98,10 +92,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       this.transactionId = !!params['transaction'] ? params['transaction'] : null;
 
       this.init();
-    });
-
-    this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedules => {
-      this.sessionService.updateEntity(this.session.copyWithWatermark(productSchedules, this.session.watermark.extractedProducts), {ignoreSnack: true});
     });
 
     this.customerService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(customer => {
@@ -169,17 +159,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  updateItems(productSchedules: ProductSchedule[]) {
-    if (productSchedules && productSchedules.length > 0) {
-      this.productSchedulesWaitingForUpdate = productSchedules;
-      this.saveDebouncer.next(productSchedules);
-    }
-  }
-
-  setDetails(details) {
-    this.detailsElement = details;
-  }
-
   openCancelSessionModal() {
     let ref = this.dialog.open(YesNoDialogComponent);
     ref.componentInstance.text = 'Are you sure you want to cancel this session?';
@@ -201,7 +180,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       }
 
       this.session = session;
-      this.productSchedulesWaitingForUpdate = null;
     });
   }
 
@@ -301,8 +279,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       .subscribe(session => {
         if (session instanceof CustomServerError) return;
 
-        this.productSchedulesWaitingForUpdate = null;
-
         this.session = session;
 
         this.confirmationSessions = this.sessionNeedsConfirmation(this.session) ? [this.session] : [];
@@ -312,14 +288,12 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
           {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
           {name: 'transactions', label: 'TRANSACTIONS'},
           {name: 'fulfillment', label: 'FULFILLMENT'},
+<<<<<<< HEAD
           {name: 'watermark', label: 'WATERMARK'}
+=======
+          {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
+>>>>>>> development
         ];
-
-        this.route.fragment.take(1).subscribe(frag => {
-          if (frag === 'watermark') {
-            this.setIndex(5);
-          }
-        });
 
         this.breadcrumbs = [
           {label: () => `${session.customer.firstName} ${session.customer.lastName}`, url: '/customers/advanced?customer=' + session.customer.id},

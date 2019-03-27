@@ -18,6 +18,6 @@ export class RebillItemComponent implements OnInit {
   }
 
   navigateToWatermark(rebill: Rebill) {
-    this.router.navigate([], {relativeTo: this.route, queryParams: { session: rebill.parentSession.id }, fragment: 'watermark'})
+    this.router.navigate([], {relativeTo: this.route, queryParams: { session: rebill.parentSession.id }})
   }
 }

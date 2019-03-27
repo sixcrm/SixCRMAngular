@@ -14,13 +14,16 @@
           <editor
              [productSchedule]="productSchedule"
              [zoomLevel]="zoomLevel"
+             (cycleUpdated)="editMode = true;"
              (reorganizeCycles)="reorganizeCycles($event)"
              (cycleSelected)="cycleSelected($event)">
           </editor>
           <toolbar
               [zoomLevel]="zoomLevel"
-              [statePersisted]="statePersisted"
+              [editMode]="editMode"
               (zoomLevelChanged)="zoomLevel = $event"
+              (edit)="editMode = true"
+              (cancel)="cancelUpdates()"
               (save)="save()"
               (undo)="undo()"
               (redo)="redo()">
@@ -35,6 +38,7 @@
           (nextCycleChanged)="nextCycleChanged($event)"
           (granularityChanged)="granularityChanged($event)"
           (deleteSelectedCycle)="deleteSelectedCycle($event)"
+          [editMode]="editMode"
           [selectedCycle]="selectedCycle"
           [numberOfCycles]="productSchedule.cycles.length">
         </cycle-info>

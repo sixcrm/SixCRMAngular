@@ -36,8 +36,7 @@
   <div class="product-container">
     <div class="product-data">
       <div class="name">{{product.name}}</div>
-      <div class="sku">SKU <span *ngIf="product.sku; else schedulessku">{{product.sku}}</span></div>
-      <ng-template #schedulessku><span class="sku-list" *ngFor="let cycleProduct of product.cycle[0].cycleProducts">{{cycleProduct.product.sku || '–'}}</span></ng-template>
+      <div class="sku">SKU {{getSku(product)}}</div>
       <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.getInitialPrice().usd()}} <div class="subscription" *ngIf="product.schedules">SUBSCRIPTION{{confirmationRequired() ? ', CONFIRMATION REQUIRED':''}}</div></div>
 
       <div class="description">

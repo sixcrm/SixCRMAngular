@@ -30,7 +30,7 @@
                  [style.width]="(cycle.monthly ? cycle.length * 30 : cycle.length + cycle.dragDiff) * cellwidth / zoom + 'px'"
                  (click)="selectCycle(cycle)">
 
-              <div class="position">
+              <div class="position" [class.position--error]="!cycle.isValidLength()">
                 <div cdkDragHandle class="data">
                   <div>- {{cycle.position}} -</div>
                   <div>{{cycle.monthly ? (cycle.length + ' Month' + (cycle.length > 1 ? 's' : '')) : cycle.length + cycle.dragDiff + ' Days'}}</div>
@@ -45,7 +45,7 @@
               </div>
 
               <ng-container *ngFor="let product of cycle.cycleProducts">
-                <div class="block"></div>
+                <div class="block" [class.block--error]="!product.isValidQuantity()"></div>
               </ng-container>
 
             </div>

@@ -43,7 +43,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() || e.isSoftDecline() ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() || e.isDecline() ? '#DC2547' : e.isSoftDecline() ? '#ED6922' : '#ffffff'),
       new ColumnParams('Order Alias', (e: Transaction) => e.rebill.alias || e.rebill.id).setLink((e: Transaction) => `/customers/advanced`).setQueryParams((e: Transaction) => {return {order: e.rebill.id}}).setFragment((_) => `orders`),
-      new ColumnParams('Session Alias', (e: Transaction) => e.rebill.parentSession.alias).setLink((_) => `/customers/advanced`).setQueryParams((e: Transaction) => {return {session: e.rebill.parentSession.id}}).setFragment((_) => `watermark`).setSeparator(true),
+      new ColumnParams('Session Alias', (e: Transaction) => e.rebill.parentSession.alias).setLink((_) => `/customers/advanced`).setQueryParams((e: Transaction) => {return {session: e.rebill.parentSession.id}}).setSeparator(true),
       new ColumnParams('Amount', (e: Transaction) => e.isRefund() ? '-' : e.amount.usd()),
       new ColumnParams('Refund', (e: Transaction) => e.isRefund() ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('Chargeback', (e: Transaction) => e.chargeback ? e.amount.usd() : '-').setAlign('center'),

@@ -61,7 +61,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
       new ColumnParams('Chargebacks', (e: Order) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
       new ColumnParams('Total', (e: Order) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
       new ColumnParams('Order Alias',(e: Order) => e.id).setLink((e: Order) => `/customers/advanced`).setQueryParams((e: Order) => {return {order: e.rebill.id}}).setFragment((_) => `orders`),
-      new ColumnParams('Session Alias',(e: Order) => e.session.alias).setLink((e: Order) => `/customers/advanced`).setQueryParams((e: Order) => {return {session: e.session.id}}).setFragment((_) => `watermark`),
+      new ColumnParams('Session Alias',(e: Order) => e.session.alias).setLink((e: Order) => `/customers/advanced`).setQueryParams((e: Order) => {return {session: e.session.id}}),
       new ColumnParams('Campaign', (e: Order) => e.session.campaign.name).setLink((e: Order) => `/campaigns/${e.session.campaign.id}`),
       new ColumnParams('Type', (e: Order) => e.rebill.cycle === 0 ? 'Sale' : 'Recurring').setAlign('center')
     ];

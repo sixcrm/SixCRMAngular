@@ -30,7 +30,7 @@ export class PerfectMatchComponent implements OnInit {
 
   navigateToEntity(): void {
     if (this.entity.fields.entity_type === 'session') {
-      this.router.navigate([`/customers`, 'advanced'], {queryParams: {session: this.entity.id}, fragment: 'watermark'});
+      this.router.navigate([`/customers`, 'advanced'], {queryParams: {session: this.entity.id}});
     } else if (this.entity.fields.entity_type === 'customer') {
       this.router.navigate([`/customers`, 'advanced'], {queryParams: {customer: this.entity.id}});
     } else if (this.entity.fields.entity_type === 'transaction') {

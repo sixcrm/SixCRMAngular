@@ -306,16 +306,16 @@ $title-color: #8D8888;
 }
 
 .grid-body {
-  padding: 20px 25px;
+  padding: 16px 25px;
 
   .header {
     display: flex;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
     button {
-      background: $main-color-200;
+      background: $action-color;
       color: white;
     }
 
@@ -329,9 +329,9 @@ $title-color: #8D8888;
     .sort {
       display: flex;
       align-items: center;
-      margin-left: 35px;
+      margin-left: 25px;
       color: #5F6368;
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 500;
       cursor: pointer;
     }

@@ -25,6 +25,7 @@ export class EditorComponent implements OnInit {
 
   @Output() cycleSelected: EventEmitter<Cycle> = new EventEmitter();
   @Output() reorganizeCycles: EventEmitter<{fromIndex: number, toIndex: number}> = new EventEmitter();
+  @Output() cycleUpdated: EventEmitter<boolean> = new EventEmitter();
 
   startX: number;
 
@@ -43,15 +44,7 @@ export class EditorComponent implements OnInit {
   }
 
   selectCycle(cycle) {
-    for (let i = 0; i < this.productSchedule.cycles.length; i++) {
-      if (this.productSchedule.cycles[i] === cycle) {
-        cycle['selected'] = !cycle['selected'];
-      } else {
-        this.productSchedule.cycles[i]['selected'] = false;
-      }
-    }
-
-    this.cycleSelected.emit(this.productSchedule.cycles.find(cycle => cycle['selected']));
+    this.cycleSelected.emit(cycle);
   }
 
   dragResizeStarted(event) {
@@ -66,10 +59,16 @@ export class EditorComponent implements OnInit {
 
   dragResizeEnded(cycle: Cycle) {
     cycle.length += cycle.dragDiff;
+
+    if (cycle.dragDiff > 0) {
+      this.cycleUpdated.emit(true);
+    }
+
     cycle.dragDiff = 0;
   }
 
   cyclesReorganized(event: CdkDragDrop<any>) {
     this.reorganizeCycles.emit({fromIndex: event.previousIndex, toIndex: event.currentIndex});
+    this.cycleUpdated.emit(true);
   }
 }

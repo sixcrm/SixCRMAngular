@@ -1,5 +1,5 @@
 <div class="split-wrapper">
-  <div class="container" [class.container--with-side]="detailsElement && selectedIndex === 4">
+  <div class="container">
     <blue-header [items]="breadcrumbs" [titleValue]="getTitle()">
       <ng-container *ngIf="sessionId && session && sessionService.hasWritePermission()">
         <button mat-button *ngIf="!session.cancelled.cancelled; else cancelmessage" (click)="openCancelSessionModal()" class="cancel">CANCEL SESSION</button>
@@ -43,6 +43,7 @@
             <mat-tab>
               <customer-advanced-fulfillments [receipts]="shippingReceipts"></customer-advanced-fulfillments>
             </mat-tab>
+<<<<<<< HEAD
             <mat-tab *ngIf="sessionId && session">
               <schedules-detailed
                       [productSchedules]="session.watermark.extractedProductSchedules"
@@ -56,6 +57,17 @@
               </schedules-detailed>
             </mat-tab>
 
+=======
+            <mat-tab>
+              <customer-advanced-subscriptions
+                [rebills]="rebills"
+                [confirmationSessions]="confirmationSessions"
+                [sessionMode]="sessionId"
+                (confirmDelivery)="confirmDelivery($event)"
+                (confirmTrial)="confirmTrial($event)">
+              </customer-advanced-subscriptions>
+            </mat-tab>
+>>>>>>> development
 
           </mat-tab-group>
 
@@ -89,9 +101,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="details-container" [class.details-container--hidden]="selectedIndex !== 4">
-    <ng-container *ngTemplateOutlet="detailsElement"></ng-container>
   </div>
 </div>
