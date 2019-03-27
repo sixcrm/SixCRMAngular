@@ -62,7 +62,7 @@ export class CreateOrderPreviewComponent implements OnInit {
 
   getSku(product: Product | ProductSchedule) {
     if (product instanceof ProductSchedule) {
-      return product.getInitialSku || '-';
+      return product.getInitialSku() || '-';
     }
 
     return product.sku || '-';
