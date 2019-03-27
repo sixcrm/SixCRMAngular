@@ -50,6 +50,6 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
   }
 
   viewEntity(id: string) {
-    this.router.navigate(['/customers/advanced'], {queryParams: {session: id}, fragment: 'watermark'});
+    this.router.navigate(['/customers/advanced'], {queryParams: {session: id}});
   }
 }

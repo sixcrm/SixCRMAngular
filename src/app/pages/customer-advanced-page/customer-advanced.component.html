@@ -34,18 +34,6 @@
             <mat-tab>
               <customer-advanced-fulfillments [receipts]="shippingReceipts"></customer-advanced-fulfillments>
             </mat-tab>
-            <mat-tab *ngIf="sessionId && session">
-              <schedules-detailed
-                      [productSchedules]="session.watermark.extractedProductSchedules"
-                      [products]="session.watermark.extractedProducts"
-                      [startDate]="session.startedAt"
-                      [editable]="!session.cancelled.cancelled"
-                      [canceled]="session.cancelled.cancelled"
-                      (productSchedulesChanged)="updateItems($event)"
-                      [statusMessage]="productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
-                      (detailsComponent)="setDetails($event)">
-              </schedules-detailed>
-            </mat-tab>
             <mat-tab>
               <customer-advanced-subscriptions
                 [rebills]="rebills"
@@ -88,9 +76,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="details-container" [class.details-container--hidden]="selectedIndex !== 4">
-    <ng-container *ngTemplateOutlet="detailsElement"></ng-container>
   </div>
 </div>
