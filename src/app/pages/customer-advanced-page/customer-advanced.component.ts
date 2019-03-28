@@ -288,11 +288,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
           {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
           {name: 'transactions', label: 'TRANSACTIONS'},
           {name: 'fulfillment', label: 'FULFILLMENT'},
-<<<<<<< HEAD
-          {name: 'watermark', label: 'WATERMARK'}
-=======
-          {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
->>>>>>> development
         ];
 
         this.breadcrumbs = [
