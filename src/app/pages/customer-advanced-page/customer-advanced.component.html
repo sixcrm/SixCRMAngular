@@ -43,21 +43,6 @@
             <mat-tab>
               <customer-advanced-fulfillments [receipts]="shippingReceipts"></customer-advanced-fulfillments>
             </mat-tab>
-<<<<<<< HEAD
-            <mat-tab *ngIf="sessionId && session">
-              <schedules-detailed
-                      [productSchedules]="session.watermark.extractedProductSchedules"
-                      [products]="session.watermark.extractedProducts"
-                      [startDate]="session.startedAt"
-                      [editable]="!session.cancelled.cancelled"
-                      [canceled]="session.cancelled.cancelled"
-                      (productSchedulesChanged)="updateItems($event)"
-                      [statusMessage]="productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
-                      (detailsComponent)="setDetails($event)">
-              </schedules-detailed>
-            </mat-tab>
-
-=======
             <mat-tab>
               <customer-advanced-subscriptions
                 [rebills]="rebills"
@@ -67,7 +52,6 @@
                 (confirmTrial)="confirmTrial($event)">
               </customer-advanced-subscriptions>
             </mat-tab>
->>>>>>> development
 
           </mat-tab-group>
 
