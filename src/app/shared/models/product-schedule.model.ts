@@ -9,8 +9,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   public name: string;
   public cycles: Cycle[] = [];
   public merchantProviderGroup: MerchantProviderGroup;
-
-  public quantity: number;
+  public initialCycleSchedulesPrice: Currency = new Currency(0);
+  public quantity: number = 1;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -23,6 +23,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     if (obj.cycles) {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
+    this.initialCycleSchedulesPrice = this.getInitialPrice();
   }
 
   inverse() {
