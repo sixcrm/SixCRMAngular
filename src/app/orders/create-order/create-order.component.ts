@@ -513,13 +513,14 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  setProductInEdit(product: Product | ProductSchedule) {
-    if (product instanceof ProductSchedule) {
-      this.productInEdit = new Product();
-      return;
-    }
+  editButtonDisabled(product: Product | ProductSchedule): boolean {
+    return (product instanceof ProductSchedule);
+  }
 
-    this.productInEdit = product;
+  setProductInEdit(product: Product | ProductSchedule) {
+    if (product instanceof Product) {
+      this.productInEdit = product;
+    }
   }
 
   setProductInEditPrice(amount: Currency) {
@@ -627,7 +628,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.selectedProducts.forEach(p => {
       if (p instanceof Product) {
-        products.push({quantity: p.quantity || 1, price: p.defaultPrice.amount || 0, product: p.id});
+        products.push({quantity: p.quantity || 1, amount: p.defaultPrice.amount || 0, product: p.id});
       }
 
       if (p instanceof ProductSchedule) {
@@ -637,7 +638,7 @@ export class CreateOrderComponent implements OnInit {
 
     if (this.selectedShippings) {
       products = [...products, ...this.selectedShippings.map(sp => {
-        return {quantity: sp.quantity || 1, price: sp.defaultPrice.amount || 0, product: sp.id}
+        return {quantity: sp.quantity || 1, amount: sp.defaultPrice.amount || 0, product: sp.id}
       })];
     }
 

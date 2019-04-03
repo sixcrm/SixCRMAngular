@@ -13,7 +13,7 @@ export interface CheckoutProductSchedule {
 
 export interface CheckoutProduct {
   quantity: number,
-  price: number;
+  amount: number;
   product: string
 }
 

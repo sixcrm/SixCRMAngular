@@ -130,8 +130,8 @@ export class CreateOrderPage {
     return this.getPreview().element(by.css('.payment')).element(by.css('.summary')).all(by.css('.summary__column')).last().all(by.css('div'));
   }
 
-  getProductItems() {
-    return this.getPreview().element(by.css('.product-container')).element(by.css('.product-data')).all(by.css('div'));
+  getProductName(index: number) {
+    return this.getPreview().all(by.css('.product-container')).get(index).element(by.css('.name'));
   }
 
   getSubmitButton() {
