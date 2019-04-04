@@ -144,10 +144,6 @@ export function confirmDelivery(sessionId: string): string {
 export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at completed,
-    watermark {
-      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, samedayofmonth, product {id, name, image_urls } } } },
-      products { quantity, price, product { id name, image_urls } }
-    }
     trial_confirmation { id code delivered_at confirmed_at }
     customer { ${customerResponseQuery()} }
     rebills { ${sessionRebillResponseQuery()} },
