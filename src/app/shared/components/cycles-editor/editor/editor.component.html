@@ -32,6 +32,7 @@
 
               <div class="position" [class.position--error]="!cycle.isValidLength()">
                 <div cdkDragHandle class="data">
+                  <mat-icon *ngIf="!cycle.isValidLength()" class="position--error__icon">warning</mat-icon>
                   <div>- {{cycle.position}} -</div>
                   <div>{{cycle.monthly ? (cycle.length + ' Month' + (cycle.length > 1 ? 's' : '')) : cycle.length + cycle.dragDiff + ' Days'}}</div>
                 </div>
@@ -45,7 +46,9 @@
               </div>
 
               <ng-container *ngFor="let product of cycle.cycleProducts">
-                <div class="block" [class.block--error]="!product.isValidQuantity()"></div>
+                <div class="block" [class.block--error]="!product.isValidQuantity()">
+                  <mat-icon *ngIf="!product.isValidQuantity()" class="block--error__icon">warning</mat-icon>
+                </div>
               </ng-container>
 
             </div>
