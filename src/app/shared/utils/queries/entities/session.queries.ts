@@ -110,10 +110,6 @@ export function updateSessionMutation(session: Session): string {
 		    customer: "${session.customer.id}",
 		    campaign: "${session.campaign.id}",
 		    completed: ${!!session.completed},
-		    watermark: {
-		      product_schedules: ${parseWatermarkProductSchedules(session.watermark)},
-		      products: ${parseWatermarkProducts(session.watermark)}
-		    }
 		    product_schedules: [${session.productSchedules.map(ps => ps.id).reduce((a,b)=> `${a}${a?',':''}"${b}"`, '')}],
 		    ${session.cid.id ? `cid:	"${session.cid.id}",`: ''}
 		    ${session.affiliate.id ? `affiliate:	"${session.affiliate.id}",`: ''}

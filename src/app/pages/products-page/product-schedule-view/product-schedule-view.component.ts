@@ -69,6 +69,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.productScheduleCycles = productSchedule;
       this.productScheduleCyclesStates = [this.productScheduleCycles.copy()];
       this.productScheduleCyclesIndex = 0;
+      this.midFilter = productSchedule.merchantProviderGroup.name || '';
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
@@ -76,6 +77,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
       this.entity = ps;
       this.entityBackup = this.entity.copy();
+      this.midFilter = ps.merchantProviderGroup.name || '';
     });
 
     this.merchantProviderGroupsService.entities$.take(1).subscribe(groups => {
