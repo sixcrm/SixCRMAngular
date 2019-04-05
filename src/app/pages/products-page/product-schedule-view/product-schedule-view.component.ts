@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
-import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -100,7 +100,9 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   canBeDeactivated() {
-    return super.canBeDeactivated() && this.productScheduleCyclesStatePersisted();
+    return this.productScheduleCyclesStatePersisted()
+      && this.entity.name === this.entityBackup.name
+      && this.entity.merchantProviderGroup.id === this.entityBackup.merchantProviderGroup.id;
   }
 
   deleteProductSchedule() {
@@ -146,8 +148,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   productScheduleCyclesStatePersisted() {
-    return JSON.stringify(this.productScheduleCycles.inverse())
-      === JSON.stringify(this.productScheduleCyclesStates[this.productScheduleCyclesIndex].inverse())
+    return JSON.stringify(this.productScheduleCycles.inverse().cycles)
+      === JSON.stringify(this.productScheduleCyclesStates[this.productScheduleCyclesIndex].inverse().cycles)
   }
 
   updateDescription() {

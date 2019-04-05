@@ -10,8 +10,8 @@ import {MatDialogRef} from '@angular/material';
         <div *ngIf="secondaryText" class="yes-no-dialog__secondary">{{secondaryText | translate}}</div>
       </mat-card-content>
       <mat-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">{{noText | translate}}</div>
-        <div (click)="yes()">{{yesText | translate}}</div>
+        <button mat-button (click)="no()">{{noText | translate}}</button>
+        <button mat-button (click)="yes()">{{yesText | translate}}</button>
       </mat-card-actions>
     </mat-card>
   `,
