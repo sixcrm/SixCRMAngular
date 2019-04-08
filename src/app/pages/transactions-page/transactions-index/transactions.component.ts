@@ -137,7 +137,25 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         return;
       }
 
-      const parsedTransactions = this.parseTransactionsForDownload(transactions);
+      let parsedTransactions = this.parseTransactionsForDownload(transactions);
+
+      if (format === 'csv') {
+        const cleanComma = (value) => {
+          if (value.indexOf(',') === -1) return value;
+
+          return value.replace(/,/g, ' ');
+        };
+
+        parsedTransactions = parsedTransactions.map(transaction => {
+          const cleaned = {};
+
+          Object.keys(transaction).forEach(key => {
+            cleaned[key] = cleanComma(transaction[key]);
+          });
+
+          return cleaned;
+        })
+      }
 
       const fileName = `${this.authService.getActiveAccount().name} Transactions ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
 
