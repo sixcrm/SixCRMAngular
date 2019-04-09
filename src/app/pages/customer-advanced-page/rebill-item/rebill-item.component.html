@@ -4,7 +4,7 @@
     <div class="info">
       <div>Next bill {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
 
-      <button mat-button *ngIf="!sessionMode" (click)="navigateToWatermark(rebill)">Edit</button>
+      <button mat-button *ngIf="!sessionMode" (click)="navigateToSession(rebill)">Edit</button>
     </div>
   </div>
 

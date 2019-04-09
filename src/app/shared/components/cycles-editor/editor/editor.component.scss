@@ -69,6 +69,12 @@
 
     &--error {
       background: $danger-color;
+
+      &__icon {
+        position: absolute;
+        left: 5px;
+        top: 10px;
+      }
     }
 
     .data {
@@ -97,6 +103,12 @@
 
     &--error {
       background: $danger-color;
+
+      &__icon {
+        margin-left: 5px;
+        color: #fff;
+        margin-top: 3px;
+      }
     }
   }
 
