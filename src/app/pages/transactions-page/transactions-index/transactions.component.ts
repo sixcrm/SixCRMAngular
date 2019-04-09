@@ -140,17 +140,23 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       let parsedTransactions = this.parseTransactionsForDownload(transactions);
 
       if (format === 'csv') {
+        const cleanQuote = (value) => {
+          if (value.indexOf('"') === -1) return value;
+
+          return value.replace(/"/g, '""');
+        };
+
         const cleanComma = (value) => {
           if (value.indexOf(',') === -1) return value;
 
-          return value.replace(/,/g, ' ');
+          return `"${value}"`;
         };
 
         parsedTransactions = parsedTransactions.map(transaction => {
           const cleaned = {};
 
           Object.keys(transaction).forEach(key => {
-            cleaned[key] = cleanComma(transaction[key]);
+            cleaned[key] = cleanComma(cleanQuote(transaction[key]));
           });
 
           return cleaned;
