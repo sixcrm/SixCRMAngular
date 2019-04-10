@@ -119,7 +119,11 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
 
       const parsedSubscriptions = this.parseSubscriptionsForDownload(subscriptions);
 
-      const fileName = `${this.authService.getActiveAccount().name} Subscriptions ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+      if (format === 'csv') {
+        parsedSubscriptions = this.cleanEntitiesForDownload(parsedSubscriptions);
+      }
+
+      const fileName = this.getDownloadReportFileName('Subscriptions');
 
       if (format === 'json') {
         downloadJSON(parsedSubscriptions, fileName);

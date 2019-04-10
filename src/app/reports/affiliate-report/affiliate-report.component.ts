@@ -93,7 +93,11 @@ export class AffiliateReportComponent extends AbstractEntityReportIndexComponent
 
       const parsedAffiliates = this.parseAffiliatesForDownload(affiliates);
 
-      const fileName = `${this.authService.getActiveAccount().name} Affiliates ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+      if (format === 'csv') {
+        parsedAffiliates = this.cleanEntitiesForDownload(parsedAffiliates);
+      }
+
+      const fileName = this.getDownloadReportFileName('Affiliates');
 
       if (format === 'json') {
         downloadJSON(parsedAffiliates, fileName);

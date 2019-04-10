@@ -94,7 +94,11 @@ export class MerchantReportComponent extends AbstractEntityReportIndexComponent<
 
       const parsedMerchants = this.parseMerchantsForDownload(merchants);
 
-      const fileName = `${this.authService.getActiveAccount().name} Merchants ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+      if (format === 'csv') {
+        parsedMerchants = this.cleanEntitiesForDownload(parsedMerchants);
+      }
+
+      const fileName = this.getDownloadReportFileName('Merchants');
 
       if (format === 'json') {
         downloadJSON(parsedMerchants, fileName);

@@ -117,7 +117,11 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
 
       const parsedOrders = this.parseOrdersForDownload(orders);
 
-      const fileName = `${this.authService.getActiveAccount().name} Orders ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+      if (format === 'csv') {
+        parsedOrders = this.cleanEntitiesForDownload(parsedOrders);
+      }
+
+      const fileName = this.getDownloadReportFileName('Orders');
 
       if (format === 'json') {
         downloadJSON(parsedOrders, fileName);

@@ -141,7 +141,11 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
 
       const parsedCustomers = this.parseCustomersForDownload(customers);
 
-      const fileName = `${this.authService.getActiveAccount().name} Customers ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+      if (format === 'csv') {
+        parsedCustomers = this.cleanEntitiesForDownload(parsedCustomers);
+      }
+
+      const fileName = this.getDownloadReportFileName('Customers');
 
       if (format === 'json') {
         downloadJSON(parsedCustomers, fileName);
