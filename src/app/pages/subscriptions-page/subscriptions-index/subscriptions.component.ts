@@ -117,7 +117,7 @@ export class SubscriptionsComponent extends AbstractEntityReportIndexComponent<S
         return;
       }
 
-      const parsedSubscriptions = this.parseSubscriptionsForDownload(subscriptions);
+      let parsedSubscriptions = this.parseSubscriptionsForDownload(subscriptions);
 
       if (format === 'csv') {
         parsedSubscriptions = this.cleanEntitiesForDownload(parsedSubscriptions);

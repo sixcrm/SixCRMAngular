@@ -139,7 +139,7 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
         return;
       }
 
-      const parsedCustomers = this.parseCustomersForDownload(customers);
+      let parsedCustomers = this.parseCustomersForDownload(customers);
 
       if (format === 'csv') {
         parsedCustomers = this.cleanEntitiesForDownload(parsedCustomers);

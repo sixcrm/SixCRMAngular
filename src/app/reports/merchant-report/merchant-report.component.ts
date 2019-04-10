@@ -92,7 +92,7 @@ export class MerchantReportComponent extends AbstractEntityReportIndexComponent<
         return;
       }
 
-      const parsedMerchants = this.parseMerchantsForDownload(merchants);
+      let parsedMerchants = this.parseMerchantsForDownload(merchants);
 
       if (format === 'csv') {
         parsedMerchants = this.cleanEntitiesForDownload(parsedMerchants);

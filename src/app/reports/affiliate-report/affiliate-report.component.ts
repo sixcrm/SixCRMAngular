@@ -91,7 +91,7 @@ export class AffiliateReportComponent extends AbstractEntityReportIndexComponent
         return;
       }
 
-      const parsedAffiliates = this.parseAffiliatesForDownload(affiliates);
+      let parsedAffiliates = this.parseAffiliatesForDownload(affiliates);
 
       if (format === 'csv') {
         parsedAffiliates = this.cleanEntitiesForDownload(parsedAffiliates);

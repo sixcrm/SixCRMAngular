@@ -115,7 +115,7 @@ export class OrdersComponent extends AbstractEntityReportIndexComponent<OrderAna
         return;
       }
 
-      const parsedOrders = this.parseOrdersForDownload(orders);
+      let parsedOrders = this.parseOrdersForDownload(orders);
 
       if (format === 'csv') {
         parsedOrders = this.cleanEntitiesForDownload(parsedOrders);
