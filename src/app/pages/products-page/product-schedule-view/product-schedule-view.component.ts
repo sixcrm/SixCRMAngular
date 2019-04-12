@@ -13,6 +13,8 @@ import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.compon
 import {MerchantProviderGroupsService} from '../../../entity-services/services/merchant-provider-groups.service';
 import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
 import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
+import {SmsProvider} from '../../../shared/models/sms-provider.model';
+import {SmsProvidersService} from '../../../entity-services/services/sms-providers.service';
 
 @Component({
   selector: 'product-schedule-view',
@@ -47,6 +49,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   merchantProviderGroupsFiltered: MerchantProviderGroup[] = [];
 
   midFilter: string;
+  smsFilter: string;
+
+  smsProviders: SmsProvider[] = [];
+  smsProvidersFiltered: SmsProvider[] = [];
 
   constructor(
     service: ProductScheduleService,
@@ -55,7 +61,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public authService: AuthenticationService,
     private router: Router,
     private dialog: MatDialog,
-    public merchantProviderGroupsService: MerchantProviderGroupsService
+    public merchantProviderGroupsService: MerchantProviderGroupsService,
+    public smsProviderService: SmsProvidersService
   ) {
     super(service, route);
   }
@@ -87,7 +94,16 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.merchantProviderGroupsFiltered = this.merchantProviderGroups.slice();
     });
 
+    this.smsProviderService.entities$.take(1).subscribe(providers => {
+      if (providers instanceof CustomServerError) return;
+
+      this.smsProviders = providers;
+      this.smsProvidersFiltered = this.smsProviders.slice();
+    });
+
     this.merchantProviderGroupsService.getEntities();
+    this.smsProviderService.getEntities();
+
     super.init(() => this.navigation.goToNotFoundPage());
   }
 
@@ -169,6 +185,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   saveMain() {
+    if (this.entity.trialRequired && !this.entity.smsProvider.id) return;
+
     this.updateEntity(this.entity);
     this.editMain = false;
   }
@@ -203,6 +221,32 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   midSelected(option) {
     this.entity.merchantProviderGroup = option.option.value.copy();
     this.midFilter = this.entity.merchantProviderGroup.name;
+  }
+
+  smsInputChanged() {
+    this.entity.smsProvider = new SmsProvider();
+
+    if (!this.smsFilter) {
+      this.smsProvidersFiltered = this.smsProviders.slice();
+
+      return;
+    }
+
+    this.smsProvidersFiltered = this.smsProviders
+      .filter(g => g.name.indexOf(this.smsFilter) !== -1);
+
+    for (let i = 0; i < this.smsProvidersFiltered.length; i++) {
+      if (this.smsProvidersFiltered[i].name === this.smsFilter) {
+        this.entity.smsProvider = this.smsProvidersFiltered[i].copy();
+
+        return;
+      }
+    }
+  }
+
+  smsSelected(option) {
+    this.entity.smsProvider = option.option.value.copy();
+    this.smsFilter = this.entity.smsProvider.name;
   }
 
   cancelProductScheduleCyclesChanges() {

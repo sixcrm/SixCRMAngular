@@ -444,7 +444,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   }
 
   public confirmDelivery(session: Session) {
-    if (!session || !session.trialConfirmation || this.session.trialConfirmation.delivered_at) {
+    if (!session || !session.trialConfirmation || session.trialConfirmation.delivered_at) {
       return;
     }
 
