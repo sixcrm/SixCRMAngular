@@ -2,15 +2,19 @@ import {Currency} from '../utils/currency/currency';
 import {MerchantProviderGroup} from './merchant-provider-group.model';
 import {Product} from './product.model';
 import {Entity} from './entity.interface';
+import {SmsProvider} from './sms-provider.model';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
 
   public id: string;
   public name: string;
   public cycles: Cycle[] = [];
+  public description: string;
   public merchantProviderGroup: MerchantProviderGroup;
   public initialCycleSchedulesPrice: Currency = new Currency(0);
   public quantity: number = 1;
+  public trialRequired: boolean;
+  public smsProvider: SmsProvider;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -20,6 +24,9 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.merchantProviderGroup = new MerchantProviderGroup(obj.merchantprovidergroup);
+    this.smsProvider = new SmsProvider(obj.confirmation_sms_provider);
+    this.trialRequired = !!obj.trial_required;
+    this.description = obj.description;
     if (obj.cycles) {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
@@ -31,7 +38,10 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       id: this.id,
       name: this.name,
       cycles: this.cycles.map(c => c.inverse()),
-      merchantprovidergroup: this.merchantProviderGroup.inverse()
+      merchantprovidergroup: this.merchantProviderGroup.inverse(),
+      confirmation_sms_provider: this.smsProvider.inverse(),
+      trial_required: !!this.trialRequired,
+      description: this.description
     }
   }
 

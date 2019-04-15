@@ -51,7 +51,7 @@ export function updateProductScheduleMutation(productSchedule: ProductSchedule):
 }
 
 export function productScheduleResponseQuery(): string {
-  return `id name created_at merchantprovidergroup {id, name} updated_at cycles { cycle_products { product {id, name, is_shippable}, is_shipping, quantity, position }, price, shipping_price, length, position, next_position }`
+  return `id name created_at description merchantprovidergroup {id, name} confirmation_sms_provider { id, name } trial_required updated_at cycles { cycle_products { product {id, name, is_shippable}, is_shipping, quantity, position }, price, shipping_price, length, position, next_position }`
 }
 
 export function productScheduleInfoResponseQuery(): string {
@@ -69,5 +69,5 @@ export function productScheduleInputQuery(productSchedule: ProductSchedule, incl
     return `${a}${a?',':''}{cycle_products: [${extractCycleProducts(b.cycleProducts)}], price:${b.price.amount}, shipping_price:${b.shippingPrice.amount}, length:"${b.length} ${b.monthly ? 'months' : 'days'}", position:${b.position}, next_position:${b.nextPosition}}`;
   }, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}" ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup:"${productSchedule.merchantProviderGroup.id}"` : ''} cycles: [${cycles}], ${addUpdatedAtApi(productSchedule, includeId)}`;
+  return `${addId(productSchedule.id, includeId)}, description:"${productSchedule.description || ''}", name: "${clean(productSchedule.name)}" ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup:"${productSchedule.merchantProviderGroup.id}"` : ''} trial_required:${!!productSchedule.trialRequired} ${productSchedule.smsProvider.id ? `confirmation_sms_provider_id:"${productSchedule.smsProvider.id}"` : ''} cycles: [${cycles}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

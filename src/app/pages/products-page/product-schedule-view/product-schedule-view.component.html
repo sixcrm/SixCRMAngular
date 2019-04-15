@@ -18,7 +18,7 @@
                     <mat-icon (click)="setEditDescription()" *ngIf="!editDescription">edit</mat-icon>
                   </div>
 
-                  <textarea name="description" rows="8" [readonly]="!editDescription"></textarea>
+                  <textarea name="description" rows="8" [readonly]="!editDescription" [(ngModel)]="description"></textarea>
 
                   <div class="edit-buttons" *ngIf="editDescription">
                     <button mat-button (click)="cancelEditDescription()">CANCEL</button>
@@ -52,6 +52,21 @@
                     </mat-form-field>
 
                     <mat-icon class="dropdown-icon" *ngIf="editMain">arrow_drop_down</mat-icon>
+                  </div>
+
+                  <mat-checkbox style="margin-top: 32px;" class="checkbox-blue" [(ngModel)]="entity.trialRequired" [disabled]="!editMain">Confirmation Required</mat-checkbox>
+
+                  <div *ngIf="entity.trialRequired" class="edit-row mid-group underline-container" [class.underline-container--editable]="editMain">
+                    <mat-form-field>
+                      <input type="text" [readonly]="!editMain" matInput placeholder="SMS Provider" [matAutocomplete]="autoSms" (keyup)="smsInputChanged()" [(ngModel)]="smsFilter">
+
+                      <mat-autocomplete #autoSms="matAutocomplete" (optionSelected)="smsSelected($event)">
+                        <mat-option *ngFor="let smsProvider of smsProvidersFiltered" [value]="smsProvider">
+                          <div>{{ smsProvider.name }} </div>
+                        </mat-option>
+                      </mat-autocomplete>
+
+                    </mat-form-field>
                   </div>
 
                   <div class="edit-buttons" *ngIf="editMain">
