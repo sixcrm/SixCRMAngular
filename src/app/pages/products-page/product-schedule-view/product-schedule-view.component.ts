@@ -77,6 +77,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.productScheduleCyclesStates = [this.productScheduleCycles.copy()];
       this.productScheduleCyclesIndex = 0;
       this.midFilter = productSchedule.merchantProviderGroup.name || '';
+      this.smsFilter = productSchedule.smsProvider.name || '';
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
