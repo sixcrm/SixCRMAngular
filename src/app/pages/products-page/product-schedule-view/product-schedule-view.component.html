@@ -18,7 +18,7 @@
                     <mat-icon (click)="setEditDescription()" *ngIf="!editDescription">edit</mat-icon>
                   </div>
 
-                  <textarea name="description" rows="8" [readonly]="!editDescription"></textarea>
+                  <textarea name="description" rows="8" [readonly]="!editDescription" [(ngModel)]="description"></textarea>
 
                   <div class="edit-buttons" *ngIf="editDescription">
                     <button mat-button (click)="cancelEditDescription()">CANCEL</button>

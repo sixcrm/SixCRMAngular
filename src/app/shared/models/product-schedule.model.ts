@@ -9,6 +9,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   public id: string;
   public name: string;
   public cycles: Cycle[] = [];
+  public description: string;
   public merchantProviderGroup: MerchantProviderGroup;
   public initialCycleSchedulesPrice: Currency = new Currency(0);
   public quantity: number = 1;
@@ -25,6 +26,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.merchantProviderGroup = new MerchantProviderGroup(obj.merchantprovidergroup);
     this.smsProvider = new SmsProvider(obj.confirmation_sms_provider);
     this.trialRequired = !!obj.trial_required;
+    this.description = obj.description;
     if (obj.cycles) {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
@@ -38,7 +40,8 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       cycles: this.cycles.map(c => c.inverse()),
       merchantprovidergroup: this.merchantProviderGroup.inverse(),
       confirmation_sms_provider: this.smsProvider.inverse(),
-      trial_required: !!this.trialRequired
+      trial_required: !!this.trialRequired,
+      description: this.description
     }
   }
 

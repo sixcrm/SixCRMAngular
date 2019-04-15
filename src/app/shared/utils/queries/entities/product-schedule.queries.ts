@@ -69,5 +69,5 @@ export function productScheduleInputQuery(productSchedule: ProductSchedule, incl
     return `${a}${a?',':''}{cycle_products: [${extractCycleProducts(b.cycleProducts)}], price:${b.price.amount}, shipping_price:${b.shippingPrice.amount}, length:"${b.length} ${b.monthly ? 'months' : 'days'}", position:${b.position}, next_position:${b.nextPosition}}`;
   }, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}" ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup:"${productSchedule.merchantProviderGroup.id}"` : ''} trial_required:${!!productSchedule.trialRequired} ${productSchedule.smsProvider.id ? `confirmation_sms_provider_id:"${productSchedule.smsProvider.id}"` : ''} cycles: [${cycles}], ${addUpdatedAtApi(productSchedule, includeId)}`;
+  return `${addId(productSchedule.id, includeId)}, description:"${productSchedule.description || ''}", name: "${clean(productSchedule.name)}" ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup:"${productSchedule.merchantProviderGroup.id}"` : ''} trial_required:${!!productSchedule.trialRequired} ${productSchedule.smsProvider.id ? `confirmation_sms_provider_id:"${productSchedule.smsProvider.id}"` : ''} cycles: [${cycles}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

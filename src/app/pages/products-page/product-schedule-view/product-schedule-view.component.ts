@@ -54,6 +54,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   smsProviders: SmsProvider[] = [];
   smsProvidersFiltered: SmsProvider[] = [];
 
+  description: string;
+
   constructor(
     service: ProductScheduleService,
     route: ActivatedRoute,
@@ -78,6 +80,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.productScheduleCyclesIndex = 0;
       this.midFilter = productSchedule.merchantProviderGroup.name || '';
       this.smsFilter = productSchedule.smsProvider.name || '';
+      this.description = productSchedule.description || '';
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
@@ -86,6 +89,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.entity = ps;
       this.entityBackup = this.entity.copy();
       this.midFilter = ps.merchantProviderGroup.name || '';
+      this.smsFilter = ps.smsProvider.name || '';
+      this.description = ps.description || '';
     });
 
     this.merchantProviderGroupsService.entities$.take(1).subscribe(groups => {
@@ -170,19 +175,26 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   updateDescription() {
+    const productSchedule = this.entityBackup.copy();
+    productSchedule.description = this.description;
+
     this.editDescription = false;
+    this.updateEntity(productSchedule);
   }
 
   cancelEditDescription() {
     this.editDescription = false;
+    this.description = this.entityBackup.description;
   }
 
   setEditDescription() {
     this.editDescription = true;
+    this.cancelEditMain();
   }
 
   setEditMain() {
     this.editMain = true;
+    this.cancelEditDescription();
   }
 
   saveMain() {
