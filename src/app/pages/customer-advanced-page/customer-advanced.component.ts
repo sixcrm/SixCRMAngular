@@ -17,7 +17,7 @@ import {Order} from '../../shared/models/order.model';
 import {Transaction} from '../../shared/models/transaction.model';
 import {ShippingReceiptsService} from '../../entity-services/services/shipping-receipts.service';
 import {ShippingReceipt} from '../../shared/models/shipping-receipt.model';
-import {ProductSchedule} from '../../shared/models/product-schedule.model';
+import {ProductSchedule} from '../../shared/models/product-schedule-legacy.model';
 import {Session} from '../../shared/models/session.model';
 import {TransactionsService} from '../../entity-services/services/transactions.service';
 import {YesNoDialogComponent} from '../../dialog-modals/yes-no-dialog.component';
@@ -37,10 +37,10 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   breadcrumbs: BreadcrumbItem[] = [];
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
     {name: 'orders', label: 'ORDERS'},
     {name: 'transactions', label: 'TRANSACTIONS'},
-    {name: 'fulfillment', label: 'FULFILLMENT'}
+    {name: 'fulfillment', label: 'FULFILLMENT'},
+    {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
   ];
 
   secondaryTabHeaders: TabHeaderElement[] = [
@@ -67,12 +67,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   selectedTransaction: Transaction;
   shippingReceipts: ShippingReceipt[];
 
-  detailsElement: ElementRef;
-
-  productSchedulesWaitingForUpdate: ProductSchedule[];
-  autosaveDebouncer: number = 3500;
-  saveDebouncer: Subject<ProductSchedule[]> = new Subject();
-
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   confirmationSessions: Session[] = [];
@@ -98,10 +92,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       this.transactionId = !!params['transaction'] ? params['transaction'] : null;
 
       this.init();
-    });
-
-    this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedules => {
-      this.sessionService.updateEntity(this.session.copyWithWatermark(productSchedules, this.session.watermark.extractedProducts), {ignoreSnack: true});
     });
 
     this.customerService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(customer => {
@@ -169,17 +159,6 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  updateItems(productSchedules: ProductSchedule[]) {
-    if (productSchedules && productSchedules.length > 0) {
-      this.productSchedulesWaitingForUpdate = productSchedules;
-      this.saveDebouncer.next(productSchedules);
-    }
-  }
-
-  setDetails(details) {
-    this.detailsElement = details;
-  }
-
   openCancelSessionModal() {
     let ref = this.dialog.open(YesNoDialogComponent);
     ref.componentInstance.text = 'Are you sure you want to cancel this session?';
@@ -201,7 +180,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       }
 
       this.session = session;
-      this.productSchedulesWaitingForUpdate = null;
+      this.confirmationSessions = [];
     });
   }
 
@@ -251,10 +230,10 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
   private initCustomer() {
     this.tabHeaders = [
-      {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
       {name: 'orders', label: 'ORDERS'},
       {name: 'transactions', label: 'TRANSACTIONS'},
       {name: 'fulfillment', label: 'FULFILLMENT'},
+      {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
     ];
 
     if (this.selectedIndex === 4) {
@@ -301,25 +280,16 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       .subscribe(session => {
         if (session instanceof CustomServerError) return;
 
-        this.productSchedulesWaitingForUpdate = null;
-
         this.session = session;
 
         this.confirmationSessions = this.sessionNeedsConfirmation(this.session) ? [this.session] : [];
 
         this.tabHeaders = [
-          {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
           {name: 'orders', label: 'ORDERS'},
           {name: 'transactions', label: 'TRANSACTIONS'},
           {name: 'fulfillment', label: 'FULFILLMENT'},
-          {name: 'watermark', label: 'WATERMARK'}
+          {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
         ];
-
-        this.route.fragment.take(1).subscribe(frag => {
-          if (frag === 'watermark') {
-            this.setIndex(5);
-          }
-        });
 
         this.breadcrumbs = [
           {label: () => `${session.customer.firstName} ${session.customer.lastName}`, url: '/customers/advanced?customer=' + session.customer.id},
@@ -330,7 +300,12 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
         this.rebills = session.rebills
           .filter(rebill => rebill.billAt.isAfter(utc()))
           .map(rebill => {
-            rebill.parentSession = this.session.copy();
+            rebill.parentSession = new Session({
+              id: this.session.id,
+              alias: this.session.alias,
+              campaign: this.session.campaign.inverse(),
+              created_at: this.session.createdAt.clone()
+            });
 
             return rebill;
           })

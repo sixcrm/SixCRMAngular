@@ -1,15 +1,11 @@
 import {Customer} from './customer.model';
-import {ProductSchedule} from './product-schedule.model';
+import {ProductSchedule} from './product-schedule-legacy.model';
 import {Rebill} from './rebill.model';
 import {Campaign} from './campaign.model';
 import {Entity} from './entity.interface';
 import {Affiliate} from './affiliate.model';
 import {utc, Moment} from 'moment';
-import {Watermark} from './watermark/watermark.model';
 import {SessionCancelation} from './session-cancelation.model';
-import {Product} from './product.model';
-import {WatermarkProductSchedule} from './watermark/watermark-product-schedule.model';
-import {WatermarkProduct} from './watermark/watermark-product.model';
 import {TrialConfirmation} from './trial-confirmation.model';
 
 export class Session implements Entity<Session> {
@@ -28,7 +24,6 @@ export class Session implements Entity<Session> {
   subAffiliate3: Affiliate;
   subAffiliate4: Affiliate;
   subAffiliate5: Affiliate;
-  watermark: Watermark;
   cancelled: SessionCancelation;
   createdAt: Moment;
   updatedAt: Moment;
@@ -59,7 +54,6 @@ export class Session implements Entity<Session> {
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.startedAt = utc(obj.created_at).hour(0).minute(0).second(0).millisecond(0);
-    this.watermark = new Watermark(obj.watermark, this.createdAt.clone());
 
     if (obj.trial_confirmation) {
       this.trialConfirmation = new TrialConfirmation(obj.trial_confirmation);
@@ -134,7 +128,6 @@ export class Session implements Entity<Session> {
       subaffiliate_3: this.subAffiliate3.inverse(),
       subaffiliate_4: this.subAffiliate4.inverse(),
       subaffiliate_5: this.subAffiliate5.inverse(),
-      watermark: this.watermark.inverse(),
       trial_confirmation: this.trialConfirmation ? this.trialConfirmation.inverse() : undefined,
       cancelled: this.cancelled.inverse(),
       created_at: this.createdAt.clone().format(),
@@ -142,19 +135,4 @@ export class Session implements Entity<Session> {
     }
   }
 
-  copyWithWatermark(productSchedules: ProductSchedule[], products: Product[]): Session {
-    let copy: Session = this.copy();
-
-    if (productSchedules) {
-      copy.watermark.productSchedules = productSchedules.map(ps => new WatermarkProductSchedule({quantity: ps.quantity, product_schedule: ps.inverse()}));
-      copy.watermark.extractedProductSchedules = productSchedules;
-    }
-
-    if (products) {
-      copy.watermark.products = products.map(p => new WatermarkProduct({quantity: p.quantity, price: p.price.amount, product: p.inverse()}));
-      copy.watermark.extractedProducts = products;
-    }
-
-    return copy;
-  }
 }

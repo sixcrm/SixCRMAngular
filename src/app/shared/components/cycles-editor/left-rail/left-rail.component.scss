@@ -1,0 +1,30 @@
+@import "../../../../../assets/scss/colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 36px;
+  box-sizing: border-box;
+  width: 260px;
+
+  .length {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  button {
+    width: 140px;
+    margin: 6px auto;
+    font-size: 13px;
+    color: #ffffff;
+    background: $action-color;
+  }
+
+  .product {
+    padding: 24px 0;
+    font-size: 15px;
+  }
+}

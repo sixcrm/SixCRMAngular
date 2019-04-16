@@ -29,7 +29,7 @@
         <div>{{_order.successAmount().usd()}}</div>
       </ng-template>
 
-      <button style="margin-left: auto"
+      <button style="margin-left: auto" class="refund-order-button"
               mat-button
               [class.button-disabled]="!_order.canRefund()"
               [disabled]="!_order.canRefund()"

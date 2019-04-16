@@ -200,7 +200,7 @@
                         <mat-form-field class="input-align-right" [class.solo]="productInEdit.id === product.id">
                           <input matInput currencyInput (keydown)="isEnter($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.initialCycleSchedulesPrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="setProductInEditPrice($event)" name="defaultPrice" type="text">
                         </mat-form-field>
-                        <mat-icon *ngIf="productInEdit.id !== product.id" (click)="setProductInEdit(product)">edit</mat-icon>
+                        <mat-icon [class.edit-button--disabled]="editButtonDisabled(product)" *ngIf="productInEdit.id !== product.id" (click)="setProductInEdit(product)">edit</mat-icon>
                       </div>
                     </td>
                     <td class="mid"><mat-icon (click)="removeProduct(product)">delete</mat-icon></td>

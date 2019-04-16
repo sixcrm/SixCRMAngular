@@ -2,8 +2,8 @@ import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
   addId, clean, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
-import {ProductSchedule} from '../../../models/product-schedule.model';
 import {IndexQueryParameters} from '../index-query-parameters.model';
+import { CycleProduct, ProductSchedule } from '../../../models/product-schedule.model';
 
 export function  productScheduleListQuery(params: IndexQueryParameters): string {
   return `{
@@ -32,39 +32,42 @@ export function deleteProductSchedulesMutation(id: string[]): string {
   return deleteManyMutationQuery('productschedule', id);
 }
 
-export function createProductScheduleMutation(schedule: ProductSchedule): string {
+export function createProductScheduleMutation(productSchedule: ProductSchedule): string {
   return `
     mutation {
-		  createproductschedule (productschedule: { ${productScheduleInputQuery(schedule)} }) {
+		  createproductschedule (productschedule: { ${productScheduleInputQuery(productSchedule)} }) {
         ${productScheduleResponseQuery()}
       }
 	  }`
 }
 
-export function updateProductScheduleMutation(schedule: ProductSchedule): string {
+export function updateProductScheduleMutation(productSchedule: ProductSchedule): string {
   return `
     mutation {
-		  updateproductschedule (productschedule: { ${productScheduleInputQuery(schedule, true)} }) {
+		  updateproductschedule (productschedule: { ${productScheduleInputQuery(productSchedule, true)} }) {
         ${productScheduleResponseQuery()}
       }
 	  }`
 }
 
 export function productScheduleResponseQuery(): string {
-  return `
-    id name trial_required trial_sms_provider { id, name } created_at updated_at,
-    schedule { price start end period samedayofmonth,
-      product { id name ship sku image_urls }
-    },
-    emailtemplates { id, name, type, subject, smtp_provider { id name } }`
+  return `id name created_at description merchantprovidergroup {id, name} confirmation_sms_provider { id, name } trial_required updated_at cycles { cycle_products { product {id, name, is_shippable}, is_shipping, quantity, position }, price, shipping_price, length, position, next_position }`
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name created_at trial_required updated_at schedule { start samedayofmonth end period price product {id sku name price description image_urls} }`
+  return `id name created_at updated_at cycles { length price }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
-  let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}, samedayofmonth: ${!!b.sameDayOfMonth}}, `, '');
+  const extractCycleProducts = (products: CycleProduct[]) => {
+    return products.reduce((a,b) => {
+      return `${a}${a?',':''}{product:"${b.product.id}", is_shipping:${!!b.isShipping}, quantity:${b.quantity}, position:${b.position} }`
+    }, '')
+  };
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", trial_required: ${!!productSchedule.trialRequired}, ${productSchedule.trialSmsProvider.id ? `trial_sms_provider: "${productSchedule.trialSmsProvider.id}"` : ''} schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
+  let cycles = productSchedule.cycles.reduce((a,b) => {
+    return `${a}${a?',':''}{cycle_products: [${extractCycleProducts(b.cycleProducts)}], price:${b.price.amount}, shipping_price:${b.shippingPrice.amount}, length:"${b.length} ${b.monthly ? 'months' : 'days'}", position:${b.position}, next_position:${b.nextPosition}}`;
+  }, '');
+
+  return `${addId(productSchedule.id, includeId)}, description:"${productSchedule.description || ''}", name: "${clean(productSchedule.name)}" ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup:"${productSchedule.merchantProviderGroup.id}"` : ''} trial_required:${!!productSchedule.trialRequired} ${productSchedule.smsProvider.id ? `confirmation_sms_provider_id:"${productSchedule.smsProvider.id}"` : ''} cycles: [${cycles}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

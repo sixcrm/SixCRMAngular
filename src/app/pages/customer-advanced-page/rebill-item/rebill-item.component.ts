@@ -17,7 +17,7 @@ export class RebillItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateToWatermark(rebill: Rebill) {
-    this.router.navigate([], {relativeTo: this.route, queryParams: { session: rebill.parentSession.id }, fragment: 'watermark'})
+  navigateToSession(rebill: Rebill) {
+    this.router.navigate([], {relativeTo: this.route, queryParams: { session: rebill.parentSession.id }})
   }
 }

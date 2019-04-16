@@ -78,6 +78,8 @@ export class ProductsComponent implements OnInit {
 
   selectedFilter = this.filters[0];
 
+  status: 'LOADING' | 'EMPTY' | 'NONEMPTY' | 'ERROR' = 'LOADING';
+
   constructor(
     public productsService: ProductsService,
     private schedulesService: ProductScheduleService,
@@ -97,11 +99,13 @@ export class ProductsComponent implements OnInit {
 
     this.productsService.entities$.take(1).zip(this.schedulesService.entities$.take(1)).subscribe(data => {
       if (!data || !data[0] || data[0] instanceof CustomServerError || !data[1] || data[1] instanceof CustomServerError) {
+        this.status = 'ERROR';
         return;
       }
 
       this.allEntities = [...data[0], ...data[1]].sort(this.selectedSortBy.sortFunction);
       this.entities = this.allEntities.filter(this.selectedFilter.filterFunction);
+      this.status = this.allEntities.length > 0 ? 'NONEMPTY' : 'EMPTY';
     });
 
     this.productsService.getEntities();
@@ -263,5 +267,19 @@ export class ProductsComponent implements OnInit {
         break;
       }
     }
+  }
+
+  navigateTo(entity: Product | ProductSchedule) {
+    const route = entity instanceof Product ? 'product' : 'schedule';
+
+    this.router.navigate(['/products', route, entity.id])
+  }
+
+  getSku(entity: Product | ProductSchedule) {
+    if (entity instanceof ProductSchedule) {
+      return entity.getInitialSku();
+    }
+
+    return entity.sku;
   }
 }

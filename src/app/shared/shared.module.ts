@@ -75,6 +75,11 @@ import { BulkSelectorComponent } from './components/bulk-selector/bulk-selector.
 import { SliderGalleryComponent } from './components/slider-gallery/slider-gallery.component';
 import { SliderGalleryItemDirective } from './components/slider-gallery/slider-gallery-item.directive';
 import { CustomMatDropdownComponent } from './components/custom-mat-dropdown/custom-mat-dropdown.component';
+import { CyclesEditorComponent } from './components/cycles-editor/cycles-editor.component';
+import { EditorComponent } from './components/cycles-editor/editor/editor.component';
+import { LeftRailComponent } from './components/cycles-editor/left-rail/left-rail.component';
+import { ToolbarComponent } from './components/cycles-editor/toolbar/toolbar.component';
+import { CycleInfoComponent } from './components/cycles-editor/cycle-info/cycle-info.component';
 
 @NgModule({
   declarations : [
@@ -134,7 +139,12 @@ import { CustomMatDropdownComponent } from './components/custom-mat-dropdown/cus
     BulkSelectorComponent,
     SliderGalleryComponent,
     SliderGalleryItemDirective,
-    CustomMatDropdownComponent
+    CustomMatDropdownComponent,
+    CyclesEditorComponent,
+    EditorComponent,
+    LeftRailComponent,
+    ToolbarComponent,
+    CycleInfoComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -187,7 +197,8 @@ import { CustomMatDropdownComponent } from './components/custom-mat-dropdown/cus
     BulkSelectorComponent,
     SliderGalleryComponent,
     SliderGalleryItemDirective,
-    CustomMatDropdownComponent
+    CustomMatDropdownComponent,
+    CyclesEditorComponent
   ],
   imports : [
     FormsModule,

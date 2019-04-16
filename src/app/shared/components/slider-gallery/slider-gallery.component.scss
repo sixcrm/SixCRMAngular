@@ -20,32 +20,46 @@
   height: 100%;
   position: absolute;
   display: flex;
-  width: 34px;
+  width: 80px;
   z-index: 2;
 
   div {
     display: flex;
-    margin: auto;
     background: #ffffff;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid $main-color-400;
-    color: $main-color-400;
+    width: 40px;
+    height: 80px;
+    color: #2C98F0;
     cursor: pointer;
 
     mat-icon {
       margin: auto;
+      font-size: 40px;
+      height: 40px;
+      width: 40px;
     }
   }
 
   &--left {
     left: 0;
-    background: linear-gradient(to left, rgba(250,250,250,0), #fafafa);
+    background: linear-gradient(to left, rgba(250, 250, 250, 0), rgba(250, 250, 250, 1));
+
+    div {
+      margin: auto auto auto 0;
+      border-bottom-right-radius: 40px;
+      border-top-right-radius: 40px;
+      box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.25);
+    }
   }
 
   &--right {
     right: 0;
-    background: linear-gradient(to right, rgba(250,250,250,0), #fafafa);
+    background: linear-gradient(to right, rgba(250, 250, 250, 0), rgba(250, 250, 250, 1));
+
+    div {
+      margin: auto 0 auto auto;
+      border-bottom-left-radius: 40px;
+      border-top-left-radius: 40px;
+      box-shadow: -2px 3px 3px rgba(0, 0, 0, 0.25);
+    }
   }
 }

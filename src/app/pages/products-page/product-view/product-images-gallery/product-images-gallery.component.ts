@@ -45,4 +45,10 @@ export class ProductImagesGalleryComponent implements OnInit {
       }
     })
   }
+
+  toggleFavorite(image, i) {
+    if (i === 0) return;
+
+    this.setDefaultImage.emit(image);
+  }
 }

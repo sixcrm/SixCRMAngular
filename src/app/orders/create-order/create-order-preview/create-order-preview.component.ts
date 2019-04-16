@@ -36,7 +36,7 @@ export class CreateOrderPreviewComponent implements OnInit {
     return new Currency(this.products.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
+        return (p.getInitialPrice().amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;
@@ -57,6 +57,14 @@ export class CreateOrderPreviewComponent implements OnInit {
   }
 
   confirmationRequired() {
-    return this.products && this.products.filter(p => p instanceof ProductSchedule && p.trialRequired).length > 0;
+    return false;
+  }
+
+  getSku(product: Product | ProductSchedule) {
+    if (product instanceof ProductSchedule) {
+      return product.getInitialSku() || '-';
+    }
+
+    return product.sku || '-';
   }
 }

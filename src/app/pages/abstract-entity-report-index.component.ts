@@ -309,4 +309,32 @@ export abstract class AbstractEntityReportIndexComponent<T> {
   updateTabs(tabs: FilterTableTab[]) {
     this.tabs = tabs;
   }
+
+  cleanEntitiesForDownload(entities: T[]) {
+    const cleanQuote = (value) => {
+      if (!value || (value + '').indexOf('"') === -1) return value;
+
+      return value.replace(/"/g, '""');
+    };
+
+    const cleanComma = (value) => {
+      if (!value || (value + '').indexOf(',') === -1) return value;
+
+      return `"${value}"`;
+    };
+
+    return (entities || []).map(entity => {
+      const cleaned = {};
+
+      Object.keys(entity).forEach(key => {
+        cleaned[key] = cleanComma(cleanQuote(entity[key]));
+      });
+
+      return cleaned;
+    })
+  }
+
+  getDownloadReportFileName(reportName: string) {
+    return `${this.authService.getActiveAccount().name} ${reportName} [${this.date.start.tz(this.authService.getTimezone()).format('MM-DD-YY')}] - [${this.date.end.tz(this.authService.getTimezone()).format('MM-DD-YY')}]`
+  }
 }

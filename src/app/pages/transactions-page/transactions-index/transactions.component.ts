@@ -40,9 +40,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       new ColumnParams('Status', (e: TransactionAnalytics) => e.response === 'success' && e.transactionType === 'refund' ? 'Refunded' : e.response)
         .setSortName('response')
         .setCapitalize(true)
-        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' || e.response === 'soft decline' || e.response === 'hard decline' ? 'block' : 'error')
+        .setMaterialIconMapper((e: TransactionAnalytics) => e.response === 'success' ? 'done' : e.response === 'decline' || e.response === 'soft decline' || e.response === 'hard decline' || e.response === 'harddecline' ? 'block' : 'error')
         .setMaterialIconBackgroundColorMapper((e: TransactionAnalytics) => e.response === 'success' ? e.transactionType === 'refund' ? '#ED6922' : '#1EBEA5' : '#ffffff')
-        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : e.response === 'soft decline' ? '#ED6922' : '#DC2547'),
+        .setMaterialIconColorMapper((e: TransactionAnalytics) => e.response === 'success' ? '#ffffff' : e.response === 'soft decline' || e.response === 'decline' ? '#ED6922' : '#DC2547'),
       new ColumnParams('Type', (e: TransactionAnalytics) => e.transactionType ? e.transactionType : '–').setSortName('transaction_type').setCapitalize(true),
       new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer)
         .setSortName('customer_name')
@@ -72,9 +72,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       {label: 'All', selected: true, visible: true},
       {label: 'Refunds', selected: false, visible: true, filters: [{facet: 'transactionType', values: ['refund']}]},
       {label: 'Errors', selected: false, visible: true, filters: [{facet: 'response', values: ['error']}]},
-      {label: 'All Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline', 'soft decline']}]},
-      {label: 'Hard Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline']}]},
-      {label: 'Soft Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['soft decline']}]}
+      {label: 'All Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline', 'harddecline', 'decline', 'soft decline']}]},
+      {label: 'Hard Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['hard decline', 'harddecline']}]},
+      {label: 'Soft Declines', selected: false, visible: true, filters: [{facet: 'response', values: ['soft decline', 'decline']}]}
     ];
 
     this.options = ['View'];
@@ -137,9 +137,13 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
         return;
       }
 
-      const parsedTransactions = this.parseTransactionsForDownload(transactions);
+      let parsedTransactions = this.parseTransactionsForDownload(transactions);
 
-      const fileName = `${this.authService.getActiveAccount().name} Transactions ${utc().tz(this.authService.getTimezone()).format('MM-DD-YY')}`;
+      if (format === 'csv') {
+        parsedTransactions = this.cleanEntitiesForDownload(parsedTransactions);
+      }
+
+      const fileName = this.getDownloadReportFileName('Transactions');
 
       if (format === 'json') {
         downloadJSON(parsedTransactions, fileName);
@@ -197,9 +201,9 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
       this.tabs[0].count = Observable.of(transactions.length);
       this.tabs[1].count = Observable.of(transactions.filter(t=>t.transactionType === 'refund').length);
       this.tabs[2].count = Observable.of(transactions.filter(t=>t.response === 'error').length);
-      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'soft decline' || t.response === 'hard decline').length);
-      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'hard decline').length);
-      this.tabs[5].count = Observable.of(transactions.filter(t=>t.response === 'soft decline').length);
+      this.tabs[3].count = Observable.of(transactions.filter(t=>t.response === 'soft decline' || t.response === 'hard decline' || t.response === 'harddecline' || t.response === 'decline').length);
+      this.tabs[4].count = Observable.of(transactions.filter(t=>t.response === 'hard decline' || t.response === 'harddecline').length);
+      this.tabs[5].count = Observable.of(transactions.filter(t=>t.response === 'soft decline' || t.response === 'decline').length);
     });
   }
 

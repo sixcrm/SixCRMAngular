@@ -37,7 +37,7 @@ export class CreateOrderSuccessComponent implements OnInit {
   navigateToSession() {
     if (!this.checkoutResponse) return;
 
-    this.router.navigate(['/customers', 'advanced'], { queryParams: { session: this.checkoutResponse.session.id }, fragment: 'watermark' });
+    this.router.navigate(['/customers', 'advanced'], { queryParams: { session: this.checkoutResponse.session.id }});
 
     this.done.emit(true);
   }
@@ -48,7 +48,7 @@ export class CreateOrderSuccessComponent implements OnInit {
     return new Currency(this.products.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return (p.initialCycleSchedulesPrice.amount || 0) * p.quantity;
+        return (p.getInitialPrice().amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;

@@ -31,15 +31,7 @@ export class AffiliateCampaignsComponent extends AbstractEntityIndexComponent<Ca
     this.columnParams = [
       new ColumnParams('AFFILIATE_CAMPAIGN_NAME', (e: Campaign) => e.name),
       new ColumnParams('AFFILIATE_CAMPAIGN_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('AFFILIATE_CAMPAIGN_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('AFFILIATE_CAMPAIGN_TOTALSCHEDULED', (e: Campaign) =>
-          new Currency(
-            e.productSchedules
-              .map(p => p.schedules)
-              .reduce((a, b) => a.concat(b), [])
-              .map(s => +s.price.amount)
-              .reduce((a, b) => a+b, 0)).usd()
-        , 'right').setNumberOption(true)
+      new ColumnParams('AFFILIATE_CAMPAIGN_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
   }
 

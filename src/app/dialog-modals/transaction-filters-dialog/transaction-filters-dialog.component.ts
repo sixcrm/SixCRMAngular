@@ -127,9 +127,11 @@ export class TransactionFiltersDialogComponent extends AbstractFilterDialog<Tran
 
       if (this.hardDeclineResponse) {
         responseFacet.values.push('hard decline');
+        responseFacet.values.push('harddecline');
       }
       if (this.softDeclineResponse) {
         responseFacet.values.push('soft decline');
+        responseFacet.values.push('decline');
       }
       if (this.errorResponse) {
         responseFacet.values.push('error');

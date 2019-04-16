@@ -1,6 +1,6 @@
 <blue-header [items]="crumbItems" [titleValue]="'Products and Schedules'"></blue-header>
 
-<div class="grid-body">
+<div class="grid-body" *ngIf="status === 'NONEMPTY'; else noitems">
   <div class="header">
     <button mat-button class="add-new-button" *ngIf="productsService.hasWritePermission()" (click)="createNewProduct()">NEW PRODUCT</button>
 
@@ -36,32 +36,25 @@
 
     <ng-container *ngFor="let entity of entities | filterStrings: filterString: filterFunction">
       <div class="entity-card" [class.entity-card--selected]="entity.bulkSelected" (click)="selectEntity(entity)" (dblclick)="goToEntity(entity)">
-        <div class="title">{{entity.name}}</div>
+
+        <div class="name heading">{{ entity.name }}</div>
+        <div class="sku heading">{{ getSku(entity) }}</div>
+
 
         <div class="image-wrapper" [class.image-wrapper--blue]="getDefaultImagePath(entity) === '/assets/images/product-default-image.svg'">
           <img src="{{getDefaultImagePath(entity)}}" alt="">
-          <div class="subscription-mark" *ngIf="isSubscription(entity)">Schedule</div>
+          <ng-container *ngIf="isSubscription(entity)">
+            <div class="subscription-mark">
+              Subscription
+              <div class="subscription-mark-addon"></div>
+            </div>
+          </ng-container>
         </div>
 
-        <ng-container *ngIf="isSubscription(entity); else product">
-          <div class="product-details">
-            <div>
-              <div>Schedules {{entity.schedules.length}}</div>
-              <div>{{entity.getInitialPrice().usd()}}</div>
-            </div>
-            <button mat-button [routerLink]="['/products', 'schedule', entity.id]" fragment="cycles">EDIT</button>
-          </div>
-        </ng-container>
-
-        <ng-template #product>
-          <div class="product-details">
-            <div>
-              <div>SKU {{entity.sku}}</div>
-              <div>{{entity.defaultPrice.usd()}}</div>
-            </div>
-            <button mat-button [routerLink]="['/products', 'product', entity.id]">EDIT</button>
-          </div>
-        </ng-template>
+        <div class="card-buttons">
+          <button mat-button (click)="navigateTo(entity)">EDIT</button>
+          <mat-icon *ngIf="entity.bulkSelected">done</mat-icon>
+        </div>
       </div>
     </ng-container>
 
@@ -69,4 +62,21 @@
 
 </div>
 
+<ng-template #noitems>
+  <div class="empty-container" *ngIf="status === 'EMPTY'">
+
+    <div class="empty-content">
+
+      <div class="config">Configuration</div>
+      <div class="ttl">Products & Subscriptions</div>
+      <div class="bdy">
+        <div>You’re on your way to making your first sale!  Set up your first product to sell!  After you configure the base product you turn it into a product with Continuity by setting up a billing and shipping schedule.</div>
+        <img src="/assets/images/dashboard/shopping_cart.svg">
+      </div>
+      <button mat-button *ngIf="productsService.hasWritePermission()" (click)="createNewProduct()">Create New Product</button>
+
+    </div>
+
+  </div>
+</ng-template>
 <bulk-selector [items]="entities" [options]="bulkOptions" (cancel)="deselectAllEntities()" (applyOption)="applyBulkOption($event)"></bulk-selector>

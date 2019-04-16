@@ -1,3 +1,5 @@
+@import "/../../../../assets/scss/colors";
+
 .image-wrapper {
   position: relative;
   margin-top: auto;
@@ -27,40 +29,31 @@
   }
 }
 
-.product-details {
-  display: flex;
-  align-items: flex-end;
-  padding: 12px 15px;
-  font-size: 13px;
-  line-height: 24px;
-  color: #202124;
-
-  button {
-    margin-left: auto;
-    color: #2C98F0;
-  }
-}
-
 .entity-card {
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 1px;
   display: flex;
   flex-direction: column;
 
+  &:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.38);
+  }
+
   &--selected {
     margin-top: 0;
-    margin-bottom: 19px !important;
-    border: 5px solid #296CCC;
-    width: calc(25% - 14px) !important;
-    margin-left: 7px !important;
-    margin-right: 7px !important;
+    margin-bottom: 23px !important;
+    border: 1px solid $main-color-400;
+    width: calc(25% - 22px) !important;
+    margin-left: 11px !important;
+    margin-right: 11px !important;
+    background: rgba(41, 108, 204, 0.01) !important;
 
     @media only screen and (max-width: 1200px) {
-      width: calc(33% - 14px) !important;
+      width: calc(33% - 22px) !important;
     }
 
     @media only screen and (max-width: 900px) {
-      width: calc(50% - 14px) !important;
+      width: calc(50% - 22px) !important;
     }
 
     @media only screen and (max-width: 600px) {
@@ -78,18 +71,122 @@ bulk-selector {
 
 .subscription-mark {
   position: absolute;
-  top: 25px;
-  left: 0;
+  top: 12px;
+  left: -13px;
   padding: 8px 44px;
-  background: #296CCC;
-  border-radius: 4px;
+  background: $main-color-400;
+  border-radius: 4px 4px 4px 0;
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
   border: 1px solid #ffffff;
 }
 
-.title {
+.subscription-mark-addon {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 12px 6px 0;
+  border-color: transparent #154487 transparent transparent;
+}
+
+.heading {
   overflow: hidden;
   word-break: break-word;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.name {
+  padding: 13px 16px 2px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+}
+
+.sku {
+  padding: 0 16px 13px;
+  line-height: 20px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+  letter-spacing: 0.25px;
+}
+
+.card-buttons {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 8px 16px;
+
+  button {
+    font-size: 14px;
+    color: $main-color-400;
+  }
+
+  mat-icon {
+    margin-left: auto;
+    color: #ffffff;
+    background: $main-color-400;
+    border-radius: 50%;
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
+  }
+}
+
+.empty-container {
+  display: flex;
+  min-height: calc(100vh - 166px);
+  background: $main-color-400;
+
+  .empty-content {
+    margin: auto;
+    max-width: 940px;
+
+    .config {
+      font-size: 20px;
+      font-weight: 500;
+      color: #8ED8FD;
+      font-family: Montserrat, serif;
+    }
+
+    .ttl {
+      color: #FFFFFF;
+      font-size: 72px;
+      font-weight: bold;
+      font-family: Montserrat, serif;
+    }
+
+    .bdy {
+      margin-top: 20px;
+      display: flex;
+      font-family: Montserrat, serif;
+
+      div {
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 1.8px;
+        width: 670px;
+      }
+
+      img {
+        margin-left: 25px;
+        width: 81px;
+        height: 81px;
+      }
+    }
+
+    button {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #ffffff;
+      background: $action-color;
+      padding: 6px 32px;
+      margin-bottom: 48px;
+    }
+
+  }
 }

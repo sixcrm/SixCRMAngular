@@ -44,15 +44,6 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
       new ColumnParams('CAMPAIGN_INDEX_HEADER_NAME', (e: Campaign) => e.name),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_SHOWPREPAID', (e: Campaign) => e.showPrepaid + '').setSelected(false),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_ALLOWPREPAID', (e: Campaign) => e.allowPrepaid + '').setSelected(false),
-      new ColumnParams('CAMPAIGN_INDEX_HEADER_PRODUCTNUM', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0) + '', 'right').setNumberOption(true),
-      new ColumnParams('CAMPAIGN_INDEX_HEADER_SCHEDULEDNUM', (e: Campaign) =>
-        new Currency(
-          e.productSchedules
-          .map(p => p.schedules)
-          .reduce((a, b) => a.concat(b), [])
-          .map(s => +s.price.amount)
-          .reduce((a, b) => a+b, 0)).usd()
-        , 'right'),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];

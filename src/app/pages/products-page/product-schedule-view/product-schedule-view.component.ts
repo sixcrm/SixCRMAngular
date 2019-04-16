@@ -1,25 +1,20 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
-import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
+import {AbstractEntityViewComponent, Modes} from '../../abstract-entity-view.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {Schedule} from '../../../shared/models/schedule.model';
-import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {Product} from '../../../shared/models/product.model';
-import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {ProductsService} from '../../../entity-services/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {utc, Moment} from 'moment'
-import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
-import {EmailTemplate} from '../../../shared/models/email-template.model';
-import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
+import {MerchantProviderGroupsService} from '../../../entity-services/services/merchant-provider-groups.service';
+import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
+import {SmsProvider} from '../../../shared/models/sms-provider.model';
+import {SmsProvidersService} from '../../../entity-services/services/sms-providers.service';
 
 @Component({
   selector: 'product-schedule-view',
@@ -33,107 +28,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   startDate: Moment = utc().millisecond(0).second(0).minute(0).hour(0);
 
   selectedIndex: number = 0;
-  scheduleColumnParams = [
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_IMAGE')
-      .setMappingFunction((e: Schedule) => e.product.getDefaultImagePath() || '/assets/images/product-image-placeholder.svg')
-      .setShowLabel(false)
-      .setSortEnabled(false)
-      .setInputType(ColumnParamsInputType.IMAGE),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_NAME')
-      .setMappingFunction((e: Schedule) => e.product.name)
-      .setAssigningFunction((e: Schedule, value: Product) => {
-        e.product = value;
-        e.price = value.defaultPrice;
-
-        return e;
-      })
-      .setValidator((e: Schedule) => !!(e.product && e.product.id))
-      .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
-      .setAutocompleteOptions([])
-      .setAutocompleteMapper((product) => product.name)
-      .setAutocompleteInitialValue((schedule) => schedule.product)
-      .setAutofocus(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE')
-      .setMappingFunction((e: Schedule) => e.price)
-      .setAssigningFunction((e: Schedule, value) => e.price = value)
-      .setAlign('right')
-      .setInputType(ColumnParamsInputType.CURRENCY)
-      .setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_START')
-      .setMappingFunction((e: Schedule) => e.start)
-      .setAssigningFunction((e: Schedule, value) => e.start = (!value || isNaN(value)) ? 0 : parseInt(value))
-      .setAlign('right')
-      .setInputType(ColumnParamsInputType.NUMERIC)
-      .setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_END')
-      .setMappingFunction((e: Schedule) => e.end === null ? '' : e.end + '')
-      .setAssigningFunction((e: Schedule, value) => e.end = (!value || isNaN(value)) ? 0 : parseInt(value))
-      .setInputType(ColumnParamsInputType.NUMERIC)
-      .setValidator((e: Schedule) => e.end >= e.start)
-      .setAlign('right')
-      .setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PERIOD')
-      .setMappingFunction((e: Schedule) => e.period)
-      .setAssigningFunction((e: Schedule, value) => e.period = (!value || isNaN(value)) ? 0 : parseInt(value))
-      .setInputType(ColumnParamsInputType.NUMERIC)
-      .setValidator((e: Schedule) => (e.end < e.start) || (e.period <= e.end - e.start))
-      .setAlign('right')
-      .setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_SHIP')
-      .setMappingFunction((e: Schedule) => e.product.ship)
-      .setInputType(ColumnParamsInputType.BOOLEAN)
-      .setAlign('center')
-      .setEditable(false)
-  ];
-
-  scheduleFactory = (data: any) => {
-    const schedule: Schedule = new Schedule(data);
-
-    if (!this.entity.schedules || this.entity.schedules.length === 0) return schedule;
-
-    const lastExistingSchedule: Schedule = this.entity.schedules[this.entity.schedules.length - 1];
-
-    schedule.start = lastExistingSchedule.end || 0;
-    schedule.period = lastExistingSchedule.period || 30;
-    schedule.end = schedule.start + schedule.period;
-
-    return schedule;
-  };
-
-  emailTemplateMapper = (el: EmailTemplate) => el.name;
-  emailTemplateColumnParams = [
-    new ColumnParams('Name', (e: EmailTemplate) => e.name),
-    new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
-    new ColumnParams('Type', (e: EmailTemplate) => e.type),
-    new ColumnParams('SMTP Provider', (e: EmailTemplate) => e.smtpProvider.name)
-  ];
-
-  emailText: TableMemoryTextOptions = {
-    title: 'Associated Email Templates',
-    viewOptionText: 'View Email Template',
-    associateOptionText: 'Associate Email Template',
-    disassociateOptionText: 'Disassociate Email Template',
-    associateModalTitle: 'Select Email Template',
-    disassociateModalTitle: 'Are you sure you want to delete?',
-    associateModalButtonText: 'ADD',
-    noDataText: 'No Email Templates Found.'
-  };
-
-  tableTexts: TableMemoryTextOptions = {
-    title: 'PRODUCTSCHEDULE_CYCLE_TITLE',
-    editOptionText: 'PRODUCTSCHEDULE_CYCLE_EDIT',
-    viewOptionText: 'PRODUCTSCHEDULE_CYCLE_VIEW',
-    disassociateOptionText: 'PRODUCTSCHEDULE_CYCLE_REMOVE',
-    associateOptionText: 'PRODUCTSCHEDULE_CYCLE_ADD',
-    noDataText: 'PRODUCTSCHEDULE_CYCLE_NODATA'
-  };
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
-    {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
-    {name: 'list', label: 'PRODUCTSCHEDULE_TAB_LIST'},
-    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'},
-    {name: 'emailtemplates', label: 'EMAIL TEMPLATES'}
+    {name: 'general', label: 'GENERAL'},
+    {name: 'cycles', label: 'CYCLES'},
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
@@ -141,13 +39,22 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {label: () => `${this.entity.name}`}
   ];
 
-  detailsElement: ElementRef;
-  saveDebouncer: Subject<ProductSchedule> = new Subject();
-  productScheduleWaitingForUpdate: ProductSchedule;
-  updateError: boolean;
-  autosaveDebouncer: number = 2000;
+  productScheduleCycles: ProductSchedule;
+  productScheduleCyclesStates: ProductSchedule[] = [];
+  productScheduleCyclesIndex = 0;
+  editDescription: boolean;
+  editMain: boolean;
 
-  productScheduleDup;
+  merchantProviderGroups: MerchantProviderGroup[] = [];
+  merchantProviderGroupsFiltered: MerchantProviderGroup[] = [];
+
+  midFilter: string;
+  smsFilter: string;
+
+  smsProviders: SmsProvider[] = [];
+  smsProvidersFiltered: SmsProvider[] = [];
+
+  description: string;
 
   constructor(
     service: ProductScheduleService,
@@ -155,165 +62,207 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public navigation: NavigationService,
     public authService: AuthenticationService,
     private router: Router,
-    private productService: ProductsService,
     private dialog: MatDialog,
-    public emailTemplateService: EmailTemplatesService
+    public merchantProviderGroupsService: MerchantProviderGroupsService,
+    public smsProviderService: SmsProvidersService
   ) {
     super(service, route);
   }
 
   ngOnInit() {
-    this.service.entity$.take(1).takeUntil(this.unsubscribe$).subscribe(ps => {
-      if (ps instanceof CustomServerError || !ps || !ps.id) {
+    this.service.entity$.take(1).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
+      if (productSchedule instanceof CustomServerError) {
         return;
       }
 
-      this.productScheduleDup = ps;
+      this.productScheduleCycles = productSchedule;
+      this.productScheduleCyclesStates = [this.productScheduleCycles.copy()];
+      this.productScheduleCyclesIndex = 0;
+      this.midFilter = productSchedule.merchantProviderGroup.name || '';
+      this.smsFilter = productSchedule.smsProvider.name || '';
+      this.description = productSchedule.description || '';
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
-      if (ps instanceof CustomServerError) {
-        this.updateError = true;
-      } else {
-        this.updateError = false;
-        this.entity = ps;
-        this.entityBackup = this.entity.copy();
-        this.productScheduleWaitingForUpdate = null;
-      }
+      if (ps instanceof CustomServerError) return;
+
+      this.entity = ps;
+      this.entityBackup = this.entity.copy();
+      this.midFilter = ps.merchantProviderGroup.name || '';
+      this.smsFilter = ps.smsProvider.name || '';
+      this.description = ps.description || '';
     });
 
-    this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
-      const toBeUpdated = this.entity.copy();
-      toBeUpdated.schedules = productSchedule.schedules.slice();
+    this.merchantProviderGroupsService.entities$.take(1).subscribe(groups => {
+      if (groups instanceof CustomServerError) return;
 
-      this.takeUpdated = false;
-      this.updateEntity(toBeUpdated);
+      this.merchantProviderGroups = groups;
+      this.merchantProviderGroupsFiltered = this.merchantProviderGroups.slice();
     });
+
+    this.smsProviderService.entities$.take(1).subscribe(providers => {
+      if (providers instanceof CustomServerError) return;
+
+      this.smsProviders = providers;
+      this.smsProvidersFiltered = this.smsProviders.slice();
+    });
+
+    this.merchantProviderGroupsService.getEntities();
+    this.smsProviderService.getEntities();
 
     super.init(() => this.navigation.goToNotFoundPage());
-
-    if (this.addMode) {
-      this.entity = new ProductSchedule();
-      this.entityBackup = new ProductSchedule();
-    } else {
-      this.productService.entities$.takeUntil(this.unsubscribe$).subscribe(products => {
-        if (products instanceof CustomServerError) return;
-
-        this.scheduleColumnParams[1].setAutocompleteOptions(products);
-      });
-      this.productService.getEntities();
-      this.emailTemplateService.getEntities();
-    }
   }
 
   ngOnDestroy() {
     this.destroy();
-
-    if (this.productScheduleWaitingForUpdate) {
-      this.productScheduleWaitingForUpdate.updatedAtAPI = this.entity.updatedAtAPI;
-      this.productScheduleWaitingForUpdate.updatedAt = this.entity.updatedAt.clone();
-      this.updateEntity(this.productScheduleWaitingForUpdate);
-    }
   }
 
   setIndex(value: number): void {
     this.selectedIndex = value;
   }
 
-  addSchedule(schedule: Schedule) {
-    this.entity.schedules.push(schedule);
-
-    this.takeUpdated = true;
-    this.updateEntity(this.entity);
-  }
-
-  updateSchedule(schedule: Schedule): void {
-    for (let i = 0; i < this.entity.schedules.length; i++) {
-      if (this.entity.schedules[i]['tableAdvancedIdentifier'] === schedule['tableAdvancedIdentifier']) {
-        this.entity.schedules[i] = schedule;
-        break;
-      }
-    }
-
-    this.takeUpdated = true;
-    this.updateEntity(this.entity);
-  }
-
-  disassociateSchedule(schedule: Schedule) {
-    this.openDeleteDialog(() => {
-      const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
-
-      if (index > -1) {
-        this.entity.schedules.splice(index, 1);
-        this.takeUpdated = true;
-        this.updateEntity(this.entity);
-      }
-    });
-  }
-
-  disassociateSchedules(schedules: Schedule[]) {
-
-    this.openDeleteDialog(() => {
-      schedules.forEach(schedule => {
-        const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
-
-        if (index > -1) {
-          this.entity.schedules.splice(index, 1);
-        }
-      });
-
-      this.takeUpdated = true;
-      this.updateEntity(this.entity);
-    })
-  }
-
-  navigateToProduct(schedule: Schedule) {
-    this.router.navigate(['products', 'product', schedule.product.id])
-  }
-
   canBeDeactivated() {
-    return super.canBeDeactivated();
+    return this.productScheduleCyclesStatePersisted()
+      && this.entity.name === this.entityBackup.name
+      && this.entity.merchantProviderGroup.id === this.entityBackup.merchantProviderGroup.id;
   }
 
-  openDeleteDialog(callback: () => void) {
+  deleteProductSchedule() {
     let deleteDialog = this.dialog.open(DeleteDialogComponent);
 
     deleteDialog.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       deleteDialog = null;
       if (result && result.success) {
-        callback();
+        this.service.entityDeleted$.take(1).subscribe(data => {
+          if (data instanceof CustomServerError) {
+            return;
+          }
+
+          this.router.navigate(['/products']);
+        });
+
+        this.service.deleteEntity(this.entity.id);
       }
     });
   }
 
-  setDetails(details) {
-    this.detailsElement = details;
+  redoProductScheduleCycles() {
+    if (this.productScheduleCyclesIndex >= this.productScheduleCyclesStates.length - 1) return;
+
+    this.productScheduleCyclesIndex++;
+    this.productScheduleCycles = this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy();
   }
 
-  productSchedulesChanged(productSchedules: ProductSchedule[]) {
-    if (productSchedules && productSchedules.length > 0) {
-      this.productScheduleWaitingForUpdate = productSchedules[0];
-      this.saveDebouncer.next(productSchedules[0]);
+  undoProductScheduleCycles() {
+    if (this.productScheduleCyclesIndex === 0) return;
+
+    this.productScheduleCyclesIndex--;
+    this.productScheduleCycles = this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy();
+  }
+
+  saveProductScheduleCycles(productSchedule: ProductSchedule) {
+    this.productScheduleCyclesStates = this.productScheduleCyclesStates.slice(0, this.productScheduleCyclesIndex + 1);
+    this.productScheduleCyclesStates.push(productSchedule.copy());
+    this.productScheduleCycles = productSchedule.copy();
+    this.productScheduleCyclesIndex++;
+
+    this.service.updateEntity(this.productScheduleCycles);
+  }
+
+  productScheduleCyclesStatePersisted() {
+    return JSON.stringify(this.productScheduleCycles.inverse().cycles)
+      === JSON.stringify(this.productScheduleCyclesStates[this.productScheduleCyclesIndex].inverse().cycles)
+  }
+
+  updateDescription() {
+    const productSchedule = this.entityBackup.copy();
+    productSchedule.description = this.description;
+
+    this.editDescription = false;
+    this.updateEntity(productSchedule);
+  }
+
+  cancelEditDescription() {
+    this.editDescription = false;
+    this.description = this.entityBackup.description;
+  }
+
+  setEditDescription() {
+    this.editDescription = true;
+    this.cancelEditMain();
+  }
+
+  setEditMain() {
+    this.editMain = true;
+    this.cancelEditDescription();
+  }
+
+  saveMain() {
+    if (this.entity.trialRequired && !this.entity.smsProvider.id) return;
+
+    this.updateEntity(this.entity);
+    this.editMain = false;
+  }
+
+  cancelEditMain() {
+    this.cancelUpdate();
+    this.midFilter = this.entity.merchantProviderGroup.name;
+    this.editMain = false;
+  }
+
+  midInputChanged() {
+    this.entity.merchantProviderGroup = new MerchantProviderGroup();
+
+    if (!this.midFilter) {
+      this.merchantProviderGroupsFiltered = this.merchantProviderGroups.slice();
+
+      return;
+    }
+
+    this.merchantProviderGroupsFiltered = this.merchantProviderGroups
+      .filter(g => g.name.indexOf(this.midFilter) !== -1);
+
+    for (let i = 0; i < this.merchantProviderGroupsFiltered.length; i++) {
+      if (this.merchantProviderGroupsFiltered[i].name === this.midFilter) {
+        this.entity.merchantProviderGroup = this.merchantProviderGroupsFiltered[i].copy();
+
+        return;
+      }
     }
   }
 
-  viewEmailTemplate(emailTemplate: EmailTemplate): void {
-    this.router.navigate(['/emailtemplates', emailTemplate.id]);
+  midSelected(option) {
+    this.entity.merchantProviderGroup = option.option.value.copy();
+    this.midFilter = this.entity.merchantProviderGroup.name;
   }
 
-  disassociateEmailTemplate(emailTemplate: EmailTemplate): void {
-    this.emailTemplateService.removeEmailTemplateAssociation(emailTemplate.id, 'product_schedule', this.entityId).subscribe((template) => {
-      if (template instanceof CustomServerError || !template) return;
+  smsInputChanged() {
+    this.entity.smsProvider = new SmsProvider();
 
-      this.entity.emailTemplates = this.entity.emailTemplates.filter(e => e.id !== template.id);
-    });
+    if (!this.smsFilter) {
+      this.smsProvidersFiltered = this.smsProviders.slice();
+
+      return;
+    }
+
+    this.smsProvidersFiltered = this.smsProviders
+      .filter(g => g.name.indexOf(this.smsFilter) !== -1);
+
+    for (let i = 0; i < this.smsProvidersFiltered.length; i++) {
+      if (this.smsProvidersFiltered[i].name === this.smsFilter) {
+        this.entity.smsProvider = this.smsProvidersFiltered[i].copy();
+
+        return;
+      }
+    }
   }
 
-  associateEmailTemplate(emailTemplate: EmailTemplate): void {
-    this.emailTemplateService.addEmailTemplateAssociation(emailTemplate.id, 'product_schedule', this.entityId).subscribe((template) => {
-      if (template instanceof CustomServerError || !template) return;
+  smsSelected(option) {
+    this.entity.smsProvider = option.option.value.copy();
+    this.smsFilter = this.entity.smsProvider.name;
+  }
 
-      this.entity.emailTemplates = [...this.entity.emailTemplates, template];
-    });
+  cancelProductScheduleCyclesChanges() {
+    this.productScheduleCycles = this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy();
   }
 }

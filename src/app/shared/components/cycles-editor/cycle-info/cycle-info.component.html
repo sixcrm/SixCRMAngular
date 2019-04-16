@@ -1,0 +1,85 @@
+<div *ngIf="selectedCycle" class="details-wrapper">
+
+  <div class="row title">
+    <div>Cycle {{selectedCycle.position}}</div>
+  </div>
+
+
+  <div class="row">
+    <div class="underline-container" [class.underline-container--editable]="editMode">
+      <mat-form-field [class.error]="!selectedCycle.isValidLength()">
+        <input type="number" [readonly]="!editMode" matInput placeholder="Cycle Length" [(ngModel)]="selectedCycle.length" min="1" step="1" (keydown)="validatePositiveInteger($event)">
+      </mat-form-field>
+
+      <custom-mat-dropdown
+              class="days-dropdown"
+              (selectItem)="granularityChanged.emit($event)"
+              [editable]="editMode"
+              [items]="['Days', 'Month']"
+              [selectedItem]="selectedCycle.monthly ? 'Month' : 'Days'"
+              [showAddNew]="false">
+      </custom-mat-dropdown>
+    </div>
+
+    <div class="underline-container container--right" [class.underline-container--editable]="editMode">
+      <custom-mat-dropdown
+              style="width: 75px;"
+              (selectItem)="nextChanged($event)"
+              [editable]="selectedCycle.position === (cycleOptions.length - 1) && editMode"
+              [items]="cycleOptions"
+              [selectedItem]="selectedCycle.nextPosition === -1 ? 'None' : selectedCycle.nextPosition"
+              [placeholder]="'Next Cycle'"
+              [showAddNew]="false">
+      </custom-mat-dropdown>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px;">
+
+    <div class="underline-container" [class.underline-container--editable]="editMode">
+      <mat-form-field>
+        <input type="text" [readonly]="!editMode" matInput placeholder="Cycle Price" currencyInput [initPrice]="selectedCycle.price" (priceChanged)="selectedCycle.price = $event">
+      </mat-form-field>
+    </div>
+
+    <div class="underline-container container--right" [class.underline-container--editable]="editMode">
+      <mat-form-field style="margin-left: auto">
+        <input type="text" [readonly]="!editMode" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice" (priceChanged)="selectedCycle.shippingPrice = $event">
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="products-title">Products</div>
+
+  <div>
+
+    <div class="heading">
+      <div>Products</div>
+      <div>QTY</div>
+      <div>Ship</div>
+    </div>
+
+    <div *ngFor="let cycleProduct of selectedCycle.cycleProducts" class="row">
+
+      <div class="underline-container product-details-container" [class.underline-container--editable]="editMode">
+        <div class="product-name">{{cycleProduct.product.name}}</div>
+
+        <mat-form-field class="quantity" [class.error]="!cycleProduct.isValidQuantity()">
+          <input type="number" [readonly]="!editMode" (keydown)="validatePositiveInteger($event)" min="1" step="1" matInput [(ngModel)]="cycleProduct.quantity">
+        </mat-form-field>
+      </div>
+
+      <mat-checkbox class="checkbox-blue"
+                    [(ngModel)]="cycleProduct.isShipping"
+                    [disabled]="!cycleProduct.product.ship || !editMode"
+                    [matTooltipDisabled]="cycleProduct.product.ship || !editMode"
+                    matTooltip="To make this product shippable, please add a fulfillment provider in the Product settings.">
+      </mat-checkbox>
+    </div>
+
+  </div>
+
+</div>
+
+<button *ngIf="editMode && cycleOptions.length > 2" mat-button class="delete-button" (click)="deleteCycle($event)">DELETE CYCLE</button>

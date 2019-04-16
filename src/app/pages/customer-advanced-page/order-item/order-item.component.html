@@ -27,7 +27,7 @@
         <div>{{order.amountTotal().usd()}}</div>
       </ng-template>
 
-      <button mat-button
+      <button class="refund-order-button" mat-button
               (click)="refund.emit(order)"
               [class.button-disabled]="!order.canRefund()"
               [disabled]="!order.canRefund()">
@@ -45,8 +45,7 @@
         Track Delivery
       </button>
       <div class="separator separator--buttons"></div>
-      <button mat-button (click)="orderSelected.emit(order)">Order #{{order.id}} <mat-icon>keyboard_arrow_right</mat-icon></button>
-
+      <button class="order-detail-button" mat-button (click)="orderSelected.emit(order)">Order #{{order.id}} <mat-icon>keyboard_arrow_right</mat-icon></button>
     </div>
   </div>
 

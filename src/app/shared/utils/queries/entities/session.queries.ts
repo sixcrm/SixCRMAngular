@@ -5,7 +5,7 @@ import {
 import {IndexQueryParameters} from '../index-query-parameters.model';
 import {Session} from '../../../models/session.model';
 import {Watermark} from '../../../models/watermark/watermark.model';
-import {ProductSchedule} from '../../../models/product-schedule.model';
+import {ProductSchedule} from '../../../models/product-schedule-legacy.model';
 import {Product} from '../../../models/product.model';
 import {Schedule} from '../../../models/schedule.model';
 import {customerResponseQuery} from './customer.queries';
@@ -110,10 +110,6 @@ export function updateSessionMutation(session: Session): string {
 		    customer: "${session.customer.id}",
 		    campaign: "${session.campaign.id}",
 		    completed: ${!!session.completed},
-		    watermark: {
-		      product_schedules: ${parseWatermarkProductSchedules(session.watermark)},
-		      products: ${parseWatermarkProducts(session.watermark)}
-		    }
 		    product_schedules: [${session.productSchedules.map(ps => ps.id).reduce((a,b)=> `${a}${a?',':''}"${b}"`, '')}],
 		    ${session.cid.id ? `cid:	"${session.cid.id}",`: ''}
 		    ${session.affiliate.id ? `affiliate:	"${session.affiliate.id}",`: ''}
@@ -144,10 +140,6 @@ export function confirmDelivery(sessionId: string): string {
 export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at completed,
-    watermark {
-      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, samedayofmonth, product {id, name, image_urls } } } },
-      products { quantity, price, product { id name, image_urls } }
-    }
     trial_confirmation { id code delivered_at confirmed_at }
     customer { ${customerResponseQuery()} }
     rebills { ${sessionRebillResponseQuery()} },

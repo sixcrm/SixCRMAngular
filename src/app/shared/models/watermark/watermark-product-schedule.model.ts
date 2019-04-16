@@ -1,4 +1,4 @@
-import {ProductSchedule} from '../product-schedule.model';
+import {ProductSchedule} from '../product-schedule-legacy.model';
 
 export class WatermarkProductSchedule {
   quantity: number;
