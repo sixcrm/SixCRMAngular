@@ -180,6 +180,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
       }
 
       this.session = session;
+      this.confirmationSessions = [];
     });
   }
 
