@@ -60,7 +60,7 @@ export class EditorComponent implements OnInit {
   dragResizeEnded(cycle: Cycle) {
     cycle.length += cycle.dragDiff;
 
-    if (cycle.dragDiff > 0) {
+    if (cycle.dragDiff !== 0) {
       this.cycleUpdated.emit(true);
     }
 
