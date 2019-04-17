@@ -10,8 +10,20 @@ import {firstIndexOf} from '../../utils/array.utils';
 })
 export class CyclesEditorComponent implements OnInit {
 
-  @Input()
   public productSchedule: ProductSchedule;
+
+  @Input()
+  public set cyclesProductSchedule(cyclesProductSchedule: ProductSchedule) {
+    const nextSelected = this.selectedCycle && cyclesProductSchedule
+      ? cyclesProductSchedule.cycles.find(cycle => cycle.position === this.selectedCycle.position)
+      : null;
+
+    this.productSchedule = cyclesProductSchedule;
+
+    if (nextSelected) {
+      this.cycleSelected(nextSelected);
+    }
+  }
 
   @Output() saveChanges: EventEmitter<ProductSchedule> = new EventEmitter();
   @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
@@ -173,9 +185,9 @@ export class CyclesEditorComponent implements OnInit {
     }
 
     const snapshot = this.productSchedule.copy();
-    this.selectedCycle = undefined;
 
     this.saveChanges.emit(snapshot);
+    this.editMode = false;
   }
 
   undo() {

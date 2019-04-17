@@ -38,9 +38,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'orders', label: 'ORDERS'},
+    {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
     {name: 'transactions', label: 'TRANSACTIONS'},
-    {name: 'fulfillment', label: 'FULFILLMENT'},
-    {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
+    {name: 'fulfillment', label: 'FULFILLMENT'}
   ];
 
   secondaryTabHeaders: TabHeaderElement[] = [
@@ -231,9 +231,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
   private initCustomer() {
     this.tabHeaders = [
       {name: 'orders', label: 'ORDERS'},
+      {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
       {name: 'transactions', label: 'TRANSACTIONS'},
       {name: 'fulfillment', label: 'FULFILLMENT'},
-      {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
     ];
 
     if (this.selectedIndex === 4) {
@@ -286,9 +286,9 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
 
         this.tabHeaders = [
           {name: 'orders', label: 'ORDERS'},
+          {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
           {name: 'transactions', label: 'TRANSACTIONS'},
           {name: 'fulfillment', label: 'FULFILLMENT'},
-          {name: 'subscriptions', label: 'SUBSCRIPTIONS'}
         ];
 
         this.breadcrumbs = [
