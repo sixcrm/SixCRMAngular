@@ -74,7 +74,7 @@ exports.config = {
       './e2e/**/navigation.e2e-spec.ts'
     ],
     temp: [
-      './e2e/**/campaigns.e2e-spec.ts'
+      './e2e/**/product-and-schedule.e2e-spec.ts'
     ]
   },
   capabilities: {
