@@ -49,7 +49,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     salesSub.items[0].children.push({label: 'Transactions', url: 'transactions'});
   }
 
-  if (authService.hasPermissions('transaction', 'read') || authService.isBillingDisabled()) {
+  if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
     salesSub.items[0].children.push({label: 'Customer Service', url: 'customer-service'});
   }
 
