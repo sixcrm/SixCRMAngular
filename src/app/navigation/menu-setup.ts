@@ -12,8 +12,12 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   const mainSub: NavigationMenuSection = { items: [ {label: 'Home', icon: 'home', url: acl && acl.role.isCustomerService() ? 'customer-service' : 'dashboard'} ] };
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
+    mainSub.items.push({label: 'Customer Service', icon: 'person', url: 'customer-service'});
+  }
+
+  if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
     mainSub.items.push({label: 'Customers', icon: 'person', url: 'customers'});
-    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'subscriptions'})
+    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'subscriptions'});
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
@@ -47,10 +51,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   if (authService.hasPermissions('transaction', 'read') || authService.isBillingDisabled()) {
     salesSub.items[0].children.push({label: 'Transactions', url: 'transactions'});
-  }
-
-  if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Customer Service', url: 'customer-service'});
   }
 
   mainSection.subsections.push(mainSub);
