@@ -74,7 +74,7 @@ export class CyclesEditorComponent implements OnInit {
     if (deletePosition === -1) return;
 
     if (deletePosition === this.productSchedule.cycles.length - 1) {
-      this.productSchedule.cycles[this.productSchedule.cycles.length - 2].nextPosition = -1;
+      this.productSchedule.cycles[this.productSchedule.cycles.length - 2].nextPosition = null;
       this.productSchedule.cycles.splice(deletePosition);
     } else {
       for (let i = deletePosition; i < this.productSchedule.cycles.length; i++) {
