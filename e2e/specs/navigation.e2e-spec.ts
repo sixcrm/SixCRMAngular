@@ -44,9 +44,17 @@ describe('Navigation', function() {
     expectUrlToContain('dashboard');
   });
 
-  it('should navigate to customers', () => {
+  it('should navigate to customer service view', () => {
     nav.getNavToggler().click();
     nav.getLink(1).click();
+
+    waitForUrlContains('customer-service');
+    expectUrlToContain('customer-service');
+  });
+
+  it('should navigate to customers', () => {
+    nav.getNavToggler().click();
+    nav.getLink(2).click();
 
     waitForUrlContains('customers');
     expectUrlToContain('customers');
@@ -54,7 +62,7 @@ describe('Navigation', function() {
 
   it('should navigate to subscriptions', () => {
     nav.getNavToggler().click();
-    nav.getLink(2).click();
+    nav.getLink(3).click();
 
     waitForUrlContains('subscriptions');
     expectUrlToContain('subscriptions');
@@ -62,7 +70,7 @@ describe('Navigation', function() {
 
   it('should navigate to orders', () => {
     nav.getNavToggler().click();
-    nav.getLink(3).click();
+    nav.getLink(4).click();
 
     waitForUrlContains('orders');
     expectUrlToContain('orders');
@@ -70,7 +78,7 @@ describe('Navigation', function() {
 
   it('should navigate to sessions', () => {
     nav.getNavToggler().click();
-    nav.getLink(4).click();
+    nav.getLink(5).click();
 
     waitForUrlContains('sessions');
     expectUrlToContain('sessions');
@@ -78,7 +86,7 @@ describe('Navigation', function() {
 
   it('should navigate to shippingreceipts', () => {
     nav.getNavToggler().click();
-    nav.getLink(5).click();
+    nav.getLink(6).click();
 
     waitForUrlContains('shippingreceipts');
     expectUrlToContain('shippingreceipts');
@@ -86,19 +94,12 @@ describe('Navigation', function() {
 
   it('should navigate to transactions', () => {
     nav.getNavToggler().click();
-    nav.getLink(6).click();
+    nav.getLink(7).click();
 
     waitForUrlContains('transactions');
     expectUrlToContain('transactions');
   });
 
-  it('should navigate to customer service view', () => {
-    nav.getNavToggler().click();
-    nav.getLink(7).click();
-
-    waitForUrlContains('customer-service');
-    expectUrlToContain('customer-service');
-  });
 
   // Reports
   it('should navigate to affiliate report', () => {

@@ -12,7 +12,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   const mainSub: NavigationMenuSection = { items: [ {label: 'Home', icon: 'home', url: acl && acl.role.isCustomerService() ? 'customer-service' : 'dashboard'} ] };
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
-    mainSub.items.push({label: 'Customer Service', icon: 'person', url: 'customer-service'});
+    mainSub.items.push({label: 'Customer Service', icon: 'contact_support', url: 'customer-service'});
   }
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
@@ -91,13 +91,13 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     const reportsSection = { subsections: [] };
 
     if (authService.isActiveOrActingAclMasterAccount()) {
-      reportsSection.subsections.push(salesSub)
+      reportsSection.subsections.push(salesSub);
     }
 
     const analyticsSubsection = { items: [] };
 
     if (trafficReport.children.length > 0) {
-      analyticsSubsection.items.push(trafficReport)
+      analyticsSubsection.items.push(trafficReport);
     }
 
     reportsSection.subsections.push(analyticsSubsection);
