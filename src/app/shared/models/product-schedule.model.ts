@@ -127,7 +127,7 @@ export class Cycle {
     }
 
     this.position = obj.position || 0;
-    this.nextPosition = obj.next_position || 0;
+    this.nextPosition = obj.next_position === -1 ? null : obj.next_position || null;
     this.monthly = this.calculateMonthly(obj);
     this.length = this.calculateLength(obj);
     this.price = new Currency(obj.price || 0);

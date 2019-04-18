@@ -74,7 +74,7 @@ export class CyclesEditorComponent implements OnInit {
     if (deletePosition === -1) return;
 
     if (deletePosition === this.productSchedule.cycles.length - 1) {
-      this.productSchedule.cycles[this.productSchedule.cycles.length - 2].nextPosition = -1;
+      this.productSchedule.cycles[this.productSchedule.cycles.length - 2].nextPosition = null;
       this.productSchedule.cycles.splice(deletePosition);
     } else {
       for (let i = deletePosition; i < this.productSchedule.cycles.length; i++) {
@@ -96,7 +96,15 @@ export class CyclesEditorComponent implements OnInit {
       this.productSchedule.cycles.splice(deletePosition, 1);
     }
 
-    this.selectedCycle = undefined;
+    const selectedPosition = deletePosition + 1;
+
+    this.selectedCycle = this.productSchedule.cycles.find(cycle => cycle.position === selectedPosition)
+      || this.productSchedule.cycles.find(cycle => cycle.position === selectedPosition - 1)
+      || this.productSchedule.cycles.find(cycle => cycle.position === selectedPosition + 1);
+
+    if (this.selectedCycle) {
+      this.selectedCycle['selected'] = true;
+    }
   }
 
   cycleSelected(selectedCycle: Cycle): void {
