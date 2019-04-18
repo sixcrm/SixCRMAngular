@@ -33,7 +33,7 @@ export class CycleInfoComponent implements OnInit {
   }
 
   nextChanged(nextCycle: 'None' | number) {
-    this.nextCycleChanged.emit({cycle: this.selectedCycle, nextCycle: nextCycle === 'None' ? -1 : nextCycle})
+    this.nextCycleChanged.emit({cycle: this.selectedCycle, nextCycle: nextCycle === 'None' ? null : nextCycle})
   }
 
   deleteCycle() {

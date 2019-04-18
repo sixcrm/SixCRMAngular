@@ -27,7 +27,7 @@
               (selectItem)="nextChanged($event)"
               [editable]="selectedCycle.position === (cycleOptions.length - 1) && editMode"
               [items]="cycleOptions"
-              [selectedItem]="selectedCycle.nextPosition === -1 ? 'None' : selectedCycle.nextPosition"
+              [selectedItem]="selectedCycle.nextPosition === null ? 'None' : selectedCycle.nextPosition"
               [placeholder]="'Next Cycle'"
               [showAddNew]="false">
       </custom-mat-dropdown>
