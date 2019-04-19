@@ -12,8 +12,12 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   const mainSub: NavigationMenuSection = { items: [ {label: 'Home', icon: 'home', url: acl && acl.role.isCustomerService() ? 'customer-service' : 'dashboard'} ] };
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
+    mainSub.items.push({label: 'Customer Service', icon: 'contact_support', url: 'customer-service'});
+  }
+
+  if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
     mainSub.items.push({label: 'Customers', icon: 'person', url: 'customers'});
-    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'subscriptions'})
+    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'subscriptions'});
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
@@ -34,19 +38,19 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   const salesSub: NavigationMenuSection = { items: [ {label: 'Sales', icon: 'credit_card', children: [] } ] };
 
   if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Orders', url: 'orders'})
+    salesSub.items[0].children.push({label: 'Orders', url: 'orders'});
   }
 
   if (authService.hasPermissions('session', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Sessions', url: 'sessions'})
+    salesSub.items[0].children.push({label: 'Sessions', url: 'sessions'});
   }
 
   if (authService.hasPermissions('shippingreceipt', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Shipping Receipts', url: 'shippingreceipts'})
+    salesSub.items[0].children.push({label: 'Shipping Receipts', url: 'shippingreceipts'});
   }
 
   if (authService.hasPermissions('transaction', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Transactions', url: 'transactions'})
+    salesSub.items[0].children.push({label: 'Transactions', url: 'transactions'});
   }
 
   mainSection.subsections.push(mainSub);
@@ -87,13 +91,13 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     const reportsSection = { subsections: [] };
 
     if (authService.isActiveOrActingAclMasterAccount()) {
-      reportsSection.subsections.push(salesSub)
+      reportsSection.subsections.push(salesSub);
     }
 
     const analyticsSubsection = { items: [] };
 
     if (trafficReport.children.length > 0) {
-      analyticsSubsection.items.push(trafficReport)
+      analyticsSubsection.items.push(trafficReport);
     }
 
     reportsSection.subsections.push(analyticsSubsection);
