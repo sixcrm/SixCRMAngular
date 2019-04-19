@@ -122,11 +122,13 @@ export class CyclesEditorComponent implements OnInit {
   getTitle() {
     const lastCycle = this.productSchedule.cycles[this.productSchedule.cycles.length - 1];
 
-    if (+lastCycle.nextPosition <= +lastCycle.position) {
+    if (lastCycle.nextPosition) {
       return `∞ Days in Subscription`;
     }
 
-    return `${this.productSchedule.cycles.map(cycle => cycle.length).reduce((a,b) => a+b,0)} Days in Subscription`;
+    const numOfDays = this.productSchedule.cycles.map(cycle => cycle.length).reduce((a,b) => a+b,0);
+
+    return `${numOfDays} Day${numOfDays > 1 ? 's':''} in Subscription`;
   }
 
   nextCycleChanged(data: {cycle: Cycle, nextCycle: number}) {
