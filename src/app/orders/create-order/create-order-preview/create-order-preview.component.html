@@ -37,7 +37,7 @@
     <div class="product-data">
       <div class="name">{{product.name}}</div>
       <div class="sku">SKU {{getSku(product)}}</div>
-      <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.getInitialPrice().usd()}} <div class="subscription" *ngIf="product.schedules">SUBSCRIPTION{{confirmationRequired() ? ', CONFIRMATION REQUIRED':''}}</div></div>
+      <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.getInitialPrice().usd()}} <div class="subscription" *ngIf="product.cycles">SUBSCRIPTION{{confirmationRequired() ? ', CONFIRMATION REQUIRED':''}}</div></div>
 
       <div class="description">
         <ng-container *ngIf="product.description">
