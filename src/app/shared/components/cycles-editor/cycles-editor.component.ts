@@ -25,12 +25,13 @@ export class CyclesEditorComponent implements OnInit {
     }
   }
 
+  @Input() editMode: boolean;
+
   @Output() saveChanges: EventEmitter<ProductSchedule> = new EventEmitter();
   @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() redoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() cancelChanges: EventEmitter<boolean> = new EventEmitter();
-
-  editMode: boolean;
+  @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter();
 
   public zoomLevel: number = 5;
 
@@ -122,11 +123,13 @@ export class CyclesEditorComponent implements OnInit {
   getTitle() {
     const lastCycle = this.productSchedule.cycles[this.productSchedule.cycles.length - 1];
 
-    if (+lastCycle.nextPosition <= +lastCycle.position) {
+    if (lastCycle.nextPosition) {
       return `∞ Days in Subscription`;
     }
 
-    return `${this.productSchedule.cycles.map(cycle => cycle.length).reduce((a,b) => a+b,0)} Days in Subscription`;
+    const numOfDays = this.productSchedule.cycles.map(cycle => cycle.length).reduce((a,b) => a+b,0);
+
+    return `${numOfDays} Day${numOfDays > 1 ? 's':''} in Subscription`;
   }
 
   nextCycleChanged(data: {cycle: Cycle, nextCycle: number}) {
@@ -195,7 +198,6 @@ export class CyclesEditorComponent implements OnInit {
     const snapshot = this.productSchedule.copy();
 
     this.saveChanges.emit(snapshot);
-    this.editMode = false;
   }
 
   undo() {
@@ -207,9 +209,12 @@ export class CyclesEditorComponent implements OnInit {
   }
 
   cancelUpdates() {
-    this.editMode = false;
     this.selectedCycle = undefined;
     this.cancelChanges.emit(true);
+  }
+
+  setEditMode() {
+    this.editModeChanged.emit(true);
   }
 
   onKeyDown(event) {

@@ -41,6 +41,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   productScheduleCycles: ProductSchedule;
   productScheduleCyclesStates: ProductSchedule[] = [];
+  cyclesEditMode: boolean;
   productScheduleCyclesIndex = 0;
   editDescription: boolean;
   editMain: boolean;
@@ -161,10 +162,19 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   saveProductScheduleCycles(productSchedule: ProductSchedule) {
-    this.productScheduleCyclesStates = this.productScheduleCyclesStates.slice(0, this.productScheduleCyclesIndex + 1);
-    this.productScheduleCyclesStates.push(productSchedule.copy());
     this.productScheduleCycles = productSchedule.copy();
-    this.productScheduleCyclesIndex++;
+
+    this.service.entityUpdated$.take(1).subscribe(ps => {
+      if (ps instanceof CustomServerError) {
+        return;
+      }
+
+      this.productScheduleCyclesStates = this.productScheduleCyclesStates.slice(0, this.productScheduleCyclesIndex + 1);
+      this.productScheduleCyclesStates.push(productSchedule.copy());
+      this.productScheduleCyclesIndex++;
+
+      this.cyclesEditMode = false;
+    });
 
     this.service.updateEntity(this.productScheduleCycles);
   }
@@ -263,6 +273,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   cancelProductScheduleCyclesChanges() {
+    this.cyclesEditMode = false;
     this.productScheduleCycles = this.productScheduleCyclesStates[this.productScheduleCyclesIndex].copy();
   }
 }

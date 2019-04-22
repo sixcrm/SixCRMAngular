@@ -103,10 +103,12 @@
       <mat-tab>
         <cycles-editor
           [cyclesProductSchedule]="productScheduleCycles"
+          [editMode]="cyclesEditMode"
           (saveChanges)="saveProductScheduleCycles($event)"
           (undoChanges)="undoProductScheduleCycles()"
           (redoChanges)="redoProductScheduleCycles()"
           (cancelChanges)="cancelProductScheduleCyclesChanges()"
+          (editModeChanged)="cyclesEditMode = $event"
         ></cycles-editor>
       </mat-tab>
 
