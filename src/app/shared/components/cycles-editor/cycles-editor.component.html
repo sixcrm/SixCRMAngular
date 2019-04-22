@@ -14,7 +14,7 @@
           <editor
              [productSchedule]="productSchedule"
              [zoomLevel]="zoomLevel"
-             (cycleUpdated)="editMode = true;"
+             (cycleUpdated)="setEditMode()"
              (reorganizeCycles)="reorganizeCycles($event)"
              (cycleSelected)="cycleSelected($event)">
           </editor>
@@ -22,7 +22,7 @@
               [zoomLevel]="zoomLevel"
               [editMode]="editMode"
               (zoomLevelChanged)="zoomLevel = $event"
-              (edit)="editMode = true"
+              (edit)="setEditMode()"
               (cancel)="cancelUpdates()"
               (save)="save()"
               (undo)="undo()"

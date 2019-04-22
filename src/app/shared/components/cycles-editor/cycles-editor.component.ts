@@ -25,12 +25,13 @@ export class CyclesEditorComponent implements OnInit {
     }
   }
 
+  @Input() editMode: boolean;
+
   @Output() saveChanges: EventEmitter<ProductSchedule> = new EventEmitter();
   @Output() undoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() redoChanges: EventEmitter<boolean> = new EventEmitter();
   @Output() cancelChanges: EventEmitter<boolean> = new EventEmitter();
-
-  editMode: boolean;
+  @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter();
 
   public zoomLevel: number = 5;
 
@@ -197,7 +198,6 @@ export class CyclesEditorComponent implements OnInit {
     const snapshot = this.productSchedule.copy();
 
     this.saveChanges.emit(snapshot);
-    this.editMode = false;
   }
 
   undo() {
@@ -209,9 +209,12 @@ export class CyclesEditorComponent implements OnInit {
   }
 
   cancelUpdates() {
-    this.editMode = false;
     this.selectedCycle = undefined;
     this.cancelChanges.emit(true);
+  }
+
+  setEditMode() {
+    this.editModeChanged.emit(true);
   }
 
   onKeyDown(event) {
