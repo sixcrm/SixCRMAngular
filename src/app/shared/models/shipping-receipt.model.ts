@@ -39,21 +39,8 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
     this.updatedAtAPI = obj.updated_at;
   }
 
-  parseStatus(): string {
-    switch (this.status) {
-      case 'pending':
-        return 'SHIPPINGRECEIPT_STATUS_PENDING';
-      case 'intransit':
-        return 'SHIPPINGRECEIPT_STATUS_INTRANSIT';
-      case 'delivered':
-        return 'SHIPPINGRECEIPT_STATUS_DELIVERED';
-      case 'returned':
-        return 'SHIPPINGRECEIPT_STATUS_RETURNED';
-      case 'unknown':
-        return 'SHIPPINGRECEIPT_STATUS_UNKNOWN';
-      default:
-        return this.status
-    }
+  isDelivered(): boolean {
+    return this.status === 'DELIVERED' || this.status === 'delivered' || this.status === 'Delivered';
   }
 
   copy(): ShippingReceipt {
