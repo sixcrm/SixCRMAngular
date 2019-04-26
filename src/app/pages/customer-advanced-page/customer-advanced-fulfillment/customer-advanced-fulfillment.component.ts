@@ -20,16 +20,17 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_FULFILLMENT_ISSUEDATE', (e: ShippingReceipt) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('CUSTOMER_FULFILLMENT_ORDER', (e: ShippingReceipt) => e.rebill.alias)
+      new ColumnParams('Issue Date', (e: ShippingReceipt) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Order', (e: ShippingReceipt) => e.rebill.alias)
         .setLink((e: ShippingReceipt) => `/customers/advanced`)
         .setQueryParams((e: ShippingReceipt) => {return {order: e.rebill.id}})
         .setFragment((_) => `orders`)
         .setSeparator(true),
-      new ColumnParams('CUSTOMER_FULFILLMENT_PROVIDER', (e: ShippingReceipt) => e.fulfillmentProvider.name)
+      new ColumnParams('Provider', (e: ShippingReceipt) => e.fulfillmentProvider.name)
         .setLink((e: ShippingReceipt) => `/fulfillmentproviders/${e.fulfillmentProvider.id}`),
-      new ColumnParams('CUSTOMER_FULFILLMENT_NUMBER', (e: ShippingReceipt) => e.tracking.id),
-      new ColumnParams('CUSTOMER_FULFILLMENT_CARRIER', (e: ShippingReceipt) => e.tracking.carrier)
+      new ColumnParams('Tracking #', (e: ShippingReceipt) => e.tracking.id),
+      new ColumnParams('Status', (e: ShippingReceipt) => e.status || 'Pending'),
+      new ColumnParams('Ship Method', (e: ShippingReceipt) => e.tracking.carrier)
     ];
   }
 

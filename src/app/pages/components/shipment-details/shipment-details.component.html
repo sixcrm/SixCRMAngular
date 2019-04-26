@@ -8,7 +8,9 @@
 
   <ng-template #shipdetails>
 
-    <mat-icon class="shipment-icon pending-shipment">local_shipping</mat-icon>
+    <mat-icon class="shipment-icon" [class.pending-shipment]="!shipment.shippingReceipt.isDelivered()">
+      {{shipment.shippingReceipt.isDelivered() ? 'done' : 'local_shipping'}}
+    </mat-icon>
 
     <div>
       <div style="margin-bottom: 3px;">Carrier: {{shipment.shippingReceipt.tracking.carrier || 'Pending'}}</div>
