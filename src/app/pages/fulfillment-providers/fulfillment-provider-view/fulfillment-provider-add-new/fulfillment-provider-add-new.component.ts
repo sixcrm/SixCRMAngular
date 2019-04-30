@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provider.model';
 import {Modes} from '../../../abstract-entity-view.component';
-import {isAllowedNumeric} from "../../../../shared/utils/form.utils";
 
 @Component({
   selector: 'fulfillment-provider-add-new',
@@ -20,7 +19,6 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
 
   modes = Modes;
   formInvalid: boolean;
-  isNumeric = isAllowedNumeric;
   providers = ['iShip Solutions', 'ThreePL', 'ShipStation', 'Test'];
 
   constructor() { }
