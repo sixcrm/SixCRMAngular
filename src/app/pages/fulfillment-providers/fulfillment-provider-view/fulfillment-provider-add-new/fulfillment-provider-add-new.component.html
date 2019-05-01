@@ -29,15 +29,15 @@
         <input required matInput pattern=".{38,}" [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_THREEPLKEY' | translate}}" [(ngModel)]="entity.provider.threeplKey" name="threeplKey" type="text">
       </mat-form-field>
 
-      <mat-form-field *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplFacilityId && entity.provider.threeplFacilityId !== 0)" class="entity-view__card__content__item">
+      <mat-form-field *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && entity.provider.name === 'ThreePL' && isNotANumber(entity.provider.threeplFacilityId)" class="entity-view__card__content__item">
         <input matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_FACILITYID' | translate}}" [(ngModel)]="entity.provider.threeplFacilityId" name="facilityId" type="text">
       </mat-form-field>
 
-      <mat-form-field *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplId && entity.provider.threeplId !== 0)" class="entity-view__card__content__item">
+      <mat-form-field *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && entity.provider.name === 'ThreePL' && isNotANumber(entity.provider.threeplId)" class="entity-view__card__content__item">
         <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_THREEPLID' | translate}}" [(ngModel)]="entity.provider.threeplId" name="threeplId" type="text">
       </mat-form-field>
 
-      <mat-form-field [class.error]="formInvalid && (!entity.provider.threeplCustomerId && entity.provider.threeplCustomerId !==0)" class="entity-view__card__content__item">
+      <mat-form-field [class.error]="formInvalid && (entity.provider.name === 'Hashtag' || entity.provider.name === 'iShip Solutions' || entity.provider.name === 'ThreePL') && isNotANumber(entity.provider.threeplCustomerId)" class="entity-view__card__content__item">
         <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_CUSTOMERID' | translate}}" [(ngModel)]="entity.provider.threeplCustomerId" name="customerId" type="text">
       </mat-form-field>
     </ng-container>
@@ -52,7 +52,7 @@
         <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_APISECRET' | translate}}" [(ngModel)]="entity.provider.apiSecret" name="apisecret" type="text">
       </mat-form-field>
 
-      <mat-form-field class="entity-view__card__content__item">
+      <mat-form-field [class.error]="formInvalid && entity.provider.name === 'ShipStation' && isNotANumber(entity.provider.storeId)" class="entity-view__card__content__item">
         <input matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_STOREID' | translate}}" [(ngModel)]="entity.provider.storeId" name="storeid" type="text">
       </mat-form-field>
 
