@@ -17,7 +17,7 @@
     "e2e.dev": "protractor --baseUrl='https://development-admin.sixcrm.com'",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet",
     "postinstall": "npm run patch-cli",
-    "patch-cli": "node cli-patches/crypto-patch.js"
+    "patch-cli": "node cli-patches/crypto-patch.js && node cli-patches/tarser-parallel-patch.js"
   },
   "repository": {
     "url": "",
