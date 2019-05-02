@@ -39,8 +39,14 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
     }
   }
 
+  isNotANumber(value) {
+    return isNaN(value);
+  }
+
   saveProvider(value: boolean): void {
-    this.formInvalid = !value || !this.entity.provider.name;
+    this.formInvalid = !value || !this.entity.provider.name
+      || (this.entity.provider.name === 'ShipStation' && this.isNotANumber(this.entity.provider.storeId))
+      || (this.entity.provider.name === 'ThreePL' && (this.isNotANumber(this.entity.provider.threeplCustomerId) || this.isNotANumber(this.entity.provider.threeplId) || this.isNotANumber(this.entity.provider.threeplFacilityId)));
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
