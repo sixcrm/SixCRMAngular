@@ -155,7 +155,7 @@ function sessionRebillResponseQuery() {
       creditcard { id, last_four, type, created_at }
       id alias amount processor_response type result created_at updated_at,
       merchant_provider { id name }
-      products { amount,
+      products { amount, is_cycle_product, is_shipping
         product { id name sku ship shipping_delay,
           fulfillment_provider {id name}
         }

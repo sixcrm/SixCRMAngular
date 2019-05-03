@@ -11,6 +11,8 @@ export class Products {
   shippingReceipt: ShippingReceipt;
   returns: {quantity: number, 'return': Return}[] = [];
   rebill: Rebill;
+  isShipping: boolean;
+  isCycleProduct: boolean;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -21,6 +23,8 @@ export class Products {
     this.product = new Product(obj.product);
     this.quantity = obj.quantity || 0;
     this.shippingReceipt = new ShippingReceipt(obj.shippingreceipt);
+    this.isShipping = !!obj.is_shipping;
+    this.isCycleProduct = !!obj.is_cycle_product;
 
     if (obj.returns) {
       this.returns = obj.returns.map(r => {
@@ -50,6 +54,8 @@ export class Products {
       product: this.product.inverse(),
       quantity: this.quantity,
       shippingreceipt: this.shippingReceipt.inverse(),
+      is_shipping: this.isShipping,
+      is_cycle_product: this.isCycleProduct,
       returns: this.returns.map(r => {
         return {
           quantity: r.quantity,

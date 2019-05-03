@@ -37,19 +37,47 @@ export class OrderDetailedComponent implements OnInit {
     let pending: Shipment = {shippingReceipt: new ShippingReceipt(), products: []};
     let noship: Shipment = {shippingReceipt: null, products: []};
 
+    const order: Order = this._order.copy();
+    order.transactions.map(transaction => {
+      transaction.products = transaction.products.map(products => {
+        if (products.isCycleProduct) {
+          products.product.ship = products.isShipping;
+        }
+
+        return products;
+      });
+
+      return transaction;
+    });
+
+    const noshipCycleProducts =
+      order.rebill.transactions
+        .map(transaction => transaction.products)
+        .reduce((a,b) => [...a, ...b], [])
+        .filter(products => products.isCycleProduct && !products.isShipping);
+
     const failedProducts =
-      this._order.rebill.transactions
+      order.rebill.transactions
         .filter(t => !t.isSuccess())
         .map(t => t.products)
         .reduce((a,b) => [...a, ...b], []);
 
-    this._order
+    order
       .products
       .forEach(products => {
         if (failedProducts.find(fp =>
           fp.product.id === products.product.id
           && fp.amount.amount === products.amount.amount
           && fp.shippingReceipt.id === products.shippingReceipt.id)
+        ) {
+          noship.products = [...noship.products, products];
+
+          return;
+        }
+
+        if (noshipCycleProducts.find(nsp =>
+          nsp.product.id === products.product.id
+          && nsp.amount.amount === products.amount.amount)
         ) {
           noship.products = [...noship.products, products];
 
