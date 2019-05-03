@@ -74,7 +74,7 @@ export function transactionResponseQuery(): string {
     merchant_provider { id name }
     rebill { id amount }
     creditcard { id, last_four, type }
-    products { amount,
+    products { amount, is_cycle_product, is_shipping,
       product { id name sku ship shipping_delay,
         fulfillment_provider {id name}
       }
@@ -94,7 +94,7 @@ export function transactionWithSessionResponse(): string {
         campaign { id name }
       }
     }
-    products { amount,
+    products { amount, is_cycle_product, is_shipping,
       product { id name sku ship shipping_delay,
         fulfillment_provider {id name}
       }

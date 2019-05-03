@@ -36,7 +36,7 @@ export function orderResponseQuery(): string {
     	id amount alias created_at updated_at processor_response chargeback type result
     	creditcard { id, last_four, type }
     	merchant_provider {id name}
-    	products { amount, product { id } shippingreceipt { id } }
+    	products { amount, is_cycle_product, is_shipping, product { id } shippingreceipt { id } }
 		}
     paid {detail updated_at}
   }`
