@@ -42,7 +42,7 @@
       </mat-form-field>
     </div>
 
-    <div class="underline-container container--right" [class.underline-container--editable]="editMode">
+    <div *ngIf="hasShippingProducts()" class="underline-container container--right" [class.underline-container--editable]="editMode">
       <mat-form-field style="margin-left: auto">
         <input type="text" [readonly]="!editMode" matInput placeholder="Shipping Price" currencyInput [initPrice]="selectedCycle.shippingPrice" (priceChanged)="selectedCycle.shippingPrice = $event">
       </mat-form-field>

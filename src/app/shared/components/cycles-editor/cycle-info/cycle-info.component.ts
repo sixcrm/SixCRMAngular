@@ -45,4 +45,12 @@ export class CycleInfoComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+  hasShippingProducts(): boolean {
+    if (!this.selectedCycle) {
+      return false;
+    }
+
+    return this.selectedCycle.cycleProducts.some(cycleProduct => cycleProduct.isShipping);
+  }
 }
