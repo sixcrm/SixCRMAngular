@@ -12,6 +12,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   public description: string;
   public merchantProviderGroup: MerchantProviderGroup;
   public initialCycleSchedulesPrice: Currency = new Currency(0);
+  public initialCycleSchedulesShippingPrice: Currency = new Currency(0);
   public quantity: number = 1;
   public trialRequired: boolean;
   public smsProvider: SmsProvider;
@@ -31,6 +32,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       this.cycles = obj.cycles.map(c => new Cycle(c));
     }
     this.initialCycleSchedulesPrice = this.getInitialPrice();
+    this.initialCycleSchedulesShippingPrice = this.getInitialShippingPrice();
   }
 
   inverse() {
@@ -55,6 +57,15 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     }
 
     return this.cycles[0].price
+  }
+
+  getInitialShippingPrice(): Currency {
+
+    if (!this.cycles || !this.cycles[0] || !this.cycles[0].cycleProducts[0] || !this.cycles[0].cycleProducts[0].isShipping) {
+      return new Currency(0);
+    }
+
+    return this.cycles[0].shippingPrice;
   }
 
   getInitialSku(): string {
