@@ -56,9 +56,15 @@ export class CreateOrderSuccessComponent implements OnInit {
   }
 
   getShipping() {
-    if (!this.shippings) return new Currency(0);
+    const fromShippings = this.shippings ?
+      this.shippings.map(p => (p.defaultPrice.amount || 0) * p.quantity).reduce((a, b) => a + b, 0)
+      : 0;
 
-    return new Currency(this.shippings.map(p => (p.defaultPrice.amount || 0) * p.quantity).reduce((a,b) => a+b, 0));
+    const fromSchedules = this.products
+      .map(product => product instanceof ProductSchedule ? product.quantity * product.initialCycleSchedulesShippingPrice.amount : 0)
+      .reduce((a, b) => a + b, 0);
+
+    return new Currency(fromShippings + fromSchedules);
   }
 
   getTotal() {

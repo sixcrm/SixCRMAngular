@@ -55,7 +55,7 @@ export function productScheduleResponseQuery(): string {
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name created_at updated_at cycles { length price }`
+  return `id name created_at updated_at cycles { length price shipping_price cycle_products { product {id, name, sku}, is_shipping } }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {

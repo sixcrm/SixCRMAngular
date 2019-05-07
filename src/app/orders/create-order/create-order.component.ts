@@ -491,9 +491,15 @@ export class CreateOrderComponent implements OnInit {
   }
 
   getShipping() {
-    if (!this.selectedShippings) return new Currency(0);
+    const fromShippings = this.selectedShippings ?
+      this.selectedShippings.map(p => (p.defaultPrice.amount || 0) * p.quantity).reduce((a, b) => a + b, 0)
+      : 0;
 
-    return new Currency(this.selectedShippings.map(p => (p.defaultPrice.amount || 0) * p.quantity).reduce((a,b) => a+b, 0));
+    const fromSchedules = this.selectedProducts
+      .map(product => product instanceof ProductSchedule ? product.quantity * product.initialCycleSchedulesShippingPrice.amount : 0)
+      .reduce((a, b) => a + b, 0);
+
+    return new Currency(fromShippings + fromSchedules);
   }
 
   getTotal() {
